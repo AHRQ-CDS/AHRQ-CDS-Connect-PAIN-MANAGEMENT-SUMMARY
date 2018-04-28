@@ -22,6 +22,9 @@ module.exports = {
       }
     })
   ],
+  watchOptions: {
+    ignored: /node_modules/
+  },
   node: {
     fs: "empty"
   }

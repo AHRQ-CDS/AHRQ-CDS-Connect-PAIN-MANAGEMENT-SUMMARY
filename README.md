@@ -9,7 +9,7 @@
    a. Define / export a `SMART_CLIENT_ID` environment variable in your environment
    b. Or create a `.env` file in this folder with the contents: `SMART_CLIENT_ID=your-id-here`
 5. "Webpack" the code by executing `yarn build` from the project's root directory
-6. Run a web server from the dist folder (recommend: `python -m SimpleHTTPServer 8000`)
+6. Serve the code by executing `yarn start` (runs on port 8000)
 
 ## To run against the public SMART sandbox
 
