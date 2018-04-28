@@ -8,7 +8,7 @@ const elmDependencies = {
 
 const collector = [];
 
-executeElm(demoElm, elmDependencies, collector, function(result, error) {
+executeElm(demoElm, elmDependencies, collector, (result, error) => {
   const loadingDiv = document.getElementById('loading');
   if (error) {
     loadingDiv.innerHTML = 'Error: See console for details.<br/>', error.toString();
