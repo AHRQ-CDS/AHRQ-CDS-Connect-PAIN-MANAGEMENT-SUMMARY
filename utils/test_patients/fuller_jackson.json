@@ -1,0 +1,46 @@
+{
+  "resourceType": "Bundle",
+  "id": "full_jackson",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "45dce8f9-73e8-4822-8f1f-b0ecd72f9f1b",
+        "name": [
+          {
+            "given": [
+              "Fuller"
+            ],
+            "family": [
+              "Jackson"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1954-02-16T00:00:00.000Z"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationOrder",
+        "id": "a8ce9a26-bcb9-4fe3-9959-0833649c2e06",
+        "dateWritten": "2018-04-05T00:00:00.000Z",
+        "status": "active",
+        "patient": {
+          "reference": "Patient/45dce8f9-73e8-4822-8f1f-b0ecd72f9f1b"
+        },
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "1049557",
+              "display": "12 HR Oxycodone Hydrochloride 160 MG Extended Release Oral Tablet"
+            }
+          ],
+          "text": "12 HR Oxycodone Hydrochloride 160 MG Extended Release Oral Tablet"
+        }
+      }
+    }
+  ]
+}

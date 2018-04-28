@@ -1,14 +1,17 @@
-import demoElm from './cql/Demo.json';
+import factorsElm from './cql/Factors_to_Consider_in_Managing_Chronic_Pain.json';
+import commonsElm from './cql/CDS_Connect_Commons_for_FHIRv102.json';
 import fhirhelpersElm from './cql/FHIRHelpers.json';
+import valueSetDB from './cql/valueset-db.json';
 import executeElm from './executeELM';
 
 const elmDependencies = {
+  CDS_Connect_Commons_for_FHIRv102: commonsElm,
   FHIRHelpers: fhirhelpersElm
 };
 
 const collector = [];
 
-executeElm(demoElm, elmDependencies, collector, (result, error) => {
+executeElm(factorsElm, elmDependencies, valueSetDB, collector, (result, error) => {
   const loadingDiv = document.getElementById('loading');
   if (error) {
     loadingDiv.innerHTML = 'Error: See console for details.<br/>', error.toString();
@@ -16,40 +19,86 @@ executeElm(demoElm, elmDependencies, collector, (result, error) => {
     return;
   }
 
-  document.getElementById('name').innerHTML = result.Name;
-  document.getElementById('age').innerHTML = result.Age + ' years';
-  document.getElementById('gender').innerHTML = result.Gender;
+  const summary = result.Summary;
 
-  const conditionTable = document.getElementById('conditionTable');
-  for (const c of result.Conditions) {
-    conditionTable.innerHTML += `<tr>${cell(c.Name) + cell(c.Status) + cell(c.Onset) + cell(c.Abatement)}</tr>`;
-  }
-  displayErrors('Condition');
+  document.getElementById('name').innerHTML = summary.Patient.Name;
+  document.getElementById('age').innerHTML = summary.Patient.Age + ' years';
+  document.getElementById('gender').innerHTML = summary.Patient.Gender;
+  document.getElementById('isIncluded').innerHTML = summary.Patient.MeetsInclusionCriteria;
 
-  const encounterTable = document.getElementById('encounterTable');
-  for (const e of result.Encounters) {
-    encounterTable.innerHTML += `<tr>${cell(e.Name) + cell(e.Visit) + cell(e.Reasons)}</tr>`;
-  }
-  displayErrors('Encounter');
+  const sections = document.getElementById('sections');
 
-  const medicationTable = document.getElementById('medicationTable');
-  for (const m of result.Medications) {
-    medicationTable.innerHTML += `<tr>${cell(m.Name) + cell(m.Type) + cell(m.Start) + cell(m.End) + cell(m.MedType)}</tr>`;
-  }
-  displayErrors('MedicationOrder');
-  displayErrors('MedicationStatement');
+  buildSection(sections, summary,
+    'Conditions Associated With Chronic Pain', 'PertinentMedicalHistory.ConditionsAssociatedWithChronicPain',
+    'Name', 'Status', 'Onset'
+  );
 
-  const observationTable = document.getElementById('observationTable');
-  for (const o of result.Observations) {
-    observationTable.innerHTML += `<tr>${cell(o.Name) + cell(o.Value) + cell(o.Interpretation) + cell(o.Date)}</tr>`;
-  }
-  displayErrors('Observation');
+  buildSection(sections, summary,
+    'High Risk Conditions For Opioid Therapy', 'PertinentMedicalHistory.HighRiskConditionsForOpioidTherapy',
+    'Name', 'Status', 'Onset', 'Abatement', 'Visit'
+  );
 
-  const procedureTable = document.getElementById('procedureTable');
-  for (const o of result.Procedures) {
-    procedureTable.innerHTML += `<tr>${cell(o.Name) + cell(o.Date)}</tr>`;
-  }
-  displayErrors('Procedure');
+  buildSection(sections, summary,
+    'Numeric Pain Intensity Assessments', 'PainAssessments.NumericPainIntensityAssessments',
+    'Name', 'Score', 'Interpretation', 'Date'
+  );
+
+  buildSection(sections, summary,
+    'PainEnjoymentGeneralActivityAssessments', 'PainAssessments.PainEnjoymentGeneralActivityAssessments',
+    'Name', 'Score', 'Interpretation', 'Questions', 'Date'
+  );
+
+  buildSection(sections, summary,
+    'STarT Back Assessments', 'PainAssessments.STarTBackAssessments',
+    'Name', 'Score', 'Interpretation', 'Date'
+  );
+
+  buildSection(sections, summary,
+    'Opioid Medications', 'HistoricalTreatments.OpioidMedications',
+    'Name', 'Type', 'Start', 'End'
+  );
+
+  buildSection(sections, summary,
+    'Non-Opioid Medications', 'HistoricalTreatments.NonOpioidMedications',
+    'Name', 'Type', 'Start', 'End'
+  );
+
+  buildSection(sections, summary,
+    'Non-Pharmacologic Treatments', 'HistoricalTreatments.NonPharmacologicTreatments',
+    'Name', 'Type', 'Date'
+  );
+
+  buildSection(sections, summary,
+    'Pain Management Risk Screenings', 'RiskFactorsAndAssessments.PainManagementRiskScreenings',
+    'Name', 'Score', 'Interpretation', 'Date'
+  );
+
+  buildSection(sections, summary,
+    'Benzodiazepine Medications', 'RiskFactorsAndAssessments.BenzodiazepineMedications',
+    'Name', 'Type', 'Start', 'End'
+  );
+
+  buildSection(sections, summary,
+    'Naloxone Medications', 'RiskFactorsAndAssessments.NaloxoneMedications',
+    'Name', 'Type', 'Start', 'End'
+  );
+
+  buildSection(sections, summary,
+    'Urine Drug Screens', 'RiskFactorsAndAssessments.UrineDrugScreens',
+    'Name', 'Score', 'Interpretation', 'Date'
+  );
+
+  buildSection(sections, summary,
+    'MostRecentMME', 'RiskFactorsAndAssessments.MostRecentMME',
+    'Name', 'Result', 'Date'
+  );
+
+  buildSection(sections, summary,
+    'Stool Softeners and Laxatives', 'MiscellaneousItems.StoolSoftenersAndLaxatives',
+    'Name', 'Type', 'Start', 'End'
+  );
+
+  displayErrors();
 
   const queryDiv = document.getElementById('queryDiv');
   for (let i=0; i < collector.length; i++) {
@@ -66,9 +115,45 @@ executeElm(demoElm, elmDependencies, collector, (result, error) => {
   document.getElementById('content').style.display = 'block';
 });
 
-function displayErrors(type) {
-  let errResponses = collector.filter(i => i.error && i.config.type === type);
+function buildSection(sectionsDiv, summaryData, name, expression, ...properties) {
+  let html = `<h3>${name}</h3>\n`;
+  html += `<table id="${expression}" border="1" width="100%">\n`;
+  html += `<tr>${properties.map(p => '<th>' + p + '</th>').join('')}</tr>\n`;
+  let data = summaryData;
+  for (let expPart of expression.split('.')) {
+    data = data[expPart];
+  }
+  if (!Array.isArray(data)) {
+    data = data != null ? [data] : [];
+  }
+  for (let row of data) {
+    html += properties.map(p => `<td>${stringValue(row[p])}</td>\n`).join('');
+  }
+  html += `</table>\n\n`;
+  sectionsDiv.innerHTML += html;
+}
+
+function stringValue(value) {
+  if (value == null) return '';
+
+  if (Array.isArray(value)) {
+    return `[${value.map(v => stringValue(v)).join(', ')}]`;
+  } else if (value.Start || value.End) {
+    return `${value.Start || '(no start)'} - ${value.End || '(no end)'}`
+  } else if (value.Low || value.High) {
+    return `${value.Low || '(no low)'} - ${value.High || '(no high)'}`
+  } else if (typeof value === 'object') {
+    return `{ ${Object.keys(value).map(k => `${k}: ${stringValue(value[k])}`)} }`
+  }
+  return value.toString();
+}
+
+function displayErrors() {
+  const errResponses = collector.filter(i => i.error);
   if (errResponses.length) {
+    let html = `<h3>${errResponses.length} Errors</h3>\n`;
+    html += `<table id="errors" border="1" width="100%">\n`;
+    html += `<tr><th>Resource</th><th>Error</th></tr>\n`;
     for (let er of errResponses) {
       let msg = 'See query info below for details';
       if (er.error.responseJSON) {
@@ -76,14 +161,9 @@ function displayErrors(type) {
       } else if (er.error.statusText) {
         msg = er.error.statusText
       }
-      document.getElementById(`${type}Errors`).innerHTML += `Error Querying ${type}: ${msg}</br>`;
+      html += `<tr><td>${er.config.type}</td><td>${msg}</td></tr>\n`
     }
+    html += `</table>\n\n`;
+    document.getElementById(`errors`).innerHTML = html;
   }
-}
-
-function cell(value) {
-  if (value && (value.Start || value.End)) {
-    value = `${value.Start || '(no start)'} - ${value.End || '(no end)'}`
-  }
-  return `<td>${value != null ? value : ''}</td>`
 }

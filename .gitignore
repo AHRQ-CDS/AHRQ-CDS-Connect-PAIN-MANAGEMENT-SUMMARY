@@ -1,4 +1,5 @@
 /.env
 /node_modules
+/src/cql/valueset-db.json.original
 /dist/*.bundle.js
 /dist/*.bundle.js.map

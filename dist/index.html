@@ -13,42 +13,17 @@
    </script>
   </head>
   <body>
-    <h1>SMART CQL Demo</h1>
+    <h1>Factors to Consider in Managing Chronic Pain</h1>
 
     <div id="content" style="display:none">
 
     <h2><span id="name"></span>, <span id="age"></span>, <span id="gender"></span></h2>
 
-    <h3>Conditions</h3>
-    <table id="conditionTable" border="1" width="100%">
-      <tr><th>Name</th><th>Status</th><th>Onset</th><th>Abatement</th></tr>
-    </table>
-    <p id="ConditionErrors"></p>
+    <h3>Meets Inclusion Criteria? <span id="isIncluded"></span></h3>
 
-    <h3>Encounters</h3>
-    <table id="encounterTable" border="1" width="100%">
-      <tr><th>Name</th><th>Visit</th><th>Reasons</th></tr>
-    </table>
-    <p id="EncounterErrors"></p>
+    <div id="sections"></div>
 
-    <h3>Medications</h3>
-    <table id="medicationTable" border="1" width="100%">
-      <tr><th>Name</th><th>Status</th><th>Start</th><th>End</th><th>Med Type</th></tr>
-    </table>
-    <p id="MedicationOrderErrors"></p>
-    <p id="MedicationStatementErrors"></p>
-
-    <h3>Observations</h3>
-    <table id="observationTable" border="1" width="100%">
-      <tr><th>Name</th><th>Value</th><th>Interpretation</th><th>Date</th></tr>
-    </table>
-    <p id="ObservationErrors"></p>
-
-    <h3>Procedures</h3>
-    <table id="procedureTable" border="1" width="100%">
-      <tr><th>Name</th><th>Date</th></tr>
-    </table>
-    <p id="ProcedureErrors"></p>
+    <div id="errors"></div>
 
     <h3>FHIR Queries (<a href="#" onclick="toggleShowHide('queryDiv'); return false;">show/hide</a>)</h3>
     <div id="queryDiv" style="display:none"></div>

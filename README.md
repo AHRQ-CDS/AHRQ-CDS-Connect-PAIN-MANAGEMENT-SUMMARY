@@ -1,6 +1,6 @@
-# SMART-on-FHIR CQL Demo
+# Factors to Consider in Managing Chronic Pain
 
-## To build and run the CQL SMART-on-FHIR app:
+## To build and run this SMART-on-FHIR app:
 
 1. Install [Node.js](https://nodejs.org/en/download/) (LTS edition, currently 8.x)
 2. Install [Yarn](https://yarnpkg.com/en/docs/install) (1.3.x or above)
@@ -17,6 +17,14 @@
 2. In the _App Launch URL_ box at the bottom of the page, enter: `http://localhost:8000/launch.html`
 3. Click _Launch App!_
 4. Select a patient
+
+### To upload test patients to the public SMART sandbox
+
+We currently have one test patient with a single prescription for an opioid.  In the near future we'll add patients w/ more relevant data.  To upload the test patients to the public SMART sandbox:
+
+1. Run `yarn upload-test-patients`
+
+This adds a patient named "Fuller Jackson".  The SMART sandbox is reset every night, so you will need to do this at least once each day you want to test.
 
 ## To run against the Epic SMART sandbox
 

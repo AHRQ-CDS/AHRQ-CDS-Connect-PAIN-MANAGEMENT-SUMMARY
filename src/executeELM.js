@@ -69,11 +69,12 @@ function doSearch(smart, type, takeTwo, collector, callback) {
   );
 }
 
-function executeELM(elm, elmDependencies, collector, resultsCallback) {
+function executeELM(elm, elmDependencies, valueSetDB, collector, resultsCallback) {
   const repository = new cql.Repository(elmDependencies);
   const lib = new cql.Library(elm, repository);
   const resources = extractResourcesFromELM(lib);
-  const executor = new cql.Executor(lib);
+  const codeService = new cql.CodeService(valueSetDB);
+  const executor = new cql.Executor(lib, codeService);
 
   window.FHIR.oauth2.ready((smart) => {
     smart.patient.read().then(
