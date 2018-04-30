@@ -127,7 +127,9 @@ function buildSection(sectionsDiv, summaryData, name, expression, ...properties)
     data = data != null ? [data] : [];
   }
   for (let row of data) {
-    html += properties.map(p => `<td>${stringValue(row[p])}</td>\n`).join('');
+    html += '<tr>';
+    html += properties.map(p => `<td>${stringValue(row[p])}</td>`).join('');
+    html += '</tr>';
   }
   html += `</table>\n\n`;
   sectionsDiv.innerHTML += html;

@@ -2,7 +2,7 @@
    "library" : {
       "identifier" : {
          "id" : "CDS_Connect_Commons_for_FHIRv102",
-         "version" : "1.3.0-beta.1"
+         "version" : "1.3.0"
       },
       "schemaIdentifier" : {
          "id" : "urn:hl7-org:elm",

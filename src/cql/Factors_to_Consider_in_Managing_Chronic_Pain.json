@@ -22,7 +22,7 @@
          "def" : [ {
             "localIdentifier" : "C3F",
             "path" : "CDS_Connect_Commons_for_FHIRv102",
-            "version" : "1.3.0-beta.1"
+            "version" : "1.3.0"
          }, {
             "localIdentifier" : "FHIRHelpers",
             "path" : "FHIRHelpers",
@@ -1182,7 +1182,7 @@
                },
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "type" : "ByExpression",
                      "expression" : {
                         "strict" : false,
@@ -1574,7 +1574,7 @@
                },
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "type" : "ByExpression",
                      "expression" : {
                         "strict" : false,
@@ -1589,25 +1589,18 @@
                         }
                      }
                   }, {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "type" : "ByExpression",
                      "expression" : {
-                        "path" : "Start",
-                        "type" : "Property",
-                        "source" : {
-                           "name" : "Visit",
+                        "strict" : false,
+                        "type" : "As",
+                        "operand" : {
+                           "name" : "Abatement",
                            "type" : "IdentifierRef"
-                        }
-                     }
-                  }, {
-                     "direction" : "asc",
-                     "type" : "ByExpression",
-                     "expression" : {
-                        "path" : "End",
-                        "type" : "Property",
-                        "source" : {
-                           "name" : "Visit",
-                           "type" : "IdentifierRef"
+                        },
+                        "asTypeSpecifier" : {
+                           "name" : "{urn:hl7-org:elm-types:r1}String",
+                           "type" : "NamedTypeSpecifier"
                         }
                      }
                   } ]
@@ -1845,7 +1838,7 @@
                "relationship" : [ ],
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "type" : "ByExpression",
                      "expression" : {
                         "path" : "Start",
@@ -1856,7 +1849,7 @@
                         }
                      }
                   }, {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "type" : "ByExpression",
                      "expression" : {
                         "path" : "End",
@@ -1891,33 +1884,47 @@
                "relationship" : [ ],
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "type" : "ByExpression",
                      "expression" : {
-                        "strict" : false,
-                        "type" : "As",
-                        "operand" : {
-                           "name" : "Onset",
-                           "type" : "IdentifierRef"
+                        "type" : "If",
+                        "condition" : {
+                           "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                           "type" : "As",
+                           "operand" : {
+                              "type" : "Not",
+                              "operand" : {
+                                 "type" : "IsNull",
+                                 "operand" : {
+                                    "name" : "Onset",
+                                    "type" : "IdentifierRef"
+                                 }
+                              }
+                           }
                         },
-                        "asTypeSpecifier" : {
-                           "name" : "{urn:hl7-org:elm-types:r1}String",
-                           "type" : "NamedTypeSpecifier"
+                        "then" : {
+                           "strict" : false,
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "Onset",
+                              "type" : "IdentifierRef"
+                           },
+                           "asTypeSpecifier" : {
+                              "name" : "{urn:hl7-org:elm-types:r1}String",
+                              "type" : "NamedTypeSpecifier"
+                           }
+                        },
+                        "else" : {
+                           "path" : "Start",
+                           "type" : "Property",
+                           "source" : {
+                              "name" : "Visit",
+                              "type" : "IdentifierRef"
+                           }
                         }
                      }
                   }, {
-                     "direction" : "asc",
-                     "type" : "ByExpression",
-                     "expression" : {
-                        "path" : "Start",
-                        "type" : "Property",
-                        "source" : {
-                           "name" : "Visit",
-                           "type" : "IdentifierRef"
-                        }
-                     }
-                  }, {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "type" : "ByExpression",
                      "expression" : {
                         "path" : "End",
@@ -1925,6 +1932,21 @@
                         "source" : {
                            "name" : "Visit",
                            "type" : "IdentifierRef"
+                        }
+                     }
+                  }, {
+                     "direction" : "desc",
+                     "type" : "ByExpression",
+                     "expression" : {
+                        "strict" : false,
+                        "type" : "As",
+                        "operand" : {
+                           "name" : "Abatement",
+                           "type" : "IdentifierRef"
+                        },
+                        "asTypeSpecifier" : {
+                           "name" : "{urn:hl7-org:elm-types:r1}String",
+                           "type" : "NamedTypeSpecifier"
                         }
                      }
                   } ]
@@ -2036,7 +2058,7 @@
                },
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "Date",
                      "type" : "ByColumn"
                   } ]
@@ -2190,7 +2212,7 @@
                },
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "Date",
                      "type" : "ByColumn"
                   } ]
@@ -2302,7 +2324,7 @@
                },
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "Date",
                      "type" : "ByColumn"
                   } ]
@@ -2424,11 +2446,11 @@
                },
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "Start",
                      "type" : "ByColumn"
                   }, {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "End",
                      "type" : "ByColumn"
                   } ]
@@ -2499,11 +2521,11 @@
                },
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "Start",
                      "type" : "ByColumn"
                   }, {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "End",
                      "type" : "ByColumn"
                   } ]
@@ -2531,11 +2553,11 @@
                "relationship" : [ ],
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "Start",
                      "type" : "ByColumn"
                   }, {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "End",
                      "type" : "ByColumn"
                   } ]
@@ -2657,11 +2679,11 @@
                },
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "Start",
                      "type" : "ByColumn"
                   }, {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "End",
                      "type" : "ByColumn"
                   } ]
@@ -2732,11 +2754,11 @@
                },
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "Start",
                      "type" : "ByColumn"
                   }, {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "End",
                      "type" : "ByColumn"
                   } ]
@@ -2764,11 +2786,11 @@
                "relationship" : [ ],
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "Start",
                      "type" : "ByColumn"
                   }, {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "End",
                      "type" : "ByColumn"
                   } ]
@@ -2867,7 +2889,7 @@
                },
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "Date",
                      "type" : "ByColumn"
                   } ]
@@ -2951,7 +2973,7 @@
                },
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "Date",
                      "type" : "ByColumn"
                   } ]
@@ -3083,7 +3105,7 @@
                },
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "Date",
                      "type" : "ByColumn"
                   } ]
@@ -3117,7 +3139,7 @@
                "relationship" : [ ],
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "Date",
                      "type" : "ByColumn"
                   } ]
@@ -3254,7 +3276,7 @@
                },
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "Date",
                      "type" : "ByColumn"
                   } ]
@@ -3376,11 +3398,11 @@
                },
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "Start",
                      "type" : "ByColumn"
                   }, {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "End",
                      "type" : "ByColumn"
                   } ]
@@ -3451,11 +3473,11 @@
                },
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "Start",
                      "type" : "ByColumn"
                   }, {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "End",
                      "type" : "ByColumn"
                   } ]
@@ -3483,11 +3505,11 @@
                "relationship" : [ ],
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "Start",
                      "type" : "ByColumn"
                   }, {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "End",
                      "type" : "ByColumn"
                   } ]
@@ -3591,11 +3613,11 @@
                },
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "Start",
                      "type" : "ByColumn"
                   }, {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "End",
                      "type" : "ByColumn"
                   } ]
@@ -3666,11 +3688,11 @@
                },
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "Start",
                      "type" : "ByColumn"
                   }, {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "End",
                      "type" : "ByColumn"
                   } ]
@@ -3698,11 +3720,11 @@
                "relationship" : [ ],
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "Start",
                      "type" : "ByColumn"
                   }, {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "End",
                      "type" : "ByColumn"
                   } ]
@@ -4056,11 +4078,11 @@
                },
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "Start",
                      "type" : "ByColumn"
                   }, {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "End",
                      "type" : "ByColumn"
                   } ]
@@ -4131,11 +4153,11 @@
                },
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "Start",
                      "type" : "ByColumn"
                   }, {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "End",
                      "type" : "ByColumn"
                   } ]
@@ -4163,11 +4185,11 @@
                "relationship" : [ ],
                "sort" : {
                   "by" : [ {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "Start",
                      "type" : "ByColumn"
                   }, {
-                     "direction" : "asc",
+                     "direction" : "desc",
                      "path" : "End",
                      "type" : "ByColumn"
                   } ]
