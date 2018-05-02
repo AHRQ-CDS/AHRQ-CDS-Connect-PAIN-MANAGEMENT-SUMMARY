@@ -1,4 +1,4 @@
-/.env
+/.env*.local
 /node_modules
 /src/cql/valueset-db.json.original
 /dist/*.bundle.js

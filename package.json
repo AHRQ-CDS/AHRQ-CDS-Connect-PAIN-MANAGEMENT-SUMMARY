@@ -2,25 +2,25 @@
   "name": "pain-management-factors",
   "version": "0.1.0",
   "description": "Pain Management Factors SMART-on-FHIR App",
-  "author": "Chris Moesel <cmoesel@mitre.org>",
+  "proxy": "http://localhost:8000",
   "private": true,
-  "scripts": {
-    "build": "webpack -p",
-    "build:watch": "webpack -p --watch",
-    "start": "http-server ./dist -c-1 -p 8000",
-    "fix-vs-db": "node ./utils/fix_vs_db",
-    "upload-test-patients": "node ./utils/upload_test_patients"
-  },
-  "devDependencies": {
-    "dotenv": "^5.0.1",
-    "fhir.js": "^0.0.20",
-    "http-server": "^0.11.1",
-    "webpack": "^4.6.0",
-    "webpack-cli": "^2.0.15"
-  },
   "dependencies": {
+    "@babel/polyfill": "7.0.0-beta.46",
     "cql-execution": "file:./localDependencies/cql-execution-1.2.0-8659b328cde2ecf0ba472bbf5e0c8e5049d769ce.tgz",
     "cql-fhir": "file:./localDependencies/cql-fhir-1.0.0-0dceecfb13586287f08c7a640c71daff7d6a9e93.tgz",
-    "fhirclient": "^0.1.12"
+    "fhirclient": "^0.1.12",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-router-dom": "4.2.2",
+    "react-scripts": "1.1.4"
+  },
+  "devDependencies": {
+    "fhir.js": "^0.0.20"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }
