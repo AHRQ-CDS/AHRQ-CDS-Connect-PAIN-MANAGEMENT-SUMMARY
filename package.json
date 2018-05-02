@@ -2,13 +2,13 @@
   "name": "pain-management-factors",
   "version": "0.1.0",
   "description": "Pain Management Factors SMART-on-FHIR App",
-  "proxy": "http://localhost:8000",
   "private": true,
   "dependencies": {
     "@babel/polyfill": "7.0.0-beta.46",
     "cql-execution": "file:./localDependencies/cql-execution-1.2.0-8659b328cde2ecf0ba472bbf5e0c8e5049d769ce.tgz",
     "cql-fhir": "file:./localDependencies/cql-fhir-1.0.0-0dceecfb13586287f08c7a640c71daff7d6a9e93.tgz",
     "fhirclient": "^0.1.12",
+    "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-router-dom": "4.2.2",
@@ -21,6 +21,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "fix-vs-db": "node ./src/utils/fixVsDb",
+    "upload-test-patients": "node ./src/utils/uploadTestPatients"
   }
 }

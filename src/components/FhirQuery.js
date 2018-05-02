@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class FhirQuery extends Component {
   constructor() {
@@ -18,9 +19,14 @@ export default class FhirQuery extends Component {
 
     return (
       <div className="fhir-query">
-        <b>{url} (<a href="#" onClick={this.toggleShowHide}>show/hide</a>)</b>
+        <b>{url}</b> <button href="#" onClick={this.toggleShowHide}>show/hide</button>
         <pre style={{display: this.state.displayed ? 'block' : 'none'}}>{JSON.stringify(query.data, null, 2)}</pre>
       </div>
     );
   }
 }
+
+FhirQuery.propTypes = {
+  query: PropTypes.object.isRequired,
+  url: PropTypes.string.isRequired
+};

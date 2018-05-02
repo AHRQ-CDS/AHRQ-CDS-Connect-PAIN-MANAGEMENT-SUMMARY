@@ -1,25 +1,12 @@
 import React, { Component } from 'react';
+
+import stringValue from '../utils/stringValue';
 import executeElm from '../utils/executeELM';
 import factorsElm from '../cql/Factors_to_Consider_in_Managing_Chronic_Pain.json';
 import commonsElm from '../cql/CDS_Connect_Commons_for_FHIRv102.json';
 import fhirhelpersElm from '../cql/FHIRHelpers.json';
 import valueSetDB from '../cql/valueset-db.json';
 import FhirQuery from './FhirQuery';
-
-function stringValue(value) {
-  if (value == null) return '';
-
-  if (Array.isArray(value)) {
-    return `[${value.map(v => stringValue(v)).join(', ')}]`;
-  } else if (value.Start || value.End) {
-    return `${value.Start || '(no start)'} - ${value.End || '(no end)'}`
-  } else if (value.Low || value.High) {
-    return `${value.Low || '(no low)'} - ${value.High || '(no high)'}`
-  } else if (typeof value === 'object') {
-    return `{ ${Object.keys(value).map(k => `${k}: ${stringValue(value[k])}`)} }`
-  }
-  return value.toString();
-}
 
 export default class Landing extends Component {
   constructor() {
@@ -31,16 +18,6 @@ export default class Landing extends Component {
       displayFhirQueries: false,
       displayCQLResults: false
     };
-  }
-
-  toggleFhirQueries = (event) => {
-    event.preventDefault();
-    this.setState({ displayFhirQueries: !this.state.displayFhirQueries });
-  }
-
-  toggleCQLResults = (event) => {
-    event.preventDefault();
-    this.setState({ displayCQLResults: !this.state.displayCQLResults });
   }
 
   componentWillMount() {
@@ -61,14 +38,25 @@ export default class Landing extends Component {
     });
   }
 
+  toggleFhirQueries = (event) => {
+    event.preventDefault();
+    this.setState({ displayFhirQueries: !this.state.displayFhirQueries });
+  }
+
+  toggleCQLResults = (event) => {
+    event.preventDefault();
+    this.setState({ displayCQLResults: !this.state.displayCQLResults });
+  }
+
   renderSection(data, name, ...properties) {
     if (!Array.isArray(data)) {
       data = data != null ? [data] : [];
     }
 
     return (
-      <div>
+      <div className="section">
         <h3>{name}</h3>
+
         <table border="1" width="100%">
           <thead>
             <tr>{properties.map((prop, i) => <th key={i}>{prop}</th>)}</tr>
@@ -133,8 +121,8 @@ export default class Landing extends Component {
 
   renderFHIRQueries() {
     return (
-      <div>
-        <h3>FHIR Queries (<a href="#" onClick={this.toggleFhirQueries}>show/hide</a>)</h3>
+      <div className="fhir-queries">
+        <h3>FHIR Queries <button onClick={this.toggleFhirQueries}>show/hide</button></h3>
         <div style={{ display: this.state.displayFhirQueries ? 'block' : 'none' }}>
           {this.state.collector.map((item, i) => {
             const url = i === 0 ? item.config.url : item.config.url.slice(item.config.url.lastIndexOf('/') + 1);
@@ -149,8 +137,9 @@ export default class Landing extends Component {
 
   renderCQLResults() {
     return (
-      <div>
-        <h3>CQL Results (<a href="#" onClick={this.toggleCQLResults}>show/hide</a>)</h3>
+      <div className="cql-results">
+        <h3>CQL Results <button onClick={this.toggleCQLResults}>show/hide</button></h3>
+
         <div style={{ display: this.state.displayCQLResults ? 'block' : 'none' }}>
           <pre>{JSON.stringify(this.state.result, null, 2)}</pre>
         </div>
@@ -160,7 +149,7 @@ export default class Landing extends Component {
 
   render() {
     if (this.state.loading) {
-      return <div>Loading...</div>;
+      return <div className="loading">Loading...</div>;
     }
 
     if (this.state.result == null) {
@@ -170,7 +159,7 @@ export default class Landing extends Component {
     const summary = this.state.result.Summary;
 
     return (
-      <div>
+      <div className="landing">
         <h2>{summary.Patient.Name}, {summary.Patient.Age} years, {summary.Patient.Gender}</h2>
 
         <h3>Meets Inclusion Criteria? {`${summary.Patient.MeetsInclusionCriteria}`}</h3>
