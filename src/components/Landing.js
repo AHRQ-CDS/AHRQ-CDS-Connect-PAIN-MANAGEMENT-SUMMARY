@@ -6,6 +6,8 @@ import factorsElm from '../cql/Factors_to_Consider_in_Managing_Chronic_Pain.json
 import commonsElm from '../cql/CDS_Connect_Commons_for_FHIRv102.json';
 import fhirhelpersElm from '../cql/FHIRHelpers.json';
 import valueSetDB from '../cql/valueset-db.json';
+
+import Header from './Header';
 import FhirQuery from './FhirQuery';
 
 export default class Landing extends Component {
@@ -163,7 +165,11 @@ export default class Landing extends Component {
 
     return (
       <div className="landing">
-        <h2>{summary.Patient.Name}, {summary.Patient.Age} years, {summary.Patient.Gender}</h2>
+        <Header
+          patientName={summary.Patient.Name}
+          patientAge={summary.Patient.Age}
+          patientGender={summary.Patient.Gender}
+        />
 
         <h3>Meets Inclusion Criteria? {`${summary.Patient.MeetsInclusionCriteria}`}</h3>
 
