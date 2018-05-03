@@ -26,16 +26,21 @@ export default class Landing extends Component {
       FHIRHelpers: fhirhelpersElm
     };
 
-    executeElm(factorsElm, elmDependencies, valueSetDB, this.state.collector, (result, error) => {
+    try {
+      executeElm(factorsElm, elmDependencies, valueSetDB, this.state.collector, (result, error) => {
+        this.setState({ loading: false });
+
+        if (error) {
+          console.error(error);
+          return;
+        }
+
+        this.setState({ result });
+      });
+    } catch (e) {
+      console.error(e);
       this.setState({ loading: false });
-
-      if (error) {
-        console.error(error);
-        return;
-      }
-
-      this.setState({ result });
-    });
+    }
   }
 
   toggleFhirQueries = (event) => {
