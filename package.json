@@ -6,7 +6,7 @@
   "dependencies": {
     "@babel/polyfill": "7.0.0-beta.46",
     "cql-execution": "file:./localDependencies/cql-execution-1.2.0-8659b328cde2ecf0ba472bbf5e0c8e5049d769ce.tgz",
-    "cql-fhir": "file:./localDependencies/cql-fhir-1.0.0-dae078e050581c15fa615f6f5da8a911dd9a283a.tgz",
+    "cql-fhir": "file:./localDependencies/cql-fhir-1.0.0-fff837e79bd8687f504ffbb2e3ff5b46fbf038d4.tgz",
     "fhirclient": "^0.1.12",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
