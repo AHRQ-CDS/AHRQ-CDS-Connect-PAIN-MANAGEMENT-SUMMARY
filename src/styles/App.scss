@@ -8,18 +8,8 @@
 @import "elements/base";
 
 // component-specific
+@import "components/App";
 
 // vendors
 
 /* ------------------------- FONTS ----------------------------------------- */
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
