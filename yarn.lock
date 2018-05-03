@@ -1728,9 +1728,9 @@ cosmiconfig@^2.1.0, cosmiconfig@^2.1.1:
     moment "^2.20.1"
     ucum "0.0.7"
 
-"cql-fhir@file:./localDependencies/cql-fhir-1.0.0-0dceecfb13586287f08c7a640c71daff7d6a9e93.tgz":
+"cql-fhir@file:./localDependencies/cql-fhir-1.0.0-dae078e050581c15fa615f6f5da8a911dd9a283a.tgz":
   version "1.0.0"
-  resolved "file:./localDependencies/cql-fhir-1.0.0-0dceecfb13586287f08c7a640c71daff7d6a9e93.tgz#674b8c2bee05142975fbb6b5d7372103c1a58396"
+  resolved "file:./localDependencies/cql-fhir-1.0.0-dae078e050581c15fa615f6f5da8a911dd9a283a.tgz#644a35685782999959fe63ed161136e6c6496005"
   dependencies:
     xml2js "~0.4.17"
 
