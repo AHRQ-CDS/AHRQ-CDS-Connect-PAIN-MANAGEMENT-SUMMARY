@@ -114,7 +114,7 @@ export default class Landing extends Component {
             </thead>
 
             <tbody>
-              {errResponses.forEach((er, i) => this.errorMessage(er, i))}
+              {errResponses.map((er, i) => this.errorMessage(er, i))}
             </tbody>
           </table>
         </div>
