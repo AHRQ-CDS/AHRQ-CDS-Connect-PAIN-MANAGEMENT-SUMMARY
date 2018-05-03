@@ -57,13 +57,6 @@
   "resolutions": {
     "ucum": "cmoesel/ucum.js#es5-friendly"
   },
-  "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom",
-    "fix-vs-db": "node ./src/utils/fixVsDb",
-    "upload-test-patients": "node ./src/utils/uploadTestPatients"
-  },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,mjs}"
@@ -105,5 +98,12 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "scripts": {
+    "start": "node scripts/start.js",
+    "build": "node scripts/build.js",
+    "test": "node scripts/test.js --env=jsdom",
+    "fix-vs-db": "node ./src/utils/fixVsDb",
+    "upload-test-patients": "node ./src/utils/uploadTestPatients"
   }
 }
