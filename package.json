@@ -104,6 +104,7 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "fix-vs-db": "node ./src/utils/fixVsDb",
-    "upload-test-patients": "node ./src/utils/uploadTestPatients"
+    "upload-test-patients": "node ./src/utils/uploadTestPatients",
+    "lint": "eslint ."
   }
 }
