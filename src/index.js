@@ -6,9 +6,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import Root from './containers/Root';
 import registerServiceWorker from './utils/registerServiceWorker';
-
+import '../node_modules/font-awesome/css/font-awesome.css';
 import './styles/App.css';
-import './styles/index.css';
 
 render(
   <Router basename={process.env.PUBLIC_URL}>

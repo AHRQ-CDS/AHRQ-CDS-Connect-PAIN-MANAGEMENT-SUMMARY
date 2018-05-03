@@ -4,3 +4,4 @@
 /build
 /dist/*.bundle.js
 /dist/*.bundle.js.map
+*.css
