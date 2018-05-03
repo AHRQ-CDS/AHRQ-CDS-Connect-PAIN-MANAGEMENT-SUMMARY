@@ -14,7 +14,7 @@
 ## To run against the public SMART sandbox
 
 1. Browse to http://launch.smarthealthit.org/
-2. In the _App Launch URL_ box at the bottom of the page, enter: `http://localhost:8000/launch`
+2. In the _App Launch URL_ box at the bottom of the page, enter: `http://localhost:8000/launch.html`
 3. Click _Launch App!_
 4. Select a patient
 
@@ -30,7 +30,7 @@ This adds a patient named "Fuller Jackson".  The SMART sandbox is reset every ni
 
 1. Browse to https://open.epic.com/Launchpad/Oauth2Sso
 2. Select a patient from the dropdown
-3. In the _YOUR APP'S LAUNCH URL_ box, enter: `http://localhost:8000/launch`
+3. In the _YOUR APP'S LAUNCH URL_ box, enter: `http://localhost:8000/launch.html`
 4. In the _YOUR APP'S OAUTH2 REDIRECT URL_ box, enter: `http://localhost:8000/`
 5. Click _Launch App_
 
@@ -55,7 +55,7 @@ Then register the app via the SMART Platform:
 5. Enter these values:
    a. App Type: Public Client
    b. App Name: CQL Demo
-   c. App Launch URI: http://localhost:8000/launch
+   c. App Launch URI: http://localhost:8000/launch.html
    d. App Redirect URIs: http://localhost:8000/
    e. Allow Offline Access: NO
    f. Patient Scoped App: YES
