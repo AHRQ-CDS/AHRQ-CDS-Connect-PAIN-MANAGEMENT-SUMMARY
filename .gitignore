@@ -2,5 +2,4 @@
 /node_modules
 /src/cql/valueset-db.json.original
 /build
-/dist/*.bundle.js
-/dist/*.bundle.js.map
+*.css
