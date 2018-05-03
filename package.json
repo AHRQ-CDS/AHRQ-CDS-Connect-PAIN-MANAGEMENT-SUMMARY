@@ -17,6 +17,9 @@
   "devDependencies": {
     "fhir.js": "^0.0.20"
   },
+  "resolutions": {
+    "ucum": "cmoesel/ucum.js#es5-friendly"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
