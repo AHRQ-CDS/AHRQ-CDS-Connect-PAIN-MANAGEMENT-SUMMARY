@@ -56,7 +56,8 @@
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
-    "fhir.js": "^0.0.20"
+    "fhir.js": "^0.0.20",
+    "http-server": "^0.11.1"
   },
   "resolutions": {
     "ucum": "cmoesel/ucum.js#es5-friendly"
@@ -106,6 +107,7 @@
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    "start-static": "http-server -c-1 -p 8000 build",
     "start-js": "node scripts/start.js",
     "start": "npm-run-all -p watch-css start-js",
     "build-js": "node scripts/build.js",
