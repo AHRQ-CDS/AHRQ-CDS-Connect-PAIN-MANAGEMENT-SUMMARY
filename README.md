@@ -26,6 +26,28 @@ We currently have one test patient with a single prescription for an opioid.  In
 
 This adds a patient named "Fuller Jackson".  The SMART sandbox is reset every night, so you will need to do this at least once each day you want to test.
 
+## To run in standalone mode on the public SMART sandbox
+
+The SMART launcher has a bug that doesn't allow IE 11 to enter the launch URL.  This makes testing in IE 11 very difficult.  To overcome this, you can reconfigure the app as a standalone app.  To do so, follow these steps:
+
+1. Overwrite the `/public/launch-context.json` file with these contents:
+   ```json
+   {
+     "client": {
+       "client_id": "6c12dff4-24e7-4475-a742-b08972c4ea27",
+       "scope":  "patient/*.read launch/patient"
+     },
+     "server": "url-goes-here"
+   }
+   ```
+1. Browse to http://launch.smarthealthit.org/
+2. In _Launch Type_, choose **Provider Standalone Launch**
+3. Copy the FHIR URL in the _FHIR Server URL_ box (e.g., `http://launch.smarthealthit.org/v/r2/sim/eyJoIjoiMSIsImkiOiIxIiwiaiI6IjEifQ/fhir`)
+4. Paste it into `/public/launch-context.json` file where `url-goes-here` is
+5. Browse to http://localhost:8000/launch.html
+
+_NOTE: Do *not* check in the modified launch-context.json! We may want to consider making a dev feature to better support this mode._
+
 ## To run against the Epic SMART sandbox
 
 1. Browse to https://open.epic.com/Launchpad/Oauth2Sso
