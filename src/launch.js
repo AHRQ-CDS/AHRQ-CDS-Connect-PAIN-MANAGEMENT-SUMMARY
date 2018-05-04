@@ -1,6 +1,6 @@
 import 'fhirclient';
 
-window.FHIR.oauth2.authorize({
-  "client_id": process.env.REACT_APP_SMART_CLIENT_ID,
-  "scope":  "patient/*.read"
-});
+fetch('../../launch-context.json')
+  .then((response)      => response.json())
+  .then((launchContext) => window.FHIR.oauth2.authorize(launchContext))
+  .catch((error)        => console.error(error));
