@@ -35,12 +35,12 @@ export default class Header extends Component {
 
             <div className="entries">
               <div className="entries-count medium-risk">1</div>
-              <div className="entries-label">Medium Risk Entries</div>
+              <div className="entries-label">Medium Risk Entry</div>
             </div>
 
             <div className="entries">
               <div className="entries-count high-risk">1</div>
-              <div className="entries-label">High Risk Entries</div>
+              <div className="entries-label">High Risk Entry</div>
             </div>
           </div>
         </div>

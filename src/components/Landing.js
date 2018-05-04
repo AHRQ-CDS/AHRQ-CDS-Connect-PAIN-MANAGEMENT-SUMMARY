@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import tocbot from 'tocbot';
+import _ from 'lodash';
 
 import stringValue from '../utils/stringValue';
 import executeElm from '../utils/executeELM';
@@ -8,7 +10,7 @@ import fhirhelpersElm from '../cql/FHIRHelpers.json';
 import valueSetDB from '../cql/valueset-db.json';
 
 import Header from './Header';
-import FhirQuery from './FhirQuery';
+import DevTools from './DevTools';
 
 export default class Landing extends Component {
   constructor() {
@@ -20,6 +22,8 @@ export default class Landing extends Component {
       displayFhirQueries: false,
       displayCQLResults: false
     };
+
+    this.summaryRef = React.createRef();
   }
 
   componentWillMount() {
@@ -45,22 +49,56 @@ export default class Landing extends Component {
     }
   }
 
-  toggleFhirQueries = (event) => {
-    event.preventDefault();
-    this.setState({ displayFhirQueries: !this.state.displayFhirQueries });
+  componentDidMount() {
+    tocbot.init({
+      tocSelector: '.summary__nav',         // where to render the table of contents
+      contentSelector: '.summary__display', // where to grab the headings to build the table of contents
+      headingSelector: 'h3',                // which headings to grab inside of the contentSelector element
+      positionFixedSelector: '.summary__nav',
+      collapseDepth: 0                      // 0 collapses 6 expands all
+    });
+
+    setTimeout(()=>{ this.addListeners(this.summaryRef.current); }, 500);
   }
 
-  toggleCQLResults = (event) => {
-    event.preventDefault();
-    this.setState({ displayCQLResults: !this.state.displayCQLResults });
+  componentWillUnmount() { // eslint-disable-line class-methods-use-this
+    tocbot.destroy();
+
+    document.removeEventListener('scroll', this.throttledScrollListener, { passive: true });
+    document.removeEventListener('resize', this.throttledScrollListener, { passive: true });
+  }
+
+  addListeners(ref) {
+    console.debug('ref: ', ref);
+
+    const summaryStyle = window.getComputedStyle(ref.current);
+    this.toc = document.querySelector('.summary__nav');
+    this.throttledScrollListener = _.throttle(this.scrollListener.bind(this), 50);
+
+    document.addEventListener('scroll', this.throttledScrollListener, { passive: true });
+    document.addEventListener('resize', this.throttledScrollListener, { passive: true });
+  }
+
+  scrollListener() {
+    const { summary, toc } = this;
+    const { bottom } = summary.getBoundingClientRect();
+    const windowBottom = window.innerHeight || document.documentElement.clientHeight;
+
+    if ((bottom + parseInt(this.summaryStyle.paddingBottom, 10)) <= windowBottom) {
+      toc.classList.add('at-bottom');
+      summary.classList.add('is-position-relative');
+    } else if (toc.classList.contains('at-bottom')) {
+      toc.classList.remove('at-bottom');
+      summary.classList.remove('is-position-relative');
+    }
   }
 
   renderSection(data, name, ...properties) {
     const rows = (Array.isArray(data) ? data : [data]).filter(r => r != null);
 
     return (
-      <div className="section">
-        <h3>{name}</h3>
+      <div className="section h3-wrapper">
+        <h3 id={name}>{name}</h3>
 
         <table border="1" width="100%">
           <thead>
@@ -77,77 +115,6 @@ export default class Landing extends Component {
             )}
           </tbody>
         </table>
-      </div>
-    );
-  }
-
-  errorMessage(er, i) {
-    let msg = 'See query info below for details';
-    if (er.error.responseJSON) {
-      msg = er.error.responseJSON.ExceptionMessage || er.error.responseJSON.Message;
-    } else if (er.error.statusText) {
-      msg = er.error.statusText;
-    }
-
-    return (
-      <tr key={i}>
-        <td>{er.config.type}</td>
-        <td>{msg}</td>
-      </tr>
-    );
-  }
-
-  renderErrors() {
-    const errResponses = this.state.collector.filter(i => i.error);
-
-    if (errResponses.length) {
-      return (
-        <div className="errors">
-          <h3>{errResponses.length} Errors</h3>
-
-          <table id="errors" border="1" width="100%">
-            <thead>
-              <tr>
-                <th>Resource</th>
-                <th>Error</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {errResponses.map((er, i) => this.errorMessage(er, i))}
-            </tbody>
-          </table>
-        </div>
-      );
-    }
-
-    return <div></div>;
-  }
-
-  renderFHIRQueries() {
-    return (
-      <div className="fhir-queries">
-        <h3>FHIR Queries <button onClick={this.toggleFhirQueries}>show/hide</button></h3>
-        <div style={{ display: this.state.displayFhirQueries ? 'block' : 'none' }}>
-          {this.state.collector.map((item, i) => {
-            const url = i === 0 ? item.config.url : item.config.url.slice(item.config.url.lastIndexOf('/') + 1);
-            return (
-              <FhirQuery url={url} query={item} key={i} />
-            );
-          })}
-        </div>
-      </div>
-    );
-  }
-
-  renderCQLResults() {
-    return (
-      <div className="cql-results">
-        <h3>CQL Results <button onClick={this.toggleCQLResults}>show/hide</button></h3>
-
-        <div style={{ display: this.state.displayCQLResults ? 'block' : 'none' }}>
-          <pre>{JSON.stringify(this.state.result, null, 2)}</pre>
-        </div>
       </div>
     );
   }
@@ -171,97 +138,104 @@ export default class Landing extends Component {
           patientGender={summary.Patient.Gender}
         />
 
-        <h3>Meets Inclusion Criteria? {`${summary.Patient.MeetsInclusionCriteria}`}</h3>
+        <div className="summary" ref={this.summaryRef}>
+          <div className="summary__nav"></div>
 
-        <div id="sections">
-          {this.renderSection(
-            summary.PertinentMedicalHistory.ConditionsAssociatedWithChronicPain,
-            'Conditions Associated With Chronic Pain',
-            'Name', 'Status', 'Onset'
-          )}
+          <div className="summary__display">
+            <h3>Meets Inclusion Criteria? {`${summary.Patient.MeetsInclusionCriteria}`}</h3>
 
-          {this.renderSection(
-            summary.PertinentMedicalHistory.HighRiskConditionsForOpioidTherapy,
-            'High Risk Conditions For Opioid Therapy',
-            'Name', 'Status', 'Onset', 'Abatement', 'Visit'
-          )}
+            <div id="sections">
+              {this.renderSection(
+                summary.PertinentMedicalHistory.ConditionsAssociatedWithChronicPain,
+                'Conditions Associated With Chronic Pain',
+                'Name', 'Status', 'Onset'
+              )}
 
-          {this.renderSection(
-            summary.PainAssessments.NumericPainIntensityAssessments,
-            'Numeric Pain Intensity Assessments',
-            'Name', 'Score', 'Interpretation', 'Date'
-          )}
+              {this.renderSection(
+                summary.PertinentMedicalHistory.HighRiskConditionsForOpioidTherapy,
+                'High Risk Conditions For Opioid Therapy',
+                'Name', 'Status', 'Onset', 'Abatement', 'Visit'
+              )}
 
-          {this.renderSection(
-            summary.PainAssessments.PainEnjoymentGeneralActivityAssessments,
-            'Pain Enjoyment General Activity Assessments',
-            'Name', 'Score', 'Interpretation', 'Questions', 'Date'
-          )}
+              {this.renderSection(
+                summary.PainAssessments.NumericPainIntensityAssessments,
+                'Numeric Pain Intensity Assessments',
+                'Name', 'Score', 'Interpretation', 'Date'
+              )}
 
-          {this.renderSection(
-            summary.PainAssessments.STarTBackAssessments,
-            'STarT Back Assessments',
-            'Name', 'Score', 'Interpretation', 'Date'
-          )}
+              {this.renderSection(
+                summary.PainAssessments.PainEnjoymentGeneralActivityAssessments,
+                'Pain Enjoyment General Activity Assessments',
+                'Name', 'Score', 'Interpretation', 'Questions', 'Date'
+              )}
 
-          {this.renderSection(
-            summary.HistoricalTreatments.OpioidMedications,
-            'Opioid Medications',
-            'Name', 'Type', 'Start', 'End'
-          )}
+              {this.renderSection(
+                summary.PainAssessments.STarTBackAssessments,
+                'STarT Back Assessments',
+                'Name', 'Score', 'Interpretation', 'Date'
+              )}
 
-          {this.renderSection(
-            summary.HistoricalTreatments.NonOpioidMedications,
-            'Non-Opioid Medications',
-            'Name', 'Type', 'Start', 'End'
-          )}
+              {this.renderSection(
+                summary.HistoricalTreatments.OpioidMedications,
+                'Opioid Medications',
+                'Name', 'Type', 'Start', 'End'
+              )}
 
-          {this.renderSection(
-            summary.HistoricalTreatments.NonPharmacologicTreatments,
-            'Non-Pharmacologic Treatments',
-            'Name', 'Type', 'Date'
-          )}
+              {this.renderSection(
+                summary.HistoricalTreatments.NonOpioidMedications,
+                'Non-Opioid Medications',
+                'Name', 'Type', 'Start', 'End'
+              )}
 
-          {this.renderSection(
-            summary.RiskFactorsAndAssessments.PainManagementRiskScreenings,
-            'Pain Management Risk Screenings',
-            'Name', 'Score', 'Interpretation', 'Date'
-          )}
+              {this.renderSection(
+                summary.HistoricalTreatments.NonPharmacologicTreatments,
+                'Non-Pharmacologic Treatments',
+                'Name', 'Type', 'Date'
+              )}
 
-          {this.renderSection(
-            summary.RiskFactorsAndAssessments.BenzodiazepineMedications,
-            'Benzodiazepine Medications',
-            'Name', 'Type', 'Start', 'End'
-          )}
+              {this.renderSection(
+                summary.RiskFactorsAndAssessments.PainManagementRiskScreenings,
+                'Pain Management Risk Screenings',
+                'Name', 'Score', 'Interpretation', 'Date'
+              )}
 
-          {this.renderSection(
-            summary.RiskFactorsAndAssessments.NaloxoneMedications,
-            'Naloxone Medications',
-            'Name', 'Type', 'Start', 'End'
-          )}
+              {this.renderSection(
+                summary.RiskFactorsAndAssessments.BenzodiazepineMedications,
+                'Benzodiazepine Medications',
+                'Name', 'Type', 'Start', 'End'
+              )}
 
-          {this.renderSection(
-            summary.RiskFactorsAndAssessments.UrineDrugScreens,
-            'Urine Drug Screens',
-            'Name', 'Score', 'Interpretation', 'Date'
-          )}
+              {this.renderSection(
+                summary.RiskFactorsAndAssessments.NaloxoneMedications,
+                'Naloxone Medications',
+                'Name', 'Type', 'Start', 'End'
+              )}
 
-          {this.renderSection(
-            summary.RiskFactorsAndAssessments.MostRecentMME,
-            'Most Recent MME',
-            'Name', 'Result', 'Date'
-          )}
+              {this.renderSection(
+                summary.RiskFactorsAndAssessments.UrineDrugScreens,
+                'Urine Drug Screens',
+                'Name', 'Score', 'Interpretation', 'Date'
+              )}
 
-          {this.renderSection(
-            summary.MiscellaneousItems.StoolSoftenersAndLaxatives,
-            'Most Recent MME',
-            'Name', 'Type', 'Start', 'End'
-          )}
+              {this.renderSection(
+                summary.RiskFactorsAndAssessments.MostRecentMME,
+                'Most Recent MME',
+                'Name', 'Result', 'Date'
+              )}
+
+              {this.renderSection(
+                summary.MiscellaneousItems.StoolSoftenersAndLaxatives,
+                'Most Recent MME',
+                'Name', 'Type', 'Start', 'End'
+              )}
+            </div>
+
+            <DevTools
+              collector={this.state.collector}
+              result={this.state.result}
+            />
+          </div>
         </div>
-
-        {this.renderErrors()}
-        {this.renderFHIRQueries()}
-        {this.renderCQLResults()}
       </div>
     );
   }

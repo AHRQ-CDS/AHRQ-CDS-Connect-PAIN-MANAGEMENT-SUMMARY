@@ -2,6 +2,8 @@
 @import "elements/variables";
 
 /* ------------------------- IMPORT 3RD PARTY VENDORS ---------------------- */
+@import 'node_modules/tocbot/src/scss/tocbot-core';
+@import 'node_modules/tocbot/src/scss/tocbot-default-theme';
 
 /* ------------------------- IMPORT CUSTOM SCSS ---------------------------- */
 // site-wide elements
@@ -9,6 +11,8 @@
 
 // component-specific
 @import "components/Header";
+@import "components/Landing";
+@import "components/Nav";
 
 // vendors
 
