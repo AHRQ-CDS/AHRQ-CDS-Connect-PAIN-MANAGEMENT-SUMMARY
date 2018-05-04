@@ -1,0 +1,20 @@
+{
+  "extends": [
+    "react-app",
+    "plugin:jsx-a11y/recommended"
+  ],
+  "rules": {
+    "comma-dangle": 0,
+    "max-len": ["error", { "code": 120, "ignoreUrls": true , "ignoreTrailingComments": true, "ignoreRegExpLiterals": true }],
+    "no-console": 0,
+    "no-param-reassign": ["error", {"props": false}],
+    "no-unused-vars": [ "error", { "args": "none" } ],
+    "no-use-before-define": ["error", "nofunc"],
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "prefer-destructuring": ["error", { "AssignmentExpression": { "array": false, "object": false } }],
+    "import/no-named-default": "off",
+    "jsx-a11y/href-no-hash": 0,
+    "jsx-a11y/label-has-for": ["error", { "required": { "some": ["nesting", "id"] } }],
+    "object-curly-newline": ["error", { "minProperties": 8, "consistent": true }]
+  }
+}

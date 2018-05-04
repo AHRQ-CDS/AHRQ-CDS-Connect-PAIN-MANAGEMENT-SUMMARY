@@ -54,9 +54,7 @@ export default class Landing extends Component {
   }
 
   renderSection(data, name, ...properties) {
-    if (!Array.isArray(data)) {
-      data = data != null ? [data] : [];
-    }
+    const rows = (Array.isArray(data) ? data : [data]).filter(r => r != null);
 
     return (
       <div className="section">
@@ -68,7 +66,7 @@ export default class Landing extends Component {
           </thead>
 
           <tbody>
-            {data.map((row, i) =>
+            {rows.map((row, i) =>
               <tr key={i}>
                 {properties.map((prop, i) =>
                   <td key={i}>{stringValue(row[prop])}</td>
