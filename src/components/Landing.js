@@ -15,6 +15,7 @@ import MedicalHistoryIcon from '../icons/MedicalHistoryIcon';
 import PainIcon from '../icons/PainIcon';
 import TreatmentsIcon from '../icons/TreatmentsIcon';
 import RiskIcon from '../icons/RiskIcon';
+import CQLIcon from '../icons/CQLIcon';
 
 import Header from './Header';
 import DevTools from './DevTools';
@@ -71,14 +72,14 @@ export default class Landing extends Component {
     }
   }
 
-  renderSection(data, name, ...properties) {
+  renderSubSection(data, name, ...properties) {
     const rows = (Array.isArray(data) ? data : [data]).filter(r => r != null);
     const flagged = false; // TODO: hook up
     const flaggedClass = flagged ? 'flagged' : '';
 
     return (
-      <div className="section h3-wrapper">
-        <h3 id={name} className="section__header">
+      <div className="sub-section h3-wrapper">
+        <h3 id={name} className="sub-section__header">
           <FontAwesome className={`flag flag-nav ${flaggedClass}`} name="circle" />
           {name}
           <FontAwesome className={`flag flag-summary ${flaggedClass}`} name="circle" />
@@ -86,7 +87,11 @@ export default class Landing extends Component {
 
         <table border="1" width="100%">
           <thead>
-            <tr>{properties.map((prop, i) => <th key={i}>{prop}</th>)}</tr>
+            <tr>
+              {properties.map((prop, i) =>
+                <th key={i} className="">{prop}</th>
+              )}
+            </tr>
           </thead>
 
           <tbody>
@@ -120,6 +125,8 @@ export default class Landing extends Component {
       sumit(summary.RiskFactorsAndAssessments || {}) +
       sumit(summary.MiscellaneousItems || {}); // TODO: update when CQL updates
     const totalEntries = numMedicalHistoryEntries + numPainEntries + numTreatmentsEntries + numRiskEntries;
+    const flagged = false; // TODO: hook up
+    const flaggedClass = flagged ? 'flagged' : '';
 
     return (
       <div className="landing">
@@ -128,6 +135,7 @@ export default class Landing extends Component {
           patientAge={summary.Patient.Age}
           patientGender={summary.Patient.Gender}
           totalEntries={totalEntries}
+          numFlaggedEntries={0} // TODO: hook up
         />
 
         <div className="summary">
@@ -135,115 +143,136 @@ export default class Landing extends Component {
 
           <div className="summary__display">
             <div className="summary__display-title">
+              <CQLIcon width="48" height="20" />
               Factors to Consider in Managing Chronic Pain
             </div>
 
             <h4>Meets Inclusion Criteria? {`${summary.Patient.MeetsInclusionCriteria}`}</h4>
 
             <div className="sections">
-              <h2 id="pertinent-medical-history" className="sections__header">
-                <MedicalHistoryIcon width="30" height="40" />
-                Pertinent Medical History ({numMedicalHistoryEntries})
-              </h2>
+              <div className="section">
+                <h2 id="pertinent-medical-history" className="section__header">
+                  <MedicalHistoryIcon width="30" height="40" />
+                  <span>
+                    Pertinent Medical History ({numMedicalHistoryEntries})
+                    <FontAwesome className={`flag flag-header ${flaggedClass}`} name="circle" />
+                  </span>
+                </h2>
 
-              {this.renderSection(
-                summary.PertinentMedicalHistory.ConditionsAssociatedWithChronicPain,
-                'Conditions Associated With Chronic Pain',
-                'Name', 'Status', 'Onset'
-              )}
+                {this.renderSubSection(
+                  summary.PertinentMedicalHistory.ConditionsAssociatedWithChronicPain,
+                  'Conditions Associated With Chronic Pain',
+                  'Name', 'Status', 'Onset'
+                )}
 
-              {this.renderSection(
-                summary.PertinentMedicalHistory.HighRiskConditionsForOpioidTherapy,
-                'High Risk Conditions For Opioid Therapy',
-                'Name', 'Status', 'Onset', 'Abatement', 'Visit'
-              )}
+                {this.renderSubSection(
+                  summary.PertinentMedicalHistory.HighRiskConditionsForOpioidTherapy,
+                  'High Risk Conditions For Opioid Therapy',
+                  'Name', 'Status', 'Onset', 'Abatement', 'Visit'
+                )}
+              </div>
 
-              <h2 id="pain-assessments" className="sections__header">
-                <PainIcon width="35"  height="35" />
-                Pain Assessments ({numPainEntries})
-              </h2>
+              <div className="section">
+                <h2 id="pain-assessments" className="section__header">
+                  <PainIcon width="35"  height="35" />
+                  <span>
+                    Pain Assessments ({numPainEntries})
+                    <FontAwesome className={`flag flag-header ${flaggedClass}`} name="circle" />
+                  </span>
+                </h2>
 
-              {this.renderSection(
-                summary.PainAssessments.NumericPainIntensityAssessments,
-                'Numeric Pain Intensity Assessments',
-                'Name', 'Score', 'Interpretation', 'Date'
-              )}
+                {this.renderSubSection(
+                  summary.PainAssessments.NumericPainIntensityAssessments,
+                  'Numeric Pain Intensity Assessments',
+                  'Name', 'Score', 'Interpretation', 'Date'
+                )}
 
-              {this.renderSection(
-                summary.PainAssessments.PainEnjoymentGeneralActivityAssessments,
-                'Pain Enjoyment General Activity Assessments',
-                'Name', 'Score', 'Interpretation', 'Questions', 'Date'
-              )}
+                {this.renderSubSection(
+                  summary.PainAssessments.PainEnjoymentGeneralActivityAssessments,
+                  'Pain Enjoyment General Activity Assessments',
+                  'Name', 'Score', 'Interpretation', 'Questions', 'Date'
+                )}
 
-              {this.renderSection(
-                summary.PainAssessments.STarTBackAssessments,
-                'STarT Back Assessments',
-                'Name', 'Score', 'Interpretation', 'Date'
-              )}
+                {this.renderSubSection(
+                  summary.PainAssessments.STarTBackAssessments,
+                  'STarT Back Assessments',
+                  'Name', 'Score', 'Interpretation', 'Date'
+                )}
+              </div>
 
-              <h2 id="historical-treatments" className="sections__header">
-                <TreatmentsIcon width="36" height="38" />
-                Historical Pain-related Treatments ({numTreatmentsEntries})
-              </h2>
+              <div className="section">
+                <h2 id="historical-treatments" className="section__header">
+                  <TreatmentsIcon width="36" height="38" />
+                  <span>
+                    Historical Pain-related Treatments ({numTreatmentsEntries})
+                    <FontAwesome className={`flag flag-header ${flaggedClass}`} name="circle" />
+                  </span>
+                </h2>
 
-              {this.renderSection(
-                summary.HistoricalTreatments.OpioidMedications,
-                'Opioid Medications',
-                'Name', 'Type', 'Start', 'End'
-              )}
+                {this.renderSubSection(
+                  summary.HistoricalTreatments.OpioidMedications,
+                  'Opioid Medications',
+                  'Name', 'Type', 'Start', 'End'
+                )}
 
-              {this.renderSection(
-                summary.HistoricalTreatments.NonOpioidMedications,
-                'Non-Opioid Medications',
-                'Name', 'Type', 'Start', 'End'
-              )}
+                {this.renderSubSection(
+                  summary.HistoricalTreatments.NonOpioidMedications,
+                  'Non-Opioid Medications',
+                  'Name', 'Type', 'Start', 'End'
+                )}
 
-              {this.renderSection(
-                summary.HistoricalTreatments.NonPharmacologicTreatments,
-                'Non-Pharmacologic Treatments',
-                'Name', 'Type', 'Date'
-              )}
+                {this.renderSubSection(
+                  summary.HistoricalTreatments.NonPharmacologicTreatments,
+                  'Non-Pharmacologic Treatments',
+                  'Name', 'Type', 'Date'
+                )}
+              </div>
 
-              <h2 id="risk-factors-and-assessments" className="sections__header">
-                <RiskIcon width="35" height="34" />
-                Risk Factors and Assessments ({numRiskEntries})
-              </h2>
+              <div className="section">
+                <h2 id="risk-factors-and-assessments" className="section__header">
+                  <RiskIcon width="35" height="34" />
+                  <span>
+                    Risk Factors and Assessments ({numRiskEntries})
+                    <FontAwesome className={`flag flag-header ${flaggedClass}`} name="circle" />
+                  </span>
+                </h2>
 
-              {this.renderSection(
-                summary.RiskFactorsAndAssessments.PainManagementRiskScreenings,
-                'Pain Management Risk Screenings',
-                'Name', 'Score', 'Interpretation', 'Date'
-              )}
+                {this.renderSubSection(
+                  summary.RiskFactorsAndAssessments.PainManagementRiskScreenings,
+                  'Pain Management Risk Screenings',
+                  'Name', 'Score', 'Interpretation', 'Date'
+                )}
 
-              {this.renderSection(
-                summary.RiskFactorsAndAssessments.BenzodiazepineMedications,
-                'Benzodiazepine Medications',
-                'Name', 'Type', 'Start', 'End'
-              )}
+                {this.renderSubSection(
+                  summary.RiskFactorsAndAssessments.BenzodiazepineMedications,
+                  'Benzodiazepine Medications',
+                  'Name', 'Type', 'Start', 'End'
+                )}
 
-              {this.renderSection(
-                summary.RiskFactorsAndAssessments.NaloxoneMedications,
-                'Naloxone Medications',
-                'Name', 'Type', 'Start', 'End'
-              )}
+                {this.renderSubSection(
+                  summary.RiskFactorsAndAssessments.NaloxoneMedications,
+                  'Naloxone Medications',
+                  'Name', 'Type', 'Start', 'End'
+                )}
 
-              {this.renderSection(
-                summary.RiskFactorsAndAssessments.UrineDrugScreens,
-                'Urine Drug Screens',
-                'Name', 'Score', 'Interpretation', 'Date'
-              )}
+                {this.renderSubSection(
+                  summary.RiskFactorsAndAssessments.UrineDrugScreens,
+                  'Urine Drug Screens',
+                  'Name', 'Score', 'Interpretation', 'Date'
+                )}
 
-              {this.renderSection(
-                summary.RiskFactorsAndAssessments.MostRecentMME,
-                'Most Recent MME',
-                'Name', 'Result', 'Date'
-              )}
+                {this.renderSubSection(
+                  summary.RiskFactorsAndAssessments.MostRecentMME,
+                  'Most Recent MME',
+                  'Name', 'Result', 'Date'
+                )}
 
-              {this.renderSection(
-                summary.MiscellaneousItems.StoolSoftenersAndLaxatives,
-                'Stool Softeners and Laxatives',
-                'Name', 'Type', 'Start', 'End'
-              )}
+                {this.renderSubSection(
+                  summary.MiscellaneousItems.StoolSoftenersAndLaxatives,
+                  'Stool Softeners and Laxatives',
+                  'Name', 'Type', 'Start', 'End'
+                )}
+              </div>
             </div>
 
             <DevTools

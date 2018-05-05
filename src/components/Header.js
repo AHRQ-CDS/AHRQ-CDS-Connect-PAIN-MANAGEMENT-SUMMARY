@@ -4,7 +4,7 @@ import FontAwesome from 'react-fontawesome';
 
 export default class Header extends Component {
   render() {
-    const { patientName, patientAge, patientGender, totalEntries } = this.props;
+    const { patientName, patientAge, patientGender, totalEntries, numFlaggedEntries } = this.props;
 
     return (
       <header className="header">
@@ -34,7 +34,7 @@ export default class Header extends Component {
             </div>
 
             <div className="entries">
-              <div className="entries-count flagged">0</div>
+              <div className="entries-count flagged">{numFlaggedEntries}</div>
               <div className="entries-label">Flagged Entries</div>
             </div>
           </div>
@@ -48,5 +48,6 @@ Header.propTypes = {
   patientName: PropTypes.string.isRequired,
   patientAge: PropTypes.number.isRequired,
   patientGender: PropTypes.string.isRequired,
-  totalEntries: PropTypes.number.isRequired
+  totalEntries: PropTypes.number.isRequired,
+  numFlaggedEntries: PropTypes.number.isRequired
 };

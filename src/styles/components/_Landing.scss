@@ -14,13 +14,17 @@
             padding: 5px 5px 5px 70px;
             line-height: 1.1em;
 
-            .flag-summary {
+            .flag-summary{
               display: none;
             }
 
             .flag-nav {
               font-size: 0.75em;
               margin-right: 10px;
+
+              &.flagged {
+                color: $color-red;
+              }
             }
           }
         }
@@ -50,6 +54,17 @@
               fill: $color-white;
               margin-right: 20px;
             }
+
+            .flag-header:not(.flagged) {
+              display: none;
+            }
+
+            .flag-header {
+              font-size: 0.7em;
+              margin-left: 5px;
+              color: $color-red;
+              vertical-align: middle;
+            }
           }
         }
       }
@@ -69,9 +84,13 @@
         font-size: 1.5em;
         font-weight: 600;
         padding: 15px;
+
+        svg {
+          margin-right: 20px;
+        }
       }
 
-      .sections {
+      .section {
         &__header {
           display: flex;
           align-items: center;
@@ -86,9 +105,20 @@
             margin-right: 15px;
             fill: $color-white;
           }
+
+          .flag-header:not(.flagged) {
+            display: none;
+          }
+
+          .flag-header {
+            font-size: 0.6em;
+            margin-left: 5px;
+            color: $color-red;
+            vertical-align: middle;
+          }
         }
 
-        .section {
+        .sub-section {
           padding: 0 25px 15px;
 
           &__header {
