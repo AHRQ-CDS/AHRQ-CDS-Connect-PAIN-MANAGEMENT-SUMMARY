@@ -44,7 +44,7 @@ export default class DevTools extends Component {
     if (errResponses.length) {
       return (
         <div className="errors">
-          <h3>{errResponses.length} Errors</h3>
+          <h4>{errResponses.length} Errors</h4>
 
           <table id="errors" border="1" width="100%">
             <thead>
@@ -68,7 +68,7 @@ export default class DevTools extends Component {
   renderFHIRQueries() {
     return (
       <div className="fhir-queries">
-        <h3>FHIR Queries <button onClick={this.toggleFhirQueries}>show/hide</button></h3>
+        <h4>FHIR Queries <button onClick={this.toggleFhirQueries}>show/hide</button></h4>
         <div style={{ display: this.state.displayFhirQueries ? 'block' : 'none' }}>
           {this.props.collector.map((item, i) => {
             const url = i === 0 ? item.config.url : item.config.url.slice(item.config.url.lastIndexOf('/') + 1);
@@ -84,7 +84,7 @@ export default class DevTools extends Component {
   renderCQLResults() {
     return (
       <div className="cql-results">
-        <h3>CQL Results <button onClick={this.toggleCQLResults}>show/hide</button></h3>
+        <h4>CQL Results <button onClick={this.toggleCQLResults}>show/hide</button></h4>
 
         <div style={{ display: this.state.displayCQLResults ? 'block' : 'none' }}>
           <pre>{JSON.stringify(this.props.result, null, 2)}</pre>

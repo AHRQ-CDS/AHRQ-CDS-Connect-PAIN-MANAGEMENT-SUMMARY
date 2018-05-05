@@ -1,9 +1,113 @@
 .landing {
-  .entries {
+  .summary {
     display: flex;
 
-    &__table {
-      margin: 40px;
+    &__nav {
+      color: $color-white;
+      padding: 20px 0;
+      width: 300px;
+
+      .toc-list.is-collapsible {
+        .toc-list-item {
+          .toc-link {
+            font-size: 0.8em;
+            padding: 5px 5px 5px 70px;
+            line-height: 1.1em;
+
+            .flag-summary {
+              display: none;
+            }
+
+            .flag-nav {
+              font-size: 0.75em;
+              margin-right: 10px;
+            }
+          }
+        }
+      }
+
+      .toc-list {
+        padding: 0;
+        list-style-type: none;
+
+        &-item {
+          .toc-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-weight: 600;
+            font-size: 1.1em;
+
+            &.is-active-link,
+            &:hover {
+              background-color: $color-gray-light;
+            }
+
+            svg {
+              min-width: 25px;
+              width: 25px;
+              fill: $color-white;
+              margin-right: 20px;
+            }
+          }
+        }
+      }
+    }
+
+    &__nav-wrapper {
+      width: 300px;
+      min-width: 300px;
+      background-color: $color-gray-dark;
+    }
+
+    &__display {
+      &-title {
+        background-color: $color-blue;
+        color: $color-white;
+        text-align: center;
+        font-size: 1.5em;
+        font-weight: 600;
+        padding: 15px;
+      }
+
+      .sections {
+        &__header {
+          display: flex;
+          align-items: center;
+          background-color: $color-black;
+          color: $color-white;
+          padding: 15px 25px;
+          font-weight: 400;
+
+          svg {
+            min-width: 25px;
+            width: 25px;
+            margin-right: 15px;
+            fill: $color-white;
+          }
+        }
+
+        .section {
+          padding: 0 25px 15px;
+
+          &__header {
+            display: flex;
+            align-items: center;
+
+            .flag-nav,
+            .flag-summary:not(.flagged) {
+              display: none;
+            }
+
+            .flag-summary {
+              font-size: 0.7em;
+              margin-left: 5px;
+              color: $color-red;
+            }
+          }
+        }
+      }
     }
   }
 }

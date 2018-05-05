@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 import tocbot from 'tocbot';
-import _ from 'lodash';
+import FontAwesome from 'react-fontawesome';
 
 import stringValue from '../utils/stringValue';
 import executeElm from '../utils/executeELM';
+import sumit from '../utils/sumit';
+
 import factorsElm from '../cql/Factors_to_Consider_in_Managing_Chronic_Pain.json';
 import commonsElm from '../cql/CDS_Connect_Commons_for_FHIRv102.json';
 import fhirhelpersElm from '../cql/FHIRHelpers.json';
 import valueSetDB from '../cql/valueset-db.json';
+
+import MedicalHistoryIcon from '../icons/MedicalHistoryIcon';
+import PainIcon from '../icons/PainIcon';
+import TreatmentsIcon from '../icons/TreatmentsIcon';
+import RiskIcon from '../icons/RiskIcon';
 
 import Header from './Header';
 import DevTools from './DevTools';
@@ -23,7 +30,7 @@ export default class Landing extends Component {
       displayCQLResults: false
     };
 
-    this.summaryRef = React.createRef();
+    this.tocInitialized = false;
   }
 
   componentWillMount() {
@@ -49,56 +56,33 @@ export default class Landing extends Component {
     }
   }
 
-  componentDidMount() {
-    tocbot.init({
-      tocSelector: '.summary__nav',         // where to render the table of contents
-      contentSelector: '.summary__display', // where to grab the headings to build the table of contents
-      headingSelector: 'h3',                // which headings to grab inside of the contentSelector element
-      positionFixedSelector: '.summary__nav',
-      collapseDepth: 0                      // 0 collapses 6 expands all
-    });
+  componentDidUpdate() {
+    if (!this.tocInitialized && !this.state.loading && this.state.result) {
+      tocbot.init({
+        tocSelector: '.summary__nav',           // where to render the table of contents
+        contentSelector: '.summary__display',   // where to grab the headings to build the table of contents
+        headingSelector: 'h2, h3',              // which headings to grab inside of the contentSelector element
+        positionFixedSelector: '.summary__nav', // element to add the positionFixedClass to
+        collapseDepth: 0,                       // how many heading levels should not be collpased
+        includeHtml: true                       // include the HTML markup from the heading node, not just the text
+      });
 
-    setTimeout(()=>{ this.addListeners(this.summaryRef.current); }, 500);
-  }
-
-  componentWillUnmount() { // eslint-disable-line class-methods-use-this
-    tocbot.destroy();
-
-    document.removeEventListener('scroll', this.throttledScrollListener, { passive: true });
-    document.removeEventListener('resize', this.throttledScrollListener, { passive: true });
-  }
-
-  addListeners(ref) {
-    console.debug('ref: ', ref);
-
-    const summaryStyle = window.getComputedStyle(ref.current);
-    this.toc = document.querySelector('.summary__nav');
-    this.throttledScrollListener = _.throttle(this.scrollListener.bind(this), 50);
-
-    document.addEventListener('scroll', this.throttledScrollListener, { passive: true });
-    document.addEventListener('resize', this.throttledScrollListener, { passive: true });
-  }
-
-  scrollListener() {
-    const { summary, toc } = this;
-    const { bottom } = summary.getBoundingClientRect();
-    const windowBottom = window.innerHeight || document.documentElement.clientHeight;
-
-    if ((bottom + parseInt(this.summaryStyle.paddingBottom, 10)) <= windowBottom) {
-      toc.classList.add('at-bottom');
-      summary.classList.add('is-position-relative');
-    } else if (toc.classList.contains('at-bottom')) {
-      toc.classList.remove('at-bottom');
-      summary.classList.remove('is-position-relative');
+      this.tocInitialized = true;
     }
   }
 
   renderSection(data, name, ...properties) {
     const rows = (Array.isArray(data) ? data : [data]).filter(r => r != null);
+    const flagged = false; // TODO: hook up
+    const flaggedClass = flagged ? 'flagged' : '';
 
     return (
       <div className="section h3-wrapper">
-        <h3 id={name}>{name}</h3>
+        <h3 id={name} className="section__header">
+          <FontAwesome className={`flag flag-nav ${flaggedClass}`} name="circle" />
+          {name}
+          <FontAwesome className={`flag flag-summary ${flaggedClass}`} name="circle" />
+        </h3>
 
         <table border="1" width="100%">
           <thead>
@@ -125,10 +109,17 @@ export default class Landing extends Component {
     }
 
     if (this.state.result == null) {
-      return <div>Error: See console for details.</div>;
+      return <div className="error">Error: See console for details.</div>;
     }
 
     const summary = this.state.result.Summary;
+    const numMedicalHistoryEntries = sumit(summary.PertinentMedicalHistory || {});
+    const numPainEntries = sumit(summary.PainAssessments || {});
+    const numTreatmentsEntries = sumit(summary.HistoricalTreatments || {});
+    const numRiskEntries =
+      sumit(summary.RiskFactorsAndAssessments || {}) +
+      sumit(summary.MiscellaneousItems || {}); // TODO: update when CQL updates
+    const totalEntries = numMedicalHistoryEntries + numPainEntries + numTreatmentsEntries + numRiskEntries;
 
     return (
       <div className="landing">
@@ -136,15 +127,25 @@ export default class Landing extends Component {
           patientName={summary.Patient.Name}
           patientAge={summary.Patient.Age}
           patientGender={summary.Patient.Gender}
+          totalEntries={totalEntries}
         />
 
-        <div className="summary" ref={this.summaryRef}>
-          <div className="summary__nav"></div>
+        <div className="summary">
+          <div className="summary__nav-wrapper"><div className="summary__nav"></div></div>
 
           <div className="summary__display">
-            <h3>Meets Inclusion Criteria? {`${summary.Patient.MeetsInclusionCriteria}`}</h3>
+            <div className="summary__display-title">
+              Factors to Consider in Managing Chronic Pain
+            </div>
 
-            <div id="sections">
+            <h4>Meets Inclusion Criteria? {`${summary.Patient.MeetsInclusionCriteria}`}</h4>
+
+            <div className="sections">
+              <h2 id="pertinent-medical-history" className="sections__header">
+                <MedicalHistoryIcon width="30" height="40" />
+                Pertinent Medical History ({numMedicalHistoryEntries})
+              </h2>
+
               {this.renderSection(
                 summary.PertinentMedicalHistory.ConditionsAssociatedWithChronicPain,
                 'Conditions Associated With Chronic Pain',
@@ -156,6 +157,11 @@ export default class Landing extends Component {
                 'High Risk Conditions For Opioid Therapy',
                 'Name', 'Status', 'Onset', 'Abatement', 'Visit'
               )}
+
+              <h2 id="pain-assessments" className="sections__header">
+                <PainIcon width="35"  height="35" />
+                Pain Assessments ({numPainEntries})
+              </h2>
 
               {this.renderSection(
                 summary.PainAssessments.NumericPainIntensityAssessments,
@@ -175,6 +181,11 @@ export default class Landing extends Component {
                 'Name', 'Score', 'Interpretation', 'Date'
               )}
 
+              <h2 id="historical-treatments" className="sections__header">
+                <TreatmentsIcon width="36" height="38" />
+                Historical Pain-related Treatments ({numTreatmentsEntries})
+              </h2>
+
               {this.renderSection(
                 summary.HistoricalTreatments.OpioidMedications,
                 'Opioid Medications',
@@ -192,6 +203,11 @@ export default class Landing extends Component {
                 'Non-Pharmacologic Treatments',
                 'Name', 'Type', 'Date'
               )}
+
+              <h2 id="risk-factors-and-assessments" className="sections__header">
+                <RiskIcon width="35" height="34" />
+                Risk Factors and Assessments ({numRiskEntries})
+              </h2>
 
               {this.renderSection(
                 summary.RiskFactorsAndAssessments.PainManagementRiskScreenings,
@@ -225,7 +241,7 @@ export default class Landing extends Component {
 
               {this.renderSection(
                 summary.MiscellaneousItems.StoolSoftenersAndLaxatives,
-                'Most Recent MME',
+                'Stool Softeners and Laxatives',
                 'Name', 'Type', 'Start', 'End'
               )}
             </div>

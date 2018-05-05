@@ -67,9 +67,7 @@
           font-weight: 800;
           margin-right: 20px;
 
-          &.medium-risk { color: $color-yellow; }
-
-          &.high-risk { color: $color-red; }
+          &.flagged { color: $color-red; }
         }
 
         &-label {
