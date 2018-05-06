@@ -91,50 +91,93 @@
       }
     }
 
-    .section {
-      &__header {
-        display: flex;
-        align-items: center;
-        background-color: $color-black;
-        color: $color-white;
-        padding: 15px 25px;
-        font-weight: 400;
+    .sections {
+      background-color: $color-gray-lightest;
 
-        svg {
-          min-width: 25px;
-          width: 25px;
-          margin-right: 15px;
-          fill: $color-white;
-        }
-
-        .flag-header:not(.flagged) {
-          display: none;
-        }
-
-        .flag-header {
-          font-size: 0.6em;
-          margin-left: 5px;
-          color: $color-red;
-          vertical-align: middle;
-        }
-      }
-
-      .sub-section {
-        padding: 0 25px 15px;
-
+      .section {
         &__header {
           display: flex;
           align-items: center;
+          background-color: $color-black;
+          color: $color-white;
+          padding: 15px 25px;
+          font-weight: 400;
 
-          .flag-nav,
-          .flag-summary:not(.flagged) {
+          svg {
+            min-width: 25px;
+            width: 25px;
+            margin-right: 15px;
+            fill: $color-white;
+          }
+
+          .flag-header:not(.flagged) {
             display: none;
           }
 
-          .flag-summary {
-            font-size: 0.7em;
+          .flag-header {
+            font-size: 0.6em;
             margin-left: 5px;
             color: $color-red;
+            vertical-align: middle;
+          }
+        }
+
+        .sub-section {
+          background-color: $color-white;
+          margin: 20px;
+
+          &__header {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid $color-gray-lighter;
+            padding: 20px 40px;
+            font-weight: 600;
+
+            .flag-nav,
+            .flag-summary:not(.flagged) {
+              display: none;
+            }
+
+            .flag-summary {
+              font-size: 0.7em;
+              margin-left: 5px;
+              color: $color-red;
+            }
+          }
+
+          &__table {
+            width: 100%;
+            padding: 0 8px 20px 8px;
+
+            tr {
+              text-align: left;
+
+              th {
+                padding-bottom: 20px;
+
+                span {
+                  padding-bottom: 5px;
+                  border-bottom: 2px solid $color-blue;
+                }
+              }
+
+              td {
+                .flag-entry {
+                  font-size: 0.8em;
+                  margin-left: 5px;
+                  color: transparent;
+
+                  &.flagged {
+                    color: $color-red;
+                  }
+                }
+              }
+
+              .flag-col {
+                width: 25px;
+                max-width: 25px;
+              }
+            }
           }
         }
       }

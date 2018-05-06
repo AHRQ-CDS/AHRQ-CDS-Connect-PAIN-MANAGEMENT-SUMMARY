@@ -24,11 +24,12 @@ export default class Summary extends Component {
           <FontAwesome className={`flag flag-summary ${flaggedClass}`} name="circle" />
         </h3>
 
-        <table border="1" width="100%">
+        <table className="sub-section__table">
           <thead>
             <tr>
+              <th></th>
               {properties.map((prop, i) =>
-                <th key={i} className="">{prop}</th>
+                <th key={i}><span>{prop}</span></th>
               )}
             </tr>
           </thead>
@@ -36,6 +37,10 @@ export default class Summary extends Component {
           <tbody>
             {rows.map((row, i) =>
               <tr key={i}>
+                <td className="flag-col">
+                  <FontAwesome className={`flag flag-entry ${flaggedClass}`} name="circle" />
+                </td>
+
                 {properties.map((prop, i) =>
                   <td key={i}>{stringValue(row[prop])}</td>
                 )}
@@ -64,12 +69,15 @@ export default class Summary extends Component {
             Factors to Consider in Managing Chronic Pain
           </div>
 
-          <h4>Meets Inclusion Criteria? {`${summary.Patient.MeetsInclusionCriteria}`}</h4>
+          <div className="banner">
+            Meets Inclusion Criteria? {`${summary.Patient.MeetsInclusionCriteria}`}
+          </div>
 
           <div className="sections">
             <div className="section">
               <h2 id="pertinent-medical-history" className="section__header">
                 <MedicalHistoryIcon width="30" height="40" />
+
                 <span>
                   Pertinent Medical History ({numMedicalHistoryEntries})
                   <FontAwesome className={`flag flag-header ${flaggedClass}`} name="circle" />
@@ -92,6 +100,7 @@ export default class Summary extends Component {
             <div className="section">
               <h2 id="pain-assessments" className="section__header">
                 <PainIcon width="35"  height="35" />
+
                 <span>
                   Pain Assessments ({numPainEntries})
                   <FontAwesome className={`flag flag-header ${flaggedClass}`} name="circle" />
@@ -120,6 +129,7 @@ export default class Summary extends Component {
             <div className="section">
               <h2 id="historical-treatments" className="section__header">
                 <TreatmentsIcon width="36" height="38" />
+
                 <span>
                   Historical Pain-related Treatments ({numTreatmentsEntries})
                   <FontAwesome className={`flag flag-header ${flaggedClass}`} name="circle" />
@@ -148,6 +158,7 @@ export default class Summary extends Component {
             <div className="section">
               <h2 id="risk-factors-and-assessments" className="section__header">
                 <RiskIcon width="35" height="34" />
+
                 <span>
                   Risk Factors and Assessments ({numRiskEntries})
                   <FontAwesome className={`flag flag-header ${flaggedClass}`} name="circle" />
