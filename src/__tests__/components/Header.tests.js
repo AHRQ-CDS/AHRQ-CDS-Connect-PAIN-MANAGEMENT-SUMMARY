@@ -20,6 +20,6 @@ it('renders the patient name, age, and gender', () => {
   expect(component.find('.patient-gender')).toHaveText(summaryMock.Patient.Gender);
 });
 
-it('renders the told number of entries', () => {
+it('renders the total number of entries', () => {
   expect(component.find('.total')).toHaveText('21');
 });
