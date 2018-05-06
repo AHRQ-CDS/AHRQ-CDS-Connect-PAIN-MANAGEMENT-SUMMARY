@@ -73,7 +73,7 @@ export default class DevTools extends Component {
           {this.props.collector.map((item, i) => {
             const url = i === 0 ? item.config.url : item.config.url.slice(item.config.url.lastIndexOf('/') + 1);
             return (
-              <FhirQuery url={url} query={item} key={i} />
+              <FhirQuery key={i} url={url} query={item} />
             );
           })}
         </div>
@@ -94,6 +94,8 @@ export default class DevTools extends Component {
   }
 
   render() {
+    if (!this.props.collector) { return null; }
+
     return (
       <div className="dev-tools">
         {this.renderErrors()}

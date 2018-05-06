@@ -77,6 +77,8 @@
     }
 
     &__display {
+      flex: 1;
+
       &-title {
         background-color: $color-blue;
         color: $color-white;

@@ -5,7 +5,7 @@ import React from 'react';
 export default function CQLIcon(props) {
   return (
     <svg viewBox="0 0 48 20" xmlns="http://www.w3.org/2000/svg" {...props}>
-      <g stroke="none" stroke-width="1" fill="none" fill-rule="nonzero">
+      <g stroke="none" strokeWidth="1" fill="none" fillRule="nonzero">
         <g transform="translate(-485.000000, -121.000000)" fill="#FFFFFF">
           <g transform="translate(270.000000, 95.000000)">
             <g transform="translate(215.000000, 17.000000)">
