@@ -1,7 +1,4 @@
 {
- "client": {
-   "client_id": "6c12dff4-24e7-4475-a742-b08972c4ea27",
-   "scope":  "patient/*.read launch/patient"
- },
- "server": "http://launch.smarthealthit.org/v/r2/sim/eyJoIjoiMSIsImoiOiIxIn0/fhir"
+  "client_id": "6c12dff4-24e7-4475-a742-b08972c4ea27",
+  "scope": "patient/*.read"
 }
