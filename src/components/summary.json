@@ -1,0 +1,285 @@
+{
+  "PertinentMedicalHistory": [
+    {
+      "name": "Conditions Associated with Chronic Pain",
+      "dataKey": "ConditionsAssociatedWithChronicPain",
+      "dataKeySource": "PertinentMedicalHistory",
+      "tables": [
+        {
+          "headers": {
+            "Name": "Name",
+            "Status": "Status",
+            "Start": { "key": "Onset", "formatter": "dateFormat" },
+            "End": { "key": "Abatement", "formatter": "dateFormat" }
+          },
+          "flags": null
+        }
+      ]
+    },
+    {
+      "name": "High Risk Conditions for Opioid Therapy",
+      "dataKey": "HighRiskConditionsForOpioidTherapy",
+      "dataKeySource": "PertinentMedicalHistory",
+      "tables": [
+        {
+          "headers": {
+            "Name": "Name",
+            "Status": "Status",
+            "Start": { "key": "Onset", "formatter": "dateFormat" },
+            "End": { "key": "Abatement", "formatter": "dateFormat" }
+          },
+          "trigger": "Onset",
+          "flags": "always"
+        },
+        {
+          "headers": {
+            "Name": "Name",
+            "Visit": "Visit"
+          },
+          "trigger": "Visit",
+          "flags": "always"
+        }
+      ]
+    }
+  ],
+  "PainAssessments": [
+    {
+      "name": "Numeric Pain Intensity Assessments",
+      "dataKey": "NumericPainIntensityAssessments",
+      "dataKeySource": "PainAssessments",
+      "tables": [
+        {
+          "headers": {
+            "Name": "Name",
+            "Score": "Score",
+            "Interpretation": "Interpretation",
+            "Date": { "key": "Date", "formatter": "dateFormat" }
+          },
+          "flags": null
+        }
+      ]
+    },
+    {
+      "name": "Pain Enjoyment General Activity (PEG) Assessments",
+      "dataKey": "PainEnjoymentGeneralActivityAssessments",
+      "dataKeySource": "PainAssessments",
+      "tables": [
+        {
+          "headers": {
+            "Name": "Name",
+            "Score": "Score",
+            "Question": { "key": "Questions", "formatter": "arrayFlatten", "formatterArguments": ["Name"] },
+            "Question Score": { "key": "Questions", "formatter": "arrayFlatten", "formatterArguments": ["Score"] },
+            "Date": { "key": "Date", "formatter": "dateFormat" }
+          },
+          "flags": null
+        }
+      ]
+    },
+    {
+      "name": "STarT Back Assessments",
+      "dataKey": "STarTBackAssessments",
+      "dataKeySource": "PainAssessments",
+      "tables": [
+        {
+          "headers": {
+            "Name": "Name",
+            "Score": "Score",
+            "Interpretation": "Interpretation",
+            "Date": { "key": "Date", "formatter": "dateFormat" }
+          },
+          "flags": null
+        }
+      ]
+    }
+  ],
+  "HistoricalTreatments": [
+    {
+      "name": "Opioid Medications",
+      "dataKey": "OpioidMedications",
+      "dataKeySource": "HistoricalTreatments",
+      "tables": [
+        {
+          "headers": {
+            "Name": "Name",
+            "Type": "Type",
+            "Start": { "key": "Start", "formatter": "dateFormat" },
+            "End": { "key": "End", "formatter": "dateFormat" }
+          },
+          "flags": "always"
+        }
+      ]
+    },
+    {
+      "name": "Non-Opioid Medications",
+      "dataKey": "NonOpioidMedications",
+      "dataKeySource": "HistoricalTreatments",
+      "tables": [
+        {
+          "headers": {
+            "Name": "Name",
+            "Type": "Type",
+            "Start": { "key": "Start", "formatter": "dateFormat" },
+            "End": { "key": "End", "formatter": "dateFormat" }
+          },
+          "flags": "if-none"
+        }
+      ]
+    },
+    {
+      "name": "Non-Pharmacologic Treatments",
+      "dataKey": "NonPharmacologicTreatments",
+      "dataKeySource": "HistoricalTreatments",
+      "tables": [
+        {
+          "headers": {
+            "Name": "Name",
+            "Type": "Type",
+            "Date": { "key": "Date", "formatter": "dateFormat" }
+          },
+          "flags": "if-none"
+        }
+      ]
+    },
+    {
+      "name": "Stool Softeners and Laxatives",
+      "dataKey": "StoolSoftenersAndLaxatives",
+      "dataKeySource": "MiscellaneousItems",
+      "tables": [
+        {
+          "headers": {
+            "Name": "Name",
+            "Type": "Type",
+            "Start": { "key": "Start", "formatter": "dateFormat" },
+            "End": { "key": "End", "formatter": "dateFormat" }
+          },
+          "flags": {
+            "if-and": [
+              "if-none",
+              {
+                "if-one-or-more": {
+                  "table": "OpioidMedications",
+                  "source": "HistoricalTreatments"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "RiskFactorsAndAssessments": [
+    {
+      "name": "Pain Management Risk Screenings",
+      "dataKey": "PainManagementRiskScreenings",
+      "dataKeySource": "RiskFactorsAndAssessments",
+      "tables": [
+        {
+          "headers": {
+            "Name": "Name",
+            "Score": "Score",
+            "Interpretation": "Interpretation",
+            "Date": { "key": "Date", "formatter": "dateFormat" }
+          },
+          "flags": null
+        }
+      ]
+    },
+    {
+      "name": "Benzodiazepine Medications",
+      "dataKey": "BenzodiazepineMedications",
+      "dataKeySource": "RiskFactorsAndAssessments",
+      "tables": [
+        {
+          "headers": {
+            "Name": "Name",
+            "Type": "Type",
+            "Start": { "key": "Start", "formatter": "dateFormat" },
+            "End": { "key": "End", "formatter": "dateFormat" }
+          },
+          "flags": {
+            "if-and": [
+              "if-one-or-more",
+              {
+                "if-one-or-more": {
+                  "table": "OpioidMedications",
+                  "source": "HistoricalTreatments"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Naloxone Medications",
+      "dataKey": "NaloxoneMedications",
+      "dataKeySource": "RiskFactorsAndAssessments",
+      "tables": [
+        {
+          "headers": {
+            "Name": "Name",
+            "Type": "Type",
+            "Start": { "key": "Start", "formatter": "dateFormat" },
+            "End": { "key": "End", "formatter": "dateFormat" }
+          },
+          "flags": {
+            "if-and": [
+              "if-none",
+              {
+                "if-or": {
+                  "if-one-or-more": {
+                    "table": "OpioidMedications",
+                    "source": "HistoricalTreatments"
+                  },
+                  "if-greater-than-or-equal-to": {
+                    "table": "MostRecentMME",
+                    "source": "RiskFactorsAndAssessments",
+                    "header": "Result",
+                    "value": 50
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Urine Drug Screens",
+      "dataKey": "UrineDrugScreens",
+      "dataKeySource": "RiskFactorsAndAssessments",
+      "tables": [
+        {
+          "headers": {
+            "Name": "Name",
+            "Score": "Score",
+            "Interpretation": "Interpretation",
+            "Date": { "key": "Date", "formatter": "dateFormat" }
+          },
+          "flags": null
+        }
+      ]
+    },
+    {
+      "name": "Most Recent MME",
+      "dataKey": "MostRecentMME",
+      "dataKeySource": "RiskFactorsAndAssessments",
+      "tables": [
+        {
+          "headers": {
+            "Name": "Name",
+            "Result": { "key": "Result", "formatter": "MMEFormat" },
+            "Date": { "key": "Date", "formatter": "dateFormat" }
+          },
+          "flags": {
+            "if-greater-than-or-equal-to": {
+              "header": "Result",
+              "value": 50
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

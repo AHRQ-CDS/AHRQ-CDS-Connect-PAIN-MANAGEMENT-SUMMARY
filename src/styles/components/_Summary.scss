@@ -161,6 +161,10 @@
                 }
               }
 
+              td:not(:first-child) {
+                min-width: 100px;
+              }
+
               td {
                 .flag-entry {
                   font-size: 0.8em;
