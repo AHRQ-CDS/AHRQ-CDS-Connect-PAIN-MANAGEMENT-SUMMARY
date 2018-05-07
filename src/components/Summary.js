@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
+import Collapsible from 'react-collapsible';
 
 import summaryMap from './summary.json';
 import * as formatit from '../helpers/formatit';
@@ -105,13 +106,45 @@ export default class Summary extends Component {
     });
   }
 
-  render() {
-    const {
-      summary, collector, result, numMedicalHistoryEntries, numPainEntries, numTreatmentsEntries, numRiskEntries
-    } = this.props;
+  renderSectionHeader(section) {
     const flagged = false; // TODO: hook up
     const flaggedClass = flagged ? 'flagged' : '';
+    const { numMedicalHistoryEntries, numPainEntries, numTreatmentsEntries, numRiskEntries } = this.props;
 
+    let icon = '';
+    let title = '';
+    if (section === 'PertinentMedicalHistory') {
+      icon = <MedicalHistoryIcon width="30" height="40" />;
+      title = `Pertinent Medical History (${numMedicalHistoryEntries})`;
+    } else if (section === 'PainAssessments') {
+      icon = <PainIcon width="35"  height="35" />;
+      title = `Pain Assessments (${numPainEntries})`
+    } else if (section === 'HistoricalTreatments') {
+      icon = <TreatmentsIcon width="36" height="38" />;
+      title = `Historical Pain-related Treatments (${numTreatmentsEntries})`
+    } else if (section === 'RiskFactorsAndAssessments') {
+      icon = <RiskIcon width="35" height="34" />;
+      title = `Risk Factors and Assessments (${numRiskEntries})`;
+    }
+
+    return (
+      <h2 id={section} className="section__header">
+        <div className="section__header-title">
+          {icon}
+
+          <span>
+            {title}
+            <FontAwesome className={`flag flag-header ${flaggedClass}`} name="circle" />
+          </span>
+        </div>
+
+        <FontAwesome className="chevron" name="chevron-right" />
+      </h2>
+    );
+  };
+
+  render() {
+    const { summary, collector, result } = this.props;
     if (!summary) { return null; }
 
     return (
@@ -129,57 +162,21 @@ export default class Summary extends Component {
           </div>
 
           <div className="sections">
-            <div className="section">
-              <h2 id="pertinent-medical-history" className="section__header">
-                <MedicalHistoryIcon width="30" height="40" />
-
-                <span>
-                  Pertinent Medical History ({numMedicalHistoryEntries})
-                  <FontAwesome className={`flag flag-header ${flaggedClass}`} name="circle" />
-                </span>
-              </h2>
-
+            <Collapsible trigger={this.renderSectionHeader("PertinentMedicalHistory")} open={true}>
               {this.renderSection("PertinentMedicalHistory")}
-            </div>
+            </Collapsible>
 
-            <div className="section">
-              <h2 id="pain-assessments" className="section__header">
-                <PainIcon width="35"  height="35" />
-
-                <span>
-                  Pain Assessments ({numPainEntries})
-                  <FontAwesome className={`flag flag-header ${flaggedClass}`} name="circle" />
-                </span>
-              </h2>
-
+            <Collapsible trigger={this.renderSectionHeader("PainAssessments")} open={true}>
               {this.renderSection("PainAssessments")}
-            </div>
+            </Collapsible>
 
-            <div className="section">
-              <h2 id="historical-treatments" className="section__header">
-                <TreatmentsIcon width="36" height="38" />
-
-                <span>
-                  Historical Pain-related Treatments ({numTreatmentsEntries})
-                  <FontAwesome className={`flag flag-header ${flaggedClass}`} name="circle" />
-                </span>
-              </h2>
-
+            <Collapsible trigger={this.renderSectionHeader("HistoricalTreatments")} open={true}>
               {this.renderSection("HistoricalTreatments")}
-            </div>
+            </Collapsible>
 
-            <div className="section">
-              <h2 id="risk-factors-and-assessments" className="section__header">
-                <RiskIcon width="35" height="34" />
-
-                <span>
-                  Risk Factors and Assessments ({numRiskEntries})
-                  <FontAwesome className={`flag flag-header ${flaggedClass}`} name="circle" />
-                </span>
-              </h2>
-
+            <Collapsible trigger={this.renderSectionHeader("RiskFactorsAndAssessments")} open={true}>
               {this.renderSection("RiskFactorsAndAssessments")}
-            </div>
+            </Collapsible>
           </div>
 
           <DevTools

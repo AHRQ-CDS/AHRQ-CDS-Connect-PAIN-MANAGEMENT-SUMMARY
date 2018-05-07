@@ -20,9 +20,7 @@ export default class Landing extends Component {
     this.state = {
       result: null,
       loading: true,
-      collector: [],
-      displayFhirQueries: false,
-      displayCQLResults: false
+      collector: []
     };
 
     this.tocInitialized = false;
