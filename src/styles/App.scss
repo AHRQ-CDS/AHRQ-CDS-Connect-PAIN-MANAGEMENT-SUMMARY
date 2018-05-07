@@ -6,12 +6,10 @@
 
 /* ------------------------- IMPORT CUSTOM SCSS ---------------------------- */
 // site-wide elements
+@import "elements/banners";
 @import "elements/base";
+@import "elements/spinner";
 
 // component-specific
 @import "components/Header";
 @import "components/Summary";
-
-// vendors
-
-/* ------------------------- FONTS ----------------------------------------- */

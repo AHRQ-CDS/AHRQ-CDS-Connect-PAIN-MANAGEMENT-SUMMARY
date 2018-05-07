@@ -1,0 +1,14 @@
+.banner {
+  text-align: center;
+  padding: 20px;
+
+  &.error {
+    background-color: lighten($color-red, 15%);
+    color: darken($color-red, 15%);
+  }
+
+  &.warning {
+    background-color: lighten($color-yellow, 25%);
+    color: darken($color-yellow, 25%);
+  }
+}

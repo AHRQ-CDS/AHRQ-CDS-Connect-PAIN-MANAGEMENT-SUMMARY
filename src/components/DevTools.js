@@ -7,9 +7,15 @@ export default class DevTools extends Component {
   constructor() {
     super(...arguments);
     this.state = {
+      displayDevTools: false,
       displayFhirQueries: false,
       displayCQLResults: false
     };
+  }
+
+  toggleDevTools = (event) => {
+    event.preventDefault();
+    this.setState({ displayDevTools: !this.state.displayDevTools });
   }
 
   toggleFhirQueries = (event) => {
@@ -43,10 +49,10 @@ export default class DevTools extends Component {
 
     if (errResponses.length) {
       return (
-        <div className="errors">
+        <div className="cql-errors">
           <h4>{errResponses.length} Errors</h4>
 
-          <table id="errors" border="1" width="100%">
+          <table id="cql-errors" border="1" width="100%">
             <thead>
               <tr>
                 <th>Resource</th>
@@ -68,7 +74,7 @@ export default class DevTools extends Component {
   renderFHIRQueries() {
     return (
       <div className="fhir-queries">
-        <h4>FHIR Queries <button onClick={this.toggleFhirQueries}>show/hide</button></h4>
+        <h4>FHIR Queries <button onClick={this.toggleFhirQueries}>[show/hide]</button></h4>
         <div style={{ display: this.state.displayFhirQueries ? 'block' : 'none' }}>
           {this.props.collector.map((item, i) => {
             const url = i === 0 ? item.config.url : item.config.url.slice(item.config.url.lastIndexOf('/') + 1);
@@ -84,7 +90,7 @@ export default class DevTools extends Component {
   renderCQLResults() {
     return (
       <div className="cql-results">
-        <h4>CQL Results <button onClick={this.toggleCQLResults}>show/hide</button></h4>
+        <h4>CQL Results <button onClick={this.toggleCQLResults}>[show/hide]</button></h4>
 
         <div style={{ display: this.state.displayCQLResults ? 'block' : 'none' }}>
           <pre>{JSON.stringify(this.props.result, null, 2)}</pre>
@@ -98,9 +104,13 @@ export default class DevTools extends Component {
 
     return (
       <div className="dev-tools">
-        {this.renderErrors()}
-        {this.renderFHIRQueries()}
-        {this.renderCQLResults()}
+        <h4>Development Tools <button onClick={this.toggleDevTools}>[show/hide]</button></h4>
+
+        <div style={{ display: this.state.displayDevTools ? 'block' : 'none' }}>
+          {this.renderErrors()}
+          {this.renderFHIRQueries()}
+          {this.renderCQLResults()}
+        </div>
       </div>
     );
   }

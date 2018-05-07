@@ -7,7 +7,8 @@ export function dateFormat(input) {
 
 export function arrayFlatten(input, property) {
   return input.map((question, i) => {
-    return (<span key={i}>{question[property]}<br /></span>);
+    const toReturn = (<span key={i}>{question[property]}<br /></span>);
+    return toReturn;
   });
 }
 

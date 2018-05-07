@@ -11,8 +11,7 @@
             "Status": "Status",
             "Start": { "key": "Onset", "formatter": "dateFormat" },
             "End": { "key": "Abatement", "formatter": "dateFormat" }
-          },
-          "flags": null
+          }
         }
       ]
     },
@@ -54,8 +53,7 @@
             "Score": "Score",
             "Interpretation": "Interpretation",
             "Date": { "key": "Date", "formatter": "dateFormat" }
-          },
-          "flags": null
+          }
         }
       ]
     },
@@ -71,8 +69,7 @@
             "Question": { "key": "Questions", "formatter": "arrayFlatten", "formatterArguments": ["Name"] },
             "Question Score": { "key": "Questions", "formatter": "arrayFlatten", "formatterArguments": ["Score"] },
             "Date": { "key": "Date", "formatter": "dateFormat" }
-          },
-          "flags": null
+          }
         }
       ]
     },
@@ -87,8 +84,7 @@
             "Score": "Score",
             "Interpretation": "Interpretation",
             "Date": { "key": "Date", "formatter": "dateFormat" }
-          },
-          "flags": null
+          }
         }
       ]
     }
@@ -180,8 +176,7 @@
             "Score": "Score",
             "Interpretation": "Interpretation",
             "Date": { "key": "Date", "formatter": "dateFormat" }
-          },
-          "flags": null
+          }
         }
       ]
     },
@@ -256,8 +251,7 @@
             "Score": "Score",
             "Interpretation": "Interpretation",
             "Date": { "key": "Date", "formatter": "dateFormat" }
-          },
-          "flags": null
+          }
         }
       ]
     },

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
 import summaryMap from './summary.json';
-import * as helpers from '../helpers';
+import * as formatit from '../helpers/formatit';
 
 import MedicalHistoryIcon from '../icons/MedicalHistoryIcon';
 import PainIcon from '../icons/PainIcon';
@@ -11,13 +11,34 @@ import TreatmentsIcon from '../icons/TreatmentsIcon';
 import RiskIcon from '../icons/RiskIcon';
 import CQLIcon from '../icons/CQLIcon';
 
+import DevTools from './DevTools';
+
 export default class Summary extends Component {
-  renderTable(table, data, index) {
-    const entries = (Array.isArray(data) ? data : [data]).filter(r => r != null);
+  renderNoEntries(flagged) {
+    const flaggedClass = flagged ? 'flagged' : '';
+
+   return (
+      <div className="table">
+        <div className="no-entries">
+          <FontAwesome className={`flag flag-no-entry ${flaggedClass}`} name="circle" />
+          no entries found
+        </div>
+      </div>
+    );
+  }
+
+  renderTable(table, entries, index) {
+    // determine if table needs to be rendered -- if any entry has a null trigger, don't render table
+    let renderTable = true;
+    entries.forEach((entry) => {
+      if (table.trigger && entry[table.trigger] == null) renderTable = false;
+    });
+    if (!renderTable) return null;
+
     const flagged = false; // TODO: hook up
     const flaggedClass = flagged ? 'flagged' : '';
     const headers = Object.keys(table.headers);
-    const headersData = Object.values(table.headers);
+    const headerKeys = Object.values(table.headers);
 
     return (
       <div key={index} className="table">
@@ -33,19 +54,17 @@ export default class Summary extends Component {
 
           <tbody>
             {entries.map((entry, i) => {
-              if (table.trigger && entry[table.trigger] == null) return null;
-
               return (
                 <tr key={i}>
                   <td className="flag-col">
                     <FontAwesome className={`flag flag-entry ${flaggedClass}`} name="circle" />
                   </td>
 
-                  {headersData.map((headerData, i) => {
-                    let value = entry[headerData];
-                    if (headerData.formatter) {
-                      let formatterArguments = headerData.formatterArguments || [];
-                      value = helpers[headerData.formatter](entry[headerData.key], ...formatterArguments);
+                  {headerKeys.map((headerKey, i) => {
+                    let value = entry[headerKey];
+                    if (headerKey.formatter) {
+                      let formatterArguments = headerKey.formatterArguments || [];
+                      value = formatit[headerKey.formatter](entry[headerKey.key], ...formatterArguments);
                     }
 
                     return (
@@ -66,25 +85,30 @@ export default class Summary extends Component {
 
     return sectionMap.map((subSection) => {
       const data = this.props.summary[subSection.dataKeySource][subSection.dataKey];
+      const entries = (Array.isArray(data) ? data : [data]).filter(r => r != null);
+      const hasEntries = entries.length !== 0;
       const flagged = false; // TODO: hook up
       const flaggedClass = flagged ? 'flagged' : '';
 
       return (
-        <div key={subSection.name} className="sub-section h3-wrapper">
-          <h3 id={subSection.name} className="sub-section__header">
+        <div key={subSection.dataKey} className="sub-section h3-wrapper">
+          <h3 id={subSection.dataKey} className="sub-section__header">
             <FontAwesome className={`flag flag-nav ${flaggedClass}`} name="circle" />
             {subSection.name}
             <FontAwesome className={`flag flag-summary ${flaggedClass}`} name="circle" />
           </h3>
 
-          {subSection.tables.map((table, index) => this.renderTable(table, data, index))}
+          {!hasEntries && this.renderNoEntries(flagged)}
+          {hasEntries && subSection.tables.map((table, index) => this.renderTable(table, entries, index))}
          </div>
       );
     });
   }
 
   render() {
-    const { summary, numMedicalHistoryEntries, numPainEntries, numTreatmentsEntries, numRiskEntries } = this.props;
+    const {
+      summary, collector, result, numMedicalHistoryEntries, numPainEntries, numTreatmentsEntries, numRiskEntries
+    } = this.props;
     const flagged = false; // TODO: hook up
     const flaggedClass = flagged ? 'flagged' : '';
 
@@ -157,6 +181,11 @@ export default class Summary extends Component {
               {this.renderSection("RiskFactorsAndAssessments")}
             </div>
           </div>
+
+          <DevTools
+            collector={collector}
+            result={result}
+          />
         </div>
       </div>
     );
@@ -165,6 +194,8 @@ export default class Summary extends Component {
 
 Summary.propTypes = {
   summary: PropTypes.object.isRequired,
+  collector: PropTypes.array.isRequired,
+  result: PropTypes.object.isRequired,
   numMedicalHistoryEntries: PropTypes.number.isRequired,
   numPainEntries: PropTypes.number.isRequired,
   numTreatmentsEntries: PropTypes.number.isRequired,

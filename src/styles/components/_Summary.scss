@@ -77,6 +77,7 @@
 
   &__display {
     flex: 1;
+    background-color: $color-gray-lightest;
 
     &-title {
       background-color: $color-blue;
@@ -92,8 +93,6 @@
     }
 
     .sections {
-      background-color: $color-gray-lightest;
-
       .section {
         &__header {
           display: flex;
@@ -126,6 +125,22 @@
           background-color: $color-white;
           margin: 20px;
 
+          .no-entries {
+            padding: 10px 18px 30px 18px;
+            font-style: italic;
+            color: $color-gray-light;
+
+            .flag-no-entry {
+              margin-right: 12px;
+              font-size: 0.8em;
+              color: transparent;
+
+              &.flagged {
+                color: $color-red;
+              }
+            }
+          }
+
           &__header {
             display: flex;
             align-items: center;
@@ -145,45 +160,91 @@
             }
           }
 
-          &__table {
-            width: 100%;
-            padding: 0 8px 20px 8px;
+          .table {
+            padding-bottom: 20px;
 
-            tr {
-              text-align: left;
+            .sub-section__table {
+              width: 100%;
+              border-collapse: collapse;
 
-              th {
-                padding-bottom: 20px;
-
-                span {
-                  padding-bottom: 5px;
-                  border-bottom: 2px solid $color-blue;
-                }
+              tbody tr:hover {
+                background-color: lighten($color-blue, 30%);
               }
 
-              td:not(:first-child) {
-                min-width: 100px;
-              }
+              tr {
+                text-align: left;
+                vertical-align: top;
 
-              td {
-                .flag-entry {
-                  font-size: 0.8em;
-                  margin-left: 5px;
-                  color: transparent;
+                th {
+                  padding: 0 20px 20px 0;
+                  white-space: nowrap;
 
-                  &.flagged {
-                    color: $color-red;
+                  span {
+                    padding-bottom: 5px;
+                    border-bottom: 2px solid $color-blue;
                   }
                 }
-              }
 
-              .flag-col {
-                width: 25px;
-                max-width: 25px;
+                td:not(:first-child) {
+                  min-width: 100px;
+                }
+
+                td {
+                  padding-right: 20px;
+
+                  .flag-entry {
+                    font-size: 0.8em;
+                    margin-left: 5px;
+                    color: transparent;
+
+                    &.flagged {
+                      color: $color-red;
+                    }
+                  }
+                }
+
+                .flag-col {
+                  width: 40px;
+                  max-width: 40px;
+                  padding: 0;
+                }
               }
             }
           }
         }
+      }
+    }
+
+    .dev-tools {
+      margin: 40px;
+
+      button {
+        background-color: transparent;
+        color: darken($color-blue, 10%);
+        font-size: 0.9em;
+        font-weight: 600;
+        border: 0;
+        cursor: pointer;
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      .cql-errors,
+      .fhir-queries,
+      .cql-results {
+        margin-left: 40px;
+      }
+
+      .fhir-query,
+      .cql-results div,
+      .cql-errors table {
+        margin-left: 40px;
+        background-color: $color-white;
+        padding: 10px 20px;
+        width: calc(50vw);
+        overflow: scroll;
       }
     }
   }

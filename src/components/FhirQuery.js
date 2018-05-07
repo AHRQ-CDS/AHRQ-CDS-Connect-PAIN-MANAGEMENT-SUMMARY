@@ -20,7 +20,7 @@ export default class FhirQuery extends Component {
 
     return (
       <div className="fhir-query">
-        <b>{url}</b> <button href="#" onClick={this.toggleShowHide}>show/hide</button>
+        <b>{url}</b> <button href="#" onClick={this.toggleShowHide}>[show/hide]</button>
         <pre style={{display: this.state.displayed ? 'block' : 'none'}}>{JSON.stringify(query.data, null, 2)}</pre>
       </div>
     );
