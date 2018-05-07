@@ -16,6 +16,7 @@ export default class FhirQuery extends Component {
 
   render() {
     const { query, url } = this.props;
+    if (!query) { return null; }
 
     return (
       <div className="fhir-query">

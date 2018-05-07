@@ -2,13 +2,15 @@
 @import "elements/variables";
 
 /* ------------------------- IMPORT 3RD PARTY VENDORS ---------------------- */
+@import 'node_modules/tocbot/src/scss/tocbot-core';
 
 /* ------------------------- IMPORT CUSTOM SCSS ---------------------------- */
 // site-wide elements
 @import "elements/base";
 
 // component-specific
-@import "components/App";
+@import "components/Header";
+@import "components/Summary";
 
 // vendors
 

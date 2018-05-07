@@ -19,6 +19,8 @@
     "css-loader": "0.28.7",
     "dotenv": "4.0.0",
     "dotenv-expand": "4.2.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "4.10.0",
     "eslint-config-react-app": "^2.1.0",
     "eslint-loader": "1.9.0",
@@ -33,6 +35,8 @@
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
+    "jest-enzyme": "^6.0.0",
+    "mock-local-storage": "^1.0.5",
     "node-sass-chokidar": "^1.2.2",
     "npm-run-all": "^4.1.2",
     "object-assign": "4.1.1",
@@ -46,9 +50,12 @@
     "react-dom": "^16.3.2",
     "react-fontawesome": "^1.6.1",
     "react-router-dom": "4.2.2",
+    "react-router-test-context": "^0.1.0",
+    "react-test-renderer": "^16.3.2",
     "resolve": "1.6.0",
     "style-loader": "0.19.0",
     "sw-precache-webpack-plugin": "0.11.4",
+    "tocbot": "^4.3.0",
     "url-loader": "0.6.2",
     "webpack": "3.8.1",
     "webpack-dev-server": "2.9.4",
@@ -63,6 +70,7 @@
     "ucum": "cmoesel/ucum.js#es5-friendly"
   },
   "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/src/utils/setupTests.js",
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,mjs}"
     ],
@@ -115,6 +123,7 @@
     "test": "node scripts/test.js --env=jsdom",
     "fix-vs-db": "node ./src/utils/fixVsDb",
     "upload-test-patients": "node ./src/utils/uploadTestPatients",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "coverage": "npm test -- --coverage"
   }
 }

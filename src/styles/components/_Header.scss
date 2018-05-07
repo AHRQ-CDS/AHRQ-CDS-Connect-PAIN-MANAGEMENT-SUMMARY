@@ -1,0 +1,83 @@
+.header {
+  display: flex;
+  align-items: center;
+  height: 100px;
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 300px;
+    background-color: $color-black;
+    color: $color-white;
+
+    &-img {
+      margin-right: 10px;
+    }
+
+    &-text {
+      font-size: 1.5em;
+      font-weight: 600;
+    }
+  }
+
+  &__summary {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    margin: 0 40px;
+
+    &-patient {
+      display: flex;
+      align-items: center;
+
+      .patient-icon {
+        font-size: 2em;
+        color: $color-blue;
+        margin-right: 30px;
+      }
+
+      .patient-name {
+        font-size: 2em;
+      }
+
+      .patient-demographics {
+        display: flex;
+        color: $color-gray;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 1.2em;
+
+        .patient-age { margin-right: 40px; }
+      }
+    }
+
+    &-dashboard {
+      display: flex;
+      align-items: center;
+
+      .entries {
+        display: flex;
+        align-items: center;
+        margin: 0 20px;
+
+        &-count {
+          font-size: 3em;
+          font-weight: 800;
+          margin-right: 20px;
+
+          &.flagged { color: $color-red; }
+        }
+
+        &-label {
+          font-weight: 600;
+          color: $color-gray;
+          font-size: 1.2em;
+          width: 110px;
+          line-height: 1.1em;
+        }
+      }
+    }
+  }
+}

@@ -1,3 +1,4 @@
+// returns PEG questions into a single string value - TODO: refactor, need to be in separate rows
 export default function stringValue(value) {
   if (value == null) return '';
 
