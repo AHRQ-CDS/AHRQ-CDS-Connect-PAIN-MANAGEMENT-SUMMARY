@@ -9,6 +9,29 @@
 
   &.warning {
     background-color: lighten($color-yellow, 25%);
-    color: darken($color-yellow, 25%);
+    color: $color-gray-dark;
+  }
+
+  &.inclusion-banner {
+    padding: 20px 20px 20px 60px;
+    text-align: left;
+
+    strong {
+      color: darken($color-red, 10%);
+    }
+
+    .warning-inside {
+      width: 450px;
+      background-color: lighten($color-red, 10%);
+      color: darken($color-red, 20%);
+      padding: 10px;
+    }
+
+    .close-button {
+      float: right;
+      color: $color-gray;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
   }
 }

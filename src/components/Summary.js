@@ -12,6 +12,7 @@ import TreatmentsIcon from '../icons/TreatmentsIcon';
 import RiskIcon from '../icons/RiskIcon';
 import CQLIcon from '../icons/CQLIcon';
 
+import InclusionBanner from './InclusionBanner';
 import DevTools from './DevTools';
 
 export default class Summary extends Component {
@@ -157,9 +158,7 @@ export default class Summary extends Component {
             Factors to Consider in Managing Chronic Pain
           </div>
 
-          <div className="banner">
-            Meets Inclusion Criteria? {`${summary.Patient.MeetsInclusionCriteria}`}
-          </div>
+          {!summary.Patient.MeetsInclusionCriteria && <InclusionBanner />}
 
           <div className="sections">
             <Collapsible trigger={this.renderSectionHeader("PertinentMedicalHistory")} open={true}>

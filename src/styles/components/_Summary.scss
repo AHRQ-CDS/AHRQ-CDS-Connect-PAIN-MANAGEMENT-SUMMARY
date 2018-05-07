@@ -205,43 +205,44 @@
               background-color: lighten($color-blue, 30%);
             }
 
-            tr {
+            td,
+            th {
               text-align: left;
               vertical-align: top;
+            }
 
-              th {
-                padding: 0 20px 20px 0;
-                white-space: nowrap;
+            th {
+              padding: 0 20px 20px 0;
+              white-space: nowrap;
 
-                span {
-                  padding-bottom: 5px;
-                  border-bottom: 2px solid $color-blue;
+              span {
+                padding-bottom: 5px;
+                border-bottom: 2px solid $color-blue;
+              }
+            }
+
+            td:not(:first-child) {
+              min-width: 100px;
+            }
+
+            td {
+              padding-right: 20px;
+
+              .flag-entry {
+                font-size: 0.8em;
+                margin-left: 5px;
+                color: transparent;
+
+                &.flagged {
+                  color: $color-red;
                 }
               }
+            }
 
-              td:not(:first-child) {
-                min-width: 100px;
-              }
-
-              td {
-                padding-right: 20px;
-
-                .flag-entry {
-                  font-size: 0.8em;
-                  margin-left: 5px;
-                  color: transparent;
-
-                  &.flagged {
-                    color: $color-red;
-                  }
-                }
-              }
-
-              .flag-col {
-                width: 40px;
-                max-width: 40px;
-                padding: 0;
-              }
+            .flag-col {
+              width: 40px;
+              max-width: 40px;
+              padding: 0;
             }
           }
         }
