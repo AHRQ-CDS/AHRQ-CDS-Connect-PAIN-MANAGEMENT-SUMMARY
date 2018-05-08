@@ -1,4 +1,4 @@
-import sumit from '../../utils/sumit';
+import sumit from '../../helpers/sumit';
 
 const mockObject = {
   'a': [ { 'b': 1 }, { 'c': 2 }, { 'd': 3 } ], // => 3

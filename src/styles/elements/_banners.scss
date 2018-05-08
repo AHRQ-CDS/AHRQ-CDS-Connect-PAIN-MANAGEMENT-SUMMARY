@@ -1,0 +1,39 @@
+.banner {
+  text-align: center;
+  padding: 20px;
+
+  &.error {
+    background-color: lighten($color-red, 15%);
+    color: darken($color-red, 15%);
+  }
+
+  &.warning {
+    background-color: lighten($color-yellow, 25%);
+    color: $color-gray-dark;
+  }
+
+  &.inclusion-banner {
+    padding: 20px 20px 20px 60px;
+    text-align: left;
+    background-color: $color-beige;
+
+    strong {
+      color: $color-orange;
+    }
+
+    .warning-inside {
+      width: 450px;
+      background-color: lighten($color-orange, 33%);
+      color: $color-orange;
+      padding: 10px;
+      font-weight: 600;
+    }
+
+    .close-button {
+      float: right;
+      color: $color-gray;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+  }
+}

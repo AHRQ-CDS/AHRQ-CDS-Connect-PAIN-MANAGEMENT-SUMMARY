@@ -4,6 +4,8 @@ import Summary from '../../components/Summary';
 
 const component = shallowRender(Summary, {
   summary: summaryMock,
+  collector: [],
+  result: {},
   numMedicalHistoryEntries: 2,
   numPainEntries: 4,
   numTreatmentsEntries: 1,
@@ -20,4 +22,8 @@ it('renders the scrolling nav', () => {
 
 it('renders the summary display', () => {
   expect(component.find('.summary__display')).toExist();
-})
+});
+
+it('renders all subsection headers', () => {
+  expect(component.find('.sub-section__header')).toHaveLength(14);
+});

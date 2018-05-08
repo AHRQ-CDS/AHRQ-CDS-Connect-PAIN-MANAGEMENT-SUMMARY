@@ -1,5 +1,6 @@
 .summary {
   display: flex;
+  min-height: calc(100vh - 100px);
 
   &__nav {
     color: $color-white;
@@ -41,10 +42,16 @@
           padding: 10px 25px;
           font-weight: 600;
           font-size: 1.1em;
+          transition: all 300ms ease;
 
           &.is-active-link,
           &:hover {
             background-color: $color-gray-light;
+          }
+
+          .section__header-title {
+            display: flex;
+            align-items: center;
           }
 
           svg {
@@ -64,12 +71,17 @@
             color: $color-red;
             vertical-align: middle;
           }
+
+          .chevron {
+            display: none;
+          }
         }
       }
     }
   }
 
   &__nav-wrapper {
+    min-height: calc(100vh - 100px);
     width: 300px;
     min-width: 300px;
     background-color: $color-gray-dark;
@@ -77,6 +89,7 @@
 
   &__display {
     flex: 1;
+    background-color: $color-gray-lightest;
 
     &-title {
       background-color: $color-blue;
@@ -91,40 +104,83 @@
       }
     }
 
-    .section {
-      &__header {
-        display: flex;
-        align-items: center;
-        background-color: $color-black;
-        color: $color-white;
-        padding: 15px 25px;
-        font-weight: 400;
+    .sections {
+      .Collapsible {
+        &__trigger {
+          cursor: pointer;
 
-        svg {
-          min-width: 25px;
-          width: 25px;
-          margin-right: 15px;
-          fill: $color-white;
+          &.is-open {
+            .chevron {
+              transform: rotateZ(90deg);
+            }
+          }
         }
 
-        .flag-header:not(.flagged) {
-          display: none;
-        }
+        .section__header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background-color: $color-black;
+          color: $color-white;
+          padding: 15px 25px;
+          font-weight: 400;
+          margin: 2px 0;
 
-        .flag-header {
-          font-size: 0.6em;
-          margin-left: 5px;
-          color: $color-red;
-          vertical-align: middle;
+          &-title {
+            display: flex;
+            align-items: center;
+          }
+
+          svg {
+            min-width: 25px;
+            width: 25px;
+            margin-right: 15px;
+            fill: $color-white;
+          }
+
+          .flag-header:not(.flagged) {
+            display: none;
+          }
+
+          .flag-header {
+            font-size: 0.6em;
+            margin-left: 5px;
+            color: $color-red;
+            vertical-align: middle;
+          }
+
+          .chevron {
+            transition: transform 500ms;
+          }
         }
       }
 
       .sub-section {
-        padding: 0 25px 15px;
+        background-color: $color-white;
+        margin: 20px;
+
+        .no-entries {
+          padding: 10px 18px;
+          font-style: italic;
+          color: $color-gray-light;
+
+          .flag-no-entry {
+            margin-right: 12px;
+            font-size: 0.8em;
+            color: transparent;
+
+            &.flagged {
+              color: $color-red;
+            }
+          }
+        }
 
         &__header {
           display: flex;
           align-items: center;
+          border-bottom: 1px solid $color-gray-lighter;
+          padding: 20px 40px;
+          font-weight: 600;
 
           .flag-nav,
           .flag-summary:not(.flagged) {
@@ -137,6 +193,92 @@
             color: $color-red;
           }
         }
+
+        .table {
+          padding-bottom: 20px;
+
+          .sub-section__table {
+            width: 100%;
+            border-collapse: collapse;
+
+            tbody tr:hover {
+              background-color: lighten($color-blue, 30%);
+            }
+
+            td,
+            th {
+              text-align: left;
+              vertical-align: top;
+            }
+
+            th {
+              padding: 0 20px 20px 0;
+              white-space: nowrap;
+
+              span {
+                padding-bottom: 5px;
+                border-bottom: 2px solid $color-blue;
+              }
+            }
+
+            td:not(:first-child) {
+              min-width: 100px;
+            }
+
+            td {
+              padding-right: 20px;
+
+              .flag-entry {
+                font-size: 0.8em;
+                margin-left: 5px;
+                color: transparent;
+
+                &.flagged {
+                  color: $color-red;
+                }
+              }
+            }
+
+            .flag-col {
+              width: 40px;
+              max-width: 40px;
+              padding: 0;
+            }
+          }
+        }
+      }
+    }
+
+    .dev-tools {
+      margin: 40px;
+
+      button {
+        background-color: transparent;
+        color: darken($color-blue, 10%);
+        font-size: 0.9em;
+        font-weight: 600;
+        border: 0;
+        cursor: pointer;
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      .cql-errors,
+      .fhir-queries,
+      .cql-results {
+        margin-left: 40px;
+      }
+
+      .fhir-query,
+      .cql-results div,
+      .cql-errors table {
+        margin-left: 40px;
+        background-color: $color-white;
+        padding: 10px 20px;
+        width: 50vw;
+        overflow: scroll;
       }
     }
   }

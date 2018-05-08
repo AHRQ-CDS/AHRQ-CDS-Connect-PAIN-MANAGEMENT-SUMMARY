@@ -6,3 +6,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: $color-gray-dark;
 }
+
+h3:focus {
+  outline: none;
+}

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import tocbot from 'tocbot';
+import FontAwesome from 'react-fontawesome';
 
 import executeElm from '../utils/executeELM';
-import sumit from '../utils/sumit';
+import sumit from '../helpers/sumit';
 
 import factorsElm from '../cql/Factors_to_Consider_in_Managing_Chronic_Pain.json';
 import commonsElm from '../cql/CDS_Connect_Commons_for_FHIRv102.json';
@@ -11,7 +12,7 @@ import valueSetDB from '../cql/valueset-db.json';
 
 import Header from './Header';
 import Summary from './Summary';
-import DevTools from './DevTools';
+import Spinner from '../elements/Spinner';
 
 export default class Landing extends Component {
   constructor() {
@@ -19,9 +20,7 @@ export default class Landing extends Component {
     this.state = {
       result: null,
       loading: true,
-      collector: [],
-      displayFhirQueries: false,
-      displayCQLResults: false
+      collector: []
     };
 
     this.tocInitialized = false;
@@ -67,11 +66,15 @@ export default class Landing extends Component {
 
   render() {
     if (this.state.loading) {
-      return <div className="loading">Loading...</div>;
+      return <Spinner />;
     }
 
     if (this.state.result == null) {
-      return <div className="error">Error: See console for details.</div>;
+      return (
+        <div className="banner error">
+          <FontAwesome name="exclamation-circle" /> Error: See console for details.
+        </div>
+      );
     }
 
     const summary = this.state.result.Summary;
@@ -95,15 +98,12 @@ export default class Landing extends Component {
 
         <Summary
           summary={summary}
+          collector={this.state.collector}
+          result={this.state.result}
           numMedicalHistoryEntries={numMedicalHistoryEntries}
           numPainEntries={numPainEntries}
           numTreatmentsEntries={numTreatmentsEntries}
           numRiskEntries={numRiskEntries}
-        />
-
-        <DevTools
-          collector={this.state.collector}
-          result={this.state.result}
         />
       </div>
     );
