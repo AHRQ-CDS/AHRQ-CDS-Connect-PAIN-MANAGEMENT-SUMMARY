@@ -9,8 +9,8 @@
           "headers": {
             "Name": "Name",
             "Status": "Status",
-            "Start": { "key": "Onset", "formatter": "dateFormat" },
-            "End": { "key": "Abatement", "formatter": "dateFormat" }
+            "Start": { "key": "Onset", "formatter": "dateAgeFormat" },
+            "End": { "key": "Abatement", "formatter": "dateAgeFormat" }
           }
         }
       ]
@@ -24,8 +24,8 @@
           "headers": {
             "Name": "Name",
             "Status": "Status",
-            "Start": { "key": "Onset", "formatter": "dateFormat" },
-            "End": { "key": "Abatement", "formatter": "dateFormat" }
+            "Start": { "key": "Onset", "formatter": "dateAgeFormat" },
+            "End": { "key": "Abatement", "formatter": "dateAgeFormat" }
           },
           "trigger": "Onset",
           "flags": "always"

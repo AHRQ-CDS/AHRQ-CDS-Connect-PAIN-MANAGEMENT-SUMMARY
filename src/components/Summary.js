@@ -65,8 +65,9 @@ export default class Summary extends Component {
                   {headerKeys.map((headerKey, i) => {
                     let value = entry[headerKey];
                     if (headerKey.formatter) {
+                      const { result } = this.props;
                       let formatterArguments = headerKey.formatterArguments || [];
-                      value = formatit[headerKey.formatter](entry[headerKey.key], ...formatterArguments);
+                      value = formatit[headerKey.formatter](result, entry[headerKey.key], ...formatterArguments);
                     }
 
                     return (
