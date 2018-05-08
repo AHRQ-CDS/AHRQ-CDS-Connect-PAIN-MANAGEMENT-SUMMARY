@@ -248,7 +248,7 @@
         {
           "headers": {
             "Name": "Name",
-            "Score": "Score",
+            "Result": "Result",
             "Interpretation": "Interpretation",
             "Date": { "key": "Date", "formatter": "dateFormat" }
           }

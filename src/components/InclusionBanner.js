@@ -15,7 +15,7 @@ export default class InclusionBanner extends Component {
 
   render() {
     return (
-      <div className="inclusion-banner banner warning" style={{display: this.state.displayed ? 'block' : 'none'}}>
+      <div className="inclusion-banner banner" style={{display: this.state.displayed ? 'block' : 'none'}}>
         <FontAwesome className="close-button" name="close" onClick={this.handleClose} />
 
         <div className="inclusion-banner__description">

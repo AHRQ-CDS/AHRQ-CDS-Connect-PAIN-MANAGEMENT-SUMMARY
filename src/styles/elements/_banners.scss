@@ -15,16 +15,18 @@
   &.inclusion-banner {
     padding: 20px 20px 20px 60px;
     text-align: left;
+    background-color: $color-beige;
 
     strong {
-      color: darken($color-red, 10%);
+      color: $color-orange;
     }
 
     .warning-inside {
       width: 450px;
-      background-color: lighten($color-red, 10%);
-      color: darken($color-red, 20%);
+      background-color: lighten($color-orange, 33%);
+      color: $color-orange;
       padding: 10px;
+      font-weight: 600;
     }
 
     .close-button {
