@@ -5,6 +5,7 @@ import Collapsible from 'react-collapsible';
 
 import summaryMap from './summary.json';
 import * as formatit from '../helpers/formatit';
+import flagit from '../helpers/flagit';
 
 import MedicalHistoryIcon from '../icons/MedicalHistoryIcon';
 import PainIcon from '../icons/PainIcon';
@@ -29,7 +30,7 @@ export default class Summary extends Component {
     );
   }
 
-  renderTable(table, entries, index) {
+  renderTable(table, entries, subSection, index) {
     // determine if table needs to be rendered -- if any entry has a null trigger, don't render table
     let renderTable = true;
     entries.forEach((entry) => {
@@ -37,8 +38,6 @@ export default class Summary extends Component {
     });
     if (!renderTable) return null;
 
-    const flagged = false; // TODO: hook up
-    const flaggedClass = flagged ? 'flagged' : '';
     const headers = Object.keys(table.headers);
     const headerKeys = Object.values(table.headers);
 
@@ -56,6 +55,9 @@ export default class Summary extends Component {
 
           <tbody>
             {entries.map((entry, i) => {
+              const flagged = flagit(entry, subSection, this.props.summary); // TODO: hook up
+              const flaggedClass = flagged ? 'flagged' : '';
+
               return (
                 <tr key={i}>
                   <td className="flag-col">
@@ -102,7 +104,7 @@ export default class Summary extends Component {
           </h3>
 
           {!hasEntries && this.renderNoEntries(flagged)}
-          {hasEntries && subSection.tables.map((table, index) => this.renderTable(table, entries, index))}
+          {hasEntries && subSection.tables.map((table, index) => this.renderTable(table, entries, subSection, index))}
          </div>
       );
     });

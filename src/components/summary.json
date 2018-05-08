@@ -118,7 +118,7 @@
             "Start": { "key": "Start", "formatter": "datishFormat" },
             "End": { "key": "End", "formatter": "datishFormat" }
           },
-          "flags": "if-none"
+          "flags": "ifNone"
         }
       ]
     },
@@ -133,7 +133,7 @@
             "Type": "Type",
             "Date": { "key": "Date", "formatter": "datishFormat" }
           },
-          "flags": "if-none"
+          "flags": "ifNone"
         }
       ]
     },
@@ -150,10 +150,10 @@
             "End": { "key": "End", "formatter": "datishFormat" }
           },
           "flags": {
-            "if-and": [
-              "if-none",
+            "ifAnd": [
+              "ifNone",
               {
-                "if-one-or-more": {
+                "ifOneOrMore": {
                   "table": "OpioidMedications",
                   "source": "HistoricalTreatments"
                 }
@@ -193,10 +193,10 @@
             "End": { "key": "End", "formatter": "datishFormat" }
           },
           "flags": {
-            "if-and": [
-              "if-one-or-more",
+            "ifAnd": [
+              "ifOneOrMore",
               {
-                "if-one-or-more": {
+                "ifOneOrMore": {
                   "table": "OpioidMedications",
                   "source": "HistoricalTreatments"
                 }
@@ -219,21 +219,25 @@
             "End": { "key": "End", "formatter": "datishFormat" }
           },
           "flags": {
-            "if-and": [
-              "if-none",
+            "ifAnd": [
+              "ifNone",
               {
-                "if-or": {
-                  "if-one-or-more": {
-                    "table": "OpioidMedications",
-                    "source": "HistoricalTreatments"
+                "ifOr": [
+                  {
+                    "ifOneOrMore": {
+                      "table": "OpioidMedications",
+                      "source": "HistoricalTreatments"
+                    }
                   },
-                  "if-greater-than-or-equal-to": {
-                    "table": "MostRecentMME",
-                    "source": "RiskFactorsAndAssessments",
-                    "header": "Result",
-                    "value": 50
+                  {
+                    "ifGreaterThanOrEqualTo": {
+                      "table": "MostRecentMME",
+                      "source": "RiskFactorsAndAssessments",
+                      "header": "Result",
+                      "value": 50
+                    }
                   }
-                }
+                ]
               }
             ]
           }
@@ -267,7 +271,7 @@
             "Date": { "key": "Date", "formatter": "datishFormat" }
           },
           "flags": {
-            "if-greater-than-or-equal-to": {
+            "ifGreaterThanOrEqualTo": {
               "header": "Result",
               "value": 50
             }
