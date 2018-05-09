@@ -192,6 +192,7 @@
             font-size: 0.7em;
             margin-left: 5px;
             color: $color-red;
+            cursor: default;
           }
         }
 
@@ -233,6 +234,7 @@
                 font-size: 0.8em;
                 margin-left: 16px;
                 color: transparent;
+                cursor: default;
 
                 &.flagged {
                   color: $color-red;

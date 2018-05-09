@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import Collapsible from 'react-collapsible';
+import ReactTooltip from 'react-tooltip';
 
 import summaryMap from './summary.json';
 import * as formatit from '../helpers/formatit';
@@ -53,11 +54,16 @@ export default class Summary extends Component {
   renderNoEntries(section, subSection) {
     const flagged = this.isSubsectionFlagged(section, subSection.dataKey);
     const flaggedClass = flagged ? 'flagged' : '';
+    const tooltip = flagged ? subSection.tables[0].flagsText : '';
 
     return (
       <div className="table">
         <div className="no-entries">
-          <FontAwesome className={`flag flag-no-entry ${flaggedClass}`} name="circle" />
+          <FontAwesome
+            className={`flag flag-no-entry ${flaggedClass}`}
+            name="circle"
+            data-tip={tooltip}
+          />
           no entries found
         </div>
       </div>
@@ -91,11 +97,15 @@ export default class Summary extends Component {
             {entries.map((entry, i) => {
               const flagged = this.isEntryFlagged(section, subSection.dataKey, entry);
               const flaggedClass = flagged ? 'flagged' : '';
+              const tooltip = flagged ? subSection.tables[0].flagsText : '';
 
               return (
                 <tr key={i}>
                   <td className="flag-col">
-                    <FontAwesome className={`flag flag-entry ${flaggedClass}`} name="circle" />
+                    <FontAwesome
+                      className={`flag flag-entry ${flaggedClass}`}
+                      name="circle"
+                      data-tip={tooltip} />
                   </td>
 
                   {headerKeys.map((headerKey, i) => {
@@ -222,6 +232,8 @@ export default class Summary extends Component {
             collector={collector}
             result={result}
           />
+
+          <ReactTooltip />
         </div>
       </div>
     );

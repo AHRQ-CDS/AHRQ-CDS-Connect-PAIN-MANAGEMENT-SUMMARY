@@ -28,7 +28,8 @@
             "End": { "key": "Abatement", "formatter": "datishAgeFormat" }
           },
           "trigger": "Onset",
-          "flags": "always"
+          "flags": "always",
+          "flagsText": "Opioid-related condition"
         },
         {
           "headers": {
@@ -36,7 +37,8 @@
             "Visit": { "key": "Visit", "formatter": "datishAgeFormat" }
           },
           "trigger": "Visit",
-          "flags": "always"
+          "flags": "always",
+          "flagsText": "Opioid-related condition"
         }
       ]
     }
@@ -102,7 +104,8 @@
             "Start": { "key": "Start", "formatter": "datishFormat" },
             "End": { "key": "End", "formatter": "datishFormat" }
           },
-          "flags": "always"
+          "flags": "always",
+          "flagsText": "Opioid medication"
         }
       ]
     },
@@ -118,7 +121,8 @@
             "Start": { "key": "Start", "formatter": "datishFormat" },
             "End": { "key": "End", "formatter": "datishFormat" }
           },
-          "flags": "ifNone"
+          "flags": "ifNone",
+          "flagsText": "Absence of non-opioid medications"
         }
       ]
     },
@@ -133,7 +137,8 @@
             "Type": "Type",
             "Date": { "key": "Date", "formatter": "datishFormat" }
           },
-          "flags": "ifNone"
+          "flags": "ifNone",
+          "flagsText": "Absence of non-pharmacologic treatments"
         }
       ]
     },
@@ -159,7 +164,8 @@
                 }
               }
             ]
-          }
+          },
+          "flagsText": "Absence of stool softeners/laxative and at least one opioid medication"
         }
       ]
     }
@@ -202,7 +208,8 @@
                 }
               }
             ]
-          }
+          },
+          "flagsText": "At least one Benzodiazepine medication and at least one opioid medication"
         }
       ]
     },
@@ -240,7 +247,8 @@
                 ]
               }
             ]
-          }
+          },
+          "flagsText": "Absence of Naloxone medication and either at least one opioid medication, or most recent MME assessment 50+ MME/day"
         }
       ]
     },
@@ -275,7 +283,8 @@
               "header": "Result",
               "value": 50
             }
-          }
+          },
+          "flagsText": "Most recent MME assessment 50+ MME/day"
         }
       ]
     }
