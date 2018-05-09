@@ -248,7 +248,7 @@
               }
             ]
           },
-          "flagsText": "Absence of Naloxone medication and either at least one opioid medication, or most recent MME assessment 50+ MME/day"
+          "flagsText": "Absence of Naloxone medication and either: presence of at least one opioid medication, or most recent MME assessment is 50+ MME/day"
         }
       ]
     },
@@ -284,7 +284,7 @@
               "value": 50
             }
           },
-          "flagsText": "Most recent MME assessment 50+ MME/day"
+          "flagsText": "Most recent MME assessment is 50+ MME/day"
         }
       ]
     }
