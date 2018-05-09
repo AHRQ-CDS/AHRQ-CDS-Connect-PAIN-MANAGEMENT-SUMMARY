@@ -3,14 +3,15 @@ import moment from 'moment';
 
 export function dateFormat(result, input) {
   if (input == null) return '';
-  return moment(input).format('YYYY-MMM-DD');
+  return moment.parseZone(input).format('YYYY-MMM-DD');
 }
 
 export function dateAgeFormat(result, input) {
   if (result == null || result.Patient == null || input == null) return '';
   const patientDOB = result.Patient.birthDate._json;
   const patientAgeAtDate = moment(input).diff(patientDOB, 'years');
-  return `${moment(input).format('YYYY-MMM-DD')} (age ${patientAgeAtDate})`;
+  return `${dateFormat(result, input)} (age ${patientAgeAtDate})`;
+}
 }
 
 export function arrayFlatten(result, input, property) {

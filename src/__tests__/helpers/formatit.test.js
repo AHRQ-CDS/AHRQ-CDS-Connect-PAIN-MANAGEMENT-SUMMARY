@@ -2,13 +2,13 @@ import * as formatit from '../../helpers/formatit';
 
 it('formats dates correctly', () => {
   const mockDateString = '2012-04-05T00:00:00.000+00:00';
-  expect(formatit['dateFormat']({}, mockDateString)).toEqual('2012-Apr-04');
+  expect(formatit['dateFormat']({}, mockDateString)).toEqual('2012-Apr-05');
 });
 
 it('formats dates with ages correctly', () => {
   const mockDateString = '2012-04-05T00:00:00.000+00:00';
   const mockResult = { 'Patient': { 'birthDate': { '_json': '1982-04-05T00:00:00.000+00:00' } } };
-  expect(formatit['dateAgeFormat'](mockResult, mockDateString)).toEqual('2012-Apr-04 (age 30)');
+  expect(formatit['dateAgeFormat'](mockResult, mockDateString)).toEqual('2012-Apr-05 (age 30)');
 });
 
 it('flattens arrays correctly', () => {
