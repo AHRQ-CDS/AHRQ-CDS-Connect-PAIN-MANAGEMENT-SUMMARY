@@ -4,9 +4,11 @@ export default function flagit(entry, subSection, summary) {
   const flagRule = subSection.tables[0].flags;
   if (flagRule == null) {
     return false;
-  } else if (flagRule === 'always') {
+  } else if (flagRule === 'always' && entry != null) {
     return true;
-  } else if (flagRule === 'isNone' && entry == null) {
+  } else if (flagRule === 'always' && entry == null) {
+    return false;
+  } else if (flagRule === 'ifNone' && entry == null) {
     return true;
   } else if (typeof flagRule === 'string') {
     return false;
@@ -28,9 +30,7 @@ function ifAnd(flagRulesArray, entry, subSection, summary) {
       match = functions[rule](flagRule[rule], entry, subSection, summary);
     }
 
-    if (match === false) {
-      return false;
-    }
+    if (match === false) return false;
   }
 
   return true;
@@ -48,9 +48,7 @@ function ifOr(flagRulesArray, entry, subSection, summary) {
       match = functions[rule](flagRule[rule], entry, subSection, summary);
     }
 
-    if (match) {
-      return true;
-    }
+    if (match) return true;
   }
 
   return false;
@@ -81,5 +79,7 @@ function ifGreaterThanOrEqualTo(value, entry, subSection, summary) {
     targetEntry = summary[value.source][value.table];
   }
 
-  return parseInt(targetEntry[value.header], 10) > value.value;
+  if (targetEntry == null) return false;
+
+  return parseInt(targetEntry[value.header], 10) >= value.value;
 }

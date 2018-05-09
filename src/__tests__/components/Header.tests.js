@@ -1,11 +1,11 @@
 import { shallowRender } from '../../utils/testHelpers';
-import summaryMock from '../../utils/testFixtures';
+import { mockSummaryA } from '../../utils/testFixtures';
 import Header from '../../components/Header';
 
 const component = shallowRender(Header, {
-  patientName: summaryMock.Patient.Name,
-  patientAge: summaryMock.Patient.Age,
-  patientGender: summaryMock.Patient.Gender,
+  patientName: mockSummaryA.Patient.Name,
+  patientAge: mockSummaryA.Patient.Age,
+  patientGender: mockSummaryA.Patient.Gender,
   totalEntries: 21,
   numFlaggedEntries: 0
 });
@@ -15,9 +15,9 @@ it('renders without crashing', () => {
 });
 
 it('renders the patient name, age, and gender', () => {
-  expect(component.find('.patient-name')).toHaveText(summaryMock.Patient.Name);
-  expect(component.find('.patient-age')).toHaveText(`${summaryMock.Patient.Age} YRS`);
-  expect(component.find('.patient-gender')).toHaveText(summaryMock.Patient.Gender);
+  expect(component.find('.patient-name')).toHaveText(mockSummaryA.Patient.Name);
+  expect(component.find('.patient-age')).toHaveText(`${mockSummaryA.Patient.Age} YRS`);
+  expect(component.find('.patient-gender')).toHaveText(mockSummaryA.Patient.Gender);
 });
 
 it('renders the total number of entries', () => {

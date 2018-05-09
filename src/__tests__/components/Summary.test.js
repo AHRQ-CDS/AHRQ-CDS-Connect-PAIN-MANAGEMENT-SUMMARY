@@ -1,9 +1,10 @@
 import { shallowRender } from '../../utils/testHelpers';
-import summaryMock from '../../utils/testFixtures';
+import { mockSummaryA, mockSectionFlags } from '../../utils/testFixtures';
 import Summary from '../../components/Summary';
 
 const component = shallowRender(Summary, {
-  summary: summaryMock,
+  summary: mockSummaryA,
+  sectionFlags: mockSectionFlags,
   collector: [],
   result: {},
   numMedicalHistoryEntries: 2,

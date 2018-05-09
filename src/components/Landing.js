@@ -4,6 +4,8 @@ import FontAwesome from 'react-fontawesome';
 
 import executeElm from '../utils/executeELM';
 import sumit from '../helpers/sumit';
+import flagit from '../helpers/flagit';
+import summaryMap from './summary.json';
 
 import factorsElm from '../cql/Factors_to_Consider_in_Managing_Chronic_Pain.json';
 import commonsElm from '../cql/CDS_Connect_Commons_for_FHIRv102.json';
@@ -13,6 +15,12 @@ import valueSetDB from '../cql/valueset-db.json';
 import Header from './Header';
 import Summary from './Summary';
 import Spinner from '../elements/Spinner';
+
+let uuid = 0;
+
+function generateUuid() {
+  return ++uuid; // eslint-disable-line no-plusplus
+}
 
 export default class Landing extends Component {
   constructor() {
@@ -41,7 +49,9 @@ export default class Landing extends Component {
           return;
         }
 
-        this.setState({ result });
+        const { sectionFlags, flaggedCount } = this.processSummary(result.Summary);
+
+        this.setState({ result, sectionFlags, flaggedCount });
       });
     } catch (err) {
       console.error(err);
@@ -64,6 +74,45 @@ export default class Landing extends Component {
     }
   }
 
+  processSummary(summary) {
+    const sectionFlags = {};
+    const sectionKeys = Object.keys(summaryMap);
+    let flaggedCount = 0;
+
+    sectionKeys.forEach((sectionKey, i) => {
+      sectionFlags[sectionKey] = {};
+
+      summaryMap[sectionKey].forEach((subSection) => {
+        const data = summary[subSection.dataKeySource][subSection.dataKey];
+        const entries = (Array.isArray(data) ? data : [data]).filter(r => r != null);
+
+        if (entries.length > 0) {
+          sectionFlags[sectionKey][subSection.dataKey] = entries.reduce((flaggedEntries, entry) => {
+            if (entry._id == null) {
+              entry._id = generateUuid();
+            }
+
+            if (flagit(entry, subSection, summary)) {
+              flaggedEntries.push(entry._id);
+              flaggedCount += 1;
+            }
+
+            return flaggedEntries;
+          }, []);
+        } else {
+          const sectionFlagged = flagit(null, subSection, summary);
+          sectionFlags[sectionKey][subSection.dataKey] = sectionFlagged;
+
+          if (sectionFlagged) {
+            flaggedCount += 1;
+          }
+        }
+      });
+    });
+
+    return { sectionFlags, flaggedCount };
+  }
+
   render() {
     if (this.state.loading) {
       return <Spinner />;
@@ -78,6 +127,7 @@ export default class Landing extends Component {
     }
 
     const summary = this.state.result.Summary;
+    const { sectionFlags, flaggedCount } = this.state;
     const numMedicalHistoryEntries = sumit(summary.PertinentMedicalHistory || {});
     const numPainEntries = sumit(summary.PainAssessments || {});
     const numTreatmentsEntries = sumit(summary.HistoricalTreatments || {});
@@ -93,11 +143,12 @@ export default class Landing extends Component {
           patientAge={summary.Patient.Age}
           patientGender={summary.Patient.Gender}
           totalEntries={totalEntries}
-          numFlaggedEntries={0} // TODO: hook up
+          numFlaggedEntries={flaggedCount}
         />
 
         <Summary
           summary={summary}
+          sectionFlags={sectionFlags}
           collector={this.state.collector}
           result={this.state.result}
           numMedicalHistoryEntries={numMedicalHistoryEntries}

@@ -5,7 +5,6 @@ import Collapsible from 'react-collapsible';
 
 import summaryMap from './summary.json';
 import * as formatit from '../helpers/formatit';
-import flagit from '../helpers/flagit';
 
 import MedicalHistoryIcon from '../icons/MedicalHistoryIcon';
 import PainIcon from '../icons/PainIcon';
@@ -17,10 +16,45 @@ import InclusionBanner from './InclusionBanner';
 import DevTools from './DevTools';
 
 export default class Summary extends Component {
-  renderNoEntries(flagged) {
+  isSectionFlagged(section) {
+    const { sectionFlags } = this.props;
+    const subSections = Object.keys(sectionFlags[section]);
+
+    for (let i = 0; i < subSections.length; ++i) {
+      if (this.isSubsectionFlagged(section, subSections[i])) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  isSubsectionFlagged(section, subSection) {
+    const { sectionFlags } = this.props;
+    if (sectionFlags[section][subSection] === true) {
+      return true;
+    } else if (sectionFlags[section][subSection] === false) {
+      return false;
+    } else {
+      return sectionFlags[section][subSection].length > 0;
+    }
+  }
+
+  isEntryFlagged(section, subSection, entry) {
+    const { sectionFlags } = this.props;
+
+    if (Array.isArray(sectionFlags[section][subSection])) {
+      return sectionFlags[section][subSection].indexOf(entry._id) >= 0;
+    }
+
+    return sectionFlags[section][subSection];
+  }
+
+  renderNoEntries(section, subSection) {
+    const flagged = this.isSubsectionFlagged(section, subSection.dataKey);
     const flaggedClass = flagged ? 'flagged' : '';
 
-   return (
+    return (
       <div className="table">
         <div className="no-entries">
           <FontAwesome className={`flag flag-no-entry ${flaggedClass}`} name="circle" />
@@ -30,7 +64,7 @@ export default class Summary extends Component {
     );
   }
 
-  renderTable(table, entries, subSection, index) {
+  renderTable(table, entries, section, subSection, index) {
     // determine if table needs to be rendered -- if any entry has a null trigger, don't render table
     let renderTable = true;
     entries.forEach((entry) => {
@@ -55,7 +89,7 @@ export default class Summary extends Component {
 
           <tbody>
             {entries.map((entry, i) => {
-              const flagged = flagit(entry, subSection, this.props.summary); // TODO: hook up
+              const flagged = this.isEntryFlagged(section, subSection.dataKey, entry);
               const flaggedClass = flagged ? 'flagged' : '';
 
               return (
@@ -92,7 +126,8 @@ export default class Summary extends Component {
       const data = this.props.summary[subSection.dataKeySource][subSection.dataKey];
       const entries = (Array.isArray(data) ? data : [data]).filter(r => r != null);
       const hasEntries = entries.length !== 0;
-      const flagged = false; // TODO: hook up
+
+      const flagged = this.isSubsectionFlagged(section, subSection.dataKey);
       const flaggedClass = flagged ? 'flagged' : '';
 
       return (
@@ -103,15 +138,17 @@ export default class Summary extends Component {
             <FontAwesome className={`flag flag-summary ${flaggedClass}`} name="circle" />
           </h3>
 
-          {!hasEntries && this.renderNoEntries(flagged)}
-          {hasEntries && subSection.tables.map((table, index) => this.renderTable(table, entries, subSection, index))}
+          {!hasEntries && this.renderNoEntries(section, subSection)}
+          {hasEntries && subSection.tables.map((table, index) =>
+            this.renderTable(table, entries, section, subSection, index))
+          }
          </div>
       );
     });
   }
 
   renderSectionHeader(section) {
-    const flagged = false; // TODO: hook up
+    const flagged = this.isSectionFlagged(section);
     const flaggedClass = flagged ? 'flagged' : '';
     const { numMedicalHistoryEntries, numPainEntries, numTreatmentsEntries, numRiskEntries } = this.props;
 
@@ -193,6 +230,7 @@ export default class Summary extends Component {
 
 Summary.propTypes = {
   summary: PropTypes.object.isRequired,
+  sectionFlags: PropTypes.object.isRequired,
   collector: PropTypes.array.isRequired,
   result: PropTypes.object.isRequired,
   numMedicalHistoryEntries: PropTypes.number.isRequired,
