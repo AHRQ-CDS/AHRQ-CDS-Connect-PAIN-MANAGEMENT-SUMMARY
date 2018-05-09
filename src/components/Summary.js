@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import Collapsible from 'react-collapsible';
+import ReactTooltip from 'react-tooltip';
 
 import summaryMap from './summary.json';
 import * as formatit from '../helpers/formatit';
@@ -16,20 +17,60 @@ import InclusionBanner from './InclusionBanner';
 import DevTools from './DevTools';
 
 export default class Summary extends Component {
-  renderNoEntries(flagged) {
-    const flaggedClass = flagged ? 'flagged' : '';
+  isSectionFlagged(section) {
+    const { sectionFlags } = this.props;
+    const subSections = Object.keys(sectionFlags[section]);
 
-   return (
+    for (let i = 0; i < subSections.length; ++i) {
+      if (this.isSubsectionFlagged(section, subSections[i])) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  isSubsectionFlagged(section, subSection) {
+    const { sectionFlags } = this.props;
+    if (sectionFlags[section][subSection] === true) {
+      return true;
+    } else if (sectionFlags[section][subSection] === false) {
+      return false;
+    } else {
+      return sectionFlags[section][subSection].length > 0;
+    }
+  }
+
+  isEntryFlagged(section, subSection, entry) {
+    const { sectionFlags } = this.props;
+
+    if (Array.isArray(sectionFlags[section][subSection])) {
+      return sectionFlags[section][subSection].indexOf(entry._id) >= 0;
+    }
+
+    return sectionFlags[section][subSection];
+  }
+
+  renderNoEntries(section, subSection) {
+    const flagged = this.isSubsectionFlagged(section, subSection.dataKey);
+    const flaggedClass = flagged ? 'flagged' : '';
+    const tooltip = flagged ? subSection.tables[0].flagsText : '';
+
+    return (
       <div className="table">
         <div className="no-entries">
-          <FontAwesome className={`flag flag-no-entry ${flaggedClass}`} name="circle" />
+          <FontAwesome
+            className={`flag flag-no-entry ${flaggedClass}`}
+            name="circle"
+            data-tip={tooltip}
+          />
           no entries found
         </div>
       </div>
     );
   }
 
-  renderTable(table, entries, index) {
+  renderTable(table, entries, section, subSection, index) {
     // determine if table needs to be rendered -- if any entry has a null trigger, don't render table
     let renderTable = true;
     entries.forEach((entry) => {
@@ -37,8 +78,6 @@ export default class Summary extends Component {
     });
     if (!renderTable) return null;
 
-    const flagged = false; // TODO: hook up
-    const flaggedClass = flagged ? 'flagged' : '';
     const headers = Object.keys(table.headers);
     const headerKeys = Object.values(table.headers);
 
@@ -56,10 +95,17 @@ export default class Summary extends Component {
 
           <tbody>
             {entries.map((entry, i) => {
+              const flagged = this.isEntryFlagged(section, subSection.dataKey, entry);
+              const flaggedClass = flagged ? 'flagged' : '';
+              const tooltip = flagged ? subSection.tables[0].flagsText : '';
+
               return (
                 <tr key={i}>
                   <td className="flag-col">
-                    <FontAwesome className={`flag flag-entry ${flaggedClass}`} name="circle" />
+                    <FontAwesome
+                      className={`flag flag-entry ${flaggedClass}`}
+                      name="circle"
+                      data-tip={tooltip} />
                   </td>
 
                   {headerKeys.map((headerKey, i) => {
@@ -90,7 +136,8 @@ export default class Summary extends Component {
       const data = this.props.summary[subSection.dataKeySource][subSection.dataKey];
       const entries = (Array.isArray(data) ? data : [data]).filter(r => r != null);
       const hasEntries = entries.length !== 0;
-      const flagged = false; // TODO: hook up
+
+      const flagged = this.isSubsectionFlagged(section, subSection.dataKey);
       const flaggedClass = flagged ? 'flagged' : '';
 
       return (
@@ -101,15 +148,17 @@ export default class Summary extends Component {
             <FontAwesome className={`flag flag-summary ${flaggedClass}`} name="circle" />
           </h3>
 
-          {!hasEntries && this.renderNoEntries(flagged)}
-          {hasEntries && subSection.tables.map((table, index) => this.renderTable(table, entries, index))}
+          {!hasEntries && this.renderNoEntries(section, subSection)}
+          {hasEntries && subSection.tables.map((table, index) =>
+            this.renderTable(table, entries, section, subSection, index))
+          }
          </div>
       );
     });
   }
 
   renderSectionHeader(section) {
-    const flagged = false; // TODO: hook up
+    const flagged = this.isSectionFlagged(section);
     const flaggedClass = flagged ? 'flagged' : '';
     const { numMedicalHistoryEntries, numPainEntries, numTreatmentsEntries, numRiskEntries } = this.props;
 
@@ -183,6 +232,8 @@ export default class Summary extends Component {
             collector={collector}
             result={result}
           />
+
+          <ReactTooltip />
         </div>
       </div>
     );
@@ -191,6 +242,7 @@ export default class Summary extends Component {
 
 Summary.propTypes = {
   summary: PropTypes.object.isRequired,
+  sectionFlags: PropTypes.object.isRequired,
   collector: PropTypes.array.isRequired,
   result: PropTypes.object.isRequired,
   numMedicalHistoryEntries: PropTypes.number.isRequired,

@@ -98,6 +98,7 @@
       font-size: 1.5em;
       font-weight: 600;
       padding: 15px;
+      margin-bottom: 4px;
 
       svg {
         margin-right: 20px;
@@ -191,6 +192,7 @@
             font-size: 0.7em;
             margin-left: 5px;
             color: $color-red;
+            cursor: default;
           }
         }
 
@@ -230,8 +232,9 @@
 
               .flag-entry {
                 font-size: 0.8em;
-                margin-left: 5px;
+                margin-left: 16px;
                 color: transparent;
+                cursor: default;
 
                 &.flagged {
                   color: $color-red;

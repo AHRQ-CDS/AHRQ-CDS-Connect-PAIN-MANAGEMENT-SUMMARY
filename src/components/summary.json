@@ -28,7 +28,8 @@
             "End": { "key": "Abatement", "formatter": "datishAgeFormat" }
           },
           "trigger": "Onset",
-          "flags": "always"
+          "flags": "always",
+          "flagsText": "Opioid-related condition"
         },
         {
           "headers": {
@@ -36,7 +37,8 @@
             "Visit": { "key": "Visit", "formatter": "datishAgeFormat" }
           },
           "trigger": "Visit",
-          "flags": "always"
+          "flags": "always",
+          "flagsText": "Opioid-related condition"
         }
       ]
     }
@@ -102,7 +104,8 @@
             "Start": { "key": "Start", "formatter": "datishFormat" },
             "End": { "key": "End", "formatter": "datishFormat" }
           },
-          "flags": "always"
+          "flags": "always",
+          "flagsText": "Opioid medication"
         }
       ]
     },
@@ -118,7 +121,8 @@
             "Start": { "key": "Start", "formatter": "datishFormat" },
             "End": { "key": "End", "formatter": "datishFormat" }
           },
-          "flags": "if-none"
+          "flags": "ifNone",
+          "flagsText": "Absence of non-opioid medications"
         }
       ]
     },
@@ -133,7 +137,8 @@
             "Type": "Type",
             "Date": { "key": "Date", "formatter": "datishFormat" }
           },
-          "flags": "if-none"
+          "flags": "ifNone",
+          "flagsText": "Absence of non-pharmacologic treatments"
         }
       ]
     },
@@ -150,16 +155,17 @@
             "End": { "key": "End", "formatter": "datishFormat" }
           },
           "flags": {
-            "if-and": [
-              "if-none",
+            "ifAnd": [
+              "ifNone",
               {
-                "if-one-or-more": {
+                "ifOneOrMore": {
                   "table": "OpioidMedications",
                   "source": "HistoricalTreatments"
                 }
               }
             ]
-          }
+          },
+          "flagsText": "Absence of stool softeners/laxative with presence of at least one opioid medication"
         }
       ]
     }
@@ -193,16 +199,17 @@
             "End": { "key": "End", "formatter": "datishFormat" }
           },
           "flags": {
-            "if-and": [
-              "if-one-or-more",
+            "ifAnd": [
+              "ifOneOrMore",
               {
-                "if-one-or-more": {
+                "ifOneOrMore": {
                   "table": "OpioidMedications",
                   "source": "HistoricalTreatments"
                 }
               }
             ]
-          }
+          },
+          "flagsText": "At least one Benzodiazepine medication and at least one opioid medication"
         }
       ]
     },
@@ -219,24 +226,29 @@
             "End": { "key": "End", "formatter": "datishFormat" }
           },
           "flags": {
-            "if-and": [
-              "if-none",
+            "ifAnd": [
+              "ifNone",
               {
-                "if-or": {
-                  "if-one-or-more": {
-                    "table": "OpioidMedications",
-                    "source": "HistoricalTreatments"
+                "ifOr": [
+                  {
+                    "ifOneOrMore": {
+                      "table": "OpioidMedications",
+                      "source": "HistoricalTreatments"
+                    }
                   },
-                  "if-greater-than-or-equal-to": {
-                    "table": "MostRecentMME",
-                    "source": "RiskFactorsAndAssessments",
-                    "header": "Result",
-                    "value": 50
+                  {
+                    "ifGreaterThanOrEqualTo": {
+                      "table": "MostRecentMME",
+                      "source": "RiskFactorsAndAssessments",
+                      "header": "Result",
+                      "value": 50
+                    }
                   }
-                }
+                ]
               }
             ]
-          }
+          },
+          "flagsText": "Absence of Naloxone medication and either: presence of at least one opioid medication, or most recent MME assessment is 50+ MME/day"
         }
       ]
     },
@@ -267,11 +279,12 @@
             "Date": { "key": "Date", "formatter": "datishFormat" }
           },
           "flags": {
-            "if-greater-than-or-equal-to": {
+            "ifGreaterThanOrEqualTo": {
               "header": "Result",
               "value": 50
             }
-          }
+          },
+          "flagsText": "Most recent MME assessment is 50+ MME/day"
         }
       ]
     }
