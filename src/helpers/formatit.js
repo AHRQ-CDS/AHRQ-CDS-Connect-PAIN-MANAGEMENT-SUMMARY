@@ -1,6 +1,10 @@
 import React from 'react';
 import moment from 'moment';
 
+const dateRE = /^\d{4}-\d{2}-\d{2}(T|\b)/; // loosely matches '2012-04-05' or '2012-04-05T00:00:00.000+00:00'
+const ageRE = /^(\d+(\.\d+)?)(\s+(\S+))?$/; // matches '40' or '40 a' (a is UCUM unit for years)
+const booleanRE = /^(true|false)$/; // matches 'true' or 'false'
+
 export function dateFormat(result, input) {
   if (input == null) return '';
   return moment.parseZone(input).format('YYYY-MMM-DD');
@@ -12,6 +16,42 @@ export function dateAgeFormat(result, input) {
   const patientAgeAtDate = moment(input).diff(patientDOB, 'years');
   return `${dateFormat(result, input)} (age ${patientAgeAtDate})`;
 }
+
+export function datishFormat(result, input) {
+  return _datishAgeFormat(result, input, false);
+}
+
+export function datishAgeFormat(result, input) {
+  return _datishAgeFormat(result, input, true);
+}
+
+export function ageFormat(result, input) {
+  if (input == null) return '';
+  const m = ageRE.exec(input);
+  if (m) {
+    const num = m[1];
+    if (m.length === 5) { // it has a unit
+      switch (m[4]) {
+        case 'a': case 'y': case 'yr': case 'yrs': case 'year': case 'years':
+          return `age ${num}`; // no unit, years is implied
+        case 'mo': case 'mos': case 'month': case 'months':
+          return `age ${num} months`;
+        case 'wk': case 'wks': case 'week': case 'weeks':
+          return `age ${num} weeks`;
+        case 'd': case 'day': case 'days':
+          return `age ${num} days`;
+        default:
+          return `age ${input}`;
+      }
+    }
+  }
+  // fall back to returning the age + string
+  return `age ${input}`;
+}
+
+export function booleanFormat(result, input) {
+  if (input == null) return '';
+  return `${input}`;
 }
 
 export function arrayFlatten(result, input, property) {
@@ -25,4 +65,32 @@ export function arrayFlatten(result, input, property) {
 export function MMEFormat(result, input) {
   if (input == null) return '';
   return `${input.match(/\d+/)} MME/day`;
+}
+
+function _datishAgeFormat(result, input, showAge) {
+  const df = showAge ? dateAgeFormat : dateFormat;
+  if (input == null) {
+    return '';
+  } else if (typeof input === 'string') {
+    // Test if it looks like a date format
+    if (dateRE.test(input)) {
+      return df(result, input);
+    } else if (ageRE.test(input)) {
+      return ageFormat(result, input);
+    } else if (booleanRE.test(input)) {
+      return booleanFormat(result, input);
+    }
+    // fall back to the string itself
+    return input;
+  } else if (input.Start || input.End) {
+    const start = input.Start ? df(result, input.Start) : 'unknown start';
+    const end = input.End ? df(result, input.End) : 'ongoing';
+    return `${start} - ${end}`;
+  } else if (input.Low || input.High) {
+    const low = input.Low ? ageFormat(result, input.Low) : 'age unknown';
+    const high = input.High ? ageFormat(result, input.High) : 'age unknown';
+    return `${low} - ${high.slice(4)}`; // slice removes 'age ' prefix
+  }
+  // fall back to the input string
+  return input;
 }
