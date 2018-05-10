@@ -485,7 +485,7 @@ const mockSummaryC = {
   }
 };
 
-// no opioids, no nalox, no non-opioid, no non-pharma, MME < 50
+// no opioids, no nalox, no benzo, no non-opioid, no non-pharma, MME < 50
 const mockSummaryD = {
   "Patient": {
     "Name": "Fuller Jackson",
@@ -565,20 +565,7 @@ const mockSummaryD = {
         "Date": "2017-10-20T00:00:00.000+00:00"
       }
     ],
-    "BenzodiazepineMedications": [
-      {
-        "Type": "Statement",
-        "Name": "Diazepam 5 MG Oral Tablet",
-        "Start": "2018-04-30T00:00:00.000+00:00",
-        "End": null
-      },
-      {
-        "Type": "Order",
-        "Name": "Diazepam 5 MG Oral Tablet",
-        "Start": "2018-03-05T00:00:00.000+00:00",
-        "End": null
-      }
-    ],
+    "BenzodiazepineMedications": [],
     "NaloxoneMedications": [],
     "UrineDrugScreens": [
       {
