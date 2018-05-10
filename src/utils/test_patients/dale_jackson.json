@@ -1,0 +1,540 @@
+{
+  "resourceType": "Bundle",
+  "id": "dale_jackson",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "dcc73f64-062b-42b7-ac35-ec7989bee842",
+        "name": [
+          {
+            "given": [
+              "Dale"
+            ],
+            "family": [
+              "Jackson"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1963-08-23T00:00:00.000Z"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "744018d8-0464-4bd7-860a-c5069a38c0c9",
+        "patient": {
+          "reference": "Patient/dcc73f64-062b-42b7-ac35-ec7989bee842"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "203082005",
+              "display": "Fibromyalgia (disorder)"
+            }
+          ],
+          "text": "Fibromyalgia (disorder)"
+        },
+        "clinicalStatus": "active",
+        "verificationStatus": "confirmed",
+        "onsetDateTime": "2012-04-05T00:00:00.000Z"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "8fa0cd76-74ea-4be2-9a4d-177897d377bd",
+        "patient": {
+          "reference": "Patient/dcc73f64-062b-42b7-ac35-ec7989bee842"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "191722009",
+              "display": "Agoraphobia with panic attacks (disorder)"
+            }
+          ],
+          "text": "Agoraphobia with panic attacks (disorder)"
+        },
+        "clinicalStatus": "active",
+        "verificationStatus": "confirmed",
+        "onsetDateTime": "2014-09-05T00:00:00.000Z"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "f4a3791e-a99a-41d2-8906-78306e230762",
+        "status": "finished",
+        "patient": {
+          "reference": "Patient/dcc73f64-062b-42b7-ac35-ec7989bee842"
+        },
+        "reason": [
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/sid/icd-10-cm",
+                "code": "T14.91XA",
+                "display": "Suicide attempt, initial encounter"
+              }
+            ],
+            "text": "Suicide attempt, initial encounter"
+          }
+        ],
+        "period": {
+          "start": "2015-02-01T00:00:00.000Z"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationOrder",
+        "id": "4f16d599-dbb4-4744-84d9-82206f48e09d",
+        "dateWritten": "2018-01-06T00:00:00.000Z",
+        "status": "active",
+        "patient": {
+          "reference": "Patient/dcc73f64-062b-42b7-ac35-ec7989bee842"
+        },
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "104474",
+              "display": "Aspirin 75 MG Oral Tablet"
+            }
+          ],
+          "text": "Aspirin 75 MG Oral Tablet"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationOrder",
+        "id": "1cdc5690-5d25-4f5a-b81e-5edd9cf63d4c",
+        "dateWritten": "2018-03-05T00:00:00.000Z",
+        "status": "active",
+        "patient": {
+          "reference": "Patient/dcc73f64-062b-42b7-ac35-ec7989bee842"
+        },
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "197591",
+              "display": "Diazepam 5 MG Oral Tablet"
+            }
+          ],
+          "text": "Diazepam 5 MG Oral Tablet"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationOrder",
+        "id": "66b6f2a9-aeb3-4cc8-9417-4d49a23ce8e8",
+        "dateWritten": "2018-03-05T00:00:00.000Z",
+        "status": "active",
+        "patient": {
+          "reference": "Patient/dcc73f64-062b-42b7-ac35-ec7989bee842"
+        },
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "876193",
+              "display": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution"
+            }
+          ],
+          "text": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationOrder",
+        "id": "d994f652-c316-4a96-9ada-65a8bb5a6da1",
+        "dateWritten": "2018-04-20T00:00:00.000Z",
+        "status": "active",
+        "patient": {
+          "reference": "Patient/dcc73f64-062b-42b7-ac35-ec7989bee842"
+        },
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "1725059",
+              "display": "Naloxone Hydrochloride 40 MG/ML Nasal Spray"
+            }
+          ],
+          "text": "Naloxone Hydrochloride 40 MG/ML Nasal Spray"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "72fcb809-ea63-4fc6-be73-543691adc4ba",
+        "patient": {
+          "reference": "Patient/dcc73f64-062b-42b7-ac35-ec7989bee842"
+        },
+        "status": "active",
+        "wasNotTaken": false,
+        "effectiveDateTime": "2017-11-12T00:00:00.000Z",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "310965",
+              "display": "Ibuprofen 200 MG Oral Tablet"
+            }
+          ],
+          "text": "Ibuprofen 200 MG Oral Tablet"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "122636c3-9971-4155-b68a-b0347a2d7501",
+        "patient": {
+          "reference": "Patient/dcc73f64-062b-42b7-ac35-ec7989bee842"
+        },
+        "status": "active",
+        "wasNotTaken": false,
+        "effectiveDateTime": "2018-04-05T00:00:00.000Z",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "876193",
+              "display": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution"
+            }
+          ],
+          "text": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "46e9d664-40a5-4252-b5fb-cb64157eb6f7",
+        "patient": {
+          "reference": "Patient/dcc73f64-062b-42b7-ac35-ec7989bee842"
+        },
+        "status": "active",
+        "wasNotTaken": false,
+        "effectiveDateTime": "2018-04-30T00:00:00.000Z",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "197591",
+              "display": "Diazepam 5 MG Oral Tablet"
+            }
+          ],
+          "text": "Diazepam 5 MG Oral Tablet"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "3a28b86f-ddc3-495f-9edd-2d7c0ca5e576",
+        "patient": {
+          "reference": "Patient/dcc73f64-062b-42b7-ac35-ec7989bee842"
+        },
+        "status": "active",
+        "wasNotTaken": false,
+        "effectiveDateTime": "2018-04-10T00:00:00.000Z",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "1725059",
+              "display": "Naloxone Hydrochloride 40 MG/ML Nasal Spray"
+            }
+          ],
+          "text": "Naloxone Hydrochloride 40 MG/ML Nasal Spray"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "0b0db17d-6308-4ad6-84c4-af7e91ce0576",
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "19295-5",
+              "display": "Opiates [Presence] in Urine by Screen method"
+            }
+          ],
+          "text": "Opiates [Presence] in Urine by Screen method"
+        },
+        "subject": {
+          "reference": "Patient/dcc73f64-062b-42b7-ac35-ec7989bee842"
+        },
+        "issued": "2017-10-20T00:00:00.000Z",
+        "valueQuantity": {
+          "value": 2300,
+          "unit": "ng/mL"
+        },
+        "interpretation": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/v2/0078",
+              "code": "NEG",
+              "display": "Negative"
+            }
+          ],
+          "text": "Negative"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "43ecc5e9-3e99-45fc-be53-3dfbe2d733df",
+        "status": "final",
+        "category": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/observation-category",
+              "code": "therapy"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://cds.ahrq.gov/cdsconnect/pms",
+              "code": "mme",
+              "display": "Morphine Milligram Equivalent (MME)"
+            }
+          ],
+          "text": "Morphine Milligram Equivalent (MME)"
+        },
+        "subject": {
+          "reference": "Patient/dcc73f64-062b-42b7-ac35-ec7989bee842"
+        },
+        "issued": "2018-04-30T00:00:00.000Z",
+        "valueQuantity": {
+          "value": 60,
+          "unit": "{MME}/d"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "7c7522c7-4a40-474e-95bd-1a5d2d632031",
+        "status": "final",
+        "category": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/observation-category",
+              "code": "survey"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "38221-8",
+              "display": "Pain severity Wong-Baker FACES Scale"
+            }
+          ],
+          "text": "Pain severity Wong-Baker FACES Scale"
+        },
+        "subject": {
+          "reference": "Patient/dcc73f64-062b-42b7-ac35-ec7989bee842"
+        },
+        "issued": "2018-02-10T00:00:00.000Z",
+        "valueQuantity": {
+          "value": 8
+        },
+        "interpretation": {
+          "text": "Hurts a whole lot"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "f5b7d0b0-e573-48d9-96e1-531b9f2f81c2",
+        "status": "final",
+        "category": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/observation-category",
+              "code": "survey"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "44261-6",
+              "display": "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]"
+            }
+          ],
+          "text": "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]"
+        },
+        "subject": {
+          "reference": "Patient/dcc73f64-062b-42b7-ac35-ec7989bee842"
+        },
+        "issued": "2017-10-20T00:00:00.000Z",
+        "valueQuantity": {
+          "value": 7
+        },
+        "interpretation": {
+          "text": "Mild depression"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "db11771d-b09c-40be-b808-77145bb767ad",
+        "status": "final",
+        "category": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/observation-category",
+              "code": "survey"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://cds.ahrq.gov/cdsconnect/pms",
+              "code": "peg-assessment",
+              "display": "Pain Enjoyment General Activity (PEG) Assessment"
+            }
+          ],
+          "text": "Pain Enjoyment General Activity (PEG) Assessment"
+        },
+        "subject": {
+          "reference": "Patient/dcc73f64-062b-42b7-ac35-ec7989bee842"
+        },
+        "issued": "2018-02-10T00:00:00.000Z",
+        "valueQuantity": {
+          "value": 5
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://cds.ahrq.gov/cdsconnect/pms",
+                  "code": "peg-pain-1-10",
+                  "display": "Pain (1-10)"
+                }
+              ],
+              "text": "Pain (1-10)"
+            },
+            "valueQuantity": {
+              "value": 7
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://cds.ahrq.gov/cdsconnect/pms",
+                  "code": "peg-enjoyment-1-10",
+                  "display": "Enjoyment of life (1-10)"
+                }
+              ],
+              "text": "Enjoyment of life (1-10)"
+            },
+            "valueQuantity": {
+              "value": 5
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://cds.ahrq.gov/cdsconnect/pms",
+                  "code": "peg-general-activitity-1-10",
+                  "display": "General activity (1-10)"
+                }
+              ],
+              "text": "General activity (1-10)"
+            },
+            "valueQuantity": {
+              "value": 4
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "3555410e-e098-4c40-bb94-55cf206f56b9",
+        "status": "final",
+        "category": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/observation-category",
+              "code": "survey"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://cds.ahrq.gov/cdsconnect/pms",
+              "code": "start-back",
+              "display": "STarT Back Screening Tool"
+            }
+          ],
+          "text": "STarT Back Screening Tool"
+        },
+        "subject": {
+          "reference": "Patient/dcc73f64-062b-42b7-ac35-ec7989bee842"
+        },
+        "issued": "2018-02-10T00:00:00.000Z",
+        "valueQuantity": {
+          "value": 4
+        },
+        "interpretation": {
+          "text": "Medium risk"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "23a34e07-a1d7-4505-a56b-273d23d0fa55",
+        "subject": {
+          "reference": "Patient/dcc73f64-062b-42b7-ac35-ec7989bee842"
+        },
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "182548004",
+              "display": "Chiropraxy (regime/therapy)"
+            }
+          ],
+          "text": "Chiropraxy (regime/therapy)"
+        },
+        "notPerformed": false,
+        "performedDateTime": "2018-04-05T00:00:00.000Z"
+      }
+    }
+  ]
+}
