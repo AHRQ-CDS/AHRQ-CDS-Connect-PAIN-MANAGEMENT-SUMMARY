@@ -97,7 +97,7 @@ it('flags "Non-Opioid Medications" entries correctly', () => {
     "End": null
   };
   expect(flagit(mockEntry, subSection, mockSummaryA)).toEqual(false);
-  expect(flagit(null, subSection, mockSummaryA)).toEqual(true);
+  expect(flagit(null, subSection, mockSummaryD)).toEqual(true);
 });
 
 it('flags "Non-Pharmacologic Treatments" entries correctly', () => {
@@ -108,7 +108,7 @@ it('flags "Non-Pharmacologic Treatments" entries correctly', () => {
     "Date": "2018-04-05T00:00:00.000+00:00"
   };
   expect(flagit(mockEntry, subSection, mockSummaryA)).toEqual(false);
-  expect(flagit(null, subSection, mockSummaryA)).toEqual(true);
+  expect(flagit(null, subSection, mockSummaryD)).toEqual(true);
 });
 
 it('flags "Stool Softeners and Laxatives" entries correctly', () => {

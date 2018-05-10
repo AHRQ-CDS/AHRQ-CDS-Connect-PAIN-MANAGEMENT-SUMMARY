@@ -485,7 +485,7 @@ const mockSummaryC = {
   }
 };
 
-// no opioids, MME >= 50
+// no opioids, no nalox, no non-opioid, no non-pharma, MME < 50
 const mockSummaryD = {
   "Patient": {
     "Name": "Fuller Jackson",
@@ -553,39 +553,8 @@ const mockSummaryD = {
   },
   "HistoricalTreatments": {
     "OpioidMedications": [],
-    "NonOpioidMedications": [
-      {
-        "Type": "Statement",
-        "Name": "Diazepam 5 MG Oral Tablet",
-        "Start": "2018-04-30T00:00:00.000+00:00",
-        "End": null
-      },
-      {
-        "Type": "Order",
-        "Name": "Diazepam 5 MG Oral Tablet",
-        "Start": "2018-03-05T00:00:00.000+00:00",
-        "End": null
-      },
-      {
-        "Type": "Order",
-        "Name": "Aspirin 75 MG Oral Tablet",
-        "Start": "2018-01-06T00:00:00.000+00:00",
-        "End": null
-      },
-      {
-        "Type": "Statement",
-        "Name": "Ibuprofen 200 MG Oral Tablet",
-        "Start": "2017-11-12T00:00:00.000+00:00",
-        "End": null
-      }
-    ],
-    "NonPharmacologicTreatments": [
-      {
-        "Type": "Procedure",
-        "Name": "Chiropraxy (regime/therapy)",
-        "Date": "2018-04-05T00:00:00.000+00:00"
-      }
-    ]
+    "NonOpioidMedications": [],
+    "NonPharmacologicTreatments": []
   },
   "RiskFactorsAndAssessments": {
     "PainManagementRiskScreenings": [
@@ -610,20 +579,7 @@ const mockSummaryD = {
         "End": null
       }
     ],
-    "NaloxoneMedications": [
-      {
-        "Type": "Order",
-        "Name": "Naloxone Hydrochloride 40 MG/ML Nasal Spray",
-        "Start": "2018-04-20T00:00:00.000+00:00",
-        "End": null
-      },
-      {
-        "Type": "Statement",
-        "Name": "Naloxone Hydrochloride 40 MG/ML Nasal Spray",
-        "Start": "2018-04-10T00:00:00.000+00:00",
-        "End": null
-      }
-    ],
+    "NaloxoneMedications": [],
     "UrineDrugScreens": [
       {
         "Name": "Opiates [Presence] in Urine by Screen method",
