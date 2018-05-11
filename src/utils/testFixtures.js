@@ -182,10 +182,10 @@ const mockSummaryA = {
   }
 };
 
-// no stool softeners, no benzo, no naloxone, has opioids, MME >= 50
+// no stool softeners, no benzo, no naloxone, no drug screen, has opioids, MME >= 50
 const mockSummaryB = {
   "Patient": {
-    "Name": "Fuller Jackson",
+    "Name": "Ben Jackson",
     "Gender": "male",
     "Age": 64,
     "MeetsInclusionCriteria": true
@@ -308,14 +308,7 @@ const mockSummaryB = {
     ],
     "BenzodiazepineMedications": [],
     "NaloxoneMedications": [],
-    "UrineDrugScreens": [
-      {
-        "Name": "Opiates [Presence] in Urine by Screen method",
-        "Result": "2300 ng/mL",
-        "Interpretation": "Negative",
-        "Date": "2017-10-20T00:00:00.000+00:00"
-      }
-    ],
+    "UrineDrugScreens": [],
     "MostRecentMME": {
       "Name": "Morphine Milligram Equivalent (MME)",
       "Result": "60 {MME}/d",
@@ -327,7 +320,7 @@ const mockSummaryB = {
   }
 };
 
-// has stool softeners, has benzo, no naloxone, no opioids, MME >= 50
+// has stool softeners, has benzo, no naloxone, no drug screen, no opioids, MME >= 50
 const mockSummaryC = {
   "Patient": {
     "Name": "Fuller Jackson",
@@ -453,14 +446,7 @@ const mockSummaryC = {
       }
     ],
     "NaloxoneMedications": [],
-    "UrineDrugScreens": [
-      {
-        "Name": "Opiates [Presence] in Urine by Screen method",
-        "Result": "2300 ng/mL",
-        "Interpretation": "Negative",
-        "Date": "2017-10-20T00:00:00.000+00:00"
-      }
-    ],
+    "UrineDrugScreens": [],
     "MostRecentMME": {
       "Name": "Morphine Milligram Equivalent (MME)",
       "Result": "50 {MME}/d",
@@ -485,7 +471,7 @@ const mockSummaryC = {
   }
 };
 
-// no opioids, no nalox, no benzo, no non-opioid, no non-pharma, MME < 50
+// no opioids, no nalox, no benzo, no non-opioid, has drug screen, no non-pharma, MME < 50
 const mockSummaryD = {
   "Patient": {
     "Name": "Fuller Jackson",
