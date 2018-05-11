@@ -1,6 +1,8 @@
 import flagit from '../../helpers/flagit';
 import summaryMap from '../../components/summary.json';
-import { mockSummaryA, mockSummaryB, mockSummaryC, mockSummaryD, mockSummaryE } from '../../utils/testFixtures';
+import {
+  mockSummaryA, mockSummaryB, mockSummaryC, mockSummaryD, mockSummaryE, mockSummaryF
+} from '../../utils/testFixtures';
 
 it('flags "Conditions Associated with Chronic Pain" entries correctly', () => {
   const subSection = summaryMap['PertinentMedicalHistory'][0];
@@ -167,6 +169,8 @@ it('flags "Naloxone Medications" entries correctly', () => {
   expect(flagit(null, subSection, mockSummaryB)).toEqual(true);
   // no naloxone (true) AND MME < 50 (false)] => false
   expect(flagit(null, subSection, mockSummaryE)).toEqual(false);
+  // naloxone (false) AND MME >= 50 (true) => false
+  expect(flagit(mockEntry, subSection, mockSummaryF)).toEqual(false);
 });
 
 it('flags "Urine Drug Screens" entries correctly', () => {
