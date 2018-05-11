@@ -1,0 +1,389 @@
+{
+  "resourceType": "Bundle",
+  "id": "don_jackson",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "281c4535-496f-4966-a46f-6265c93ee1f9",
+        "name": [
+          {
+            "given": [
+              "Don"
+            ],
+            "family": [
+              "Jackson"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1963-08-23T00:00:00.000Z"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "2ae797fb-4d78-433d-b2d7-5b661511f0af",
+        "patient": {
+          "reference": "Patient/281c4535-496f-4966-a46f-6265c93ee1f9"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "203082005",
+              "display": "Fibromyalgia (disorder)"
+            }
+          ],
+          "text": "Fibromyalgia (disorder)"
+        },
+        "clinicalStatus": "active",
+        "verificationStatus": "confirmed",
+        "onsetDateTime": "2012-04-05T00:00:00.000Z"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "aefbb6be-5fd7-45be-9077-e85649483c16",
+        "patient": {
+          "reference": "Patient/281c4535-496f-4966-a46f-6265c93ee1f9"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "191722009",
+              "display": "Agoraphobia with panic attacks (disorder)"
+            }
+          ],
+          "text": "Agoraphobia with panic attacks (disorder)"
+        },
+        "clinicalStatus": "active",
+        "verificationStatus": "confirmed",
+        "onsetDateTime": "2014-09-05T00:00:00.000Z"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "8062b2d0-833d-4bad-9f0d-b35db9558b44",
+        "status": "finished",
+        "patient": {
+          "reference": "Patient/281c4535-496f-4966-a46f-6265c93ee1f9"
+        },
+        "reason": [
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/sid/icd-10-cm",
+                "code": "T14.91XA",
+                "display": "Suicide attempt, initial encounter"
+              }
+            ],
+            "text": "Suicide attempt, initial encounter"
+          }
+        ],
+        "period": {
+          "start": "2015-02-01T00:00:00.000Z"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationOrder",
+        "id": "e407f925-f2d3-4ebe-b76b-3a0110ce2357",
+        "dateWritten": "2018-03-05T00:00:00.000Z",
+        "status": "active",
+        "patient": {
+          "reference": "Patient/281c4535-496f-4966-a46f-6265c93ee1f9"
+        },
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "876193",
+              "display": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution"
+            }
+          ],
+          "text": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "7cf74353-3ef6-425b-bf66-011425bdf6ab",
+        "patient": {
+          "reference": "Patient/281c4535-496f-4966-a46f-6265c93ee1f9"
+        },
+        "status": "active",
+        "wasNotTaken": false,
+        "effectiveDateTime": "2018-04-05T00:00:00.000Z",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "876193",
+              "display": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution"
+            }
+          ],
+          "text": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "5af25425-eadd-47e2-8ecf-b5e343078975",
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "19295-5",
+              "display": "Opiates [Presence] in Urine by Screen method"
+            }
+          ],
+          "text": "Opiates [Presence] in Urine by Screen method"
+        },
+        "subject": {
+          "reference": "Patient/281c4535-496f-4966-a46f-6265c93ee1f9"
+        },
+        "issued": "2017-10-20T00:00:00.000Z",
+        "valueQuantity": {
+          "value": 2300,
+          "unit": "ng/mL"
+        },
+        "interpretation": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/v2/0078",
+              "code": "NEG",
+              "display": "Negative"
+            }
+          ],
+          "text": "Negative"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "9c0ef928-8ae3-4596-bd8d-b5688ee892c3",
+        "status": "final",
+        "category": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/observation-category",
+              "code": "therapy"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://cds.ahrq.gov/cdsconnect/pms",
+              "code": "mme",
+              "display": "Morphine Milligram Equivalent (MME)"
+            }
+          ],
+          "text": "Morphine Milligram Equivalent (MME)"
+        },
+        "subject": {
+          "reference": "Patient/281c4535-496f-4966-a46f-6265c93ee1f9"
+        },
+        "issued": "2018-04-30T00:00:00.000Z",
+        "valueQuantity": {
+          "value": 20,
+          "unit": "{MME}/d"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "d13d26ae-e181-44e8-baf2-a6b54223731a",
+        "status": "final",
+        "category": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/observation-category",
+              "code": "survey"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "38221-8",
+              "display": "Pain severity Wong-Baker FACES Scale"
+            }
+          ],
+          "text": "Pain severity Wong-Baker FACES Scale"
+        },
+        "subject": {
+          "reference": "Patient/281c4535-496f-4966-a46f-6265c93ee1f9"
+        },
+        "issued": "2018-02-10T00:00:00.000Z",
+        "valueQuantity": {
+          "value": 8
+        },
+        "interpretation": {
+          "text": "Hurts a whole lot"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "1ca4473d-ed26-4dcb-a1e9-756218e3c319",
+        "status": "final",
+        "category": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/observation-category",
+              "code": "survey"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "44261-6",
+              "display": "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]"
+            }
+          ],
+          "text": "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]"
+        },
+        "subject": {
+          "reference": "Patient/281c4535-496f-4966-a46f-6265c93ee1f9"
+        },
+        "issued": "2017-10-20T00:00:00.000Z",
+        "valueQuantity": {
+          "value": 7
+        },
+        "interpretation": {
+          "text": "Mild depression"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "ea5ad0f4-1b29-46e3-a7c3-47233a0cd719",
+        "status": "final",
+        "category": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/observation-category",
+              "code": "survey"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://cds.ahrq.gov/cdsconnect/pms",
+              "code": "peg-assessment",
+              "display": "Pain Enjoyment General Activity (PEG) Assessment"
+            }
+          ],
+          "text": "Pain Enjoyment General Activity (PEG) Assessment"
+        },
+        "subject": {
+          "reference": "Patient/281c4535-496f-4966-a46f-6265c93ee1f9"
+        },
+        "issued": "2018-02-10T00:00:00.000Z",
+        "valueQuantity": {
+          "value": 5
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://cds.ahrq.gov/cdsconnect/pms",
+                  "code": "peg-pain-1-10",
+                  "display": "Pain (1-10)"
+                }
+              ],
+              "text": "Pain (1-10)"
+            },
+            "valueQuantity": {
+              "value": 7
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://cds.ahrq.gov/cdsconnect/pms",
+                  "code": "peg-enjoyment-1-10",
+                  "display": "Enjoyment of life (1-10)"
+                }
+              ],
+              "text": "Enjoyment of life (1-10)"
+            },
+            "valueQuantity": {
+              "value": 5
+            }
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://cds.ahrq.gov/cdsconnect/pms",
+                  "code": "peg-general-activitity-1-10",
+                  "display": "General activity (1-10)"
+                }
+              ],
+              "text": "General activity (1-10)"
+            },
+            "valueQuantity": {
+              "value": 4
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "5692033a-7045-468b-b15a-256d164f9efb",
+        "status": "final",
+        "category": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/observation-category",
+              "code": "survey"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://cds.ahrq.gov/cdsconnect/pms",
+              "code": "start-back",
+              "display": "STarT Back Screening Tool"
+            }
+          ],
+          "text": "STarT Back Screening Tool"
+        },
+        "subject": {
+          "reference": "Patient/281c4535-496f-4966-a46f-6265c93ee1f9"
+        },
+        "issued": "2018-02-10T00:00:00.000Z",
+        "valueQuantity": {
+          "value": 4
+        },
+        "interpretation": {
+          "text": "Medium risk"
+        }
+      }
+    }
+  ]
+}

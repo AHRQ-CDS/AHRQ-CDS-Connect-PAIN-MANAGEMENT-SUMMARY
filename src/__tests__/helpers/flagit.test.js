@@ -1,6 +1,8 @@
 import flagit from '../../helpers/flagit';
 import summaryMap from '../../components/summary.json';
-import { mockSummaryA, mockSummaryB, mockSummaryC, mockSummaryD, mockSummaryE } from '../../utils/testFixtures';
+import {
+  mockSummaryA, mockSummaryB, mockSummaryC, mockSummaryD, mockSummaryE, mockSummaryF
+} from '../../utils/testFixtures';
 
 it('flags "Conditions Associated with Chronic Pain" entries correctly', () => {
   const subSection = summaryMap['PertinentMedicalHistory'][0];
@@ -13,7 +15,7 @@ it('flags "Conditions Associated with Chronic Pain" entries correctly', () => {
   expect(flagit(null, subSection, mockSummaryA)).toEqual(false);
 });
 
-it('flags "High Risk Conditions for Opioid Therapy" entries correctly', () => {
+it('flags "Risk Factors for Opioid-related Harms" entries correctly', () => {
   const subSection = summaryMap['PertinentMedicalHistory'][1];
   const mockEntry = {
     "Name": "Agoraphobia with panic attacks (disorder)",
@@ -97,7 +99,7 @@ it('flags "Non-Opioid Medications" entries correctly', () => {
     "End": null
   };
   expect(flagit(mockEntry, subSection, mockSummaryA)).toEqual(false);
-  expect(flagit(null, subSection, mockSummaryA)).toEqual(true);
+  expect(flagit(null, subSection, mockSummaryD)).toEqual(true);
 });
 
 it('flags "Non-Pharmacologic Treatments" entries correctly', () => {
@@ -108,7 +110,7 @@ it('flags "Non-Pharmacologic Treatments" entries correctly', () => {
     "Date": "2018-04-05T00:00:00.000+00:00"
   };
   expect(flagit(mockEntry, subSection, mockSummaryA)).toEqual(false);
-  expect(flagit(null, subSection, mockSummaryA)).toEqual(true);
+  expect(flagit(null, subSection, mockSummaryD)).toEqual(true);
 });
 
 it('flags "Stool Softeners and Laxatives" entries correctly', () => {
@@ -163,16 +165,12 @@ it('flags "Naloxone Medications" entries correctly', () => {
     "Start": "2018-04-20T00:00:00.000+00:00",
     "End": null
   };
-  // no naloxone (true) AND [one or more opioids (true) OR MME >= 50 (true)] => true
+  // no naloxone (true) AND MME >= 50 (true) => true
   expect(flagit(null, subSection, mockSummaryB)).toEqual(true);
-  // no naloxone (true) AND [no opioids (false) OR MME >= 50 (true)] => true
-  expect(flagit(null, subSection, mockSummaryC)).toEqual(true);
-  // no naloxone (true) AND [one or more opioids (true) OR MME < 50 (false)] => true
-  expect(flagit(null, subSection, mockSummaryE)).toEqual(true);
-  // no naloxone (true) AND [no opioids (false) OR MME < 50 (false)] => false
-  expect(flagit(null, subSection, mockSummaryD)).toEqual(false);
-  // one or more naloxone (false) AND [one or more opioids (true) OR MME >= 50 (true)] => false
-  expect(flagit(mockEntry, subSection, mockSummaryA)).toEqual(false);
+  // no naloxone (true) AND MME < 50 (false)] => false
+  expect(flagit(null, subSection, mockSummaryE)).toEqual(false);
+  // naloxone (false) AND MME >= 50 (true) => false
+  expect(flagit(mockEntry, subSection, mockSummaryF)).toEqual(false);
 });
 
 it('flags "Urine Drug Screens" entries correctly', () => {
@@ -183,8 +181,14 @@ it('flags "Urine Drug Screens" entries correctly', () => {
     "Interpretation": "Negative",
     "Date": "2017-10-20T00:00:00.000+00:00"
   };
+  // no urine drug screen (true) AND at least one opioid (true) => true
+  expect(flagit(null, subSection, mockSummaryB)).toEqual(true);
+  // no urine drug screen (true) AND no opioids (false) => false
+  expect(flagit(null, subSection, mockSummaryC)).toEqual(false);
+  // urine drug screen (false) AND at least one opioid (true) => false
   expect(flagit(mockEntry, subSection, mockSummaryA)).toEqual(false);
-  expect(flagit(null, subSection, mockSummaryA)).toEqual(false);
+  // urine drug screen (false) AND no opioids (false) => false
+  expect(flagit(mockEntry, subSection, mockSummaryD)).toEqual(false);
 });
 
 it('flags "Most Recent MME" entries correctly', () => {

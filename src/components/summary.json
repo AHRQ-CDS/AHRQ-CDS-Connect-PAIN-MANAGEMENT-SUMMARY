@@ -16,7 +16,7 @@
       ]
     },
     {
-      "name": "High Risk Conditions for Opioid Therapy",
+      "name": "Risk Factors for Opioid-related Harms",
       "dataKey": "HighRiskConditionsForOpioidTherapy",
       "dataKeySource": "PertinentMedicalHistory",
       "tables": [
@@ -209,7 +209,7 @@
               }
             ]
           },
-          "flagsText": "At least one Benzodiazepine medication and at least one opioid medication"
+          "flagsText": "Benzodiazepine medication and at least one opioid medication"
         }
       ]
     },
@@ -229,26 +229,16 @@
             "ifAnd": [
               "ifNone",
               {
-                "ifOr": [
-                  {
-                    "ifOneOrMore": {
-                      "table": "OpioidMedications",
-                      "source": "HistoricalTreatments"
-                    }
-                  },
-                  {
-                    "ifGreaterThanOrEqualTo": {
-                      "table": "MostRecentMME",
-                      "source": "RiskFactorsAndAssessments",
-                      "header": "Result",
-                      "value": 50
-                    }
-                  }
-                ]
+                "ifGreaterThanOrEqualTo": {
+                  "table": "MostRecentMME",
+                  "source": "RiskFactorsAndAssessments",
+                  "header": "Result",
+                  "value": 50
+                }
               }
             ]
           },
-          "flagsText": "Absence of Naloxone medication and either: presence of at least one opioid medication, or most recent MME assessment is 50+ MME/day"
+          "flagsText": "Absence of Naloxone medication and most recent MME assessment is 50+ MME/day"
         }
       ]
     },
@@ -263,7 +253,19 @@
             "Result": "Result",
             "Interpretation": "Interpretation",
             "Date": { "key": "Date", "formatter": "datishFormat" }
-          }
+          },
+          "flags": {
+            "ifAnd": [
+              "ifNone",
+              {
+                "ifOneOrMore": {
+                  "table": "OpioidMedications",
+                  "source": "HistoricalTreatments"
+                }
+              }
+            ]
+          },
+          "flagsText": "Absence of urine drug screen and at least one opioid medication"
         }
       ]
     },

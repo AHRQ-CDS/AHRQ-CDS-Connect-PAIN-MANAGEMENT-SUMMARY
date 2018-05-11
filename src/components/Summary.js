@@ -14,6 +14,7 @@ import RiskIcon from '../icons/RiskIcon';
 import CQLIcon from '../icons/CQLIcon';
 
 import InclusionBanner from './InclusionBanner';
+import ExclusionBanner from './ExclusionBanner';
 import DevTools from './DevTools';
 
 export default class Summary extends Component {
@@ -207,6 +208,8 @@ export default class Summary extends Component {
             <CQLIcon width="48" height="20" />
             Factors to Consider in Managing Chronic Pain
           </div>
+
+          <ExclusionBanner />
 
           {!summary.Patient.MeetsInclusionCriteria && <InclusionBanner />}
 

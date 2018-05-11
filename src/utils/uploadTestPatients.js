@@ -1,6 +1,6 @@
 const mkFhir = require('fhir.js');
-const fullerJackson = require('./test_patients/fuller_jackson.json')
-const baseUrl = 'http://launch.smarthealthit.org/v/r2/fhir'
+const fullerJackson = require('./test_patients/fuller_jackson.json');
+const baseUrl = 'http://launch.smarthealthit.org/v/r2/fhir';
 
 function convertToTx(bundle) {
   const tx = JSON.parse(JSON.stringify(bundle)); // clone it
@@ -26,4 +26,4 @@ client.transaction({ bundle: tx }).then(
   (error) => {
     console.error('ERROR', JSON.stringify(error, null, 2));
   }
-)
+);

@@ -12,8 +12,10 @@
     color: $color-gray-dark;
   }
 
-  &.inclusion-banner {
+  &.inclusion-banner,
+  &.exclusion-banner {
     padding: 20px 20px 20px 60px;
+    margin-bottom: 4px;
     text-align: left;
     background-color: $color-beige;
 
@@ -34,6 +36,12 @@
       color: $color-gray;
       font-size: 1.2em;
       cursor: pointer;
+    }
+  }
+
+  &.exclusion-banner {
+    .exclusion-banner__footer {
+      font-size: 0.9em;
     }
   }
 }
