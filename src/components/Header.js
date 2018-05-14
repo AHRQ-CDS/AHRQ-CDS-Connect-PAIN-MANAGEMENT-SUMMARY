@@ -9,7 +9,8 @@ export default class Header extends Component {
     return (
       <header className="header">
         <div className="header__logo">
-          <img className="header__logo-img" src="/assets/images/cds-connect-logo.png" alt="cds connect logo" />
+          <img className="header__logo-img" src={process.env.PUBLIC_URL + "/assets/images/cds-connect-logo.png"}
+            alt="cds connect logo" />
           <span className="header__logo-text">CDS Connect</span>
         </div>
 
