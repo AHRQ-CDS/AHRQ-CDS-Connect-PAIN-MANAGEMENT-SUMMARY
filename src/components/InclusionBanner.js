@@ -19,7 +19,7 @@ export default class InclusionBanner extends Component {
         <FontAwesome className="close-button" name="close" onClick={this.handleClose} />
 
         <div className="inclusion-banner__description">
-          <strong><FontAwesome name="exclamation-circle" /> WARNING:</strong> This CDS is designed for patients
+          <strong><FontAwesome name="exclamation-circle" /> WARNING:</strong> This summary is designed for patients
           who meet at least one of the following inclusion criteria:
 
           <ul>
