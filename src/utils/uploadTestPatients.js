@@ -53,9 +53,26 @@ for (const fileName of fs.readdirSync(testPatientsPath)) {
     continue;
   }
 
-  client.transaction({ bundle: convertToTx(json) }).then(
+  // Due to an issue w/ how the server handles transactions when a patient has been deleted, we post the patient
+  // first and then the other stuff.
+  const patientJSON = JSON.parse(JSON.stringify(json));
+  patientJSON.id += '_patient';
+  patientJSON.entry = patientJSON.entry.filter(e => e.resource && e.resource.resourceType === 'Patient');
+  const entriesJSON = JSON.parse(JSON.stringify(json));
+  entriesJSON.id += '_entries';
+  entriesJSON.entry = entriesJSON.entry.filter(e => e.resource && e.resource.resourceType !== 'Patient');
+
+  client.transaction({ bundle: convertToTx(patientJSON) }).then(
     (success) => {
       console.log(stringResult(success));
+      client.transaction({ bundle: convertToTx(entriesJSON) }).then(
+        (success) => {
+          console.log(stringResult(success));
+        },
+        (error) => {
+          console.error(stringResult(error));
+        }
+      );
     },
     (error) => {
       console.error(stringResult(error));
