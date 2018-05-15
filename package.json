@@ -54,6 +54,7 @@
     "react-fontawesome": "^1.6.1",
     "react-router-dom": "4.2.2",
     "react-router-test-context": "^0.1.0",
+    "react-table": "^6.8.2",
     "react-test-renderer": "^16.3.2",
     "react-tooltip": "^3.5.1",
     "resolve": "1.6.0",

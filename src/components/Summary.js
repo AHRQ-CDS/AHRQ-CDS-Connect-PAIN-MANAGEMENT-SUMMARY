@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import Collapsible from 'react-collapsible';
 import ReactTooltip from 'react-tooltip';
+import ReactTable from 'react-table';
 
 import summaryMap from './summary.json';
 import * as formatit from '../helpers/formatit';
@@ -82,9 +83,18 @@ export default class Summary extends Component {
     const headers = Object.keys(table.headers);
     const headerKeys = Object.values(table.headers);
 
+    console.debug('headers: ', headers);
+    console.debug('headerKeys: ', headerKeys);
+    console.debug('entries: ', entries);
+
     return (
       <div key={index} className="table">
-        <table className="sub-section__table">
+        <ReactTable
+          className="sub-section__table"
+          columns={headers}
+        />
+
+        {/*<table className="sub-section__table">
           <thead>
             <tr>
               <th></th>
@@ -125,7 +135,7 @@ export default class Summary extends Component {
               );
             })}
           </tbody>
-        </table>
+        </table>*/}
       </div>
     );
   }
