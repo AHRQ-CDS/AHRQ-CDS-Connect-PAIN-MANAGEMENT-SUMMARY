@@ -81,17 +81,50 @@ export default class Summary extends Component {
     if (!renderTable) return null;
 
     const headers = Object.keys(table.headers);
-    const headerKeys = Object.values(table.headers);
 
-    console.debug('headers: ', headers);
-    console.debug('headerKeys: ', headerKeys);
-    console.debug('entries: ', entries);
+    let columns = [
+      {
+        id: 'flagged',
+        Header: '',
+        accessor: (entry) => this.isEntryFlagged(section, subSection.dataKey, entry),
+        Cell: (props) =>
+          <FontAwesome
+            className={`flag flag-entry ${props.value ? 'flagged' : ''}`}
+            name="circle"
+            data-tip={props.value ? subSection.tables[0].flagsText : ''} />
+      }
+    ];
+
+    headers.forEach((header) => {
+      const headerKey = table.headers[header];
+
+      columns.push({
+        id: headerKey.key ? headerKey.key : headerKey,
+        Header: () => <span className="col-header">{headerKey.key ? headerKey.key : headerKey}</span>,
+        accessor: (entry) => {
+          let value = entry[headerKey];
+          if (headerKey.formatter) {
+            const { result } = this.props;
+            let formatterArguments = headerKey.formatterArguments || [];
+            value = formatit[headerKey.formatter](result, entry[headerKey.key], ...formatterArguments);
+          }
+
+          return value;
+        }
+      });
+    });
 
     return (
       <div key={index} className="table">
         <ReactTable
           className="sub-section__table"
-          columns={headers}
+          columns={columns}
+          data={entries}
+          minRows={1}
+          showPagination={entries.length > 10}
+          pageSizeOptions={[10, 20, 50, 100]}
+          defaultPageSize={10}
+          resizable={false}
         />
 
         {/*<table className="sub-section__table">

@@ -190,7 +190,7 @@
 
           .flag-summary {
             font-size: 0.7em;
-            margin-left: 5px;
+            margin: 5px 0 0 5px;
             color: $color-red;
             cursor: default;
           }
@@ -200,39 +200,82 @@
           padding-bottom: 20px;
 
           .sub-section__table {
-            width: 100%;
-            border-collapse: collapse;
+            border: 0;
 
-            tbody tr:hover {
-              background-color: lighten($color-blue, 30%);
-            }
+            .rt-tr-group {
+              border: 0;
 
-            td,
-            th {
-              text-align: left;
-              vertical-align: top;
-            }
+              .rt-tr {
+                background: $color-white;
 
-            th {
-              padding: 0 20px 20px 0;
-              white-space: nowrap;
-
-              span {
-                padding-bottom: 5px;
-                border-bottom: 2px solid $color-blue;
+                &:hover {
+                  background-color: lighten($color-blue, 30%);
+                }
               }
             }
 
-            td:not(:first-child) {
-              min-width: 100px;
+            .rt-td,
+            .rt-th {
+              text-align: left;
+              vertical-align: top;
+              border: 0;
             }
 
-            td {
-              padding-right: 20px;
+            .rt-th {
+              white-space: nowrap;
+
+              &:focus {
+                outline: none;
+              }
+
+              &.-cursor-pointer {
+                span {
+                  background-image: url('/assets/images/icon-sort.svg');
+                  background-repeat: no-repeat;
+                  background-size: 10px;
+                  background-position: 96%;
+                  // padding: 5px 20px 5px 5px;
+                }
+
+                &.-sort-asc,
+                &.-sort-desc {
+                  box-shadow: none;
+                }
+
+                &.-sort-asc span {
+                  background-image: url('/assets/images/icon-sort-up.svg');
+                }
+
+                &.-sort-desc span {
+                  background-image: url('/assets/images/icon-sort-down.svg');
+                }
+              }
+
+              .col-header {
+                display: inline-block;
+                border-bottom: 2px solid $color-blue;
+                padding: 0 16px 2px 0;
+              }
+            }
+
+            .rt-th:first-child,
+            .rt-td:first-child {
+              max-width: 35px;
+              padding: 0;
+            }
+
+            .rt-th:nth-child(2),
+            .rt-td:nth-child(2) {
+              min-width: 500px;
+            }
+
+            .rt-td {
+              padding: 5px;
 
               .flag-entry {
                 font-size: 0.8em;
                 margin-left: 16px;
+                padding-top: 10px;
                 color: transparent;
                 cursor: default;
 
@@ -241,11 +284,14 @@
                 }
               }
             }
+          }
 
-            .flag-col {
-              width: 40px;
-              max-width: 40px;
-              padding: 0;
+          .pagination-bottom {
+            margin-top: 20px;
+
+            .-pagination {
+              box-shadow: none;
+              border-top: 1px solid $color-gray-lighter;
             }
           }
         }
