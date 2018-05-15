@@ -234,7 +234,6 @@
                   background-repeat: no-repeat;
                   background-size: 10px;
                   background-position: 96%;
-                  // padding: 5px 20px 5px 5px;
                 }
 
                 &.-sort-asc,
@@ -266,11 +265,13 @@
 
             .rt-th:nth-child(2),
             .rt-td:nth-child(2) {
-              min-width: 500px;
+              min-width: calc(100px + 20vw);
             }
 
             .rt-td {
               padding: 5px;
+              white-space: normal;
+              overflow: visible;
 
               .flag-entry {
                 font-size: 0.8em;

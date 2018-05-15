@@ -68,8 +68,18 @@
           "headers": {
             "Name": "Name",
             "Score": "Score",
-            "Question": { "key": "Questions", "formatter": "arrayFlatten", "formatterArguments": ["Name"] },
-            "Question Score": { "key": "Questions", "formatter": "arrayFlatten", "formatterArguments": ["Score"] },
+            "Question": {
+              "key": "Questions",
+              "formatter": "arrayFlatten",
+              "formatterArguments": ["Name"],
+              "sortable": false
+            },
+            "Question Score": {
+              "key": "Questions",
+              "formatter": "arrayFlatten",
+              "formatterArguments": ["Score"],
+              "sortable": false
+            },
             "Date": { "key": "Date", "formatter": "datishFormat" }
           }
         }

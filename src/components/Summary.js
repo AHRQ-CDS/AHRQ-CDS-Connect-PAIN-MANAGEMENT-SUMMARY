@@ -91,7 +91,8 @@ export default class Summary extends Component {
           <FontAwesome
             className={`flag flag-entry ${props.value ? 'flagged' : ''}`}
             name="circle"
-            data-tip={props.value ? subSection.tables[0].flagsText : ''} />
+            data-tip={props.value ? subSection.tables[0].flagsText : ''} />,
+        sortable: false
       }
     ];
 
@@ -99,8 +100,8 @@ export default class Summary extends Component {
       const headerKey = table.headers[header];
 
       columns.push({
-        id: headerKey.key ? headerKey.key : headerKey,
-        Header: () => <span className="col-header">{headerKey.key ? headerKey.key : headerKey}</span>,
+        id: header,
+        Header: () => <span className="col-header">{header}</span>,
         accessor: (entry) => {
           let value = entry[headerKey];
           if (headerKey.formatter) {
@@ -110,7 +111,8 @@ export default class Summary extends Component {
           }
 
           return value;
-        }
+        },
+        sortable: headerKey.sortable !== false
       });
     });
 
