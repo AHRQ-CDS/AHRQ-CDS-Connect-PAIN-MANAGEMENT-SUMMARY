@@ -179,41 +179,6 @@
     {
       "resource": {
         "resourceType": "Observation",
-        "id": "cf0929fa-14c0-4f61-b707-ca5ec3b20809",
-        "status": "final",
-        "code": {
-          "coding": [
-            {
-              "system": "http://loinc.org",
-              "code": "19295-5",
-              "display": "Opiates [Presence] in Urine by Screen method"
-            }
-          ],
-          "text": "Opiates [Presence] in Urine by Screen method"
-        },
-        "subject": {
-          "reference": "Patient/35dfbf37-98f5-45ce-a3b0-0b490a241f1f"
-        },
-        "issued": "2017-10-20T00:00:00.000Z",
-        "valueQuantity": {
-          "value": 2300,
-          "unit": "ng/mL"
-        },
-        "interpretation": {
-          "coding": [
-            {
-              "system": "http://hl7.org/fhir/v2/0078",
-              "code": "NEG",
-              "display": "Negative"
-            }
-          ],
-          "text": "Negative"
-        }
-      }
-    },
-    {
-      "resource": {
-        "resourceType": "Observation",
         "id": "d4036686-aa41-49c7-ba36-ce6f8c0b3129",
         "status": "final",
         "category": {

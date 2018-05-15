@@ -20,11 +20,11 @@
 
 ### To upload test patients to the public SMART sandbox
 
-We currently have one test patient with a single prescription for an opioid.  In the near future we'll add patients w/ more relevant data.  To upload the test patients to the public SMART sandbox:
+Testing this SMART App is more meaningful when we can supply test patients that exercise various aspects of the application.  Test patients are represented as FHIR bundles at `src/utils/test_patients`.  To upload the test patients to the public SMART sandbox:
 
 1. Run `yarn upload-test-patients`
 
-This adds a patient named "Fuller Jackson".  The SMART sandbox is reset every night, so you will need to do this at least once each day you want to test.
+This adds a number of patients, mostly with the last name "Jackson" (for example, "Fuller Jackson" has entries in every section of the app).  The SMART sandbox is reset every night, so you will need to do this at least once each day you want to test.
 
 ## To run in standalone mode on the public SMART sandbox
 
@@ -86,4 +86,34 @@ Then register the app via the SMART Platform:
 8. Click "Launch"
 9. Choose a patient
 
-You should see the patient's name, age, and gender at the top of the app page.  Below that are tables for Conditions, Medication Orders, Observations, and Debug info.
+## To create more test patients
+
+The `upload-test-patients` task uploads test patients using a FHIR DSTU2 transaction bundle.  Test bundles can be created/updated by hand, but that can be tedious and error-prone.  There is also a slightly *less* tedious and *less* error-prone approach through the use of the *cds_artifact_collaboration* test framework, which allows for creating tests patients via a YAML format.
+
+### First Create the FHIR JSON test data bundle(s)
+
+1. Clone the `cds_artifact_collaboration` repo via
+   ```
+   $ git clone git@gitlab.mitre.org:cds-connect/cds_artifact_collaboration.git
+   ```
+2. Switch to the `pmf` branch
+   ```
+   $ git checkout pmf
+   ```
+3. Note the set of test YAML patients already defined at: `test/PainManagementFactors/FHIRv102/fixtures`.
+   - These define the data that should go in the record for a test patient as well as a subset of expected results (usually the `Summary`).
+   - Perhaps the test patient you want is already represented?  If so, great!
+   - If your needs aren't already represented via an existing test patient, this is where you add one.
+4. The test framework converts the test data to FHIR JSON, but keeps it only in memory by default.  To dump it to disk, edit the file `test/loadYamlTestCases/index.js` so the `DUMP_PATIENTS` constant is `true` (to do, support modifing this via environment variable).
+5. To generate and dump the patients, you need to run the tests.  You don't want to run all the tests in the repo (there are 1000s), so just do this:
+   ```
+   npx mocha test/PainManagementFactors/FHIRv102/
+   ```
+6. Confirm you now have test patients in FHIR JSON format at `test_dump`.
+7. Add new test patients as necessary and re-run step 5 above.
+   - If you do not need to verify CQL results (you just want the test data JSON), you can remove the `results:` section of the YAML.  But ideally we should be verifying results.
+
+### Then move desired bundles to pain-management-factors app
+
+1. Copy the JSON files you want to upload from the `cds_artifact_collaboration` repo's `test_dump` folder to `src/utils/test_patients` folder.  You probably want to rename the file and the bundle `id` in the file.  Many of our test patients also use the same name, gender, and birthdate -- so consider editing that as well.
+2. Run `yarn upload-test-patients` to upload the new patient(s) to the SMART server.
