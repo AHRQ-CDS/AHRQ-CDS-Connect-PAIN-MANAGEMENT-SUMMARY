@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const filePath = path.join(__dirname, '..', 'src', 'cql', 'valueset-db.json');
+const filePath = path.join(__dirname, '..', 'cql', 'valueset-db.json');
 const original = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
 const fixed = {};

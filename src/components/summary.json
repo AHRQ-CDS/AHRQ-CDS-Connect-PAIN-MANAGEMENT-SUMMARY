@@ -18,6 +18,11 @@
               "key": "Abatement",
               "formatter": "datishAgeFormat",
               "minWidth": 150
+            },
+            "Recorded": {
+              "key": "DateRecorded",
+              "formatter": "datishAgeFormat",
+              "minWidth": 150
             }
           }
         }
@@ -41,6 +46,11 @@
               "key": "Abatement",
               "formatter": "datishAgeFormat",
               "minWidth": 150
+            },
+            "Recorded": {
+              "key": "DateRecorded",
+              "formatter": "datishAgeFormat",
+              "minWidth": 150
             }
           },
           "trigger": "Onset",
@@ -52,6 +62,11 @@
             "Name": "Name",
             "Visit": {
               "key": "Visit",
+              "formatter": "datishAgeFormat",
+              "minWidth": 150
+            },
+            "Recorded": {
+              "key": "DateRecorded",
               "formatter": "datishAgeFormat",
               "minWidth": 150
             }
@@ -177,7 +192,7 @@
     {
       "name": "Stool Softeners and Laxatives",
       "dataKey": "StoolSoftenersAndLaxatives",
-      "dataKeySource": "MiscellaneousItems",
+      "dataKeySource": "HistoricalTreatments",
       "tables": [
         {
           "headers": {
