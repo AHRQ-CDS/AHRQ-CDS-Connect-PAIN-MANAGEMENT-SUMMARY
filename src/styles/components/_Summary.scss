@@ -190,7 +190,7 @@
 
           .flag-summary {
             font-size: 0.7em;
-            margin-left: 5px;
+            margin: 5px 0 0 5px;
             color: $color-red;
             cursor: default;
           }
@@ -199,40 +199,89 @@
         .table {
           padding-bottom: 20px;
 
+          .ReactTable * {
+            box-sizing: inherit;
+          }
+
           .sub-section__table {
-            width: 100%;
-            border-collapse: collapse;
+            border: 0;
 
-            tbody tr:hover {
-              background-color: lighten($color-blue, 30%);
-            }
+            .rt-tr-group {
+              border: 0;
 
-            td,
-            th {
-              text-align: left;
-              vertical-align: top;
-            }
+              .rt-tr {
+                background: $color-white;
 
-            th {
-              padding: 0 20px 20px 0;
-              white-space: nowrap;
-
-              span {
-                padding-bottom: 5px;
-                border-bottom: 2px solid $color-blue;
+                &:hover {
+                  background-color: lighten($color-blue, 30%);
+                }
               }
             }
 
-            td:not(:first-child) {
-              min-width: 100px;
+            .rt-td,
+            .rt-th {
+              text-align: left;
+              vertical-align: top;
+              border: 0;
             }
 
-            td {
-              padding-right: 20px;
+            .rt-th {
+              white-space: nowrap;
+
+              &:focus {
+                outline: none;
+              }
+
+              &.-cursor-pointer {
+                span {
+                  background-image: url('/assets/images/icon-sort.png');
+                  background-repeat: no-repeat;
+                  background-size: 8px;
+                  background-position: 96% 50%;
+                }
+
+                &.-sort-asc,
+                &.-sort-desc {
+                  box-shadow: none;
+                }
+
+                &.-sort-asc span {
+                  background-image: url('/assets/images/icon-sort-up.png');
+                }
+
+                &.-sort-desc span {
+                  background-image: url('/assets/images/icon-sort-down.png');
+                }
+              }
+
+              .col-header {
+                display: inline-block;
+                border-bottom: 2px solid $color-blue;
+                padding: 0 16px 2px 0;
+              }
+            }
+
+            .rt-th:first-child,
+            .rt-td:first-child {
+              max-width: 35px;
+              padding: 0;
+            }
+
+            .rt-th:nth-child(2),
+            .rt-td:nth-child(2) {
+              min-width: calc(100px + 20vw);
+            }
+
+            .rt-td {
+              padding: 5px;
+              white-space: normal;
+              display: block;
+              overflow: visible;
 
               .flag-entry {
                 font-size: 0.8em;
                 margin-left: 16px;
+                padding-top: 10px;
                 color: transparent;
                 cursor: default;
 
@@ -241,11 +290,18 @@
                 }
               }
             }
+          }
 
-            .flag-col {
-              width: 40px;
-              max-width: 40px;
-              padding: 0;
+          .pagination-bottom {
+            margin-top: 20px;
+
+            .-pagination {
+              box-shadow: none;
+              border-top: 1px solid $color-gray-lighter;
+
+              button {
+                width: 96%;
+              }
             }
           }
         }
