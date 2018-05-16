@@ -21,8 +21,7 @@
             },
             "Recorded": {
               "key": "DateRecorded",
-              "formatter": "datishAgeFormat",
-              "minWidth": 150
+              "formatter": "datishFormat"
             }
           }
         }
@@ -49,8 +48,7 @@
             },
             "Recorded": {
               "key": "DateRecorded",
-              "formatter": "datishAgeFormat",
-              "minWidth": 150
+              "formatter": "datishFormat"
             }
           },
           "filter": "!Visit",
