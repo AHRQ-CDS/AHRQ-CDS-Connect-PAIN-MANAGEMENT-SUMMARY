@@ -53,7 +53,7 @@
               "minWidth": 150
             }
           },
-          "trigger": "Onset",
+          "filter": "!Visit",
           "flags": "always",
           "flagsText": "Opioid-related condition"
         },
@@ -64,14 +64,9 @@
               "key": "Visit",
               "formatter": "datishAgeFormat",
               "minWidth": 150
-            },
-            "Recorded": {
-              "key": "DateRecorded",
-              "formatter": "datishAgeFormat",
-              "minWidth": 150
             }
           },
-          "trigger": "Visit",
+          "filter": "Visit",
           "flags": "always",
           "flagsText": "Opioid-related condition"
         }

@@ -21,7 +21,17 @@ const mockSummaryA = {
         "Onset": "2014-09-05T00:00:00.000+00:00",
         "Abatement": null,
         "Visit": null
+      },
+      {
+        "Name": "Suicide attempt, initial encounter",
+        "Status": null,
+        "Onset": null,
+        "Abatement": null,
+        "Visit": {
+          "Start": "2015-02-01T00:00:00.000+00:00",
+          "End": null
         }
+      }
     ]
   },
   "PainAssessments": {
