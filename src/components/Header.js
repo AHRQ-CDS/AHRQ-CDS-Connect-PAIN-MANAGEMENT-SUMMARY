@@ -4,7 +4,9 @@ import FontAwesome from 'react-fontawesome';
 
 export default class Header extends Component {
   render() {
-    const { patientName, patientAge, patientGender, totalEntries, numFlaggedEntries } = this.props;
+    const {
+      patientName, patientAge, patientGender, totalEntries, numFlaggedEntries, meetsInclusionCriteria
+    } = this.props;
 
     return (
       <header className="header">
@@ -28,17 +30,19 @@ export default class Header extends Component {
             </div>
           </div>
 
-          <div className="header__summary-dashboard">
-            <div className="entries">
-              <div className="entries-count total">{totalEntries}</div>
-              <div className="entries-label">Total Entries</div>
-            </div>
+          {meetsInclusionCriteria &&
+            <div className="header__summary-dashboard">
+              <div className="entries">
+                <div className="entries-count total">{totalEntries}</div>
+                <div className="entries-label">Total Entries</div>
+              </div>
 
-            <div className="entries">
-              <div className="entries-count flagged">{numFlaggedEntries}</div>
-              <div className="entries-label">Flagged Entries</div>
+              <div className="entries">
+                <div className="entries-count flagged">{numFlaggedEntries}</div>
+                <div className="entries-label">Flagged Entries</div>
+              </div>
             </div>
-          </div>
+          }
         </div>
       </header>
     );
@@ -50,5 +54,6 @@ Header.propTypes = {
   patientAge: PropTypes.number.isRequired,
   patientGender: PropTypes.string.isRequired,
   totalEntries: PropTypes.number.isRequired,
-  numFlaggedEntries: PropTypes.number.isRequired
+  numFlaggedEntries: PropTypes.number.isRequired,
+  meetsInclusionCriteria: PropTypes.bool.isRequired
 };

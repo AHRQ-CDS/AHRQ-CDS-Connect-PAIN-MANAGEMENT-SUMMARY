@@ -52,8 +52,12 @@
             }
           },
           "filter": "!Visit",
-          "flags": "always",
-          "flagsText": "Opioid-related condition"
+          "flags": [
+            {
+              "flag": "always",
+              "flagText": "Factor that may place the patient at risk for an opioid-related harm"
+            }
+          ]
         },
         {
           "headers": {
@@ -65,8 +69,12 @@
             }
           },
           "filter": "Visit",
-          "flags": "always",
-          "flagsText": "Opioid-related condition"
+          "flags": [
+            {
+              "flag": "always",
+              "flagText": "Factor that may place the patient at risk for an opioid-related harm"
+            }
+          ]
         }
       ]
     }
@@ -144,8 +152,12 @@
             "Start": { "key": "Start", "formatter": "datishFormat" },
             "End": { "key": "End", "formatter": "datishFormat" }
           },
-          "flags": "always",
-          "flagsText": "Opioid medication"
+          "flags": [
+            {
+              "flag": "always",
+              "flagText": "Opioid medication"
+            }
+          ]
         }
       ]
     },
@@ -161,8 +173,12 @@
             "Start": { "key": "Start", "formatter": "datishFormat" },
             "End": { "key": "End", "formatter": "datishFormat" }
           },
-          "flags": "ifNone",
-          "flagsText": "Absence of non-opioid medications"
+          "flags": [
+            {
+              "flag": "ifNone",
+              "flagText": "Absence of non-opioid medications"
+            }
+          ]
         }
       ]
     },
@@ -177,8 +193,12 @@
             "Type": "Type",
             "Date": { "key": "Date", "formatter": "datishFormat" }
           },
-          "flags": "ifNone",
-          "flagsText": "Absence of non-pharmacologic treatments"
+          "flags": [
+            {
+              "flag": "ifNone",
+              "flagText": "Absence of non-pharmacologic treatments"
+            }
+          ]
         }
       ]
     },
@@ -194,91 +214,49 @@
             "Start": { "key": "Start", "formatter": "datishFormat" },
             "End": { "key": "End", "formatter": "datishFormat" }
           },
-          "flags": {
-            "ifAnd": [
-              "ifNone",
-              {
-                "ifOneOrMore": {
-                  "table": "OpioidMedications",
-                  "source": "HistoricalTreatments"
-                }
-              }
-            ]
-          },
-          "flagsText": "Absence of stool softeners/laxative with presence of at least one opioid medication"
+          "flags": [
+            {
+              "flag": {
+                "ifAnd": [
+                  "ifNone",
+                  {
+                    "ifOneOrMore": {
+                      "table": "OpioidMedications",
+                      "source": "HistoricalTreatments"
+                    }
+                  }
+                ]
+              },
+              "flagText": "Absence of stool softeners/laxative with presence of at least one opioid medication"
+            }
+          ]
         }
       ]
     }
   ],
   "RiskFactorsAndAssessments": [
     {
-      "name": "Pain Management Risk Screenings",
-      "dataKey": "PainManagementRiskScreenings",
+      "name": "Most Recent MME",
+      "dataKey": "MostRecentMME",
       "dataKeySource": "RiskFactorsAndAssessments",
       "tables": [
         {
           "headers": {
             "Name": "Name",
-            "Score": "Score",
-            "Interpretation": "Interpretation",
+            "Result": { "key": "Result", "formatter": "MMEFormat" },
             "Date": { "key": "Date", "formatter": "datishFormat" }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Benzodiazepine Medications",
-      "dataKey": "BenzodiazepineMedications",
-      "dataKeySource": "RiskFactorsAndAssessments",
-      "tables": [
-        {
-          "headers": {
-            "Name": "Name",
-            "Type": "Type",
-            "Start": { "key": "Start", "formatter": "datishFormat" },
-            "End": { "key": "End", "formatter": "datishFormat" }
           },
-          "flags": {
-            "ifAnd": [
-              "ifOneOrMore",
-              {
-                "ifOneOrMore": {
-                  "table": "OpioidMedications",
-                  "source": "HistoricalTreatments"
-                }
-              }
-            ]
-          },
-          "flagsText": "Benzodiazepine medication and at least one opioid medication"
-        }
-      ]
-    },
-    {
-      "name": "Naloxone Medications",
-      "dataKey": "NaloxoneMedications",
-      "dataKeySource": "RiskFactorsAndAssessments",
-      "tables": [
-        {
-          "headers": {
-            "Name": "Name",
-            "Type": "Type",
-            "Start": { "key": "Start", "formatter": "datishFormat" },
-            "End": { "key": "End", "formatter": "datishFormat" }
-          },
-          "flags": {
-            "ifAnd": [
-              "ifNone",
-              {
+          "flags": [
+            {
+              "flag": {
                 "ifGreaterThanOrEqualTo": {
-                  "table": "MostRecentMME",
-                  "source": "RiskFactorsAndAssessments",
                   "header": "Result",
                   "value": 50
                 }
-              }
-            ]
-          },
-          "flagsText": "Absence of Naloxone medication and most recent MME assessment is 50+ MME/day"
+              },
+              "flagText": "Most recent MME assessment is 50+ MME/day"
+            }
+          ]
         }
       ]
     },
@@ -294,39 +272,105 @@
             "Interpretation": "Interpretation",
             "Date": { "key": "Date", "formatter": "datishFormat" }
           },
-          "flags": {
-            "ifAnd": [
-              "ifNone",
-              {
-                "ifOneOrMore": {
-                  "table": "OpioidMedications",
-                  "source": "HistoricalTreatments"
-                }
-              }
-            ]
-          },
-          "flagsText": "Absence of urine drug screen and at least one opioid medication"
+          "flags": [
+            {
+              "flag": {
+                "ifAnd": [
+                  "ifNone",
+                  {
+                    "ifOneOrMore": {
+                      "table": "OpioidMedications",
+                      "source": "HistoricalTreatments"
+                    }
+                  }
+                ]
+              },
+              "flagText": "Absence of urine drug screen and at least one opioid medication"
+            }
+          ]
         }
       ]
     },
     {
-      "name": "Most Recent MME",
-      "dataKey": "MostRecentMME",
+      "name": "Benzodiazepine Medications",
+      "dataKey": "BenzodiazepineMedications",
       "dataKeySource": "RiskFactorsAndAssessments",
       "tables": [
         {
           "headers": {
             "Name": "Name",
-            "Result": { "key": "Result", "formatter": "MMEFormat" },
-            "Date": { "key": "Date", "formatter": "datishFormat" }
+            "Type": "Type",
+            "Start": { "key": "Start", "formatter": "datishFormat" },
+            "End": { "key": "End", "formatter": "datishFormat" }
           },
-          "flags": {
-            "ifGreaterThanOrEqualTo": {
-              "header": "Result",
-              "value": 50
+          "flags": [
+            {
+              "flag": {
+                "ifAnd": [
+                  "ifOneOrMore",
+                  {
+                    "ifOneOrMore": {
+                      "table": "OpioidMedications",
+                      "source": "HistoricalTreatments"
+                    }
+                  }
+                ]
+              },
+              "flagText": "Benzodiazepine medication and at least one opioid medication"
             }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Naloxone Medications",
+      "dataKey": "NaloxoneMedications",
+      "dataKeySource": "RiskFactorsAndAssessments",
+      "tables": [
+        {
+          "headers": {
+            "Name": "Name",
+            "Type": "Type",
+            "Start": { "key": "Start", "formatter": "datishFormat" },
+            "End": { "key": "End", "formatter": "datishFormat" }
           },
-          "flagsText": "Most recent MME assessment is 50+ MME/day"
+          "flags": [
+            {
+              "flag": {
+                "ifAnd": [
+                  "ifNone",
+                  {
+                    "ifGreaterThanOrEqualTo": {
+                      "table": "MostRecentMME",
+                      "source": "RiskFactorsAndAssessments",
+                      "header": "Result",
+                      "value": 50
+                    }
+                  }
+                ]
+              },
+              "flagText": "Absence of Naloxone medication and most recent MME assessment is 50+ MME/day"
+            },
+            {
+              "flag": "ifOneOrMore",
+              "flagText": "Evidence of Naloxone medication"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Pain Management Risk Screenings",
+      "dataKey": "PainManagementRiskScreenings",
+      "dataKeySource": "RiskFactorsAndAssessments",
+      "tables": [
+        {
+          "headers": {
+            "Name": "Name",
+            "Score": "Score",
+            "Interpretation": "Interpretation",
+            "Date": { "key": "Date", "formatter": "datishFormat" }
+          }
         }
       ]
     }

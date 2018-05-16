@@ -3,7 +3,8 @@ import InclusionBanner from '../../components/InclusionBanner';
 
 const component = shallowRender(InclusionBanner, {
   url: 'testUrl',
-  query: {}
+  query: {},
+  dismissible: true
 });
 
 it('renders without crashing', () => {

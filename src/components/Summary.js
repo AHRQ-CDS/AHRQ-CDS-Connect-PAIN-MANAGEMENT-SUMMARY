@@ -43,14 +43,18 @@ export default class Summary extends Component {
     }
   }
 
+  // if flagged, returns flag text, else returns false
   isEntryFlagged(section, subSection, entry) {
     const { sectionFlags } = this.props;
 
-    if (Array.isArray(sectionFlags[section][subSection])) {
-      return sectionFlags[section][subSection].indexOf(entry._id) >= 0;
-    }
+    let flagged = false;
+    sectionFlags[section][subSection].forEach((flag) => {
+      if (flag.entryId === entry._id) {
+        flagged = flag.flagText;
+      }
+    });
 
-    return sectionFlags[section][subSection];
+    return flagged;
   }
 
   renderNoEntries(section, subSection) {
@@ -94,7 +98,7 @@ export default class Summary extends Component {
           <FontAwesome
             className={`flag flag-entry ${props.value ? 'flagged' : ''}`}
             name="circle"
-            data-tip={props.value ? subSection.tables[0].flagsText : ''} />,
+            data-tip={props.value ? props.value : ''} />,
         sortable: false,
         width: 35,
         minWidth: 35
@@ -193,7 +197,7 @@ export default class Summary extends Component {
       title = `Historical Pain-related Treatments (${numTreatmentsEntries})`
     } else if (section === 'RiskFactorsAndAssessments') {
       icon = <RiskIcon width="35" height="34" />;
-      title = `Risk Factors and Assessments (${numRiskEntries})`;
+      title = `Risk Considerations (${numRiskEntries})`;
     }
 
     return (
@@ -214,6 +218,7 @@ export default class Summary extends Component {
 
   render() {
     const { summary, collector, result } = this.props;
+    const meetsInclusionCriteria = summary.Patient.MeetsInclusionCriteria;
     if (!summary) { return null; }
 
     return (
@@ -226,27 +231,29 @@ export default class Summary extends Component {
             Factors to Consider in Managing Chronic Pain
           </div>
 
-          <ExclusionBanner />
+          {meetsInclusionCriteria && <ExclusionBanner />}
 
-          {!summary.Patient.MeetsInclusionCriteria && <InclusionBanner />}
+          {!meetsInclusionCriteria && <InclusionBanner dismissible={meetsInclusionCriteria} />}
 
-          <div className="sections">
-            <Collapsible trigger={this.renderSectionHeader("PertinentMedicalHistory")} open={true}>
-              {this.renderSection("PertinentMedicalHistory")}
-            </Collapsible>
+          {meetsInclusionCriteria &&
+            <div className="sections">
+              <Collapsible trigger={this.renderSectionHeader("PertinentMedicalHistory")} open={true}>
+                {this.renderSection("PertinentMedicalHistory")}
+              </Collapsible>
 
-            <Collapsible trigger={this.renderSectionHeader("PainAssessments")} open={true}>
-              {this.renderSection("PainAssessments")}
-            </Collapsible>
+              <Collapsible trigger={this.renderSectionHeader("PainAssessments")} open={true}>
+                {this.renderSection("PainAssessments")}
+              </Collapsible>
 
-            <Collapsible trigger={this.renderSectionHeader("HistoricalTreatments")} open={true}>
-              {this.renderSection("HistoricalTreatments")}
-            </Collapsible>
+              <Collapsible trigger={this.renderSectionHeader("HistoricalTreatments")} open={true}>
+                {this.renderSection("HistoricalTreatments")}
+              </Collapsible>
 
-            <Collapsible trigger={this.renderSectionHeader("RiskFactorsAndAssessments")} open={true}>
-              {this.renderSection("RiskFactorsAndAssessments")}
-            </Collapsible>
-          </div>
+              <Collapsible trigger={this.renderSectionHeader("RiskFactorsAndAssessments")} open={true}>
+                {this.renderSection("RiskFactorsAndAssessments")}
+              </Collapsible>
+            </div>
+          }
 
           <DevTools
             collector={collector}
