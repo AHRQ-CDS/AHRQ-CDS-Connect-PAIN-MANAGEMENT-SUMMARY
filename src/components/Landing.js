@@ -86,6 +86,10 @@ export default class Landing extends Component {
         const data = summary[subSection.dataKeySource][subSection.dataKey];
         const entries = (Array.isArray(data) ? data : [data]).filter(r => r != null);
 
+        if (subSection.dataKey === 'NaloxoneMedications') {
+          // debugger;
+        }
+
         if (entries.length > 0) {
           sectionFlags[sectionKey][subSection.dataKey] = entries.reduce((flaggedEntries, entry) => {
             if (entry._id == null) {
@@ -111,6 +115,8 @@ export default class Landing extends Component {
         }
       });
     });
+
+    console.debug('sectionFlags: ', sectionFlags);
 
     return { sectionFlags, flaggedCount };
   }

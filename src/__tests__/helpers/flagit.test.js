@@ -161,7 +161,7 @@ it('flags "Urine Drug Screens" entries correctly', () => {
     "Date": "2017-10-20T00:00:00.000+00:00"
   };
   const mockFlag = "Absence of urine drug screen and at least one opioid medication";
-  // no urine drug screen (true) AND at least one opioid (true) => true
+  // no urine drug screen (true) AND at least one opioid (true) => mockFlag
   expect(flagit(null, subSection, mockSummaryB)).toEqual(mockFlag);
   // no urine drug screen (true) AND no opioids (false) => false
   expect(flagit(null, subSection, mockSummaryC)).toEqual(false);
@@ -180,7 +180,7 @@ it('flags "Benzodiazepine Medications" entries correctly', () => {
     "End": null
   };
   const mockFlag = "Benzodiazepine medication and at least one opioid medication";
-  // one or more benzo (true) AND one or more opioids (true) => true
+  // one or more benzo (true) AND one or more opioids (true) => mockFlag
   expect(flagit(mockEntry, subSection, mockSummaryA)).toEqual(mockFlag);
   // no benzo (false) AND one or more opioids (true) => false
   expect(flagit(null, subSection, mockSummaryB)).toEqual(false);
@@ -196,13 +196,15 @@ it('flags "Naloxone Medications" entries correctly', () => {
     "Start": "2018-04-20T00:00:00.000+00:00",
     "End": null
   };
-  const mockFlag = "Absence of Naloxone medication and most recent MME assessment is 50+ MME/day";
-  // no naloxone (true) AND MME >= 50 (true) => true
-  expect(flagit(null, subSection, mockSummaryB)).toEqual(mockFlag);
+  const mockFlagA = "Absence of Naloxone medication and most recent MME assessment is 50+ MME/day";
+  // no naloxone (true) AND MME >= 50 (true) => mockFlag
+  expect(flagit(null, subSection, mockSummaryB)).toEqual(mockFlagA);
   // no naloxone (true) AND MME < 50 (false)] => false
   expect(flagit(null, subSection, mockSummaryE)).toEqual(false);
-  // naloxone (false) AND MME >= 50 (true) => false
-  expect(flagit(mockEntry, subSection, mockSummaryF)).toEqual(false);
+
+  const mockFlagB = "Evidence of Naloxone medication";
+  // naloxone (true) => mockFlag
+  expect(flagit(mockEntry, subSection, mockSummaryF)).toEqual(mockFlagB);
 });
 
 it('flags "Pain Management Risk Screenings" entries correctly', () => {

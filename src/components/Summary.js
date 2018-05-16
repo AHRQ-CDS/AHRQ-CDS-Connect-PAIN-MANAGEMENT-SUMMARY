@@ -12,7 +12,6 @@ import MedicalHistoryIcon from '../icons/MedicalHistoryIcon';
 import PainIcon from '../icons/PainIcon';
 import TreatmentsIcon from '../icons/TreatmentsIcon';
 import RiskIcon from '../icons/RiskIcon';
-import CQLIcon from '../icons/CQLIcon';
 
 import InclusionBanner from './InclusionBanner';
 import ExclusionBanner from './ExclusionBanner';
@@ -60,7 +59,8 @@ export default class Summary extends Component {
   renderNoEntries(section, subSection) {
     const flagged = this.isSubsectionFlagged(section, subSection.dataKey);
     const flaggedClass = flagged ? 'flagged' : '';
-    const tooltip = flagged ? subSection.tables[0].flagsText : '';
+    const flagText = this.props.sectionFlags[section][subSection.dataKey];
+    const tooltip = flagged ? flagText : '';
 
     return (
       <div className="table">
@@ -227,7 +227,6 @@ export default class Summary extends Component {
 
         <div className="summary__display">
           <div className="summary__display-title">
-            <CQLIcon width="48" height="20" />
             Factors to Consider in Managing Chronic Pain
           </div>
 
@@ -260,7 +259,7 @@ export default class Summary extends Component {
             result={result}
           />
 
-          <ReactTooltip />
+          <ReactTooltip className="summary-tooltip" />
         </div>
       </div>
     );

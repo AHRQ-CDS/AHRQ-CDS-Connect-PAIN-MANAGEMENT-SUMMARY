@@ -8,16 +8,18 @@ export default function flagit(entry, subSection, summary) {
 
   const flagResults = flags.reduce((accumulator, flag) => {
     const flagRule = flag.flag;
-    if (flagRule === 'always' && entry != null) {
-      accumulator.push(flag.flagText);
-    } else if (flagRule === 'always' && entry == null) {
-      // no-op
+    if (flagRule === 'always') {
+      if (entry != null) {
+        accumulator.push(flag.flagText);
+      }
     } else if (flagRule === 'ifNone' && entry == null) {
       accumulator.push(flag.flagText);
     } else if (typeof flagRule === 'string') {
-      // no-op
-    } else {
-      const rule = Object.keys(flagRule);
+      if (functions[flagRule](entry, entry, subSection, summary)) {
+        accumulator.push(flag.flagText);
+      }
+    } else if (typeof flagRule === 'object') {
+      const rule = Object.keys(flagRule)[0];
       if (functions[rule](flagRule[rule], entry, subSection, summary)) {
         accumulator.push(flag.flagText);
       }
@@ -32,8 +34,8 @@ export default function flagit(entry, subSection, summary) {
 function ifAnd(flagRulesArray, entry, subSection, summary) {
   for (let i = 0; i < flagRulesArray.length; ++i) {
     const flagRule = flagRulesArray[i];
-    let match;
 
+    let match;
     if (typeof flagRule === 'string') {
       match = functions[flagRule](entry, entry, subSection, summary);
     } else {

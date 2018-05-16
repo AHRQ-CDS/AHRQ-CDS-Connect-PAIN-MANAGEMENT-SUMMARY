@@ -10,7 +10,7 @@
     .toc-list.is-collapsible {
       .toc-list-item {
         .toc-link {
-          font-size: 0.8em;
+          font-size: 0.9em;
           padding: 5px 5px 5px 70px;
           line-height: 1.1em;
 
@@ -341,4 +341,8 @@
       }
     }
   }
+}
+
+.summary-tooltip {
+  font-size: 1em;
 }
