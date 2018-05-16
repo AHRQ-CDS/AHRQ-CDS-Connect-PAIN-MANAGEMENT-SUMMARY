@@ -199,6 +199,10 @@
         .table {
           padding-bottom: 20px;
 
+          .ReactTable * {
+            box-sizing: inherit;
+          }
+
           .sub-section__table {
             border: 0;
 
@@ -230,10 +234,10 @@
 
               &.-cursor-pointer {
                 span {
-                  background-image: url('/assets/images/icon-sort.svg');
+                  background-image: url('/assets/images/icon-sort.png');
                   background-repeat: no-repeat;
-                  background-size: 10px;
-                  background-position: 96%;
+                  background-size: 8px;
+                  background-position: 96% 50%;
                 }
 
                 &.-sort-asc,
@@ -242,11 +246,11 @@
                 }
 
                 &.-sort-asc span {
-                  background-image: url('/assets/images/icon-sort-up.svg');
+                  background-image: url('/assets/images/icon-sort-up.png');
                 }
 
                 &.-sort-desc span {
-                  background-image: url('/assets/images/icon-sort-down.svg');
+                  background-image: url('/assets/images/icon-sort-down.png');
                 }
               }
 
@@ -271,6 +275,7 @@
             .rt-td {
               padding: 5px;
               white-space: normal;
+              display: block;
               overflow: visible;
 
               .flag-entry {
@@ -293,6 +298,10 @@
             .-pagination {
               box-shadow: none;
               border-top: 1px solid $color-gray-lighter;
+
+              button {
+                width: 96%;
+              }
             }
           }
         }

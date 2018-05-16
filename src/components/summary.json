@@ -9,8 +9,16 @@
           "headers": {
             "Name": "Name",
             "Status": "Status",
-            "Start": { "key": "Onset", "formatter": "datishAgeFormat" },
-            "End": { "key": "Abatement", "formatter": "datishAgeFormat" }
+            "Start": {
+              "key": "Onset",
+              "formatter": "datishAgeFormat",
+              "minWidth": 150
+            },
+            "End": {
+              "key": "Abatement",
+              "formatter": "datishAgeFormat",
+              "minWidth": 150
+            }
           }
         }
       ]
@@ -24,8 +32,16 @@
           "headers": {
             "Name": "Name",
             "Status": "Status",
-            "Start": { "key": "Onset", "formatter": "datishAgeFormat" },
-            "End": { "key": "Abatement", "formatter": "datishAgeFormat" }
+            "Start": {
+              "key": "Onset",
+              "formatter": "datishAgeFormat",
+              "minWidth": 150
+            },
+            "End": {
+              "key": "Abatement",
+              "formatter": "datishAgeFormat",
+              "minWidth": 150
+            }
           },
           "trigger": "Onset",
           "flags": "always",
@@ -34,7 +50,11 @@
         {
           "headers": {
             "Name": "Name",
-            "Visit": { "key": "Visit", "formatter": "datishAgeFormat" }
+            "Visit": {
+              "key": "Visit",
+              "formatter": "datishAgeFormat",
+              "minWidth": 150
+            }
           },
           "trigger": "Visit",
           "flags": "always",
@@ -72,13 +92,15 @@
               "key": "Questions",
               "formatter": "arrayFlatten",
               "formatterArguments": ["Name"],
-              "sortable": false
+              "sortable": false,
+              "minWidth": 200
             },
             "Question Score": {
               "key": "Questions",
               "formatter": "arrayFlatten",
               "formatterArguments": ["Score"],
-              "sortable": false
+              "sortable": false,
+              "minWidth": 150
             },
             "Date": { "key": "Date", "formatter": "datishFormat" }
           }

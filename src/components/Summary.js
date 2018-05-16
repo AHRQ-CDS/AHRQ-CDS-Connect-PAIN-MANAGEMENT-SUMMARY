@@ -92,14 +92,16 @@ export default class Summary extends Component {
             className={`flag flag-entry ${props.value ? 'flagged' : ''}`}
             name="circle"
             data-tip={props.value ? subSection.tables[0].flagsText : ''} />,
-        sortable: false
+        sortable: false,
+        width: 35,
+        minWidth: 35
       }
     ];
 
     headers.forEach((header) => {
       const headerKey = table.headers[header];
 
-      columns.push({
+      const column = {
         id: header,
         Header: () => <span className="col-header">{header}</span>,
         accessor: (entry) => {
@@ -113,7 +115,17 @@ export default class Summary extends Component {
           return value;
         },
         sortable: headerKey.sortable !== false
-      });
+      };
+
+      if (headerKey.minWidth != null) {
+        column.minWidth = headerKey.minWidth;
+      }
+
+      if (headerKey.maxWidth != null) {
+        column.maxWidth = headerKey.maxWidth;
+      }
+
+      columns.push(column);
     });
 
     return (
@@ -128,49 +140,6 @@ export default class Summary extends Component {
           defaultPageSize={10}
           resizable={false}
         />
-
-        {/*<table className="sub-section__table">
-          <thead>
-            <tr>
-              <th></th>
-              {headers.map((header, i) =>
-                <th key={i}><span>{header.key ? header.key : header}</span></th>
-              )}
-            </tr>
-          </thead>
-
-          <tbody>
-            {entries.map((entry, i) => {
-              const flagged = this.isEntryFlagged(section, subSection.dataKey, entry);
-              const flaggedClass = flagged ? 'flagged' : '';
-              const tooltip = flagged ? subSection.tables[0].flagsText : '';
-
-              return (
-                <tr key={i}>
-                  <td className="flag-col">
-                    <FontAwesome
-                      className={`flag flag-entry ${flaggedClass}`}
-                      name="circle"
-                      data-tip={tooltip} />
-                  </td>
-
-                  {headerKeys.map((headerKey, i) => {
-                    let value = entry[headerKey];
-                    if (headerKey.formatter) {
-                      const { result } = this.props;
-                      let formatterArguments = headerKey.formatterArguments || [];
-                      value = formatit[headerKey.formatter](result, entry[headerKey.key], ...formatterArguments);
-                    }
-
-                    return (
-                      <td key={i}>{value}</td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>*/}
       </div>
     );
   }
