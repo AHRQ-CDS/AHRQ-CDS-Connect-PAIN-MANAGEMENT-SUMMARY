@@ -73,12 +73,15 @@ export default class Summary extends Component {
   }
 
   renderTable(table, entries, section, subSection, index) {
-    // determine if table needs to be rendered -- if any entry has a null trigger, don't render table
-    let renderTable = true;
-    entries.forEach((entry) => {
-      if (table.trigger && entry[table.trigger] == null) renderTable = false;
-    });
-    if (!renderTable) return null;
+    // If a filter is provided, only render those things that have the filter field (or don't have it when it's negated)
+    let filteredEntries = entries;
+    if (table.filter && table.filter.length > 0) {
+      // A filter starting with '!' is negated (looking for absence of that field)
+      const negated = table.filter[0] === '!';
+      const filter = negated ? table.filter.substring(1) : table.filter;
+      filteredEntries = entries.filter(e => negated ? e[filter] == null : e[filter] != null);
+    }
+    if (filteredEntries.length === 0) return null;
 
     const headers = Object.keys(table.headers);
 
@@ -133,9 +136,9 @@ export default class Summary extends Component {
         <ReactTable
           className="sub-section__table"
           columns={columns}
-          data={entries}
+          data={filteredEntries}
           minRows={1}
-          showPagination={entries.length > 10}
+          showPagination={filteredEntries.length > 10}
           pageSizeOptions={[10, 20, 50, 100]}
           defaultPageSize={10}
           resizable={false}

@@ -40,7 +40,8 @@
         },
         "clinicalStatus": "active",
         "verificationStatus": "confirmed",
-        "onsetDateTime": "2012-04-05T00:00:00.000Z"
+        "onsetDateTime": "2012-04-05T00:00:00.000Z",
+        "dateRecorded": "2012-04-05T00:00:00.000Z"
       }
     },
     {
@@ -62,7 +63,8 @@
         },
         "clinicalStatus": "active",
         "verificationStatus": "confirmed",
-        "onsetDateTime": "2014-09-05T00:00:00.000Z"
+        "onsetDateTime": "2014-09-01T00:00:00.000Z",
+        "dateRecorded": "2015-02-12T00:00:00.000Z"
       }
     },
     {
@@ -296,7 +298,7 @@
           "coding": [
             {
               "system": "http://cds.ahrq.gov/cdsconnect/pms",
-              "code": "peg-assessment",
+              "code": "pegassessment",
               "display": "Pain Enjoyment General Activity (PEG) Assessment"
             }
           ],
@@ -315,7 +317,7 @@
               "coding": [
                 {
                   "system": "http://cds.ahrq.gov/cdsconnect/pms",
-                  "code": "peg-pain-1-10",
+                  "code": "pegpain1to10",
                   "display": "Pain (1-10)"
                 }
               ],
@@ -330,7 +332,7 @@
               "coding": [
                 {
                   "system": "http://cds.ahrq.gov/cdsconnect/pms",
-                  "code": "peg-enjoyment-1-10",
+                  "code": "pegenjoyment1to10",
                   "display": "Enjoyment of life (1-10)"
                 }
               ],
@@ -345,7 +347,7 @@
               "coding": [
                 {
                   "system": "http://cds.ahrq.gov/cdsconnect/pms",
-                  "code": "peg-general-activitity-1-10",
+                  "code": "peggeneralactivitity1to10",
                   "display": "General activity (1-10)"
                 }
               ],
@@ -375,7 +377,7 @@
           "coding": [
             {
               "system": "http://cds.ahrq.gov/cdsconnect/pms",
-              "code": "start-back",
+              "code": "startback",
               "display": "STarT Back Screening Tool"
             }
           ],

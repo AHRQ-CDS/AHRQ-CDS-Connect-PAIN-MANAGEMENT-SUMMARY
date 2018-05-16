@@ -19,8 +19,8 @@ export default class InclusionBanner extends Component {
         <FontAwesome className="close-button" name="close" onClick={this.handleClose} />
 
         <div className="inclusion-banner__description">
-          <strong><FontAwesome name="exclamation-circle" /> WARNING:</strong> This summary is designed for patients
-          who meet at least one of the following inclusion criteria:
+          <strong><FontAwesome name="exclamation-circle" /> WARNING:</strong> This summary applies to patients
+          18 years or older who meet at least one of the following criteria:
 
           <ul>
             <li>Has a condition likely to indicate chronic pain</li>
@@ -30,7 +30,7 @@ export default class InclusionBanner extends Component {
         </div>
 
         <div className="inclusion-banner__tag banner warning-inside">
-          This patient does not meet any of these inclusion criteria.
+          This patient does not meet the applicable criteria.
         </div>
       </div>
     );

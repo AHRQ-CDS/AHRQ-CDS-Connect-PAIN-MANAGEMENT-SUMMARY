@@ -21,6 +21,16 @@ const mockSummaryA = {
         "Onset": "2014-09-05T00:00:00.000+00:00",
         "Abatement": null,
         "Visit": null
+      },
+      {
+        "Name": "Suicide attempt, initial encounter",
+        "Status": null,
+        "Onset": null,
+        "Abatement": null,
+        "Visit": {
+          "Start": "2015-02-01T00:00:00.000+00:00",
+          "End": null
+        }
       }
     ]
   },
@@ -111,6 +121,20 @@ const mockSummaryA = {
         "Name": "Chiropraxy (regime/therapy)",
         "Date": "2018-04-05T00:00:00.000+00:00"
       }
+    ],
+    "StoolSoftenersAndLaxatives": [
+      {
+        "Type": "Statement",
+        "Name": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution",
+        "Start": "2018-04-05T00:00:00.000+00:00",
+        "End": null
+      },
+      {
+        "Type": "Order",
+        "Name": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution",
+        "Start": "2018-03-05T00:00:00.000+00:00",
+        "End": null
+      }
     ]
   },
   "RiskFactorsAndAssessments": {
@@ -163,22 +187,6 @@ const mockSummaryA = {
       "Result": "20 {MME}/d",
       "Date": "2018-04-30T00:00:00.000+00:00"
     }
-  },
-  "MiscellaneousItems": {
-    "StoolSoftenersAndLaxatives": [
-      {
-        "Type": "Statement",
-        "Name": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution",
-        "Start": "2018-04-05T00:00:00.000+00:00",
-        "End": null
-      },
-      {
-        "Type": "Order",
-        "Name": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution",
-        "Start": "2018-03-05T00:00:00.000+00:00",
-        "End": null
-      }
-    ]
   }
 };
 
@@ -295,7 +303,8 @@ const mockSummaryB = {
         "Name": "Chiropraxy (regime/therapy)",
         "Date": "2018-04-05T00:00:00.000+00:00"
       }
-    ]
+    ],
+    "StoolSoftenersAndLaxatives": []
   },
   "RiskFactorsAndAssessments": {
     "PainManagementRiskScreenings": [
@@ -314,9 +323,6 @@ const mockSummaryB = {
       "Result": "60 {MME}/d",
       "Date": "2018-04-30T00:00:00.000+00:00"
     }
-  },
-  "MiscellaneousItems": {
-    "StoolSoftenersAndLaxatives": []
   }
 };
 
@@ -420,6 +426,20 @@ const mockSummaryC = {
         "Name": "Chiropraxy (regime/therapy)",
         "Date": "2018-04-05T00:00:00.000+00:00"
       }
+    ],
+    "StoolSoftenersAndLaxatives": [
+      {
+        "Type": "Statement",
+        "Name": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution",
+        "Start": "2018-04-05T00:00:00.000+00:00",
+        "End": null
+      },
+      {
+        "Type": "Order",
+        "Name": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution",
+        "Start": "2018-03-05T00:00:00.000+00:00",
+        "End": null
+      }
     ]
   },
   "RiskFactorsAndAssessments": {
@@ -452,22 +472,6 @@ const mockSummaryC = {
       "Result": "50 {MME}/d",
       "Date": "2018-04-30T00:00:00.000+00:00"
     }
-  },
-  "MiscellaneousItems": {
-    "StoolSoftenersAndLaxatives": [
-      {
-        "Type": "Statement",
-        "Name": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution",
-        "Start": "2018-04-05T00:00:00.000+00:00",
-        "End": null
-      },
-      {
-        "Type": "Order",
-        "Name": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution",
-        "Start": "2018-03-05T00:00:00.000+00:00",
-        "End": null
-      }
-    ]
   }
 };
 
@@ -540,7 +544,21 @@ const mockSummaryD = {
   "HistoricalTreatments": {
     "OpioidMedications": [],
     "NonOpioidMedications": [],
-    "NonPharmacologicTreatments": []
+    "NonPharmacologicTreatments": [],
+    "StoolSoftenersAndLaxatives": [
+      {
+        "Type": "Statement",
+        "Name": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution",
+        "Start": "2018-04-05T00:00:00.000+00:00",
+        "End": null
+      },
+      {
+        "Type": "Order",
+        "Name": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution",
+        "Start": "2018-03-05T00:00:00.000+00:00",
+        "End": null
+      }
+    ]
   },
   "RiskFactorsAndAssessments": {
     "PainManagementRiskScreenings": [
@@ -566,22 +584,6 @@ const mockSummaryD = {
       "Result": "20 {MME}/d",
       "Date": "2018-04-30T00:00:00.000+00:00"
     }
-  },
-  "MiscellaneousItems": {
-    "StoolSoftenersAndLaxatives": [
-      {
-        "Type": "Statement",
-        "Name": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution",
-        "Start": "2018-04-05T00:00:00.000+00:00",
-        "End": null
-      },
-      {
-        "Type": "Order",
-        "Name": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution",
-        "Start": "2018-03-05T00:00:00.000+00:00",
-        "End": null
-      }
-    ]
   }
 };
 
@@ -698,6 +700,20 @@ const mockSummaryE = {
         "Name": "Chiropraxy (regime/therapy)",
         "Date": "2018-04-05T00:00:00.000+00:00"
       }
+    ],
+    "StoolSoftenersAndLaxatives": [
+      {
+        "Type": "Statement",
+        "Name": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution",
+        "Start": "2018-04-05T00:00:00.000+00:00",
+        "End": null
+      },
+      {
+        "Type": "Order",
+        "Name": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution",
+        "Start": "2018-03-05T00:00:00.000+00:00",
+        "End": null
+      }
     ]
   },
   "RiskFactorsAndAssessments": {
@@ -737,22 +753,6 @@ const mockSummaryE = {
       "Result": "20 {MME}/d",
       "Date": "2018-04-30T00:00:00.000+00:00"
     }
-  },
-  "MiscellaneousItems": {
-    "StoolSoftenersAndLaxatives": [
-      {
-        "Type": "Statement",
-        "Name": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution",
-        "Start": "2018-04-05T00:00:00.000+00:00",
-        "End": null
-      },
-      {
-        "Type": "Order",
-        "Name": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution",
-        "Start": "2018-03-05T00:00:00.000+00:00",
-        "End": null
-      }
-    ]
   }
 };
 
@@ -869,6 +869,20 @@ const mockSummaryF = {
         "Name": "Chiropraxy (regime/therapy)",
         "Date": "2018-04-05T00:00:00.000+00:00"
       }
+    ],
+    "StoolSoftenersAndLaxatives": [
+      {
+        "Type": "Statement",
+        "Name": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution",
+        "Start": "2018-04-05T00:00:00.000+00:00",
+        "End": null
+      },
+      {
+        "Type": "Order",
+        "Name": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution",
+        "Start": "2018-03-05T00:00:00.000+00:00",
+        "End": null
+      }
     ]
   },
   "RiskFactorsAndAssessments": {
@@ -921,22 +935,6 @@ const mockSummaryF = {
       "Result": "50 {MME}/d",
       "Date": "2018-04-30T00:00:00.000+00:00"
     }
-  },
-  "MiscellaneousItems": {
-    "StoolSoftenersAndLaxatives": [
-      {
-        "Type": "Statement",
-        "Name": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution",
-        "Start": "2018-04-05T00:00:00.000+00:00",
-        "End": null
-      },
-      {
-        "Type": "Order",
-        "Name": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution",
-        "Start": "2018-03-05T00:00:00.000+00:00",
-        "End": null
-      }
-    ]
   }
 };
 

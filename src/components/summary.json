@@ -18,6 +18,10 @@
               "key": "Abatement",
               "formatter": "datishAgeFormat",
               "minWidth": 150
+            },
+            "Recorded": {
+              "key": "DateRecorded",
+              "formatter": "datishFormat"
             }
           }
         }
@@ -41,9 +45,13 @@
               "key": "Abatement",
               "formatter": "datishAgeFormat",
               "minWidth": 150
+            },
+            "Recorded": {
+              "key": "DateRecorded",
+              "formatter": "datishFormat"
             }
           },
-          "trigger": "Onset",
+          "filter": "!Visit",
           "flags": "always",
           "flagsText": "Opioid-related condition"
         },
@@ -56,7 +64,7 @@
               "minWidth": 150
             }
           },
-          "trigger": "Visit",
+          "filter": "Visit",
           "flags": "always",
           "flagsText": "Opioid-related condition"
         }
@@ -177,7 +185,7 @@
     {
       "name": "Stool Softeners and Laxatives",
       "dataKey": "StoolSoftenersAndLaxatives",
-      "dataKeySource": "MiscellaneousItems",
+      "dataKeySource": "HistoricalTreatments",
       "tables": [
         {
           "headers": {
