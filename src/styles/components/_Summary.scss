@@ -253,6 +253,10 @@
     .dev-tools {
       margin: 40px;
 
+      &__disclaimer {
+        margin-top: -20px;
+      }
+
       button {
         background-color: transparent;
         color: darken($color-blue, 10%);

@@ -14,8 +14,4 @@ h3:focus {
 a {
   color: darken($color-blue, 10%);
   font-weight: 600;
-
-  &:hover {
-    color: darken($color-blue, 30%);
-  }
 }

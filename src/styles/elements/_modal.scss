@@ -8,6 +8,7 @@
   overflow: scroll;
   margin: auto;
   background-color: $color-white;
+  border-radius: 5px;
 
   &:focus { outline: none; }
 }
