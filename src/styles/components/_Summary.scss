@@ -174,7 +174,7 @@
 
           .flag-no-entry {
             margin-right: 12px;
-            font-size: 0.9em;
+            font-size: 1em;
             color: transparent;
 
             &.flagged {
@@ -239,6 +239,14 @@
             }
           }
         }
+      }
+    }
+
+    .cdc-disclaimer {
+      margin: 10px 0 0 40px;
+
+      a {
+        margin: 0 5px;
       }
     }
 

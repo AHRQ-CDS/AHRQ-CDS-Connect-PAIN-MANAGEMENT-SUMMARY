@@ -285,6 +285,18 @@ export default class Summary extends Component {
             </div>
           }
 
+          <div className="cdc-disclaimer">
+            Please see the
+            <a
+              href="https://www.cdc.gov/mmwr/volumes/65/rr/rr6501e1.htm"
+              alt="CDC Guideline for Prescribing Opioids for Chronic Pain"
+              target="_blank"
+              rel="noopener noreferrer">
+              CDC Guideline for Prescribing Opioids for Chronic Pain
+            </a>
+            for additional information and prescribing guidance.
+          </div>
+
           <DevTools
             collector={collector}
             result={result}
