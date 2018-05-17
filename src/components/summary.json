@@ -4,6 +4,19 @@
       "name": "Conditions Associated with Chronic Pain",
       "dataKey": "ConditionsAssociatedWithChronicPain",
       "dataKeySource": "PertinentMedicalHistory",
+      "info": [
+        {
+          "type": "elements",
+          "description": "Conditions Associated with Chronic Pain queries the following elements:",
+          "elements": [
+            {
+              "name": "Conditions associated with chronic pain",
+              "status": "active or recurring",
+              "lookback": "n/a"
+            }
+          ]
+        }
+      ],
       "tables": [
         {
           "headers": {
@@ -31,6 +44,59 @@
       "name": "Risk Factors for Opioid-related Harms",
       "dataKey": "HighRiskConditionsForOpioidTherapy",
       "dataKeySource": "PertinentMedicalHistory",
+      "info": [
+        {
+          "type": "elements",
+          "description": "Risk Factors for Opioid-related Harms queries the following elements:",
+          "elements": [
+            {
+              "name": "Depression",
+              "status": "active or recurring",
+              "lookback": "n/a"
+            },
+            {
+              "name": "Anxiety",
+              "status": "active or recurring",
+              "lookback": "n/a"
+            },
+            {
+              "name": "Substance use disorder",
+              "status": "any",
+              "lookback": "n/a"
+            },
+            {
+              "name": "Suicide attempt",
+              "status": "any",
+              "lookback": "n/a"
+            },
+            {
+              "name": "Sleep-disordered breathing",
+              "status": "active or recurring",
+              "lookback": "n/a"
+            },
+            {
+              "name": "Renyl dysfunction",
+              "status": "active or recurring",
+              "lookback": "n/a"
+            },
+            {
+              "name": "Hepatic dysfunction",
+              "status": "active or recurring",
+              "lookback": "n/a"
+            },
+            {
+              "name": "Pregnancy",
+              "status": "active or recurring",
+              "lookback": "42 weeks"
+            },
+            {
+              "name": "Age >= 65 YRS",
+              "status": "n/a",
+              "lookback": "n/a"
+            }
+          ]
+        }
+      ],
       "tables": [
         {
           "headers": {
@@ -84,6 +150,19 @@
       "name": "Numeric Pain Intensity Assessments",
       "dataKey": "NumericPainIntensityAssessments",
       "dataKeySource": "PainAssessments",
+      "info": [
+        {
+          "type": "elements",
+          "description": "Numeric Pain Intensity Assessments queries the following elements:",
+          "elements": [
+            {
+              "name": "Pain severity Wong-Baker FACES Scale",
+              "status": "final or amended",
+              "lookback": "2 years"
+            }
+          ]
+        }
+      ],
       "tables": [
         {
           "headers": {
@@ -101,8 +180,21 @@
       "dataKeySource": "PainAssessments",
       "info": [
         {
-          "url": "https://link.springer.com/article/10.1007/s11606-009-0981-1",
-          "title": "Development and Initial Validation of the PEG, a Three-item Scale Assessing Pain Intensity and Interference"
+          "type": "elements",
+          "description": "Pain Enjoyment General Activity (PEG) Assessments queries the following elements:",
+          "elements": [
+            {
+              "name": "Pain Enjoyment General Activity (PEG) Assessment",
+              "status": "final or amended",
+              "lookback": "2 years"
+            }
+          ]
+        },
+        {
+          "type": "reference",
+          "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2686775/",
+          "title": "Development and Initial Validation of the PEG, a Three-item Scale Assessing Pain Intensity and Interference",
+          "details": "The PEG is freely available in the public domain. Publications and reports should cite the original publication: Krebs EE, Lorenz KA, Bair MJ, Damush TA, Wu J, Sutherland JM, Asch SM, Kroenke K. Development and initial validation of the PEG, a 3-item scale assessing pain intensity and interference. Journal of General Internal Medicine. 2009 Jun;24:733-738."
         }
       ],
       "tables": [
@@ -133,6 +225,25 @@
       "name": "STarT Back Assessments",
       "dataKey": "STarTBackAssessments",
       "dataKeySource": "PainAssessments",
+      "info": [
+        {
+          "type": "elements",
+          "description": "STarT Back Assessments queries the following elements:",
+          "elements": [
+            {
+              "name": "STarT Back Screening Tool",
+              "status": "final or amended",
+              "lookback": "2 years"
+            }
+          ]
+        },
+        {
+          "type": "reference",
+          "url": "https://www.keele.ac.uk/sbst/",
+          "title": "STarT Back",
+          "details": "Copyright (©2007) University of Keele. No license is required for non-commercial use.  If you would like to incorporate the tool in any way into commercial product materials, please contact Keele University for further advice."
+        }
+      ],
       "tables": [
         {
           "headers": {
@@ -150,6 +261,19 @@
       "name": "Opioid Medications",
       "dataKey": "OpioidMedications",
       "dataKeySource": "HistoricalTreatments",
+      "info": [
+        {
+          "type": "elements",
+          "description": "Opioid Medications queries the following elements:",
+          "elements": [
+            {
+              "name": "Opioid medication statements and orders",
+              "status": "any",
+              "lookback": "2 years"
+            }
+          ]
+        }
+      ],
       "tables": [
         {
           "headers": {
@@ -171,6 +295,19 @@
       "name": "Non-Opioid Medications",
       "dataKey": "NonOpioidMedications",
       "dataKeySource": "HistoricalTreatments",
+      "info": [
+        {
+          "type": "elements",
+          "description": "Non-Opioid Medications queries the following elements:",
+          "elements": [
+            {
+              "name": "Non-opioid medication statements and orders",
+              "status": "any",
+              "lookback": "2 years"
+            }
+          ]
+        }
+      ],
       "tables": [
         {
           "headers": {
@@ -192,6 +329,19 @@
       "name": "Non-Pharmacologic Treatments",
       "dataKey": "NonPharmacologicTreatments",
       "dataKeySource": "HistoricalTreatments",
+      "info": [
+        {
+          "type": "elements",
+          "description": "Non-Pharmacologic Treatments queries the following elements:",
+          "elements": [
+            {
+              "name": "Non-pharmacologic procedures",
+              "status": "any",
+              "lookback": "2 years"
+            }
+          ]
+        }
+      ],
       "tables": [
         {
           "headers": {
@@ -212,6 +362,19 @@
       "name": "Stool Softeners and Laxatives",
       "dataKey": "StoolSoftenersAndLaxatives",
       "dataKeySource": "HistoricalTreatments",
+      "info": [
+        {
+          "type": "elements",
+          "description": "Stool Softeners and Laxatives queries the following elements:",
+          "elements": [
+            {
+              "name": "Stool softeners / laxatives medication statements and orders",
+              "status": "any",
+              "lookback": "6 months"
+            }
+          ]
+        }
+      ],
       "tables": [
         {
           "headers": {
@@ -245,6 +408,19 @@
       "name": "Most Recent MME",
       "dataKey": "MostRecentMME",
       "dataKeySource": "RiskFactorsAndAssessments",
+      "info": [
+        {
+          "type": "elements",
+          "description": "Most Recent MME queries the following elements:",
+          "elements": [
+            {
+              "name": "Morphine Milligram Equivalent (MME)",
+              "status": "final or amended",
+              "lookback": "most recent in past 6 months"
+            }
+          ]
+        }
+      ],
       "tables": [
         {
           "headers": {
@@ -270,6 +446,19 @@
       "name": "Urine Drug Screens",
       "dataKey": "UrineDrugScreens",
       "dataKeySource": "RiskFactorsAndAssessments",
+      "info": [
+        {
+          "type": "elements",
+          "description": "Urine Drug Screens queries the following elements:",
+          "elements": [
+            {
+              "name": "Urine drug screen",
+              "status": "final or amended",
+              "lookback": "1 year"
+            }
+          ]
+        }
+      ],
       "tables": [
         {
           "headers": {
@@ -301,6 +490,19 @@
       "name": "Benzodiazepine Medications",
       "dataKey": "BenzodiazepineMedications",
       "dataKeySource": "RiskFactorsAndAssessments",
+      "info": [
+        {
+          "type": "elements",
+          "description": "Benzodiazepine Medications queries the following elements:",
+          "elements": [
+            {
+              "name": "Benzodiazepine medication statements and orders",
+              "status": "any",
+              "lookback": "2 years"
+            }
+          ]
+        }
+      ],
       "tables": [
         {
           "headers": {
@@ -332,6 +534,19 @@
       "name": "Naloxone Medications",
       "dataKey": "NaloxoneMedications",
       "dataKeySource": "RiskFactorsAndAssessments",
+      "info": [
+        {
+          "type": "elements",
+          "description": "Naloxone Medications queries the following elements:",
+          "elements": [
+            {
+              "name": "Naloxone medication statements and orders",
+              "status": "any",
+              "lookback": "n/a"
+            }
+          ]
+        }
+      ],
       "tables": [
         {
           "headers": {
@@ -369,6 +584,19 @@
       "name": "Pain Management Risk Screenings",
       "dataKey": "PainManagementRiskScreenings",
       "dataKeySource": "RiskFactorsAndAssessments",
+      "info": [
+        {
+          "type": "elements",
+          "description": "Pain Management Risk Screenings queries the following elements:",
+          "elements": [
+            {
+              "name": "Risk screenings relevant to pain management",
+              "status": "final or amended",
+              "lookback": "1 year"
+            }
+          ]
+        }
+      ],
       "tables": [
         {
           "headers": {
