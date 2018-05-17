@@ -116,8 +116,6 @@ export default class Landing extends Component {
       });
     });
 
-    console.debug('sectionFlags: ', sectionFlags);
-
     return { sectionFlags, flaggedCount };
   }
 

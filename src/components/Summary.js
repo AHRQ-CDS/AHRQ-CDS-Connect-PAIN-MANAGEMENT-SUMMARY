@@ -4,6 +4,7 @@ import FontAwesome from 'react-fontawesome';
 import Collapsible from 'react-collapsible';
 import ReactTooltip from 'react-tooltip';
 import ReactTable from 'react-table';
+import ReactModal from 'react-modal';
 
 import summaryMap from './summary.json';
 import * as formatit from '../helpers/formatit';
@@ -15,9 +16,26 @@ import RiskIcon from '../icons/RiskIcon';
 
 import InclusionBanner from './InclusionBanner';
 import ExclusionBanner from './ExclusionBanner';
+import InfoModal from './InfoModal';
 import DevTools from './DevTools';
 
 export default class Summary extends Component {
+  constructor () {
+    super(...arguments);
+
+    this.state = {
+      showModal: false
+    };
+  }
+
+  handleOpenModal = () => {
+    this.setState({ showModal: true });
+  }
+
+  handleCloseModal = () => {
+    this.setState({ showModal: false });
+  }
+
   isSectionFlagged(section) {
     const { sectionFlags } = this.props;
     const subSections = Object.keys(sectionFlags[section]);
@@ -167,7 +185,13 @@ export default class Summary extends Component {
           <h3 id={subSection.dataKey} className="sub-section__header">
             <FontAwesome className={`flag flag-nav ${flaggedClass}`} name="circle" />
             {subSection.name}
-            <FontAwesome className={`flag flag-summary ${flaggedClass}`} name="circle" />
+            {subSection.info &&
+              <FontAwesome
+                className='info-icon'
+                name="info-circle"
+                data-tip="more info"
+                onClick={this.handleOpenModal} />
+            }
           </h3>
 
           {!hasEntries && this.renderNoEntries(section, subSection)}
@@ -260,6 +284,12 @@ export default class Summary extends Component {
           />
 
           <ReactTooltip className="summary-tooltip" />
+
+          <ReactModal
+            isOpen={this.state.showModal}
+            contentLabel="Minimal Modal Example">
+            <InfoModal closeModal={this.handleCloseModal} />
+          </ReactModal>
         </div>
       </div>
     );

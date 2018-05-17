@@ -99,6 +99,12 @@
       "name": "Pain Enjoyment General Activity (PEG) Assessments",
       "dataKey": "PainEnjoymentGeneralActivityAssessments",
       "dataKeySource": "PainAssessments",
+      "info": [
+        {
+          "url": "https://link.springer.com/article/10.1007/s11606-009-0981-1",
+          "title": "Development and Initial Validation of the PEG, a Three-item Scale Assessing Pain Intensity and Interference"
+        }
+      ],
       "tables": [
         {
           "headers": {

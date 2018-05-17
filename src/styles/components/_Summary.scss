@@ -14,7 +14,7 @@
           padding: 5px 5px 5px 70px;
           line-height: 1.1em;
 
-          .flag-summary{
+          .info-icon {
             display: none;
           }
 
@@ -160,6 +160,13 @@
         background-color: $color-white;
         margin: 20px;
 
+        .info-icon {
+          margin-left: 5px;
+          font-size: 0.9em;
+          color: $color-blue;
+          cursor: pointer;
+        }
+
         .no-entries {
           padding: 10px 18px;
           font-style: italic;
@@ -183,16 +190,8 @@
           padding: 20px 40px;
           font-weight: 600;
 
-          .flag-nav,
-          .flag-summary:not(.flagged) {
+          .flag-nav {
             display: none;
-          }
-
-          .flag-summary {
-            font-size: 0.7em;
-            margin: 5px 0 0 5px;
-            color: $color-red;
-            cursor: default;
           }
         }
 
