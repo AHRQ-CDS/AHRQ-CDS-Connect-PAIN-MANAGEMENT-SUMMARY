@@ -156,7 +156,7 @@
           "description": "Numeric Pain Intensity Assessments queries the following elements:",
           "elements": [
             {
-              "name": "Pain severity Wong-Baker FACES Scale",
+              "name": "Numeric pain intensity assessment",
               "status": "final or amended",
               "lookback": "2 years"
             }
