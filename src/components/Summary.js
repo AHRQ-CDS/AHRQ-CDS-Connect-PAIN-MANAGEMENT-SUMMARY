@@ -90,7 +90,7 @@ export default class Summary extends Component {
         <div className="no-entries">
           <FontAwesome
             className={`flag flag-no-entry ${flaggedClass}`}
-            name="circle"
+            name="exclamation-circle"
             data-tip={tooltip}
           />
           no entries found
@@ -120,7 +120,7 @@ export default class Summary extends Component {
         Cell: (props) =>
           <FontAwesome
             className={`flag flag-entry ${props.value ? 'flagged' : ''}`}
-            name="circle"
+            name="exclamation-circle"
             data-tip={props.value ? props.value : ''} />,
         sortable: false,
         width: 35,
@@ -188,7 +188,9 @@ export default class Summary extends Component {
       return (
         <div key={subSection.dataKey} className="sub-section h3-wrapper">
           <h3 id={subSection.dataKey} className="sub-section__header">
-            <FontAwesome className={`flag flag-nav ${flaggedClass}`} name="circle" />
+            <FontAwesome
+              className={`flag flag-nav ${flaggedClass}`}
+              name={flagged ? 'exclamation-circle' : 'circle'} />
             {subSection.name}
             {subSection.info &&
               <FontAwesome
@@ -236,7 +238,7 @@ export default class Summary extends Component {
 
           <span>
             {title}
-            <FontAwesome className={`flag flag-header ${flaggedClass}`} name="circle" />
+            <FontAwesome className={`flag flag-header ${flaggedClass}`} name="exclamation-circle" />
           </span>
         </div>
 
