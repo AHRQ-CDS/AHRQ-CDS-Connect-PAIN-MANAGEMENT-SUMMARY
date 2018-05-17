@@ -1,0 +1,78 @@
+.ReactTable * {
+  box-sizing: inherit;
+}
+
+.ReactTable {
+  .rt-tbody .rt-tr-group {
+    border: 0;
+
+    .rt-tr {
+      background: $color-white;
+
+      &:hover {
+        background-color: lighten($color-blue, 30%);
+      }
+    }
+  }
+
+  .rt-tbody .rt-td,
+  .rt-thead .rt-th {
+    text-align: left;
+    vertical-align: top;
+    border: 0;
+  }
+
+  .rt-thead .rt-th {
+    white-space: nowrap;
+
+    &:focus {
+      outline: none;
+    }
+
+    &.-cursor-pointer {
+      span {
+        background-image: url('/assets/images/icon-sort.png');
+        background-repeat: no-repeat;
+        background-size: 8px;
+        background-position: 96% 50%;
+      }
+
+      &.-sort-asc,
+      &.-sort-desc {
+        box-shadow: none;
+      }
+
+      &.-sort-asc span {
+        background-image: url('/assets/images/icon-sort-up.png');
+      }
+
+      &.-sort-desc span {
+        background-image: url('/assets/images/icon-sort-down.png');
+      }
+    }
+
+    .col-header {
+      display: inline-block;
+      border-bottom: 2px solid $color-blue;
+      padding: 0 16px 2px 0;
+    }
+  }
+
+  .rt-tbody .rt-td {
+    white-space: normal;
+    display: block;
+    overflow: visible;
+
+    .flag-entry {
+      font-size: 0.8em;
+      margin-left: 16px;
+      padding-top: 10px;
+      color: transparent;
+      cursor: default;
+
+      &.flagged {
+        color: $color-red;
+      }
+    }
+  }
+}

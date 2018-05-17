@@ -1,7 +1,7 @@
 import flagit from '../../helpers/flagit';
 import summaryMap from '../../components/summary.json';
 import {
-  mockSummaryA, mockSummaryB, mockSummaryC, mockSummaryD, mockSummaryE, mockSummaryF
+  mockSummaryA, mockSummaryB, mockSummaryC, mockSummaryD, mockSummaryE, mockSummaryF, mockSummaryG
 } from '../../utils/testFixtures';
 
 it('flags "Conditions Associated with Chronic Pain" entries correctly', () => {
@@ -198,7 +198,7 @@ it('flags "Naloxone Medications" entries correctly', () => {
   };
   const mockFlagA = "Absence of Naloxone medication and most recent MME assessment is 50+ MME/day";
   // no naloxone (true) AND MME >= 50 (true) => mockFlag
-  expect(flagit(null, subSection, mockSummaryB)).toEqual(mockFlagA);
+  expect(flagit(null, subSection, mockSummaryG)).toEqual(mockFlagA);
   // no naloxone (true) AND MME < 50 (false)] => false
   expect(flagit(null, subSection, mockSummaryE)).toEqual(false);
 

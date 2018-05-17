@@ -24,12 +24,17 @@ export default class Summary extends Component {
     super(...arguments);
 
     this.state = {
-      showModal: false
+      showModal: false,
+      modalSubSection: null
     };
   }
 
-  handleOpenModal = () => {
-    this.setState({ showModal: true });
+  componentWillMount() {
+    ReactModal.setAppElement('body');
+  }
+
+  handleOpenModal = (modalSubSection) => {
+    this.setState({ showModal: true, modalSubSection });
   }
 
   handleCloseModal = () => {
@@ -190,7 +195,7 @@ export default class Summary extends Component {
                 className='info-icon'
                 name="info-circle"
                 data-tip="more info"
-                onClick={this.handleOpenModal} />
+                onClick={() => this.handleOpenModal(subSection)} />
             }
           </h3>
 
@@ -286,9 +291,14 @@ export default class Summary extends Component {
           <ReactTooltip className="summary-tooltip" />
 
           <ReactModal
+            className="modal"
+            overlayClassName="overlay"
             isOpen={this.state.showModal}
-            contentLabel="Minimal Modal Example">
-            <InfoModal closeModal={this.handleCloseModal} />
+            onRequestClose={this.handleCloseModal}
+            contentLabel="More Info">
+            <InfoModal
+              closeModal={this.handleCloseModal}
+              subSection={this.state.modalSubSection} />
           </ReactModal>
         </div>
       </div>
