@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
 export default class InclusionBanner extends Component {
@@ -16,7 +17,7 @@ export default class InclusionBanner extends Component {
   render() {
     return (
       <div className="inclusion-banner banner" style={{display: this.state.displayed ? 'block' : 'none'}}>
-        <FontAwesome className="close-button" name="close" onClick={this.handleClose} />
+        {this.props.dismissible && <FontAwesome className="close-button" name="close" onClick={this.handleClose} />}
 
         <div className="inclusion-banner__description">
           <strong><FontAwesome name="exclamation-circle" /> WARNING:</strong> This summary applies to patients
@@ -36,3 +37,7 @@ export default class InclusionBanner extends Component {
     );
   }
 }
+
+InclusionBanner.propTypes = {
+  dismissible: PropTypes.bool.isRequired
+};

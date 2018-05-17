@@ -79,10 +79,10 @@ export default class Landing extends Component {
     const sectionKeys = Object.keys(summaryMap);
     let flaggedCount = 0;
 
-    sectionKeys.forEach((sectionKey, i) => {
+    sectionKeys.forEach((sectionKey, i) => { // for each section
       sectionFlags[sectionKey] = {};
 
-      summaryMap[sectionKey].forEach((subSection) => {
+      summaryMap[sectionKey].forEach((subSection) => { // for each sub section
         const data = summary[subSection.dataKeySource][subSection.dataKey];
         const entries = (Array.isArray(data) ? data : [data]).filter(r => r != null);
 
@@ -92,8 +92,10 @@ export default class Landing extends Component {
               entry._id = generateUuid();
             }
 
-            if (flagit(entry, subSection, summary)) {
-              flaggedEntries.push(entry._id);
+            const entryFlag = flagit(entry, subSection, summary);
+
+            if (entryFlag) {
+              flaggedEntries.push({ 'entryId': entry._id, 'flagText': entryFlag });
               flaggedCount += 1;
             }
 
@@ -144,6 +146,7 @@ export default class Landing extends Component {
           patientGender={summary.Patient.Gender}
           totalEntries={totalEntries}
           numFlaggedEntries={flaggedCount}
+          meetsInclusionCriteria={summary.Patient.MeetsInclusionCriteria}
         />
 
         <Summary

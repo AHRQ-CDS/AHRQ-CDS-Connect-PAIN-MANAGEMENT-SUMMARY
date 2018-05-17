@@ -10,3 +10,8 @@ body {
 h3:focus {
   outline: none;
 }
+
+a {
+  color: darken($color-blue, 10%);
+  font-weight: 600;
+}
