@@ -7,7 +7,7 @@ const booleanRE = /^(true|false)$/; // matches 'true' or 'false'
 
 export function dateFormat(result, input) {
   if (input == null) return '';
-  return moment.parseZone(input).format('YYYY-MMM-DD');
+  return moment.parseZone(input).format('YYYY-MM-DD');
 }
 
 export function dateAgeFormat(result, input) {
