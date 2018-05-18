@@ -70,7 +70,8 @@
   },
   "devDependencies": {
     "fhir.js": "^0.0.20",
-    "http-server": "^0.11.1"
+    "http-server": "^0.11.1",
+    "source-map-explorer": "^1.5.0"
   },
   "resolutions": {
     "ucum": "cmoesel/ucum.js#es5-friendly"
@@ -119,6 +120,7 @@
     "extends": "react-app"
   },
   "scripts": {
+    "analyze": "source-map-explorer build/static/js/index.*",
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "start-static": "http-server -c-1 -p 8000 build",
