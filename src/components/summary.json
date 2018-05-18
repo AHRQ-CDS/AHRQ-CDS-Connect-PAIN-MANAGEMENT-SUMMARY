@@ -42,7 +42,7 @@
     },
     {
       "name": "Risk Factors for Opioid-related Harms",
-      "dataKey": "HighRiskConditionsForOpioidTherapy",
+      "dataKey": "RiskFactorsForOpioidRelatedHarms",
       "dataKeySource": "PertinentMedicalHistory",
       "info": [
         {
@@ -401,11 +401,11 @@
       ]
     }
   ],
-  "RiskFactorsAndAssessments": [
+  "RiskConsiderations": [
     {
       "name": "Most Recent MME",
       "dataKey": "MostRecentMME",
-      "dataKeySource": "RiskFactorsAndAssessments",
+      "dataKeySource": "RiskConsiderations",
       "info": [
         {
           "type": "elements",
@@ -443,7 +443,7 @@
     {
       "name": "Urine Drug Screens",
       "dataKey": "UrineDrugScreens",
-      "dataKeySource": "RiskFactorsAndAssessments",
+      "dataKeySource": "RiskConsiderations",
       "info": [
         {
           "type": "elements",
@@ -487,7 +487,7 @@
     {
       "name": "Benzodiazepine Medications",
       "dataKey": "BenzodiazepineMedications",
-      "dataKeySource": "RiskFactorsAndAssessments",
+      "dataKeySource": "RiskConsiderations",
       "info": [
         {
           "type": "elements",
@@ -531,7 +531,7 @@
     {
       "name": "Naloxone Medications",
       "dataKey": "NaloxoneMedications",
-      "dataKeySource": "RiskFactorsAndAssessments",
+      "dataKeySource": "RiskConsiderations",
       "info": [
         {
           "type": "elements",
@@ -561,7 +561,7 @@
                   {
                     "ifGreaterThanOrEqualTo": {
                       "table": "MostRecentMME",
-                      "source": "RiskFactorsAndAssessments",
+                      "source": "RiskConsiderations",
                       "header": "Result",
                       "value": 50
                     }
@@ -579,13 +579,13 @@
       ]
     },
     {
-      "name": "Pain Management Risk Screenings",
-      "dataKey": "PainManagementRiskScreenings",
-      "dataKeySource": "RiskFactorsAndAssessments",
+      "name": "Risk Screenings Relevant to Pain Management",
+      "dataKey": "RiskScreeningsRelevantToPainManagement",
+      "dataKeySource": "RiskConsiderations",
       "info": [
         {
           "type": "elements",
-          "description": "Pain Management Risk Screenings queries the following elements:",
+          "description": "Risk Screenings Relevant to Pain Management queries the following elements:",
           "elements": [
             {
               "name": "Risk screenings relevant to pain management",

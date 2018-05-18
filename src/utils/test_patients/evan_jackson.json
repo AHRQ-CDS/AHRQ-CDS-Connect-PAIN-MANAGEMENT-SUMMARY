@@ -316,7 +316,7 @@
           "coding": [
             {
               "system": "http://cds.ahrq.gov/cdsconnect/pms",
-              "code": "mme",
+              "code": "MME",
               "display": "Morphine Milligram Equivalent (MME)"
             }
           ],
@@ -419,7 +419,7 @@
           "coding": [
             {
               "system": "http://cds.ahrq.gov/cdsconnect/pms",
-              "code": "pegassessment",
+              "code": "PEGASSESSMENT",
               "display": "Pain Enjoyment General Activity (PEG) Assessment"
             }
           ],
@@ -438,11 +438,11 @@
               "coding": [
                 {
                   "system": "http://cds.ahrq.gov/cdsconnect/pms",
-                  "code": "pegpain1to10",
-                  "display": "Pain (1-10)"
+                  "code": "PEGPAIN",
+                  "display": "Pain"
                 }
               ],
-              "text": "Pain (1-10)"
+              "text": "Pain"
             },
             "valueQuantity": {
               "value": 7
@@ -453,11 +453,11 @@
               "coding": [
                 {
                   "system": "http://cds.ahrq.gov/cdsconnect/pms",
-                  "code": "pegenjoyment1to10",
-                  "display": "Enjoyment of life (1-10)"
+                  "code": "PEGENJOYMENT",
+                  "display": "Enjoyment of life"
                 }
               ],
-              "text": "Enjoyment of life (1-10)"
+              "text": "Enjoyment of life"
             },
             "valueQuantity": {
               "value": 5
@@ -468,11 +468,11 @@
               "coding": [
                 {
                   "system": "http://cds.ahrq.gov/cdsconnect/pms",
-                  "code": "peggeneralactivitity1to10",
-                  "display": "General activity (1-10)"
+                  "code": "PEGGENERALACTIVITY",
+                  "display": "General activity"
                 }
               ],
-              "text": "General activity (1-10)"
+              "text": "General activity"
             },
             "valueQuantity": {
               "value": 4
@@ -498,7 +498,7 @@
           "coding": [
             {
               "system": "http://cds.ahrq.gov/cdsconnect/pms",
-              "code": "startback",
+              "code": "STARTBACK",
               "display": "STarT Back Screening Tool"
             }
           ],

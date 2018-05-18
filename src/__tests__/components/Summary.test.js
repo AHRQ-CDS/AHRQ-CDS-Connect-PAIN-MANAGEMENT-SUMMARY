@@ -31,7 +31,7 @@ it('renders all subsection headers', () => {
 
 // TODO: Fix this test (it broke when React-Table was introduced)
 it.skip('renders conditions and encounter diagnoses in separate tables', () => {
-  const tables = component.find('#HighRiskConditionsForOpioidTherapy ~ .table > ReactTable');
+  const tables = component.find('#RiskFactorsForOpioidRelatedHarms ~ .table > ReactTable');
   expect(tables).toHaveLength(2);
   // This is the point where things go wrong.  Below I've done what I thought would work (but it doesn't).
   const conditionTable = tables.at(0).shallow();

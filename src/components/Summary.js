@@ -226,7 +226,7 @@ export default class Summary extends Component {
     } else if (section === 'HistoricalTreatments') {
       icon = <TreatmentsIcon width="36" height="38" />;
       title = `Historical Pain-related Treatments (${numTreatmentsEntries})`
-    } else if (section === 'RiskFactorsAndAssessments') {
+    } else if (section === 'RiskConsiderations') {
       icon = <RiskIcon width="35" height="34" />;
       title = `Risk Considerations (${numRiskEntries})`;
     }
@@ -279,8 +279,8 @@ export default class Summary extends Component {
                 {this.renderSection("HistoricalTreatments")}
               </Collapsible>
 
-              <Collapsible trigger={this.renderSectionHeader("RiskFactorsAndAssessments")} open={true}>
-                {this.renderSection("RiskFactorsAndAssessments")}
+              <Collapsible trigger={this.renderSectionHeader("RiskConsiderations")} open={true}>
+                {this.renderSection("RiskConsiderations")}
               </Collapsible>
             </div>
           }

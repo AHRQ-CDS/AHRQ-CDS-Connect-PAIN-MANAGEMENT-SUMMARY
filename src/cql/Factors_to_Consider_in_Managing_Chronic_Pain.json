@@ -113,7 +113,7 @@
             "id" : "2.16.840.1.113762.1.4.1032.36",
             "accessLevel" : "Public"
          }, {
-            "name" : "Risk Screenings Relevant to Pain Management",
+            "name" : "Risk assessments relevant to pain management",
             "id" : "2.16.840.1.113762.1.4.1032.55",
             "accessLevel" : "Public"
          }, {
@@ -160,6 +160,54 @@
                "name" : "SNOMED-CT"
             }
          }, {
+            "name" : "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported] code",
+            "id" : "55758-7",
+            "display" : "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]",
+            "accessLevel" : "Public",
+            "codeSystem" : {
+               "name" : "LOINC"
+            }
+         }, {
+            "name" : "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported] code",
+            "id" : "44261-6",
+            "display" : "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]",
+            "accessLevel" : "Public",
+            "codeSystem" : {
+               "name" : "LOINC"
+            }
+         }, {
+            "name" : "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ] code",
+            "id" : "70274-6",
+            "display" : "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]",
+            "accessLevel" : "Public",
+            "codeSystem" : {
+               "name" : "LOINC"
+            }
+         }, {
+            "name" : "Total score [AUDIT] code",
+            "id" : "75624-7",
+            "display" : "Total score [AUDIT]",
+            "accessLevel" : "Public",
+            "codeSystem" : {
+               "name" : "LOINC"
+            }
+         }, {
+            "name" : "Total score [AUDIT-C] code",
+            "id" : "75626-2",
+            "display" : "Total score [AUDIT-C]",
+            "accessLevel" : "Public",
+            "codeSystem" : {
+               "name" : "LOINC"
+            }
+         }, {
+            "name" : "Total score [DAST-10] code",
+            "id" : "82667-7",
+            "display" : "Total score [DAST-10]",
+            "accessLevel" : "Public",
+            "codeSystem" : {
+               "name" : "LOINC"
+            }
+         }, {
             "name" : "Pain severity Wong-Baker FACES Scale code",
             "id" : "38221-8",
             "display" : "Pain severity Wong-Baker FACES Scale",
@@ -169,39 +217,39 @@
             }
          }, {
             "name" : "Pain Enjoyment General Activity (PEG) Assessment code",
-            "id" : "pegassessment",
+            "id" : "PEGASSESSMENT",
             "display" : "Pain Enjoyment General Activity (PEG) Assessment",
             "accessLevel" : "Public",
             "codeSystem" : {
                "name" : "LOCAL"
             }
          }, {
-            "name" : "Pain (1-10) code",
-            "id" : "pegpain1to10",
-            "display" : "Pain (1-10)",
+            "name" : "Pain code",
+            "id" : "PEGPAIN",
+            "display" : "Pain",
             "accessLevel" : "Public",
             "codeSystem" : {
                "name" : "LOCAL"
             }
          }, {
-            "name" : "Enjoyment of life (1-10) code",
-            "id" : "pegenjoyment1to10",
-            "display" : "Enjoyment of life (1-10)",
+            "name" : "Enjoyment of life code",
+            "id" : "PEGENJOYMENT",
+            "display" : "Enjoyment of life",
             "accessLevel" : "Public",
             "codeSystem" : {
                "name" : "LOCAL"
             }
          }, {
-            "name" : "General activity (1-10) code",
-            "id" : "peggeneralactivitity1to10",
-            "display" : "General activity (1-10)",
+            "name" : "General activity code",
+            "id" : "PEGGENERALACTIVITY",
+            "display" : "General activity",
             "accessLevel" : "Public",
             "codeSystem" : {
                "name" : "LOCAL"
             }
          }, {
             "name" : "STarT Back Screening Tool code",
-            "id" : "startback",
+            "id" : "STARTBACK",
             "display" : "STarT Back Screening Tool",
             "accessLevel" : "Public",
             "codeSystem" : {
@@ -209,7 +257,7 @@
             }
          }, {
             "name" : "Single question r/t ETOH use code",
-            "id" : "sqetohuse",
+            "id" : "SQETOHUSE",
             "display" : "Single question r/t ETOH use",
             "accessLevel" : "Public",
             "codeSystem" : {
@@ -217,7 +265,7 @@
             }
          }, {
             "name" : "Single question r/t drug use code",
-            "id" : "sqdruguse",
+            "id" : "SQDRUGUSE",
             "display" : "Single question r/t drug use",
             "accessLevel" : "Public",
             "codeSystem" : {
@@ -225,7 +273,7 @@
             }
          }, {
             "name" : "Morphine Milligram Equivalent (MME) code",
-            "id" : "mme",
+            "id" : "MME",
             "display" : "Morphine Milligram Equivalent (MME)",
             "accessLevel" : "Public",
             "codeSystem" : {
@@ -256,6 +304,48 @@
                "name" : "Suicidal deliberate poisoning code"
             } ]
          }, {
+            "name" : "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]",
+            "display" : "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]",
+            "accessLevel" : "Public",
+            "code" : [ {
+               "name" : "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported] code"
+            } ]
+         }, {
+            "name" : "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]",
+            "display" : "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]",
+            "accessLevel" : "Public",
+            "code" : [ {
+               "name" : "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported] code"
+            } ]
+         }, {
+            "name" : "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]",
+            "display" : "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]",
+            "accessLevel" : "Public",
+            "code" : [ {
+               "name" : "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ] code"
+            } ]
+         }, {
+            "name" : "Total score [AUDIT]",
+            "display" : "Total score [AUDIT]",
+            "accessLevel" : "Public",
+            "code" : [ {
+               "name" : "Total score [AUDIT] code"
+            } ]
+         }, {
+            "name" : "Total score [AUDIT-C]",
+            "display" : "Total score [AUDIT-C]",
+            "accessLevel" : "Public",
+            "code" : [ {
+               "name" : "Total score [AUDIT-C] code"
+            } ]
+         }, {
+            "name" : "Total score [DAST-10]",
+            "display" : "Total score [DAST-10]",
+            "accessLevel" : "Public",
+            "code" : [ {
+               "name" : "Total score [DAST-10] code"
+            } ]
+         }, {
             "name" : "Pain severity Wong-Baker FACES Scale",
             "display" : "Pain severity Wong-Baker FACES Scale",
             "accessLevel" : "Public",
@@ -270,25 +360,25 @@
                "name" : "Pain Enjoyment General Activity (PEG) Assessment code"
             } ]
          }, {
-            "name" : "Pain (1-10)",
-            "display" : "Pain (1-10)",
+            "name" : "Pain",
+            "display" : "Pain",
             "accessLevel" : "Public",
             "code" : [ {
-               "name" : "Pain (1-10) code"
+               "name" : "Pain code"
             } ]
          }, {
-            "name" : "Enjoyment of life (1-10)",
-            "display" : "Enjoyment of life (1-10)",
+            "name" : "Enjoyment of life",
+            "display" : "Enjoyment of life",
             "accessLevel" : "Public",
             "code" : [ {
-               "name" : "Enjoyment of life (1-10) code"
+               "name" : "Enjoyment of life code"
             } ]
          }, {
-            "name" : "General activity (1-10)",
-            "display" : "General activity (1-10)",
+            "name" : "General activity",
+            "display" : "General activity",
             "accessLevel" : "Public",
             "code" : [ {
-               "name" : "General activity (1-10) code"
+               "name" : "General activity code"
             } ]
          }, {
             "name" : "STarT Back Screening Tool",
@@ -378,6 +468,359 @@
                      }
                   } ]
                } ]
+            },
+            "operand" : [ {
+               "name" : "c",
+               "operandTypeSpecifier" : {
+                  "name" : "{http://hl7.org/fhir}CodeableConcept",
+                  "type" : "NamedTypeSpecifier"
+               }
+            } ]
+         }, {
+            "name" : "ConceptTextWithRange",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "type" : "FunctionDef",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "Equivalent",
+                     "operand" : [ {
+                        "name" : "ToConcept",
+                        "libraryName" : "FHIRHelpers",
+                        "type" : "FunctionRef",
+                        "operand" : [ {
+                           "name" : "c",
+                           "type" : "OperandRef"
+                        } ]
+                     }, {
+                        "name" : "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]",
+                        "type" : "ConceptRef"
+                     } ]
+                  }
+               },
+               "then" : {
+                  "type" : "Concatenate",
+                  "operand" : [ {
+                     "name" : "ConceptText",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "name" : "c",
+                        "type" : "OperandRef"
+                     } ]
+                  }, {
+                     "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                     "value" : " [Range: 0-6]",
+                     "type" : "Literal"
+                  } ]
+               },
+               "else" : {
+                  "type" : "If",
+                  "condition" : {
+                     "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                     "type" : "As",
+                     "operand" : {
+                        "type" : "Equivalent",
+                        "operand" : [ {
+                           "name" : "ToConcept",
+                           "libraryName" : "FHIRHelpers",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "name" : "c",
+                              "type" : "OperandRef"
+                           } ]
+                        }, {
+                           "name" : "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]",
+                           "type" : "ConceptRef"
+                        } ]
+                     }
+                  },
+                  "then" : {
+                     "type" : "Concatenate",
+                     "operand" : [ {
+                        "name" : "ConceptText",
+                        "type" : "FunctionRef",
+                        "operand" : [ {
+                           "name" : "c",
+                           "type" : "OperandRef"
+                        } ]
+                     }, {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                        "value" : " [Range: 0-27]",
+                        "type" : "Literal"
+                     } ]
+                  },
+                  "else" : {
+                     "type" : "If",
+                     "condition" : {
+                        "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                        "type" : "As",
+                        "operand" : {
+                           "type" : "Equivalent",
+                           "operand" : [ {
+                              "name" : "ToConcept",
+                              "libraryName" : "FHIRHelpers",
+                              "type" : "FunctionRef",
+                              "operand" : [ {
+                                 "name" : "c",
+                                 "type" : "OperandRef"
+                              } ]
+                           }, {
+                              "name" : "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]",
+                              "type" : "ConceptRef"
+                           } ]
+                        }
+                     },
+                     "then" : {
+                        "type" : "Concatenate",
+                        "operand" : [ {
+                           "name" : "ConceptText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "name" : "c",
+                              "type" : "OperandRef"
+                           } ]
+                        }, {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : " [Range: 0-21]",
+                           "type" : "Literal"
+                        } ]
+                     },
+                     "else" : {
+                        "type" : "If",
+                        "condition" : {
+                           "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                           "type" : "As",
+                           "operand" : {
+                              "type" : "Equivalent",
+                              "operand" : [ {
+                                 "name" : "ToConcept",
+                                 "libraryName" : "FHIRHelpers",
+                                 "type" : "FunctionRef",
+                                 "operand" : [ {
+                                    "name" : "c",
+                                    "type" : "OperandRef"
+                                 } ]
+                              }, {
+                                 "name" : "Total score [AUDIT]",
+                                 "type" : "ConceptRef"
+                              } ]
+                           }
+                        },
+                        "then" : {
+                           "type" : "Concatenate",
+                           "operand" : [ {
+                              "name" : "ConceptText",
+                              "type" : "FunctionRef",
+                              "operand" : [ {
+                                 "name" : "c",
+                                 "type" : "OperandRef"
+                              } ]
+                           }, {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : " [Range: 0-40]",
+                              "type" : "Literal"
+                           } ]
+                        },
+                        "else" : {
+                           "type" : "If",
+                           "condition" : {
+                              "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                              "type" : "As",
+                              "operand" : {
+                                 "type" : "Equivalent",
+                                 "operand" : [ {
+                                    "name" : "ToConcept",
+                                    "libraryName" : "FHIRHelpers",
+                                    "type" : "FunctionRef",
+                                    "operand" : [ {
+                                       "name" : "c",
+                                       "type" : "OperandRef"
+                                    } ]
+                                 }, {
+                                    "name" : "Total score [AUDIT-C]",
+                                    "type" : "ConceptRef"
+                                 } ]
+                              }
+                           },
+                           "then" : {
+                              "type" : "Concatenate",
+                              "operand" : [ {
+                                 "name" : "ConceptText",
+                                 "type" : "FunctionRef",
+                                 "operand" : [ {
+                                    "name" : "c",
+                                    "type" : "OperandRef"
+                                 } ]
+                              }, {
+                                 "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                                 "value" : " [Range: 0-12]",
+                                 "type" : "Literal"
+                              } ]
+                           },
+                           "else" : {
+                              "type" : "If",
+                              "condition" : {
+                                 "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                                 "type" : "As",
+                                 "operand" : {
+                                    "type" : "Equivalent",
+                                    "operand" : [ {
+                                       "name" : "ToConcept",
+                                       "libraryName" : "FHIRHelpers",
+                                       "type" : "FunctionRef",
+                                       "operand" : [ {
+                                          "name" : "c",
+                                          "type" : "OperandRef"
+                                       } ]
+                                    }, {
+                                       "name" : "Total score [DAST-10]",
+                                       "type" : "ConceptRef"
+                                    } ]
+                                 }
+                              },
+                              "then" : {
+                                 "type" : "Concatenate",
+                                 "operand" : [ {
+                                    "name" : "ConceptText",
+                                    "type" : "FunctionRef",
+                                    "operand" : [ {
+                                       "name" : "c",
+                                       "type" : "OperandRef"
+                                    } ]
+                                 }, {
+                                    "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                                    "value" : " [Range: 0-10]",
+                                    "type" : "Literal"
+                                 } ]
+                              },
+                              "else" : {
+                                 "type" : "If",
+                                 "condition" : {
+                                    "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                                    "type" : "As",
+                                    "operand" : {
+                                       "type" : "Equivalent",
+                                       "operand" : [ {
+                                          "name" : "ToConcept",
+                                          "libraryName" : "FHIRHelpers",
+                                          "type" : "FunctionRef",
+                                          "operand" : [ {
+                                             "name" : "c",
+                                             "type" : "OperandRef"
+                                          } ]
+                                       }, {
+                                          "name" : "Pain severity Wong-Baker FACES Scale",
+                                          "type" : "ConceptRef"
+                                       } ]
+                                    }
+                                 },
+                                 "then" : {
+                                    "type" : "Concatenate",
+                                    "operand" : [ {
+                                       "name" : "ConceptText",
+                                       "type" : "FunctionRef",
+                                       "operand" : [ {
+                                          "name" : "c",
+                                          "type" : "OperandRef"
+                                       } ]
+                                    }, {
+                                       "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                                       "value" : " [Range: 0-10]",
+                                       "type" : "Literal"
+                                    } ]
+                                 },
+                                 "else" : {
+                                    "type" : "If",
+                                    "condition" : {
+                                       "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                                       "type" : "As",
+                                       "operand" : {
+                                          "type" : "Equivalent",
+                                          "operand" : [ {
+                                             "name" : "ToConcept",
+                                             "libraryName" : "FHIRHelpers",
+                                             "type" : "FunctionRef",
+                                             "operand" : [ {
+                                                "name" : "c",
+                                                "type" : "OperandRef"
+                                             } ]
+                                          }, {
+                                             "name" : "Pain Enjoyment General Activity (PEG) Assessment",
+                                             "type" : "ConceptRef"
+                                          } ]
+                                       }
+                                    },
+                                    "then" : {
+                                       "type" : "Concatenate",
+                                       "operand" : [ {
+                                          "name" : "ConceptText",
+                                          "type" : "FunctionRef",
+                                          "operand" : [ {
+                                             "name" : "c",
+                                             "type" : "OperandRef"
+                                          } ]
+                                       }, {
+                                          "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                                          "value" : " [Range: 0-10]",
+                                          "type" : "Literal"
+                                       } ]
+                                    },
+                                    "else" : {
+                                       "type" : "If",
+                                       "condition" : {
+                                          "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                                          "type" : "As",
+                                          "operand" : {
+                                             "type" : "Equivalent",
+                                             "operand" : [ {
+                                                "name" : "ToConcept",
+                                                "libraryName" : "FHIRHelpers",
+                                                "type" : "FunctionRef",
+                                                "operand" : [ {
+                                                   "name" : "c",
+                                                   "type" : "OperandRef"
+                                                } ]
+                                             }, {
+                                                "name" : "STarT Back Screening Tool",
+                                                "type" : "ConceptRef"
+                                             } ]
+                                          }
+                                       },
+                                       "then" : {
+                                          "type" : "Concatenate",
+                                          "operand" : [ {
+                                             "name" : "ConceptText",
+                                             "type" : "FunctionRef",
+                                             "operand" : [ {
+                                                "name" : "c",
+                                                "type" : "OperandRef"
+                                             } ]
+                                          }, {
+                                             "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                                             "value" : " [Range: 0-9]",
+                                             "type" : "Literal"
+                                          } ]
+                                       },
+                                       "else" : {
+                                          "name" : "ConceptText",
+                                          "type" : "FunctionRef",
+                                          "operand" : [ {
+                                             "name" : "c",
+                                             "type" : "OperandRef"
+                                          } ]
+                                       }
+                                    }
+                                 }
+                              }
+                           }
+                        }
+                     }
+                  }
+               }
             },
             "operand" : [ {
                "name" : "c",
@@ -1035,7 +1478,107 @@
                }
             } ]
          }, {
-            "name" : "Is18OrOlder",
+            "name" : "SortPegComponents",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "type" : "FunctionDef",
+            "expression" : {
+               "type" : "Flatten",
+               "operand" : {
+                  "type" : "List",
+                  "element" : [ {
+                     "type" : "Query",
+                     "source" : [ {
+                        "alias" : "OC",
+                        "expression" : {
+                           "name" : "c",
+                           "type" : "OperandRef"
+                        }
+                     } ],
+                     "relationship" : [ ],
+                     "where" : {
+                        "type" : "Equivalent",
+                        "operand" : [ {
+                           "name" : "ToConcept",
+                           "libraryName" : "FHIRHelpers",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "code",
+                              "scope" : "OC",
+                              "type" : "Property"
+                           } ]
+                        }, {
+                           "name" : "Pain",
+                           "type" : "ConceptRef"
+                        } ]
+                     }
+                  }, {
+                     "type" : "Query",
+                     "source" : [ {
+                        "alias" : "OC",
+                        "expression" : {
+                           "name" : "c",
+                           "type" : "OperandRef"
+                        }
+                     } ],
+                     "relationship" : [ ],
+                     "where" : {
+                        "type" : "Equivalent",
+                        "operand" : [ {
+                           "name" : "ToConcept",
+                           "libraryName" : "FHIRHelpers",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "code",
+                              "scope" : "OC",
+                              "type" : "Property"
+                           } ]
+                        }, {
+                           "name" : "Enjoyment of life",
+                           "type" : "ConceptRef"
+                        } ]
+                     }
+                  }, {
+                     "type" : "Query",
+                     "source" : [ {
+                        "alias" : "OC",
+                        "expression" : {
+                           "name" : "c",
+                           "type" : "OperandRef"
+                        }
+                     } ],
+                     "relationship" : [ ],
+                     "where" : {
+                        "type" : "Equivalent",
+                        "operand" : [ {
+                           "name" : "ToConcept",
+                           "libraryName" : "FHIRHelpers",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "code",
+                              "scope" : "OC",
+                              "type" : "Property"
+                           } ]
+                        }, {
+                           "name" : "General activity",
+                           "type" : "ConceptRef"
+                        } ]
+                     }
+                  } ]
+               }
+            },
+            "operand" : [ {
+               "name" : "c",
+               "operandTypeSpecifier" : {
+                  "type" : "ListTypeSpecifier",
+                  "elementType" : {
+                     "name" : "{http://hl7.org/fhir}Observation.Component",
+                     "type" : "NamedTypeSpecifier"
+                  }
+               }
+            } ]
+         }, {
+            "name" : "Is18orOlder",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -1210,7 +1753,7 @@
             "expression" : {
                "type" : "And",
                "operand" : [ {
-                  "name" : "Is18OrOlder",
+                  "name" : "Is18orOlder",
                   "type" : "ExpressionRef"
                }, {
                   "type" : "Or",
@@ -1312,7 +1855,7 @@
                }
             }
          }, {
-            "name" : "MajorDepressionConditions",
+            "name" : "DepressionConditions",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -1620,7 +2163,7 @@
                } ]
             }
          }, {
-            "name" : "HighRiskConditionsForOpioidTherapy",
+            "name" : "ConditionRiskFactorsForOpioidRelatedHarms",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -1638,7 +2181,7 @@
                               "operand" : [ {
                                  "type" : "Union",
                                  "operand" : [ {
-                                    "name" : "MajorDepressionConditions",
+                                    "name" : "DepressionConditions",
                                     "type" : "ExpressionRef"
                                  }, {
                                     "name" : "AnxietyConditions",
@@ -1670,7 +2213,7 @@
                } ]
             }
          }, {
-            "name" : "EncountersWithHighRiskDiagnosesForOpioidTherapy",
+            "name" : "EncounterRiskFactorsForOpioidRelatedHarms",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -1851,7 +2394,7 @@
                }
             }
          }, {
-            "name" : "ReportHighRiskConditionsForOpioidTherapy",
+            "name" : "ReportConditionRiskFactorsForOpioidRelatedHarms",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -1859,7 +2402,7 @@
                "source" : [ {
                   "alias" : "C",
                   "expression" : {
-                     "name" : "HighRiskConditionsForOpioidTherapy",
+                     "name" : "ConditionRiskFactorsForOpioidRelatedHarms",
                      "type" : "ExpressionRef"
                   }
                } ],
@@ -1983,7 +2526,7 @@
                }
             }
          }, {
-            "name" : "GetHighRiskEncounterDiagnosesForOpioidTherapy",
+            "name" : "GetEncounterDiagnosesRiskFactorsForOpioidRelatedHarms",
             "context" : "Patient",
             "accessLevel" : "Public",
             "type" : "FunctionDef",
@@ -2243,7 +2786,7 @@
                }
             } ]
          }, {
-            "name" : "ReportHighRiskEncounterDiagnosesForOpioidTherapy",
+            "name" : "ReportEncounterRiskFactorsForOpioidRelatedHarms",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -2257,14 +2800,14 @@
                         "source" : [ {
                            "alias" : "E",
                            "expression" : {
-                              "name" : "EncountersWithHighRiskDiagnosesForOpioidTherapy",
+                              "name" : "EncounterRiskFactorsForOpioidRelatedHarms",
                               "type" : "ExpressionRef"
                            }
                         } ],
                         "relationship" : [ ],
                         "return" : {
                            "expression" : {
-                              "name" : "GetHighRiskEncounterDiagnosesForOpioidTherapy",
+                              "name" : "GetEncounterDiagnosesRiskFactorsForOpioidRelatedHarms",
                               "type" : "FunctionRef",
                               "operand" : [ {
                                  "name" : "E",
@@ -2655,7 +3198,7 @@
                }
             }
          }, {
-            "name" : "ReportHighRiskConditionsOrDiagnosesForOpioidTherapy",
+            "name" : "ReportRiskFactorsForOpioidRelatedHarms",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -2680,10 +3223,10 @@
                         "operand" : [ {
                            "type" : "Union",
                            "operand" : [ {
-                              "name" : "ReportHighRiskConditionsForOpioidTherapy",
+                              "name" : "ReportConditionRiskFactorsForOpioidRelatedHarms",
                               "type" : "ExpressionRef"
                            }, {
-                              "name" : "ReportHighRiskEncounterDiagnosesForOpioidTherapy",
+                              "name" : "ReportEncounterRiskFactorsForOpioidRelatedHarms",
                               "type" : "ExpressionRef"
                            } ]
                         }, {
@@ -2708,10 +3251,10 @@
                            "operand" : [ {
                               "type" : "Union",
                               "operand" : [ {
-                                 "name" : "ReportHighRiskConditionsForOpioidTherapy",
+                                 "name" : "ReportConditionRiskFactorsForOpioidRelatedHarms",
                                  "type" : "ExpressionRef"
                               }, {
-                                 "name" : "ReportHighRiskEncounterDiagnosesForOpioidTherapy",
+                                 "name" : "ReportEncounterRiskFactorsForOpioidRelatedHarms",
                                  "type" : "ExpressionRef"
                               } ]
                            }, {
@@ -2852,7 +3395,7 @@
                      "element" : [ {
                         "name" : "Name",
                         "value" : {
-                           "name" : "ConceptText",
+                           "name" : "ConceptTextWithRange",
                            "type" : "FunctionRef",
                            "operand" : [ {
                               "path" : "code",
@@ -2964,7 +3507,7 @@
                      "element" : [ {
                         "name" : "Name",
                         "value" : {
-                           "name" : "ConceptText",
+                           "name" : "ConceptTextWithRange",
                            "type" : "FunctionRef",
                            "operand" : [ {
                               "path" : "code",
@@ -3012,9 +3555,13 @@
                            "source" : [ {
                               "alias" : "C",
                               "expression" : {
-                                 "path" : "component",
-                                 "scope" : "A",
-                                 "type" : "Property"
+                                 "name" : "SortPegComponents",
+                                 "type" : "FunctionRef",
+                                 "operand" : [ {
+                                    "path" : "component",
+                                    "scope" : "A",
+                                    "type" : "Property"
+                                 } ]
                               }
                            } ],
                            "relationship" : [ ],
@@ -3118,7 +3665,7 @@
                      "element" : [ {
                         "name" : "Name",
                         "value" : {
-                           "name" : "ConceptText",
+                           "name" : "ConceptTextWithRange",
                            "type" : "FunctionRef",
                            "operand" : [ {
                               "path" : "code",
@@ -3291,6 +3838,17 @@
                               "type" : "Property"
                            } ]
                         }
+                     }, {
+                        "name" : "Status",
+                        "value" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "status",
+                              "scope" : "O",
+                              "type" : "Property"
+                           }
+                        }
                      } ]
                   }
                },
@@ -3365,6 +3923,17 @@
                                  "type" : "Property"
                               }
                            } ]
+                        }
+                     }, {
+                        "name" : "Status",
+                        "value" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "status",
+                              "scope" : "S",
+                              "type" : "Property"
+                           }
                         }
                      } ]
                   }
@@ -3524,6 +4093,17 @@
                               "type" : "Property"
                            } ]
                         }
+                     }, {
+                        "name" : "Status",
+                        "value" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "status",
+                              "scope" : "O",
+                              "type" : "Property"
+                           }
+                        }
                      } ]
                   }
                },
@@ -3598,6 +4178,17 @@
                                  "type" : "Property"
                               }
                            } ]
+                        }
+                     }, {
+                        "name" : "Status",
+                        "value" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "status",
+                              "scope" : "S",
+                              "type" : "Property"
+                           }
                         }
                      } ]
                   }
@@ -4106,6 +4697,17 @@
                               "type" : "Property"
                            } ]
                         }
+                     }, {
+                        "name" : "Status",
+                        "value" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "status",
+                              "scope" : "O",
+                              "type" : "Property"
+                           }
+                        }
                      } ]
                   }
                },
@@ -4181,6 +4783,17 @@
                               }
                            } ]
                         }
+                     }, {
+                        "name" : "Status",
+                        "value" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "status",
+                              "scope" : "S",
+                              "type" : "Property"
+                           }
+                        }
                      } ]
                   }
                },
@@ -4229,7 +4842,137 @@
                }
             }
          }, {
-            "name" : "PainManagementRiskScreenings",
+            "name" : "MostRecentMME",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "name" : "MostRecent",
+               "libraryName" : "C3F",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "name" : "Verified",
+                  "libraryName" : "C3F",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "name" : "ObservationLookBack",
+                     "libraryName" : "C3F",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "dataType" : "{http://hl7.org/fhir}Observation",
+                        "codeProperty" : "code",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "type" : "ToList",
+                           "operand" : {
+                              "name" : "Morphine Milligram Equivalent (MME)",
+                              "type" : "ConceptRef"
+                           }
+                        }
+                     }, {
+                        "value" : 6,
+                        "unit" : "months",
+                        "type" : "Quantity"
+                     } ]
+                  } ]
+               } ]
+            }
+         }, {
+            "name" : "ReportMostRecentMME",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "IsNull",
+                     "operand" : {
+                        "name" : "MostRecentMME",
+                        "type" : "ExpressionRef"
+                     }
+                  }
+               },
+               "then" : {
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "Null"
+                  },
+                  "asTypeSpecifier" : {
+                     "type" : "TupleTypeSpecifier",
+                     "element" : [ {
+                        "name" : "Name",
+                        "type" : {
+                           "name" : "{urn:hl7-org:elm-types:r1}String",
+                           "type" : "NamedTypeSpecifier"
+                        }
+                     }, {
+                        "name" : "Result",
+                        "type" : {
+                           "name" : "{urn:hl7-org:elm-types:r1}String",
+                           "type" : "NamedTypeSpecifier"
+                        }
+                     }, {
+                        "name" : "Date",
+                        "type" : {
+                           "name" : "{urn:hl7-org:elm-types:r1}String",
+                           "type" : "NamedTypeSpecifier"
+                        }
+                     } ]
+                  }
+               },
+               "else" : {
+                  "type" : "Query",
+                  "source" : [ {
+                     "alias" : "M",
+                     "expression" : {
+                        "name" : "MostRecentMME",
+                        "type" : "ExpressionRef"
+                     }
+                  } ],
+                  "relationship" : [ ],
+                  "return" : {
+                     "expression" : {
+                        "type" : "Tuple",
+                        "element" : [ {
+                           "name" : "Name",
+                           "value" : {
+                              "name" : "ConceptText",
+                              "type" : "FunctionRef",
+                              "operand" : [ {
+                                 "path" : "code",
+                                 "scope" : "M",
+                                 "type" : "Property"
+                              } ]
+                           }
+                        }, {
+                           "name" : "Result",
+                           "value" : {
+                              "name" : "QuantityText",
+                              "type" : "FunctionRef",
+                              "operand" : [ {
+                                 "path" : "valueQuantity",
+                                 "scope" : "M",
+                                 "type" : "Property"
+                              } ]
+                           }
+                        }, {
+                           "name" : "Date",
+                           "value" : {
+                              "name" : "ObservationDate",
+                              "type" : "FunctionRef",
+                              "operand" : [ {
+                                 "name" : "M",
+                                 "type" : "AliasRef"
+                              } ]
+                           }
+                        } ]
+                     }
+                  }
+               }
+            }
+         }, {
+            "name" : "UrineDrugScreens",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -4241,41 +4984,13 @@
                   "libraryName" : "C3F",
                   "type" : "FunctionRef",
                   "operand" : [ {
-                     "type" : "Union",
-                     "operand" : [ {
-                        "type" : "Union",
-                        "operand" : [ {
-                           "dataType" : "{http://hl7.org/fhir}Observation",
-                           "codeProperty" : "code",
-                           "type" : "Retrieve",
-                           "codes" : {
-                              "name" : "Risk Screenings Relevant to Pain Management",
-                              "type" : "ValueSetRef"
-                           }
-                        }, {
-                           "dataType" : "{http://hl7.org/fhir}Observation",
-                           "codeProperty" : "code",
-                           "type" : "Retrieve",
-                           "codes" : {
-                              "type" : "ToList",
-                              "operand" : {
-                                 "name" : "Single question r/t ETOH use",
-                                 "type" : "ConceptRef"
-                              }
-                           }
-                        } ]
-                     }, {
-                        "dataType" : "{http://hl7.org/fhir}Observation",
-                        "codeProperty" : "code",
-                        "type" : "Retrieve",
-                        "codes" : {
-                           "type" : "ToList",
-                           "operand" : {
-                              "name" : "Single question r/t drug use",
-                              "type" : "ConceptRef"
-                           }
-                        }
-                     } ]
+                     "dataType" : "{http://hl7.org/fhir}Observation",
+                     "codeProperty" : "code",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "name" : "Urine drug screen for pain management",
+                        "type" : "ValueSetRef"
+                     }
                   }, {
                      "value" : 1,
                      "unit" : "year",
@@ -4284,7 +4999,7 @@
                } ]
             }
          }, {
-            "name" : "ReportPainManagementRiskScreenings",
+            "name" : "ReportUrineDrugScreens",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -4292,7 +5007,7 @@
                "source" : [ {
                   "alias" : "S",
                   "expression" : {
-                     "name" : "PainManagementRiskScreenings",
+                     "name" : "UrineDrugScreens",
                      "type" : "ExpressionRef"
                   }
                } ],
@@ -4312,28 +5027,25 @@
                            } ]
                         }
                      }, {
-                        "name" : "Score",
-                        "value" : {
-                           "name" : "QuantityText",
-                           "type" : "FunctionRef",
-                           "operand" : [ {
-                              "path" : "valueQuantity",
-                              "scope" : "S",
-                              "type" : "Property"
-                           } ]
-                        }
-                     }, {
-                        "name" : "Interpretation",
+                        "name" : "Result",
                         "value" : {
                            "type" : "Coalesce",
                            "operand" : [ {
-                              "name" : "ConceptText",
+                              "name" : "QuantityText",
                               "type" : "FunctionRef",
                               "operand" : [ {
-                                 "path" : "interpretation",
+                                 "path" : "valueQuantity",
                                  "scope" : "S",
                                  "type" : "Property"
                               } ]
+                           }, {
+                              "path" : "value",
+                              "type" : "Property",
+                              "source" : {
+                                 "path" : "valueString",
+                                 "scope" : "S",
+                                 "type" : "Property"
+                              }
                            }, {
                               "name" : "ConceptText",
                               "type" : "FunctionRef",
@@ -4342,6 +5054,23 @@
                                  "scope" : "S",
                                  "type" : "Property"
                               } ]
+                           } ]
+                        }
+                     }, {
+                        "name" : "Interpretation",
+                        "value" : {
+                           "type" : "Coalesce",
+                           "operand" : [ {
+                              "type" : "ToList",
+                              "operand" : {
+                                 "name" : "ConceptText",
+                                 "type" : "FunctionRef",
+                                 "operand" : [ {
+                                    "path" : "interpretation",
+                                    "scope" : "S",
+                                    "type" : "Property"
+                                 } ]
+                              }
                            } ]
                         }
                      }, {
@@ -4476,6 +5205,17 @@
                               "type" : "Property"
                            } ]
                         }
+                     }, {
+                        "name" : "Status",
+                        "value" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "status",
+                              "scope" : "O",
+                              "type" : "Property"
+                           }
+                        }
                      } ]
                   }
                },
@@ -4550,6 +5290,17 @@
                                  "type" : "Property"
                               }
                            } ]
+                        }
+                     }, {
+                        "name" : "Status",
+                        "value" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "status",
+                              "scope" : "S",
+                              "type" : "Property"
+                           }
                         }
                      } ]
                   }
@@ -4691,6 +5442,17 @@
                               "type" : "Property"
                            } ]
                         }
+                     }, {
+                        "name" : "Status",
+                        "value" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "status",
+                              "scope" : "O",
+                              "type" : "Property"
+                           }
+                        }
                      } ]
                   }
                },
@@ -4766,6 +5528,17 @@
                               }
                            } ]
                         }
+                     }, {
+                        "name" : "Status",
+                        "value" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "status",
+                              "scope" : "S",
+                              "type" : "Property"
+                           }
+                        }
                      } ]
                   }
                },
@@ -4814,7 +5587,7 @@
                }
             }
          }, {
-            "name" : "UrineDrugScreens",
+            "name" : "RiskScreeningsRelevantToPainManagement",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -4826,13 +5599,41 @@
                   "libraryName" : "C3F",
                   "type" : "FunctionRef",
                   "operand" : [ {
-                     "dataType" : "{http://hl7.org/fhir}Observation",
-                     "codeProperty" : "code",
-                     "type" : "Retrieve",
-                     "codes" : {
-                        "name" : "Urine drug screen for pain management",
-                        "type" : "ValueSetRef"
-                     }
+                     "type" : "Union",
+                     "operand" : [ {
+                        "type" : "Union",
+                        "operand" : [ {
+                           "dataType" : "{http://hl7.org/fhir}Observation",
+                           "codeProperty" : "code",
+                           "type" : "Retrieve",
+                           "codes" : {
+                              "name" : "Risk assessments relevant to pain management",
+                              "type" : "ValueSetRef"
+                           }
+                        }, {
+                           "dataType" : "{http://hl7.org/fhir}Observation",
+                           "codeProperty" : "code",
+                           "type" : "Retrieve",
+                           "codes" : {
+                              "type" : "ToList",
+                              "operand" : {
+                                 "name" : "Single question r/t ETOH use",
+                                 "type" : "ConceptRef"
+                              }
+                           }
+                        } ]
+                     }, {
+                        "dataType" : "{http://hl7.org/fhir}Observation",
+                        "codeProperty" : "code",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "type" : "ToList",
+                           "operand" : {
+                              "name" : "Single question r/t drug use",
+                              "type" : "ConceptRef"
+                           }
+                        }
+                     } ]
                   }, {
                      "value" : 1,
                      "unit" : "year",
@@ -4841,7 +5642,7 @@
                } ]
             }
          }, {
-            "name" : "ReportUrineDrugScreens",
+            "name" : "ReportRiskScreeningsRelevantToPainManagement",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -4849,7 +5650,7 @@
                "source" : [ {
                   "alias" : "S",
                   "expression" : {
-                     "name" : "UrineDrugScreens",
+                     "name" : "RiskScreeningsRelevantToPainManagement",
                      "type" : "ExpressionRef"
                   }
                } ],
@@ -4860,7 +5661,7 @@
                      "element" : [ {
                         "name" : "Name",
                         "value" : {
-                           "name" : "ConceptText",
+                           "name" : "ConceptTextWithRange",
                            "type" : "FunctionRef",
                            "operand" : [ {
                               "path" : "code",
@@ -4869,14 +5670,25 @@
                            } ]
                         }
                      }, {
-                        "name" : "Result",
+                        "name" : "Score",
                         "value" : {
-                           "name" : "QuantityText",
-                           "type" : "FunctionRef",
+                           "type" : "Coalesce",
                            "operand" : [ {
-                              "path" : "valueQuantity",
-                              "scope" : "S",
-                              "type" : "Property"
+                              "name" : "QuantityText",
+                              "type" : "FunctionRef",
+                              "operand" : [ {
+                                 "path" : "valueQuantity",
+                                 "scope" : "S",
+                                 "type" : "Property"
+                              } ]
+                           }, {
+                              "path" : "value",
+                              "type" : "Property",
+                              "source" : {
+                                 "path" : "valueString",
+                                 "scope" : "S",
+                                 "type" : "Property"
+                              }
                            } ]
                         }
                      }, {
@@ -4920,136 +5732,6 @@
                      "path" : "Date",
                      "type" : "ByColumn"
                   } ]
-               }
-            }
-         }, {
-            "name" : "MostRecentMME",
-            "context" : "Patient",
-            "accessLevel" : "Public",
-            "expression" : {
-               "name" : "MostRecent",
-               "libraryName" : "C3F",
-               "type" : "FunctionRef",
-               "operand" : [ {
-                  "name" : "Verified",
-                  "libraryName" : "C3F",
-                  "type" : "FunctionRef",
-                  "operand" : [ {
-                     "name" : "ObservationLookBack",
-                     "libraryName" : "C3F",
-                     "type" : "FunctionRef",
-                     "operand" : [ {
-                        "dataType" : "{http://hl7.org/fhir}Observation",
-                        "codeProperty" : "code",
-                        "type" : "Retrieve",
-                        "codes" : {
-                           "type" : "ToList",
-                           "operand" : {
-                              "name" : "Morphine Milligram Equivalent (MME)",
-                              "type" : "ConceptRef"
-                           }
-                        }
-                     }, {
-                        "value" : 6,
-                        "unit" : "months",
-                        "type" : "Quantity"
-                     } ]
-                  } ]
-               } ]
-            }
-         }, {
-            "name" : "ReportMostRecentMME",
-            "context" : "Patient",
-            "accessLevel" : "Public",
-            "expression" : {
-               "type" : "If",
-               "condition" : {
-                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
-                  "type" : "As",
-                  "operand" : {
-                     "type" : "IsNull",
-                     "operand" : {
-                        "name" : "MostRecentMME",
-                        "type" : "ExpressionRef"
-                     }
-                  }
-               },
-               "then" : {
-                  "type" : "As",
-                  "operand" : {
-                     "type" : "Null"
-                  },
-                  "asTypeSpecifier" : {
-                     "type" : "TupleTypeSpecifier",
-                     "element" : [ {
-                        "name" : "Name",
-                        "type" : {
-                           "name" : "{urn:hl7-org:elm-types:r1}String",
-                           "type" : "NamedTypeSpecifier"
-                        }
-                     }, {
-                        "name" : "Result",
-                        "type" : {
-                           "name" : "{urn:hl7-org:elm-types:r1}String",
-                           "type" : "NamedTypeSpecifier"
-                        }
-                     }, {
-                        "name" : "Date",
-                        "type" : {
-                           "name" : "{urn:hl7-org:elm-types:r1}String",
-                           "type" : "NamedTypeSpecifier"
-                        }
-                     } ]
-                  }
-               },
-               "else" : {
-                  "type" : "Query",
-                  "source" : [ {
-                     "alias" : "M",
-                     "expression" : {
-                        "name" : "MostRecentMME",
-                        "type" : "ExpressionRef"
-                     }
-                  } ],
-                  "relationship" : [ ],
-                  "return" : {
-                     "expression" : {
-                        "type" : "Tuple",
-                        "element" : [ {
-                           "name" : "Name",
-                           "value" : {
-                              "name" : "ConceptText",
-                              "type" : "FunctionRef",
-                              "operand" : [ {
-                                 "path" : "code",
-                                 "scope" : "M",
-                                 "type" : "Property"
-                              } ]
-                           }
-                        }, {
-                           "name" : "Result",
-                           "value" : {
-                              "name" : "QuantityText",
-                              "type" : "FunctionRef",
-                              "operand" : [ {
-                                 "path" : "valueQuantity",
-                                 "scope" : "M",
-                                 "type" : "Property"
-                              } ]
-                           }
-                        }, {
-                           "name" : "Date",
-                           "value" : {
-                              "name" : "ObservationDate",
-                              "type" : "FunctionRef",
-                              "operand" : [ {
-                                 "name" : "M",
-                                 "type" : "AliasRef"
-                              } ]
-                           }
-                        } ]
-                     }
-                  }
                }
             }
          }, {
@@ -5246,9 +5928,9 @@
                            "type" : "ExpressionRef"
                         }
                      }, {
-                        "name" : "HighRiskConditionsForOpioidTherapy",
+                        "name" : "RiskFactorsForOpioidRelatedHarms",
                         "value" : {
-                           "name" : "ReportHighRiskConditionsOrDiagnosesForOpioidTherapy",
+                           "name" : "ReportRiskFactorsForOpioidRelatedHarms",
                            "type" : "ExpressionRef"
                         }
                      } ]
@@ -5308,13 +5990,19 @@
                      } ]
                   }
                }, {
-                  "name" : "RiskFactorsAndAssessments",
+                  "name" : "RiskConsiderations",
                   "value" : {
                      "type" : "Tuple",
                      "element" : [ {
-                        "name" : "PainManagementRiskScreenings",
+                        "name" : "MostRecentMME",
                         "value" : {
-                           "name" : "ReportPainManagementRiskScreenings",
+                           "name" : "ReportMostRecentMME",
+                           "type" : "ExpressionRef"
+                        }
+                     }, {
+                        "name" : "UrineDrugScreens",
+                        "value" : {
+                           "name" : "ReportUrineDrugScreens",
                            "type" : "ExpressionRef"
                         }
                      }, {
@@ -5330,15 +6018,9 @@
                            "type" : "ExpressionRef"
                         }
                      }, {
-                        "name" : "UrineDrugScreens",
+                        "name" : "RiskScreeningsRelevantToPainManagement",
                         "value" : {
-                           "name" : "ReportUrineDrugScreens",
-                           "type" : "ExpressionRef"
-                        }
-                     }, {
-                        "name" : "MostRecentMME",
-                        "value" : {
-                           "name" : "ReportMostRecentMME",
+                           "name" : "ReportRiskScreeningsRelevantToPainManagement",
                            "type" : "ExpressionRef"
                         }
                      } ]

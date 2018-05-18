@@ -134,7 +134,7 @@ export default class Landing extends Component {
     const numPainEntries = sumit(summary.PainAssessments || {});
     const numTreatmentsEntries = sumit(summary.HistoricalTreatments || {});
     const numRiskEntries =
-      sumit(summary.RiskFactorsAndAssessments || {}) +
+      sumit(summary.RiskConsiderations || {}) +
       sumit(summary.MiscellaneousItems || {}); // TODO: update when CQL updates
     const totalEntries = numMedicalHistoryEntries + numPainEntries + numTreatmentsEntries + numRiskEntries;
 

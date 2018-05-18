@@ -16,7 +16,7 @@ const mockSummaryA = {
         "Onset": "2012-04-05T00:00:00.000+00:00"
       }
     ],
-    "HighRiskConditionsForOpioidTherapy": [
+    "RiskFactorsForOpioidRelatedHarms": [
       {
         "Name": "Agoraphobia with panic attacks (disorder)",
         "Status": "active",
@@ -52,15 +52,15 @@ const mockSummaryA = {
         "Interpretation": null,
         "Questions": [
           {
-            "Name": "Pain (1-10)",
+            "Name": "Pain",
             "Score": "7"
           },
           {
-            "Name": "Enjoyment of life (1-10)",
+            "Name": "Enjoyment of life",
             "Score": "5"
           },
           {
-            "Name": "General activity (1-10)",
+            "Name": "General activity",
             "Score": "4"
           }
         ],
@@ -139,8 +139,8 @@ const mockSummaryA = {
       }
     ]
   },
-  "RiskFactorsAndAssessments": {
-    "PainManagementRiskScreenings": [
+  "RiskConsiderations": {
+    "RiskScreeningsRelevantToPainManagement": [
       {
         "Name": "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]",
         "Score": "7",
@@ -208,7 +208,7 @@ const mockSummaryB = {
         "Onset": "2012-04-05T00:00:00.000+00:00"
       }
     ],
-    "HighRiskConditionsForOpioidTherapy": [
+    "RiskFactorsForOpioidRelatedHarms": [
       {
         "Name": "Agoraphobia with panic attacks (disorder)",
         "Status": "active",
@@ -234,15 +234,15 @@ const mockSummaryB = {
         "Interpretation": null,
         "Questions": [
           {
-            "Name": "Pain (1-10)",
+            "Name": "Pain",
             "Score": "7"
           },
           {
-            "Name": "Enjoyment of life (1-10)",
+            "Name": "Enjoyment of life",
             "Score": "5"
           },
           {
-            "Name": "General activity (1-10)",
+            "Name": "General activity",
             "Score": "4"
           }
         ],
@@ -308,8 +308,8 @@ const mockSummaryB = {
     ],
     "StoolSoftenersAndLaxatives": []
   },
-  "RiskFactorsAndAssessments": {
-    "PainManagementRiskScreenings": [
+  "RiskConsiderations": {
+    "RiskScreeningsRelevantToPainManagement": [
       {
         "Name": "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]",
         "Score": "7",
@@ -344,7 +344,7 @@ const mockSummaryC = {
         "Onset": "2012-04-05T00:00:00.000+00:00"
       }
     ],
-    "HighRiskConditionsForOpioidTherapy": [
+    "RiskFactorsForOpioidRelatedHarms": [
       {
         "Name": "Agoraphobia with panic attacks (disorder)",
         "Status": "active",
@@ -370,15 +370,15 @@ const mockSummaryC = {
         "Interpretation": null,
         "Questions": [
           {
-            "Name": "Pain (1-10)",
+            "Name": "Pain",
             "Score": "7"
           },
           {
-            "Name": "Enjoyment of life (1-10)",
+            "Name": "Enjoyment of life",
             "Score": "5"
           },
           {
-            "Name": "General activity (1-10)",
+            "Name": "General activity",
             "Score": "4"
           }
         ],
@@ -444,8 +444,8 @@ const mockSummaryC = {
       }
     ]
   },
-  "RiskFactorsAndAssessments": {
-    "PainManagementRiskScreenings": [
+  "RiskConsiderations": {
+    "RiskScreeningsRelevantToPainManagement": [
       {
         "Name": "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]",
         "Score": "7",
@@ -493,7 +493,7 @@ const mockSummaryD = {
         "Onset": "2012-04-05T00:00:00.000+00:00"
       }
     ],
-    "HighRiskConditionsForOpioidTherapy": [
+    "RiskFactorsForOpioidRelatedHarms": [
       {
         "Name": "Agoraphobia with panic attacks (disorder)",
         "Status": "active",
@@ -519,15 +519,15 @@ const mockSummaryD = {
         "Interpretation": null,
         "Questions": [
           {
-            "Name": "Pain (1-10)",
+            "Name": "Pain",
             "Score": "7"
           },
           {
-            "Name": "Enjoyment of life (1-10)",
+            "Name": "Enjoyment of life",
             "Score": "5"
           },
           {
-            "Name": "General activity (1-10)",
+            "Name": "General activity",
             "Score": "4"
           }
         ],
@@ -562,8 +562,8 @@ const mockSummaryD = {
       }
     ]
   },
-  "RiskFactorsAndAssessments": {
-    "PainManagementRiskScreenings": [
+  "RiskConsiderations": {
+    "RiskScreeningsRelevantToPainManagement": [
       {
         "Name": "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]",
         "Score": "7",
@@ -605,7 +605,7 @@ const mockSummaryE = {
         "Onset": "2012-04-05T00:00:00.000+00:00"
       }
     ],
-    "HighRiskConditionsForOpioidTherapy": [
+    "RiskFactorsForOpioidRelatedHarms": [
       {
         "Name": "Agoraphobia with panic attacks (disorder)",
         "Status": "active",
@@ -631,15 +631,15 @@ const mockSummaryE = {
         "Interpretation": null,
         "Questions": [
           {
-            "Name": "Pain (1-10)",
+            "Name": "Pain",
             "Score": "7"
           },
           {
-            "Name": "Enjoyment of life (1-10)",
+            "Name": "Enjoyment of life",
             "Score": "5"
           },
           {
-            "Name": "General activity (1-10)",
+            "Name": "General activity",
             "Score": "4"
           }
         ],
@@ -718,8 +718,8 @@ const mockSummaryE = {
       }
     ]
   },
-  "RiskFactorsAndAssessments": {
-    "PainManagementRiskScreenings": [
+  "RiskConsiderations": {
+    "RiskScreeningsRelevantToPainManagement": [
       {
         "Name": "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]",
         "Score": "7",
@@ -774,7 +774,7 @@ const mockSummaryF = {
         "Onset": "2012-04-05T00:00:00.000+00:00"
       }
     ],
-    "HighRiskConditionsForOpioidTherapy": [
+    "RiskFactorsForOpioidRelatedHarms": [
       {
         "Name": "Agoraphobia with panic attacks (disorder)",
         "Status": "active",
@@ -800,15 +800,15 @@ const mockSummaryF = {
         "Interpretation": null,
         "Questions": [
           {
-            "Name": "Pain (1-10)",
+            "Name": "Pain",
             "Score": "7"
           },
           {
-            "Name": "Enjoyment of life (1-10)",
+            "Name": "Enjoyment of life",
             "Score": "5"
           },
           {
-            "Name": "General activity (1-10)",
+            "Name": "General activity",
             "Score": "4"
           }
         ],
@@ -887,8 +887,8 @@ const mockSummaryF = {
       }
     ]
   },
-  "RiskFactorsAndAssessments": {
-    "PainManagementRiskScreenings": [
+  "RiskConsiderations": {
+    "RiskScreeningsRelevantToPainManagement": [
       {
         "Name": "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]",
         "Score": "7",
@@ -956,7 +956,7 @@ const mockSummaryG = {
         "Onset": "2012-04-05T00:00:00.000+00:00"
       }
     ],
-    "HighRiskConditionsForOpioidTherapy": [
+    "RiskFactorsForOpioidRelatedHarms": [
       {
         "Name": "Agoraphobia with panic attacks (disorder)",
         "Status": "active",
@@ -982,15 +982,15 @@ const mockSummaryG = {
         "Interpretation": null,
         "Questions": [
           {
-            "Name": "Pain (1-10)",
+            "Name": "Pain",
             "Score": "7"
           },
           {
-            "Name": "Enjoyment of life (1-10)",
+            "Name": "Enjoyment of life",
             "Score": "5"
           },
           {
-            "Name": "General activity (1-10)",
+            "Name": "General activity",
             "Score": "4"
           }
         ],
@@ -1069,8 +1069,8 @@ const mockSummaryG = {
       }
     ]
   },
-  "RiskFactorsAndAssessments": {
-    "PainManagementRiskScreenings": [
+  "RiskConsiderations": {
+    "RiskScreeningsRelevantToPainManagement": [
       {
         "Name": "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]",
         "Score": "7",
@@ -1112,7 +1112,7 @@ const mockSummaryG = {
 const mockSectionFlags = {
   "PertinentMedicalHistory": {
     "ConditionsAssociatedWithChronicPain": [],
-    "HighRiskConditionsForOpioidTherapy": [
+    "RiskFactorsForOpioidRelatedHarms": [
       2
     ]
   },
@@ -1130,8 +1130,8 @@ const mockSectionFlags = {
     "NonPharmacologicTreatments": [],
     "StoolSoftenersAndLaxatives": []
   },
-  "RiskFactorsAndAssessments": {
-    "PainManagementRiskScreenings": [],
+  "RiskConsiderations": {
+    "RiskScreeningsRelevantToPainManagement": [],
     "BenzodiazepineMedications": [
       16,
       17

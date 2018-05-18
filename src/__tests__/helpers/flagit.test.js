@@ -49,15 +49,15 @@ it('flags "Pain Enjoyment General Activity (PEG) Assessments" entries correctly'
     "Interpretation": null,
     "Questions": [
       {
-        "Name": "Pain (1-10)",
+        "Name": "Pain",
         "Score": "7"
       },
       {
-        "Name": "Enjoyment of life (1-10)",
+        "Name": "Enjoyment of life",
         "Score": "5"
       },
       {
-        "Name": "General activity (1-10)",
+        "Name": "General activity",
         "Score": "4"
       }
     ],
@@ -135,7 +135,7 @@ it('flags "Stool Softeners and Laxatives" entries correctly', () => {
 });
 
 it('flags "Most Recent MME" entries correctly', () => {
-  const subSection = summaryMap['RiskFactorsAndAssessments'][0];
+  const subSection = summaryMap['RiskConsiderations'][0];
   const mockEntryA = {
     "Name": "Morphine Milligram Equivalent (MME)",
     "Result": "20 {MME}/d",
@@ -153,7 +153,7 @@ it('flags "Most Recent MME" entries correctly', () => {
 });
 
 it('flags "Urine Drug Screens" entries correctly', () => {
-  const subSection = summaryMap['RiskFactorsAndAssessments'][1];
+  const subSection = summaryMap['RiskConsiderations'][1];
   const mockEntry = {
     "Name": "Opiates [Presence] in Urine by Screen method",
     "Result": "2300 ng/mL",
@@ -172,7 +172,7 @@ it('flags "Urine Drug Screens" entries correctly', () => {
 });
 
 it('flags "Benzodiazepine Medications" entries correctly', () => {
-  const subSection = summaryMap['RiskFactorsAndAssessments'][2];
+  const subSection = summaryMap['RiskConsiderations'][2];
   const mockEntry = {
     "Type": "Statement",
     "Name": "Diazepam 5 MG Oral Tablet",
@@ -189,7 +189,7 @@ it('flags "Benzodiazepine Medications" entries correctly', () => {
 });
 
 it('flags "Naloxone Medications" entries correctly', () => {
-  const subSection = summaryMap['RiskFactorsAndAssessments'][3];
+  const subSection = summaryMap['RiskConsiderations'][3];
   const mockEntry = {
     "Type": "Order",
     "Name": "Naloxone Hydrochloride 40 MG/ML Nasal Spray",
@@ -208,7 +208,7 @@ it('flags "Naloxone Medications" entries correctly', () => {
 });
 
 it('flags "Pain Management Risk Screenings" entries correctly', () => {
-  const subSection = summaryMap['RiskFactorsAndAssessments'][4];
+  const subSection = summaryMap['RiskConsiderations'][4];
   const mockEntry = {
     "Name": "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]",
     "Score": "7",
