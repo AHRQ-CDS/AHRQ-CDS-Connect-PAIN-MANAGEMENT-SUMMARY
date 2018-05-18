@@ -9,35 +9,6 @@ function doSearch(smart, type, takeTwo, collector, callback) {
   if (takeTwo && type === 'Observation') {
     console.log('Adding observation categories to search criteria on 2nd attempt.');
     q.category = ['social-history', 'vital-signs', 'imaging', 'laboratory', 'procedure', 'survey', 'exam', 'therapy'];
-  } else if (type === 'Medication') {
-    // Special handling for Medication -- we don't want to query them all! (and probably can't anyway)
-    // TODO: This should be broadened to more than MedicationOrder
-    smart.patient.api.search({ type: 'MedicationOrder', query: {} }).then(
-      (response) => {
-        collector.push(response);
-        if (response.data && response.data.resourceType === 'Bundle') {
-          const medRefEntries = response.data.entry.filter(e => e.resource.medicationReference != null);
-          const medRefs = medRefEntries.map(e => e.resource.medicationReference.reference);
-          const medIds = new Set(medRefs.map(r => r.substring(r.lastIndexOf('/') + 1) ));
-          if (medIds.size > 0) {
-            smart.patient.api.search({ type: 'Medication', query: { _id: Array.from(medIds).join(',') } }).then(
-              (response) => {
-                if (response.data && response.data.resourceType === 'Bundle') {
-                  if (response.data.entry) {
-                    callback(response.data.entry.map(e => e.resource));
-                  } else {
-                    callback([]);
-                  }
-                }
-              }
-            );
-          } else {
-            callback([]);
-          }
-        }
-      }
-    );
-    return;
   }
   smart.patient.api.search({ type, query: q }).then(
     (response) => {
