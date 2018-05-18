@@ -3,12 +3,15 @@
 
 /* ------------------------- IMPORT 3RD PARTY VENDORS ---------------------- */
 @import 'node_modules/tocbot/src/scss/tocbot-core';
+@import 'node_modules/react-table/react-table';
 
 /* ------------------------- IMPORT CUSTOM SCSS ---------------------------- */
 // site-wide elements
 @import "elements/banners";
 @import "elements/base";
+@import "elements/modal";
 @import "elements/spinner";
+@import "elements/tables";
 
 // component-specific
 @import "components/Header";

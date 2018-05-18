@@ -106,6 +106,10 @@ export default class DevTools extends Component {
       <div className="dev-tools">
         <h4>Development Tools <button onClick={this.toggleDevTools}>[show/hide]</button></h4>
 
+        <div className="dev-tools__disclaimer">
+          These development tools are for troubleshooting issues and intended to be used by technical support.
+        </div>
+
         <div style={{ display: this.state.displayDevTools ? 'block' : 'none' }}>
           {this.renderErrors()}
           {this.renderFHIRQueries()}

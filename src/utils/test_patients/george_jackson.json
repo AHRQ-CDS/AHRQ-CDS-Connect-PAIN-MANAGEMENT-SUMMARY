@@ -1,16 +1,16 @@
 {
   "resourceType": "Bundle",
-  "id": "carson_jackson",
+  "id": "george_jackson",
   "type": "collection",
   "entry": [
     {
       "resource": {
         "resourceType": "Patient",
-        "id": "3d2cd91f-944d-4ded-ad97-0ee83b68bcbb",
+        "id": "1e6d8f06-9a55-4689-a61b-f632297e757e",
         "name": [
           {
             "given": [
-              "Carson"
+              "George"
             ],
             "family": [
               "Jackson"
@@ -18,15 +18,15 @@
           }
         ],
         "gender": "male",
-        "birthDate": "1959-12-26T00:00:00.000Z"
+        "birthDate": "1957-07-16T00:00:00.000Z"
       }
     },
     {
       "resource": {
         "resourceType": "Condition",
-        "id": "1cd12f22-6f65-4336-8c99-5b2c0685ecea",
+        "id": "b9c43f5f-05c2-4708-be9d-0a97a9447c83",
         "patient": {
-          "reference": "Patient/3d2cd91f-944d-4ded-ad97-0ee83b68bcbb"
+          "reference": "Patient/1e6d8f06-9a55-4689-a61b-f632297e757e"
         },
         "code": {
           "coding": [
@@ -40,16 +40,15 @@
         },
         "clinicalStatus": "active",
         "verificationStatus": "confirmed",
-        "onsetDateTime": "2012-04-05T00:00:00.000Z",
-        "dateRecorded": "2012-04-05T00:00:00.000Z"
+        "onsetDateTime": "2012-04-05T00:00:00.000Z"
       }
     },
     {
       "resource": {
         "resourceType": "Condition",
-        "id": "b0320918-7f05-4246-af23-d969dd4f87d6",
+        "id": "4c860921-d60c-42b6-ad4c-fe7fcc290d1b",
         "patient": {
-          "reference": "Patient/3d2cd91f-944d-4ded-ad97-0ee83b68bcbb"
+          "reference": "Patient/1e6d8f06-9a55-4689-a61b-f632297e757e"
         },
         "code": {
           "coding": [
@@ -63,17 +62,16 @@
         },
         "clinicalStatus": "active",
         "verificationStatus": "confirmed",
-        "onsetDateTime": "2014-09-01T00:00:00.000Z",
-        "dateRecorded": "2015-02-12T00:00:00.000Z"
+        "onsetDateTime": "2014-09-05T00:00:00.000Z"
       }
     },
     {
       "resource": {
         "resourceType": "Encounter",
-        "id": "9e0abefe-5aca-49dc-9032-ac4cf61d482f",
+        "id": "b1d7c216-a278-4bb9-b624-f8be90f2ef46",
         "status": "finished",
         "patient": {
-          "reference": "Patient/3d2cd91f-944d-4ded-ad97-0ee83b68bcbb"
+          "reference": "Patient/1e6d8f06-9a55-4689-a61b-f632297e757e"
         },
         "reason": [
           {
@@ -95,11 +93,32 @@
     {
       "resource": {
         "resourceType": "MedicationOrder",
-        "id": "16759710-7cd7-42ad-81e5-9a83c27e686d",
+        "id": "3e50555f-1ad4-4878-9725-2727c939a698",
+        "dateWritten": "2018-02-10T00:00:00.000Z",
+        "status": "active",
+        "patient": {
+          "reference": "Patient/1e6d8f06-9a55-4689-a61b-f632297e757e"
+        },
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "1049557",
+              "display": "12 HR Oxycodone Hydrochloride 160 MG Extended Release Oral Tablet"
+            }
+          ],
+          "text": "12 HR Oxycodone Hydrochloride 160 MG Extended Release Oral Tablet"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationOrder",
+        "id": "a7e810fc-cd7c-4b8e-aace-13e5f55ed0d6",
         "dateWritten": "2018-01-06T00:00:00.000Z",
         "status": "active",
         "patient": {
-          "reference": "Patient/3d2cd91f-944d-4ded-ad97-0ee83b68bcbb"
+          "reference": "Patient/1e6d8f06-9a55-4689-a61b-f632297e757e"
         },
         "medicationCodeableConcept": {
           "coding": [
@@ -116,11 +135,11 @@
     {
       "resource": {
         "resourceType": "MedicationOrder",
-        "id": "fbfc3dbf-8e32-41f9-b74e-0275a29e3516",
+        "id": "f3d5576d-cce2-4cfb-bfcc-24b6b485b4ed",
         "dateWritten": "2018-03-05T00:00:00.000Z",
         "status": "active",
         "patient": {
-          "reference": "Patient/3d2cd91f-944d-4ded-ad97-0ee83b68bcbb"
+          "reference": "Patient/1e6d8f06-9a55-4689-a61b-f632297e757e"
         },
         "medicationCodeableConcept": {
           "coding": [
@@ -137,11 +156,11 @@
     {
       "resource": {
         "resourceType": "MedicationOrder",
-        "id": "90188b3c-6268-4a9b-a514-65674608ab4d",
+        "id": "c73b1b07-c128-4475-9ccc-eade401a69eb",
         "dateWritten": "2018-03-05T00:00:00.000Z",
         "status": "active",
         "patient": {
-          "reference": "Patient/3d2cd91f-944d-4ded-ad97-0ee83b68bcbb"
+          "reference": "Patient/1e6d8f06-9a55-4689-a61b-f632297e757e"
         },
         "medicationCodeableConcept": {
           "coding": [
@@ -158,9 +177,31 @@
     {
       "resource": {
         "resourceType": "MedicationStatement",
-        "id": "65649053-d235-4723-9129-5faa38504c6c",
+        "id": "481c74da-1a1e-483e-8ebe-b664d5cfede4",
         "patient": {
-          "reference": "Patient/3d2cd91f-944d-4ded-ad97-0ee83b68bcbb"
+          "reference": "Patient/1e6d8f06-9a55-4689-a61b-f632297e757e"
+        },
+        "status": "active",
+        "wasNotTaken": false,
+        "effectiveDateTime": "2018-03-15T00:00:00.000Z",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "199789",
+              "display": "Pentazocine 50 MG Oral Tablet"
+            }
+          ],
+          "text": "Pentazocine 50 MG Oral Tablet"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "112c0124-59de-4dc8-b390-48c539b86566",
+        "patient": {
+          "reference": "Patient/1e6d8f06-9a55-4689-a61b-f632297e757e"
         },
         "status": "active",
         "wasNotTaken": false,
@@ -180,9 +221,9 @@
     {
       "resource": {
         "resourceType": "MedicationStatement",
-        "id": "d7100314-1e5f-403c-bfaa-a4505f4487f7",
+        "id": "8fdbb8a3-df69-4f69-8c43-df3dc27e8beb",
         "patient": {
-          "reference": "Patient/3d2cd91f-944d-4ded-ad97-0ee83b68bcbb"
+          "reference": "Patient/1e6d8f06-9a55-4689-a61b-f632297e757e"
         },
         "status": "active",
         "wasNotTaken": false,
@@ -202,9 +243,9 @@
     {
       "resource": {
         "resourceType": "MedicationStatement",
-        "id": "45aa842d-6715-4057-b231-27b987bb02ce",
+        "id": "df0b10c6-a856-4297-b1e0-70ba71ce7d0d",
         "patient": {
-          "reference": "Patient/3d2cd91f-944d-4ded-ad97-0ee83b68bcbb"
+          "reference": "Patient/1e6d8f06-9a55-4689-a61b-f632297e757e"
         },
         "status": "active",
         "wasNotTaken": false,
@@ -224,7 +265,42 @@
     {
       "resource": {
         "resourceType": "Observation",
-        "id": "d96c7ac7-3b32-46de-b362-6748b5d99bc9",
+        "id": "fd2fb902-4a26-4fb9-9a8e-0ebf02b23890",
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "19295-5",
+              "display": "Opiates [Presence] in Urine by Screen method"
+            }
+          ],
+          "text": "Opiates [Presence] in Urine by Screen method"
+        },
+        "subject": {
+          "reference": "Patient/1e6d8f06-9a55-4689-a61b-f632297e757e"
+        },
+        "issued": "2017-10-20T00:00:00.000Z",
+        "valueQuantity": {
+          "value": 2300,
+          "unit": "ng/mL"
+        },
+        "interpretation": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/v2/0078",
+              "code": "NEG",
+              "display": "Negative"
+            }
+          ],
+          "text": "Negative"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "acc38371-3dbb-4200-a7a2-eca9cfde616b",
         "status": "final",
         "category": {
           "coding": [
@@ -245,7 +321,7 @@
           "text": "Morphine Milligram Equivalent (MME)"
         },
         "subject": {
-          "reference": "Patient/3d2cd91f-944d-4ded-ad97-0ee83b68bcbb"
+          "reference": "Patient/1e6d8f06-9a55-4689-a61b-f632297e757e"
         },
         "issued": "2018-04-30T00:00:00.000Z",
         "valueQuantity": {
@@ -257,7 +333,7 @@
     {
       "resource": {
         "resourceType": "Observation",
-        "id": "c7d7518c-d3c4-46f8-87ca-8da2b3ab05d0",
+        "id": "3ff606cd-94ba-4cb3-a1a1-a2baf3e103e5",
         "status": "final",
         "category": {
           "coding": [
@@ -278,7 +354,7 @@
           "text": "Pain severity Wong-Baker FACES Scale"
         },
         "subject": {
-          "reference": "Patient/3d2cd91f-944d-4ded-ad97-0ee83b68bcbb"
+          "reference": "Patient/1e6d8f06-9a55-4689-a61b-f632297e757e"
         },
         "issued": "2018-02-10T00:00:00.000Z",
         "valueQuantity": {
@@ -292,7 +368,7 @@
     {
       "resource": {
         "resourceType": "Observation",
-        "id": "a4595bd5-281a-408e-8c16-87db05438600",
+        "id": "3e381af5-1c9e-45e0-a332-434274fdd422",
         "status": "final",
         "category": {
           "coding": [
@@ -313,7 +389,7 @@
           "text": "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]"
         },
         "subject": {
-          "reference": "Patient/3d2cd91f-944d-4ded-ad97-0ee83b68bcbb"
+          "reference": "Patient/1e6d8f06-9a55-4689-a61b-f632297e757e"
         },
         "issued": "2017-10-20T00:00:00.000Z",
         "valueQuantity": {
@@ -327,7 +403,7 @@
     {
       "resource": {
         "resourceType": "Observation",
-        "id": "18663b52-1ead-4bba-a4fb-41fb719d3360",
+        "id": "f296f238-b287-4bb7-b69e-910b7cddd4f6",
         "status": "final",
         "category": {
           "coding": [
@@ -348,7 +424,7 @@
           "text": "Pain Enjoyment General Activity (PEG) Assessment"
         },
         "subject": {
-          "reference": "Patient/3d2cd91f-944d-4ded-ad97-0ee83b68bcbb"
+          "reference": "Patient/1e6d8f06-9a55-4689-a61b-f632297e757e"
         },
         "issued": "2018-02-10T00:00:00.000Z",
         "valueQuantity": {
@@ -406,7 +482,7 @@
     {
       "resource": {
         "resourceType": "Observation",
-        "id": "7b2d3e15-2a97-4179-a7a2-e0365a0f68e3",
+        "id": "d0d007af-ea41-4f0e-bdda-0416a21e6609",
         "status": "final",
         "category": {
           "coding": [
@@ -427,7 +503,7 @@
           "text": "STarT Back Screening Tool"
         },
         "subject": {
-          "reference": "Patient/3d2cd91f-944d-4ded-ad97-0ee83b68bcbb"
+          "reference": "Patient/1e6d8f06-9a55-4689-a61b-f632297e757e"
         },
         "issued": "2018-02-10T00:00:00.000Z",
         "valueQuantity": {
@@ -441,9 +517,9 @@
     {
       "resource": {
         "resourceType": "Procedure",
-        "id": "09f4dc11-0098-4ba1-b401-dee02cd757d3",
+        "id": "3865eeb8-556a-4e8c-9177-d3d1dee7918a",
         "subject": {
-          "reference": "Patient/3d2cd91f-944d-4ded-ad97-0ee83b68bcbb"
+          "reference": "Patient/1e6d8f06-9a55-4689-a61b-f632297e757e"
         },
         "status": "completed",
         "code": {

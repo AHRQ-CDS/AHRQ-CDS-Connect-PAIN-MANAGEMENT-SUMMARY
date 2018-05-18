@@ -1,28 +1,41 @@
 const functions = { ifAnd, ifOr, ifNone, ifOneOrMore, ifGreaterThanOrEqualTo };
 
+// returns false if the given entry should not be flagged
+// returns the flag text for an entry that should be flagged
 export default function flagit(entry, subSection, summary) {
-  const flagRule = subSection.tables[0].flags;
-  if (flagRule == null) {
-    return false;
-  } else if (flagRule === 'always' && entry != null) {
-    return true;
-  } else if (flagRule === 'always' && entry == null) {
-    return false;
-  } else if (flagRule === 'ifNone' && entry == null) {
-    return true;
-  } else if (typeof flagRule === 'string') {
-    return false;
-  }
+  const flags = subSection.tables[0].flags;
+  if (flags == null) return false;
 
-  const rule = Object.keys(flagRule)[0];
-  return functions[rule](flagRule[rule], entry, subSection, summary);
+  const flagResults = flags.reduce((accumulator, flag) => {
+    const flagRule = flag.flag;
+    if (flagRule === 'always') {
+      if (entry != null) {
+        accumulator.push(flag.flagText);
+      }
+    } else if (flagRule === 'ifNone' && entry == null) {
+      accumulator.push(flag.flagText);
+    } else if (typeof flagRule === 'string') {
+      if (functions[flagRule](entry, entry, subSection, summary)) {
+        accumulator.push(flag.flagText);
+      }
+    } else if (typeof flagRule === 'object') {
+      const rule = Object.keys(flagRule)[0];
+      if (functions[rule](flagRule[rule], entry, subSection, summary)) {
+        accumulator.push(flag.flagText);
+      }
+    }
+
+    return accumulator;
+  }, []);
+
+  return flagResults.length === 0 ? false : flagResults[0];
 }
 
 function ifAnd(flagRulesArray, entry, subSection, summary) {
   for (let i = 0; i < flagRulesArray.length; ++i) {
     const flagRule = flagRulesArray[i];
-    let match;
 
+    let match;
     if (typeof flagRule === 'string') {
       match = functions[flagRule](entry, entry, subSection, summary);
     } else {

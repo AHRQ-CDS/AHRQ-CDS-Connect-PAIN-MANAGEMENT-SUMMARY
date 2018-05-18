@@ -52,8 +52,10 @@
     "react-dev-utils": "^5.0.1",
     "react-dom": "^16.3.2",
     "react-fontawesome": "^1.6.1",
+    "react-modal": "^3.4.4",
     "react-router-dom": "4.2.2",
     "react-router-test-context": "^0.1.0",
+    "react-table": "^6.8.2",
     "react-test-renderer": "^16.3.2",
     "react-tooltip": "^3.5.1",
     "resolve": "1.6.0",
@@ -68,7 +70,8 @@
   },
   "devDependencies": {
     "fhir.js": "^0.0.20",
-    "http-server": "^0.11.1"
+    "http-server": "^0.11.1",
+    "source-map-explorer": "^1.5.0"
   },
   "resolutions": {
     "ucum": "cmoesel/ucum.js#es5-friendly"
@@ -117,6 +120,7 @@
     "extends": "react-app"
   },
   "scripts": {
+    "analyze": "source-map-explorer build/static/js/index.*",
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "start-static": "http-server -c-1 -p 8000 build",

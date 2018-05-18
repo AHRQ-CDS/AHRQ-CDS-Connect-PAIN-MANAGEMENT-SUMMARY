@@ -89,7 +89,12 @@ module.exports = {
     // for React Native Web.
     extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
     alias: {
-
+      // Replace cql-execution's packaged FHIR model w/ a stubbed version since we
+      // don't use the FHIR model from cql-execution and it takes up a lot of space.
+      './fhir/models': path.resolve(__dirname, '../src/stubs/fhir-models.js'),
+      // Replace cql-fhir's bundled 1.6 modelinfo with a stub since we only use the
+      // 1.0.2 modelinfo and the 1.6 modelinfo takes up a lot of space.
+      './modelInfos/fhir-modelinfo-1.6.xml.js': path.resolve(__dirname, '../src/stubs/fhir-modelinfo-1.6.xml.js'),
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',

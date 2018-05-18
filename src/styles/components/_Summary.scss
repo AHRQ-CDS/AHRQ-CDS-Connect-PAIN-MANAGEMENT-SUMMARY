@@ -10,16 +10,16 @@
     .toc-list.is-collapsible {
       .toc-list-item {
         .toc-link {
-          font-size: 0.8em;
+          font-size: 0.9em;
           padding: 5px 5px 5px 70px;
           line-height: 1.1em;
 
-          .flag-summary{
+          .info-icon {
             display: none;
           }
 
           .flag-nav {
-            font-size: 0.75em;
+            font-size: 0.8em;
             margin-right: 10px;
 
             &.flagged {
@@ -39,7 +39,7 @@
           display: flex;
           align-items: center;
           text-decoration: none;
-          padding: 10px 25px;
+          padding: 10px;
           font-weight: 600;
           font-size: 1.1em;
           transition: all 300ms ease;
@@ -66,7 +66,7 @@
           }
 
           .flag-header {
-            font-size: 0.7em;
+            font-size: 0.9em;
             margin-left: 5px;
             color: $color-red;
             vertical-align: middle;
@@ -144,7 +144,7 @@
           }
 
           .flag-header {
-            font-size: 0.6em;
+            font-size: 0.7em;
             margin-left: 5px;
             color: $color-red;
             vertical-align: middle;
@@ -160,6 +160,13 @@
         background-color: $color-white;
         margin: 20px;
 
+        .info-icon {
+          margin-left: 5px;
+          font-size: 0.9em;
+          color: $color-blue;
+          cursor: pointer;
+        }
+
         .no-entries {
           padding: 10px 18px;
           font-style: italic;
@@ -167,7 +174,7 @@
 
           .flag-no-entry {
             margin-right: 12px;
-            font-size: 0.8em;
+            font-size: 1em;
             color: transparent;
 
             &.flagged {
@@ -183,16 +190,8 @@
           padding: 20px 40px;
           font-weight: 600;
 
-          .flag-nav,
-          .flag-summary:not(.flagged) {
+          .flag-nav {
             display: none;
-          }
-
-          .flag-summary {
-            font-size: 0.7em;
-            margin-left: 5px;
-            color: $color-red;
-            cursor: default;
           }
         }
 
@@ -200,60 +199,63 @@
           padding-bottom: 20px;
 
           .sub-section__table {
-            width: 100%;
-            border-collapse: collapse;
+            border: 0;
 
-            tbody tr:hover {
-              background-color: lighten($color-blue, 30%);
-            }
-
-            td,
-            th {
-              text-align: left;
-              vertical-align: top;
-            }
-
-            th {
-              padding: 0 20px 20px 0;
-              white-space: nowrap;
-
-              span {
-                padding-bottom: 5px;
-                border-bottom: 2px solid $color-blue;
-              }
-            }
-
-            td:not(:first-child) {
-              min-width: 100px;
-            }
-
-            td {
-              padding-right: 20px;
-
-              .flag-entry {
-                font-size: 0.8em;
-                margin-left: 16px;
-                color: transparent;
-                cursor: default;
-
-                &.flagged {
-                  color: $color-red;
-                }
-              }
-            }
-
-            .flag-col {
-              width: 40px;
-              max-width: 40px;
+            .rt-th:first-child,
+            .rt-td:first-child {
+              max-width: 35px;
               padding: 0;
+            }
+
+            .rt-th:nth-child(2),
+            .rt-td:nth-child(2) {
+              min-width: calc(100px + 20vw);
+              max-width: calc(100px + 20vw);
+            }
+
+            .flag-entry {
+              font-size: 1em;
+              margin-left: 16px;
+              padding-top: 10px;
+              color: transparent;
+              cursor: default;
+
+              &.flagged {
+                color: $color-red;
+              }
+            }
+          }
+
+          .pagination-bottom {
+            margin-top: 20px;
+
+            .-pagination {
+              box-shadow: none;
+              border-top: 1px solid $color-gray-lighter;
+
+              button {
+                width: 96%;
+              }
             }
           }
         }
       }
     }
 
+    .cdc-disclaimer {
+      margin: 10px 0 0 40px;
+
+      a {
+        margin: 0 5px;
+      }
+    }
+
     .dev-tools {
       margin: 40px;
+
+      &__disclaimer {
+        margin-top: -20px;
+      }
 
       button {
         background-color: transparent;
@@ -285,4 +287,8 @@
       }
     }
   }
+}
+
+.summary-tooltip {
+  font-size: 1em;
 }

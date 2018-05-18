@@ -40,7 +40,8 @@
         },
         "clinicalStatus": "active",
         "verificationStatus": "confirmed",
-        "onsetDateTime": "2012-04-05T00:00:00.000Z"
+        "onsetDateTime": "2012-04-05T00:00:00.000Z",
+        "dateRecorded": "2012-04-05T00:00:00.000Z"
       }
     },
     {
@@ -62,7 +63,8 @@
         },
         "clinicalStatus": "active",
         "verificationStatus": "confirmed",
-        "onsetDateTime": "2014-09-05T00:00:00.000Z"
+        "onsetDateTime": "2014-09-01T00:00:00.000Z",
+        "dateRecorded": "2015-02-12T00:00:00.000Z"
       }
     },
     {
@@ -193,7 +195,7 @@
           "coding": [
             {
               "system": "http://cds.ahrq.gov/cdsconnect/pms",
-              "code": "mme",
+              "code": "MME",
               "display": "Morphine Milligram Equivalent (MME)"
             }
           ],
@@ -296,7 +298,7 @@
           "coding": [
             {
               "system": "http://cds.ahrq.gov/cdsconnect/pms",
-              "code": "peg-assessment",
+              "code": "PEGASSESSMENT",
               "display": "Pain Enjoyment General Activity (PEG) Assessment"
             }
           ],
@@ -315,11 +317,11 @@
               "coding": [
                 {
                   "system": "http://cds.ahrq.gov/cdsconnect/pms",
-                  "code": "peg-pain-1-10",
-                  "display": "Pain (1-10)"
+                  "code": "PEGPAIN",
+                  "display": "Pain"
                 }
               ],
-              "text": "Pain (1-10)"
+              "text": "Pain"
             },
             "valueQuantity": {
               "value": 7
@@ -330,11 +332,11 @@
               "coding": [
                 {
                   "system": "http://cds.ahrq.gov/cdsconnect/pms",
-                  "code": "peg-enjoyment-1-10",
-                  "display": "Enjoyment of life (1-10)"
+                  "code": "PEGENJOYMENT",
+                  "display": "Enjoyment of life"
                 }
               ],
-              "text": "Enjoyment of life (1-10)"
+              "text": "Enjoyment of life"
             },
             "valueQuantity": {
               "value": 5
@@ -345,11 +347,11 @@
               "coding": [
                 {
                   "system": "http://cds.ahrq.gov/cdsconnect/pms",
-                  "code": "peg-general-activitity-1-10",
-                  "display": "General activity (1-10)"
+                  "code": "PEGGENERALACTIVITY",
+                  "display": "General activity"
                 }
               ],
-              "text": "General activity (1-10)"
+              "text": "General activity"
             },
             "valueQuantity": {
               "value": 4
@@ -375,7 +377,7 @@
           "coding": [
             {
               "system": "http://cds.ahrq.gov/cdsconnect/pms",
-              "code": "start-back",
+              "code": "STARTBACK",
               "display": "STarT Back Screening Tool"
             }
           ],

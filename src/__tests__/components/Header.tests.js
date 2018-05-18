@@ -7,7 +7,8 @@ const component = shallowRender(Header, {
   patientAge: mockSummaryA.Patient.Age,
   patientGender: mockSummaryA.Patient.Gender,
   totalEntries: 21,
-  numFlaggedEntries: 0
+  numFlaggedEntries: 0,
+  meetsInclusionCriteria: true
 });
 
 it('renders without crashing', () => {
