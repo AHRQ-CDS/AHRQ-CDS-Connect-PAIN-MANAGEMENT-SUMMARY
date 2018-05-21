@@ -8,6 +8,7 @@ import ReactModal from 'react-modal';
 
 import summaryMap from './summary.json';
 import * as formatit from '../helpers/formatit';
+import * as sortit from '../helpers/sortit';
 
 import MedicalHistoryIcon from '../icons/MedicalHistoryIcon';
 import PainIcon from '../icons/PainIcon';
@@ -146,6 +147,25 @@ export default class Summary extends Component {
         },
         sortable: headerKey.sortable !== false
       };
+
+      if (column.sortable && headerKey.formatter) {
+        switch(headerKey.formatter) {
+          case 'dateFormat': case 'dateAgeFormat':
+            column.sortMethod = sortit.dateCompare;
+            break;
+          case 'datishFormat': case 'datishAgeFormat':
+            column.sortMethod = sortit.datishCompare;
+            break;
+          case 'ageFormat':
+            column.sortMethod = sortit.ageCompare;
+            break;
+          case 'quantityFormat':
+            column.sortMethod = sortit.quantityCompare;
+            break;
+          default:
+            // do nothing, rely on built-in sort
+        }
+      }
 
       if (headerKey.minWidth != null) {
         column.minWidth = headerKey.minWidth;

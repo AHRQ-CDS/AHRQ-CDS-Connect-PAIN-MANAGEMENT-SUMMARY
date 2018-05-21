@@ -2,48 +2,48 @@ import * as formatit from '../../helpers/formatit';
 
 it('formats dates correctly', () => {
   const mockDateString = '2012-04-05T00:00:00.000+00:00';
-  expect(formatit['dateFormat']({}, mockDateString)).toEqual('2012-04-05');
+  expect(formatit['dateFormat']({}, mockDateString)).toEqual('2012-Apr-05');
 });
 
 it('formats dates with ages correctly', () => {
   const mockDateString = '2012-04-05T00:00:00.000+00:00';
   const mockResult = { 'Patient': { 'birthDate': { '_json': '1982-04-05T00:00:00.000+00:00' } } };
-  expect(formatit['dateAgeFormat'](mockResult, mockDateString)).toEqual('2012-04-05 (age 30)');
+  expect(formatit['dateAgeFormat'](mockResult, mockDateString)).toEqual('2012-Apr-05 (age 30)');
 });
 
 it('formats datetimes as datish values correctly', () => {
   const mockDateString = '2012-04-05T00:00:00.000+00:00';
   const mockResult = { 'Patient': { 'birthDate': { '_json': '1982-04-05T00:00:00.000+00:00' } } };
-  expect(formatit['datishFormat'](mockResult, mockDateString)).toEqual('2012-04-05');
-  expect(formatit['datishAgeFormat'](mockResult, mockDateString)).toEqual('2012-04-05 (age 30)');
+  expect(formatit['datishFormat'](mockResult, mockDateString)).toEqual('2012-Apr-05');
+  expect(formatit['datishAgeFormat'](mockResult, mockDateString)).toEqual('2012-Apr-05 (age 30)');
 });
 
 it('formats dates as datish values correctly', () => {
   const mockDateString = '2012-04-05';
   const mockResult = { 'Patient': { 'birthDate': { '_json': '1982-04-05T00:00:00.000+00:00' } } };
-  expect(formatit['datishFormat'](mockResult, mockDateString)).toEqual('2012-04-05');
-  expect(formatit['datishAgeFormat'](mockResult, mockDateString)).toEqual('2012-04-05 (age 30)');
+  expect(formatit['datishFormat'](mockResult, mockDateString)).toEqual('2012-Apr-05');
+  expect(formatit['datishAgeFormat'](mockResult, mockDateString)).toEqual('2012-Apr-05 (age 30)');
 });
 
 it('formats fully specified time periods as datish values correctly', () => {
   const mockPeriod = { 'Start': '2012-02-05', 'End': '2012-05-30' };
   const mockResult = { 'Patient': { 'birthDate': { '_json': '1982-04-05T00:00:00.000+00:00' } } };
-  expect(formatit['datishFormat'](mockResult, mockPeriod)).toEqual('2012-02-05 - 2012-05-30');
-  expect(formatit['datishAgeFormat'](mockResult, mockPeriod)).toEqual('2012-02-05 (age 29) - 2012-05-30 (age 30)');
+  expect(formatit['datishFormat'](mockResult, mockPeriod)).toEqual('2012-Feb-05 - 2012-May-30');
+  expect(formatit['datishAgeFormat'](mockResult, mockPeriod)).toEqual('2012-Feb-05 (age 29) - 2012-May-30 (age 30)');
 });
 
 it('formats startless time periods as datish values correctly', () => {
   const mockPeriod = { 'Start': null, 'End': '2012-05-30' };
   const mockResult = { 'Patient': { 'birthDate': { '_json': '1982-04-05T00:00:00.000+00:00' } } };
-  expect(formatit['datishFormat'](mockResult, mockPeriod)).toEqual('unknown start - 2012-05-30');
-  expect(formatit['datishAgeFormat'](mockResult, mockPeriod)).toEqual('unknown start - 2012-05-30 (age 30)');
+  expect(formatit['datishFormat'](mockResult, mockPeriod)).toEqual('unknown start - 2012-May-30');
+  expect(formatit['datishAgeFormat'](mockResult, mockPeriod)).toEqual('unknown start - 2012-May-30 (age 30)');
 });
 
 it('formats endless time periods as datish values correctly', () => {
   const mockPeriod = { 'Start': '2012-02-05', 'End': null };
   const mockResult = { 'Patient': { 'birthDate': { '_json': '1982-04-05T00:00:00.000+00:00' } } };
-  expect(formatit['datishFormat'](mockResult, mockPeriod)).toEqual('2012-02-05 - ongoing');
-  expect(formatit['datishAgeFormat'](mockResult, mockPeriod)).toEqual('2012-02-05 (age 29) - ongoing');
+  expect(formatit['datishFormat'](mockResult, mockPeriod)).toEqual('2012-Feb-05 - ongoing');
+  expect(formatit['datishAgeFormat'](mockResult, mockPeriod)).toEqual('2012-Feb-05 (age 29) - ongoing');
 });
 
 it('formats ages w/ no unit as datish values correctly', () => {
@@ -159,5 +159,20 @@ it('flattens arrays correctly', () => {
 
 it('formats MME results correctly', () => {
   const mockMME = '20 {MME}/d';
-  expect(formatit['MMEFormat']({}, mockMME)).toEqual('20 MME/day');
+  expect(formatit['quantityFormat']({}, mockMME)).toEqual('20 MME/day');
+});
+
+it('formats quantity results correctly', () => {
+  const mockResult = '130 mg/dL';
+  expect(formatit['quantityFormat']({}, mockResult)).toEqual('130 mg/dL');
+});
+
+it('formats unitless quantity results correctly', () => {
+  const mockResult = '95';
+  expect(formatit['quantityFormat']({}, mockResult)).toEqual('95');
+});
+
+it('formats non-conforming quantity results correctly', () => {
+  const mockResult = 'positive';
+  expect(formatit['quantityFormat']({}, mockResult)).toEqual('positive');
 });
