@@ -167,7 +167,7 @@
         {
           "headers": {
             "Name": "Name",
-            "Score": "Score",
+            "Score": { "key": "Score", "formatter": "quantityFormat" },
             "Date": { "key": "Date", "formatter": "datishFormat" }
           }
         }
@@ -200,7 +200,7 @@
         {
           "headers": {
             "Name": "Name",
-            "Score": "Score",
+            "Score": { "key": "Score", "formatter": "quantityFormat" },
             "Question": {
               "key": "Questions",
               "formatter": "arrayFlatten",
@@ -247,7 +247,7 @@
         {
           "headers": {
             "Name": "Name",
-            "Score": "Score",
+            "Score": { "key": "Score", "formatter": "quantityFormat" },
             "Date": { "key": "Date", "formatter": "datishFormat" }
           }
         }
@@ -423,7 +423,7 @@
         {
           "headers": {
             "Name": "Name",
-            "Result": { "key": "Result", "formatter": "MMEFormat" },
+            "Result": { "key": "Result", "formatter": "quantityFormat" },
             "Date": { "key": "Date", "formatter": "datishFormat" }
           },
           "flags": [
@@ -461,7 +461,7 @@
         {
           "headers": {
             "Name": "Name",
-            "Result": "Result",
+            "Result": { "key": "Result", "formatter": "quantityFormat" },
             "Interpretation": "Interpretation",
             "Date": { "key": "Date", "formatter": "datishFormat" }
           },
@@ -599,7 +599,7 @@
         {
           "headers": {
             "Name": "Name",
-            "Score": "Score",
+            "Score": { "key": "Score", "formatter": "quantityFormat" },
             "Date": { "key": "Date", "formatter": "datishFormat" }
           }
         }
