@@ -523,6 +523,10 @@
                 ]
               },
               "flagText": "Benzodiazepine medication and at least one opioid medication"
+            },
+            {
+              "flag": "ifOneOrMore",
+              "flagText": "Evidence of Benzodiazepine medication"
             }
           ]
         }
