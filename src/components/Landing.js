@@ -74,6 +74,45 @@ export default class Landing extends Component {
     }
   }
 
+  getAnalyticsData(endpoint, meetsInclusionCriteria, flaggedCount, sectionFlags) {
+    const applicationAnalytics = {
+      time: new Date(),
+      meetsInclusionCriteria
+    };
+
+    if (meetsInclusionCriteria) {
+      applicationAnalytics.totalFlags = flaggedCount;
+      applicationAnalytics.sections = [];
+
+      const cloneSectionFlags = JSON.parse(JSON.stringify(sectionFlags));
+      Object.keys(cloneSectionFlags).forEach((sectionKey, i) => {
+        applicationAnalytics.sections.push({ section: sectionKey, subSections: [] });
+        Object.keys(cloneSectionFlags[sectionKey]).forEach(subSectionKey => {
+          const subSection = cloneSectionFlags[sectionKey][subSectionKey];
+          let count;
+          if (!meetsInclusionCriteria) count = 0;
+          else if (subSection instanceof Array) count = subSection.length;
+          else if (typeof subSection === 'string') count = 1;
+          else count = 0;
+          applicationAnalytics.sections[i].subSections.push({
+            subSection: subSectionKey, numFlaggedEntries: count
+          });
+        });
+      });
+    }
+
+    const requestOptions = {
+      body: JSON.stringify(applicationAnalytics),
+      headers: {
+        'content-type': 'application/json'
+      },
+      method: 'POST'
+    };
+
+    fetch(`${endpoint}`, requestOptions)
+      .catch(err => { console.log(err) });
+  }
+
   processSummary(summary) {
     const sectionFlags = {};
     const sectionKeys = Object.keys(summaryMap);
@@ -111,6 +150,18 @@ export default class Landing extends Component {
         }
       });
     });
+
+    // Get the configured endpoint to use for POST for app analytics
+    fetch(`${process.env.PUBLIC_URL}/config.json`)
+      .then(response => response.json())
+      .then(config => {
+        // Only provide analytics if the endpoint has been set
+        if (config.analytics_endpoint) {
+          this.getAnalyticsData(
+            config.analytics_endpoint, summary.Patient.MeetsInclusionCriteria, flaggedCount, sectionFlags);
+        }
+      })
+      .catch(err => { console.log(err) });
 
     return { sectionFlags, flaggedCount };
   }
