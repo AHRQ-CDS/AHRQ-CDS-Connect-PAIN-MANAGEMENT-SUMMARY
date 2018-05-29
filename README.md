@@ -121,3 +121,5 @@ The `upload-test-patients` task uploads test patients using a FHIR DSTU2 transac
 ## To post application analytics
 
 Basic analytics from the application can be sent to a server with a POST request. In order to do so, set the endpoint to be used to make the POST request in `public/config.json` as the `analytics_endpoint` value. The default value is an empty string, which will not POST any analytics.
+
+If you are running into issues with the POST request and trying to POST to a server at a different origin, check to make sure the response from the server includes the correct CORS headers.

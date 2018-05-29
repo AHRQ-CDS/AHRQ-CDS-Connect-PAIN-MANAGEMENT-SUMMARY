@@ -74,30 +74,36 @@ export default class Landing extends Component {
     }
   }
 
-  getAnalyticsData(endpoint, meetsInclusionCriteria, flaggedCount, sectionFlags) {
+  getAnalyticsData(endpoint, summary) {
+    const meetsInclusionCriteria = summary.Patient.MeetsInclusionCriteria;
     const applicationAnalytics = {
       meetsInclusionCriteria
     };
 
     if (meetsInclusionCriteria) {
-      applicationAnalytics.totalFlags = flaggedCount;
+      let totalCount = 0;
       applicationAnalytics.sections = [];
 
-      const cloneSectionFlags = JSON.parse(JSON.stringify(sectionFlags));
-      Object.keys(cloneSectionFlags).forEach((sectionKey, i) => {
+      const cloneSections = JSON.parse(JSON.stringify(summary));
+      delete cloneSections.Patient;
+
+      // Build total number of entries for each subsection of the summary.
+      Object.keys(cloneSections).forEach((sectionKey, i) => {
         applicationAnalytics.sections.push({ section: sectionKey, subSections: [] });
-        Object.keys(cloneSectionFlags[sectionKey]).forEach(subSectionKey => {
-          const subSection = cloneSectionFlags[sectionKey][subSectionKey];
+        Object.keys(cloneSections[sectionKey]).forEach(subSectionKey => {
+          const subSection = cloneSections[sectionKey][subSectionKey];
           let count;
-          if (!meetsInclusionCriteria) count = 0;
-          else if (subSection instanceof Array) count = subSection.length;
-          else if (typeof subSection === 'string') count = 1;
+          if (subSection instanceof Array) count = subSection.length;
+          else if (subSection instanceof Object) count = 1;
           else count = 0;
+          totalCount += count;
           applicationAnalytics.sections[i].subSections.push({
-            subSection: subSectionKey, numFlaggedEntries: count
+            subSection: subSectionKey, numEntries: count
           });
         });
       });
+
+      applicationAnalytics.totalNumEntries = totalCount;
     }
 
     const requestOptions = {
@@ -156,8 +162,7 @@ export default class Landing extends Component {
       .then(config => {
         // Only provide analytics if the endpoint has been set
         if (config.analytics_endpoint) {
-          this.getAnalyticsData(
-            config.analytics_endpoint, summary.Patient.MeetsInclusionCriteria, flaggedCount, sectionFlags);
+          this.getAnalyticsData(config.analytics_endpoint, summary);
         }
       })
       .catch(err => { console.log(err) });
