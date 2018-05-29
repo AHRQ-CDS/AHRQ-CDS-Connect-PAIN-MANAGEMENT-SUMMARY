@@ -179,13 +179,14 @@ it('flags "Benzodiazepine Medications" entries correctly', () => {
     "Start": "2018-04-30T00:00:00.000+00:00",
     "End": null
   };
-  const mockFlag = "Benzodiazepine medication and at least one opioid medication";
-  // one or more benzo (true) AND one or more opioids (true) => mockFlag
-  expect(flagit(mockEntry, subSection, mockSummaryA)).toEqual(mockFlag);
+  const mockFlagA = "Benzodiazepine medication and at least one opioid medication";
+  const mockFlagB = "Evidence of Benzodiazepine medication";
+  // one or more benzo (true) AND one or more opioids (true) => mockFlagA
+  expect(flagit(mockEntry, subSection, mockSummaryA)).toEqual(mockFlagA);
   // no benzo (false) AND one or more opioids (true) => false
   expect(flagit(null, subSection, mockSummaryB)).toEqual(false);
-  // one or more benzo (true) AND no opioids (false) => false
-  expect(flagit(mockEntry, subSection, mockSummaryC)).toEqual(false);
+  // one or more benzo (true) AND no opioids (false) => mockFlagB
+  expect(flagit(mockEntry, subSection, mockSummaryC)).toEqual(mockFlagB);
 });
 
 it('flags "Naloxone Medications" entries correctly', () => {

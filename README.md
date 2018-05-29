@@ -117,3 +117,9 @@ The `upload-test-patients` task uploads test patients using a FHIR DSTU2 transac
 
 1. Copy the JSON files you want to upload from the `cds_artifact_collaboration` repo's `test_dump` folder to `src/utils/test_patients` folder.  You probably want to rename the file and the bundle `id` in the file.  Many of our test patients also use the same name, gender, and birthdate -- so consider editing that as well.
 2. Run `yarn upload-test-patients` to upload the new patient(s) to the SMART server.
+
+## To post application analytics
+
+Basic analytics from the application can be sent to a server with a POST request. In order to do so, set the endpoint to be used to make the POST request in `public/config.json` as the `analytics_endpoint` value. The default value is an empty string, which will not POST any analytics.
+
+If you are running into issues with the POST request and trying to POST to a server at a different origin, check to make sure the response from the server includes the correct CORS headers.

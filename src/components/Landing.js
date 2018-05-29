@@ -74,6 +74,50 @@ export default class Landing extends Component {
     }
   }
 
+  getAnalyticsData(endpoint, summary) {
+    const meetsInclusionCriteria = summary.Patient.MeetsInclusionCriteria;
+    const applicationAnalytics = {
+      meetsInclusionCriteria
+    };
+
+    if (meetsInclusionCriteria) {
+      let totalCount = 0;
+      applicationAnalytics.sections = [];
+
+      const cloneSections = JSON.parse(JSON.stringify(summary));
+      delete cloneSections.Patient;
+
+      // Build total number of entries for each subsection of the summary.
+      Object.keys(cloneSections).forEach((sectionKey, i) => {
+        applicationAnalytics.sections.push({ section: sectionKey, subSections: [] });
+        Object.keys(cloneSections[sectionKey]).forEach(subSectionKey => {
+          const subSection = cloneSections[sectionKey][subSectionKey];
+          let count;
+          if (subSection instanceof Array) count = subSection.length;
+          else if (subSection instanceof Object) count = 1;
+          else count = 0;
+          totalCount += count;
+          applicationAnalytics.sections[i].subSections.push({
+            subSection: subSectionKey, numEntries: count
+          });
+        });
+      });
+
+      applicationAnalytics.totalNumEntries = totalCount;
+    }
+
+    const requestOptions = {
+      body: JSON.stringify(applicationAnalytics),
+      headers: {
+        'content-type': 'application/json'
+      },
+      method: 'POST'
+    };
+
+    fetch(`${endpoint}`, requestOptions)
+      .catch(err => { console.log(err) });
+  }
+
   processSummary(summary) {
     const sectionFlags = {};
     const sectionKeys = Object.keys(summaryMap);
@@ -111,6 +155,17 @@ export default class Landing extends Component {
         }
       });
     });
+
+    // Get the configured endpoint to use for POST for app analytics
+    fetch(`${process.env.PUBLIC_URL}/config.json`)
+      .then(response => response.json())
+      .then(config => {
+        // Only provide analytics if the endpoint has been set
+        if (config.analytics_endpoint) {
+          this.getAnalyticsData(config.analytics_endpoint, summary);
+        }
+      })
+      .catch(err => { console.log(err) });
 
     return { sectionFlags, flaggedCount };
   }
