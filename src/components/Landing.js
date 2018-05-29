@@ -76,7 +76,6 @@ export default class Landing extends Component {
 
   getAnalyticsData(endpoint, meetsInclusionCriteria, flaggedCount, sectionFlags) {
     const applicationAnalytics = {
-      time: new Date(),
       meetsInclusionCriteria
     };
 
