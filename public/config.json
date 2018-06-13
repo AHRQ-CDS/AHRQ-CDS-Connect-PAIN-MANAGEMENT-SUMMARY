@@ -1,3 +1,4 @@
 {
-  "analytics_endpoint": ""
+  "analytics_endpoint": "",
+  "x_api_key": ""
 }
