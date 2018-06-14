@@ -35,9 +35,9 @@ export default class InfoModal extends Component {
 
   renderReferences = (references) => {
     const columns = [{
-      Header:  () => <span className="col-header">URL</span>,
-      accessor: 'url',
-      minWidth: 225,
+      Header:  () => <span className="col-header">Link</span>,
+      accessor: 'urlLink',
+      maxWidth: 50,
       sortable: false
     },{
       Header:  () => <span className="col-header">Title</span>,
@@ -47,12 +47,17 @@ export default class InfoModal extends Component {
       accessor: 'details'
     }];
 
+    let data = references;
+    data.forEach((reference) => {
+      reference.urlLink = <a href={reference.url} src={reference.title} target="_blank"><FontAwesome name="link" /></a>
+    });
+
     return (
       <div className="reference">
         <ReactTable
           className="elements__table"
           columns={columns}
-          data={references}
+          data={data}
           minRows={1}
           showPagination={false}
           resizable={false}
