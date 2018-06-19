@@ -3,12 +3,29 @@ import cql from 'cql-execution';
 import cqlfhir from 'cql-fhir';
 import extractResourcesFromELM from './extractResourcesFromELM';
 
-function doSearch(smart, type, takeTwo, collector, callback) {
+function doSearch(smart, type, collector, callback) {
   const q = {};
-  // Epic requires you to specify a category or code search parameter, so search on all categories
-  if (takeTwo && type === 'Observation') {
-    console.log('Adding observation categories to search criteria on 2nd attempt.');
-    q.category = ['social-history', 'vital-signs', 'imaging', 'laboratory', 'procedure', 'survey', 'exam', 'therapy'];
+
+  // If this is for Epic, there are some specific modifications needed for the queries to work properly
+  if (process.env.REACT_APP_EPIC_SUPPORTED_QUERIES
+      && process.env.REACT_APP_EPIC_SUPPORTED_QUERIES.toLowerCase() === 'true') {
+    switch (type) {
+    case 'Observation':
+      // Epic requires you to specify a category or code search parameter, so search on all categories
+      q.category =
+        ['social-history', 'vital-signs', 'imaging', 'laboratory', 'procedure', 'survey', 'exam', 'therapy'].join(',');
+      break;
+    case 'MedicationOrder':
+      // Epic returns only active meds by default, so we need to specifically ask for other types
+      q.status = ['active', 'completed', 'stopped', 'on-hold', 'draft', 'entered-in-error'].join(',');
+      break;
+    case 'MedicationStatement':
+      // Epic returns only active meds by default, so we need to specifically ask for other types
+      q.status = ['active', 'completed', 'intended', 'entered-in-error'].join(',');
+      break;
+    default:
+      //nothing
+    }
   }
   smart.patient.api.search({ type, query: q }).then(
     (response) => {
@@ -20,22 +37,12 @@ function doSearch(smart, type, takeTwo, collector, callback) {
           callback([]);
         }
       } else {
-        if (!takeTwo) {
-          console.log(`Querying ${type} again due to failure to parse response.`);
-          doSearch(smart, type, true, collector, callback);
-        } else {
-          callback(null, new Error('Failed to parse response', response));
-        }
+        callback(null, new Error('Failed to parse response', response));
       }
     },
     (error) => {
-      if (!takeTwo) {
-        console.log(`Querying ${type} again due to received error.`, error);
-        doSearch(smart, type, true, collector, callback);
-      } else {
-        collector.push(error);
-        callback(null, error);
-      }
+      collector.push(error);
+      callback(null, error);
     }
   );
 }
@@ -59,7 +66,7 @@ function executeELM(elm, elmDependencies, valueSetDB, collector, resultsCallback
           } else if (r === 'Patient') {
             readResources(resources, callback);
           } else  {
-            doSearch(smart, r, false, collector, (results, error) => {
+            doSearch(smart, r, collector, (results, error) => {
               if (results) {
                 entryResources.push(...results);
               }
