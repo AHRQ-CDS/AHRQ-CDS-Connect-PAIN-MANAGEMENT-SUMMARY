@@ -28,23 +28,38 @@ function doSearch(smart, type, collector, callback) {
     }
   }
   smart.patient.api.search({ type, query: q }).then(
-    (response) => {
-      collector.push(response);
-      if (response.data && response.data.resourceType === 'Bundle') {
-        if (response.data.entry) {
-          callback(response.data.entry.map(e => e.resource));
-        } else {
-          callback([]);
-        }
-      } else {
-        callback(null, new Error('Failed to parse response', response));
-      }
-    },
-    (error) => {
-      collector.push(error);
-      callback(null, error);
-    }
+    processSuccess(smart, collector, [], callback),
+    processError(smart, collector, callback)
   );
+}
+
+function processSuccess(smart, collector, resources, callback) {
+  return (response) => {
+    collector.push(response);
+    if (response.data && response.data.resourceType === 'Bundle') {
+      if (response.data.entry) {
+        response.data.entry.forEach(e => resources.push(e.resource));
+      }
+      if (response.data.link && response.data.link.some(l => l.relation === 'next' && l.url != null)) {
+        // There is a next page, so recursively process that before we do the callback
+        smart.patient.api.nextPage({bundle: response.data}).then(
+          processSuccess(smart, collector, resources, callback),
+          processError(smart, collector, callback)
+        );
+      } else {
+        callback(resources);
+      }
+    } else {
+      callback(null, new Error('Failed to parse response', response));
+    }
+  }
+}
+
+function processError(smart, collector, callback) {
+  return (error) => {
+    collector.push(error);
+    callback(null, error);
+  }
 }
 
 function executeELM(elm, elmDependencies, valueSetDB, collector, resultsCallback) {
