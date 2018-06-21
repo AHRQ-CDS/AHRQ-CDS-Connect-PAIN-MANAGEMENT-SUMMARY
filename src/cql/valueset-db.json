@@ -26221,7 +26221,7 @@
     ]
   },
   "2.16.840.1.113762.1.4.1032.37": {
-    "20180405": [
+    "20180621": [
       {
         "code": "100211000119106",
         "system": "http://snomed.info/sct",
@@ -27703,6 +27703,11 @@
         "version": "2018"
       },
       {
+        "code": "G24.3",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
         "code": "G89.0",
         "system": "http://hl7.org/fhir/sid/icd-10-cm",
         "version": "2018"
@@ -27738,7 +27743,42 @@
         "version": "2018"
       },
       {
+        "code": "M25.511",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M25.512",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
         "code": "M25.519",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M25.541",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M25.542",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M25.549",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M25.551",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M25.552",
         "system": "http://hl7.org/fhir/sid/icd-10-cm",
         "version": "2018"
       },
@@ -27748,12 +27788,67 @@
         "version": "2018"
       },
       {
+        "code": "M25.561",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M25.562",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
         "code": "M25.569",
         "system": "http://hl7.org/fhir/sid/icd-10-cm",
         "version": "2018"
       },
       {
+        "code": "M25.571",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M25.572",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
         "code": "M25.579",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M43.20",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M43.21",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M43.22",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M43.23",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M43.24",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M43.25",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M43.26",
         "system": "http://hl7.org/fhir/sid/icd-10-cm",
         "version": "2018"
       },
@@ -27773,7 +27868,92 @@
         "version": "2018"
       },
       {
+        "code": "M43.8X1",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M43.8X2",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M43.8X3",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M43.8X4",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M43.8X5",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M43.8X6",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M43.8X7",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M43.8X8",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
         "code": "M43.8X9",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M45.0",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M45.1",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M45.2",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M45.3",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M45.4",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M45.5",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M45.6",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M45.7",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M45.8",
         "system": "http://hl7.org/fhir/sid/icd-10-cm",
         "version": "2018"
       },
@@ -27793,7 +27973,32 @@
         "version": "2018"
       },
       {
+        "code": "M46.41",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M46.42",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M46.43",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M46.44",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
         "code": "M46.45",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M46.46",
         "system": "http://hl7.org/fhir/sid/icd-10-cm",
         "version": "2018"
       },
@@ -27803,7 +28008,62 @@
         "version": "2018"
       },
       {
+        "code": "M46.48",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M46.49",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
         "code": "M46.9",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M46.91",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M46.92",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M46.93",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M46.94",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M46.95",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M46.96",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M46.97",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M46.98",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M46.99",
         "system": "http://hl7.org/fhir/sid/icd-10-cm",
         "version": "2018"
       },
@@ -27813,7 +28073,17 @@
         "version": "2018"
       },
       {
+        "code": "M47.11",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
         "code": "M47.12",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M47.13",
         "system": "http://hl7.org/fhir/sid/icd-10-cm",
         "version": "2018"
       },
@@ -27823,7 +28093,62 @@
         "version": "2018"
       },
       {
+        "code": "M47.15",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
         "code": "M47.16",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M47.20",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M47.21",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M47.22",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M47.23",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M47.24",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M47.25",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M47.26",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M47.27",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M47.28",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M47.811",
         "system": "http://hl7.org/fhir/sid/icd-10-cm",
         "version": "2018"
       },
@@ -27833,7 +28158,22 @@
         "version": "2018"
       },
       {
+        "code": "M47.813",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
         "code": "M47.814",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M47.815",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M47.816",
         "system": "http://hl7.org/fhir/sid/icd-10-cm",
         "version": "2018"
       },
@@ -27843,7 +28183,62 @@
         "version": "2018"
       },
       {
+        "code": "M47.818",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
         "code": "M47.819",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M47.891",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M47.892",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M47.893",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M47.894",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M47.895",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M47.896",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M47.897",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M47.898",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M47.899",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M47.9",
         "system": "http://hl7.org/fhir/sid/icd-10-cm",
         "version": "2018"
       },
@@ -27853,7 +28248,17 @@
         "version": "2018"
       },
       {
+        "code": "M48.01",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
         "code": "M48.02",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M48.03",
         "system": "http://hl7.org/fhir/sid/icd-10-cm",
         "version": "2018"
       },
@@ -27863,7 +28268,27 @@
         "version": "2018"
       },
       {
+        "code": "M48.05",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M48.06",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
         "code": "M48.061",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M48.062",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M48.07",
         "system": "http://hl7.org/fhir/sid/icd-10-cm",
         "version": "2018"
       },
@@ -27874,6 +28299,51 @@
       },
       {
         "code": "M48.10",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M48.11",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M48.12",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M48.13",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M48.14",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M48.15",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M48.16",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M48.17",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M48.18",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M48.19",
         "system": "http://hl7.org/fhir/sid/icd-10-cm",
         "version": "2018"
       },
@@ -28028,6 +28498,36 @@
         "version": "2018"
       },
       {
+        "code": "M53.83",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M53.84",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M53.85",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M53.86",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M53.87",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M53.88",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
         "code": "M53.9",
         "system": "http://hl7.org/fhir/sid/icd-10-cm",
         "version": "2018"
@@ -28088,6 +28588,31 @@
         "version": "2018"
       },
       {
+        "code": "M54.31",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M54.32",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M54.40",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M54.41",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M54.42",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
         "code": "M54.5",
         "system": "http://hl7.org/fhir/sid/icd-10-cm",
         "version": "2018"
@@ -28138,6 +28663,36 @@
         "version": "2018"
       },
       {
+        "code": "M79.601",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M79.602",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M79.603",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M79.604",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M79.605",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "M79.606",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
         "code": "M79.609",
         "system": "http://hl7.org/fhir/sid/icd-10-cm",
         "version": "2018"
@@ -28149,6 +28704,11 @@
       },
       {
         "code": "M96.1",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "version": "2018"
+      },
+      {
+        "code": "R39.82",
         "system": "http://hl7.org/fhir/sid/icd-10-cm",
         "version": "2018"
       }
