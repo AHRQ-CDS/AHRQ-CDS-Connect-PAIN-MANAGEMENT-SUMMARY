@@ -74,7 +74,7 @@ export default class Landing extends Component {
     }
   }
 
-  getAnalyticsData(endpoint, summary) {
+  getAnalyticsData(endpoint, apikey, summary) {
     const meetsInclusionCriteria = summary.Patient.MeetsInclusionCriteria;
     const applicationAnalytics = {
       meetsInclusionCriteria
@@ -106,10 +106,14 @@ export default class Landing extends Component {
       applicationAnalytics.totalNumEntries = totalCount;
     }
 
+    let jsonBody = JSON.stringify(applicationAnalytics);
+
     const requestOptions = {
-      body: JSON.stringify(applicationAnalytics),
+      body: jsonBody,
       headers: {
-        'content-type': 'application/json'
+        'x-api-key': `${apikey}`,
+        'Content-Type': 'application/json',
+        'Content-Length': jsonBody.length
       },
       method: 'POST'
     };
@@ -162,7 +166,7 @@ export default class Landing extends Component {
       .then(config => {
         // Only provide analytics if the endpoint has been set
         if (config.analytics_endpoint) {
-          this.getAnalyticsData(config.analytics_endpoint, summary);
+          this.getAnalyticsData(config.analytics_endpoint, config.x_api_key, summary);
         }
       })
       .catch(err => { console.log(err) });

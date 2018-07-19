@@ -312,6 +312,14 @@
         "resourceType": "Observation",
         "id": "532a670c-2518-46b9-95fc-3a348c701eb5",
         "status": "final",
+        "category": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/observation-category",
+              "code": "laboratory"
+            }
+          ]
+        },
         "code": {
           "coding": [
             {

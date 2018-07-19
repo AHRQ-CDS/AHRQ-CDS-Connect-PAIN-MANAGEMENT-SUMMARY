@@ -20,6 +20,7 @@
     text-align: left;
     vertical-align: top;
     border: 0;
+    padding: 7px 25px 7px 5px;
   }
 
   .rt-thead .rt-th {
@@ -31,7 +32,7 @@
 
     &.-cursor-pointer {
       span {
-        background-image: url('/assets/images/icon-sort.png');
+        background-image: url('../icons/icon-sort.png');
         background-repeat: no-repeat;
         background-size: 8px;
         background-position: 96% 50%;
@@ -43,11 +44,11 @@
       }
 
       &.-sort-asc span {
-        background-image: url('/assets/images/icon-sort-up.png');
+        background-image: url('../icons/icon-sort-up.png');
       }
 
       &.-sort-desc span {
-        background-image: url('/assets/images/icon-sort-down.png');
+        background-image: url('../icons/icon-sort-down.png');
       }
     }
 

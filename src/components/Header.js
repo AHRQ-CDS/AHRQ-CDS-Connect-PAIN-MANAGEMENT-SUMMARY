@@ -39,7 +39,7 @@ export default class Header extends Component {
 
               <div className="entries">
                 <div className="entries-count flagged">{numFlaggedEntries}</div>
-                <div className="entries-label">Flagged Entries</div>
+                <div className="entries-label">Total<br/>Flags</div>
               </div>
             </div>
           }
