@@ -1,6 +1,6 @@
 import 'fhirclient'; // sets window.FHIR
 import cql from 'cql-execution';
-import cqlfhir from 'cql-fhir';
+import cqlfhir from 'cql-exec-fhir';
 import extractResourcesFromELM from './extractResourcesFromELM';
 
 function doSearch(smart, type, collector, callback) {

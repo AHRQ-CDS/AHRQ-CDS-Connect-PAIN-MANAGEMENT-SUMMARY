@@ -1820,18 +1820,18 @@ cosmiconfig@^2.1.0, cosmiconfig@^2.1.1:
     parse-json "^2.2.0"
     require-from-string "^1.1.0"
 
-"cql-execution@file:./localDependencies/cql-execution-1.2.0-8659b328cde2ecf0ba472bbf5e0c8e5049d769ce.tgz":
-  version "1.2.0"
-  resolved "file:./localDependencies/cql-execution-1.2.0-8659b328cde2ecf0ba472bbf5e0c8e5049d769ce.tgz#937f358f0b66df64f10f312ee14efd03f801f92f"
+cql-exec-fhir@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/cql-exec-fhir/-/cql-exec-fhir-1.0.1.tgz#de4a6c491f56739e593bc9dc506a9d2a713fa6f5"
+  dependencies:
+    xml2js "~0.4.17"
+
+cql-execution@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/cql-execution/-/cql-execution-1.2.2.tgz#2d8933e96edc2c0ff04992444fc8d79e3cb556bb"
   dependencies:
     moment "^2.20.1"
     ucum "0.0.7"
-
-"cql-fhir@file:./localDependencies/cql-fhir-v1.0.0-7448f2ddbfa653a9b5aed9d1811069660dd25bbe.tgz":
-  version "1.0.0"
-  resolved "file:./localDependencies/cql-fhir-v1.0.0-7448f2ddbfa653a9b5aed9d1811069660dd25bbe.tgz#e1b91db5509b7a0af7dcf2cac9302ff1dcfe92a3"
-  dependencies:
-    xml2js "~0.4.17"
 
 create-ecdh@^4.0.0:
   version "4.0.1"
