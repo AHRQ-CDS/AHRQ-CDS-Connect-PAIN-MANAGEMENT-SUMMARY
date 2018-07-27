@@ -1,6 +1,6 @@
 # Factors to Consider in Managing Chronic Pain
 
-This is the SMART-on-FHIR app for the CDS artifact: Factors to Consider in Managing Chronic Pain.
+This is the SMART-on-FHIR app for the CDS artifact: "Factors to Consider in Managing Chronic Pain".
 This app uses FHIR to retrieve patient data, executes CQL CDS logic against it, and displays the
 results.
 
@@ -16,6 +16,34 @@ by editing the client ID in the `launch-context.json` file:
   "scope": "patient/*.read"
 }
 ```
+
+## To configure analytics reporting
+
+This app can post JSON-formatted analytic data to an endpoint each time the application is invoked.
+
+The data that is posted reports whether or not the patient met the CDS inclusion criteria, lists
+each section and subsection of the summary (along with the number of entries in each subsection),
+and provides an overall count of entries.  The basic form of the data is as follows:
+
+```
+{
+  "meetsInclusionCriteria": <boolean>,
+  "sections": [
+    {
+      "section": <stringName>,
+      "subSections": [
+        { "subSection": <stringName>, "numEntries": <intCount> },
+        ...
+      ]
+    },
+    ...
+  ],
+  "totalNumEntries": <intCount>
+}
+```
+
+To enable posting of analytics, configure the `analytics_endpoint` and `x_api_key` in the `config.json` file.
+The default value is an empty string, which will not post any analytics.
 
 ## To run the CQL SMART-on-FHIR app:
 

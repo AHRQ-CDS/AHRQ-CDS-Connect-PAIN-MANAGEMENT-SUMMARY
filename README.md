@@ -1,17 +1,62 @@
-# Factors to Consider in Managing Chronic Pain
+# Pain Management Summary SMART on FHIR Application
 
-## To build and run this SMART-on-FHIR app:
+## About
+
+The Pain Management Summary SMART on FHIR application was developed to support the pilot of the CDS artifact, “Factors to Consider in Managing Chronic Pain: A Pain Management Summary.”  This artifact presents a variety of key "factors" for clinicians to consider when assessing the history of a patient's chronic pain.  These factors include subjective and objective findings, along with recorded treatments and interventions to inform shared decision making on treatments moving forward.
+
+The Pain Management Summary SMART on FHIR application was piloted during Summer 2018.  Local modifications and development were needed to fully support this application in the pilot environment.  For example, custom development was needed to expose pain assessments via the FHIR API. See the pilot reports for more information.
+
+This prototype application is part of the [CDS Connect](https://cds.ahrq.gov/cdsconnect) project, sponsored by the [Agency for Healthcare Research and Quality](https://www.ahrq.gov/) (AHRQ), and developed under contract with AHRQ by [MITRE's CAMH](https://www.mitre.org/centers/cms-alliances-to-modernize-healthcare/who-we-are) FFRDC.
+
+## Contributions
+
+For information about contributing to this project, please see [CONTRIBUTING](CONTRIBUTING.md).
+
+## Development Details
+
+The Pain Management Summary is a web-based application implemented with the popular [React](https://reactjs.org/) JavaScript framework. The application adheres to the [SMART on FHIR](https://smarthealthit.org/) standard, allowing it to be integrated into EHR products that support the SMART on FHIR platform. To ensure the best adherence to the standard, the Pain Management Summary application uses the open source [FHIR client](https://github.com/smart-on-fhir/client-js) library provided by the SMART Health IT group.
+
+The logic used to determine what data to display in the Pain Management Summary is defined using [CQL](http://cql.hl7.org/) and integrated into the application as the corresponding JSON ELM representation of the CQL.  The application analyzes the JSON ELM representation to determine what data is needed and then makes the corresponding queries to the FHIR server.
+
+Once the necessary FHIR data has been retrieved from the EHR, the open source [CQL execution engine](https://github.com/cqframework/cql-execution) library is invoked with it and the JSON ELM to calculate the structured summary of the data to display to the user.  This structured summary is then used by the React components to render a user-friendly view of the information.
+
+### To build and run in development:
 
 1. Install [Node.js](https://nodejs.org/en/download/) (LTS edition, currently 8.x)
 2. Install [Yarn](https://yarnpkg.com/en/docs/install) (1.3.x or above)
 3. Install dependencies by executing `yarn` from the project's root directory
-4. If you have a SMART-on-FHIR client ID, do one of the following (your choice):
-   a. Define / export a `SMART_CLIENT_ID` environment variable in your environment
-   b. Or create a `.env` file in this folder with the contents: `SMART_CLIENT_ID=your-id-here`
-5. "Webpack" the code by executing `yarn build` from the project's root directory
+4. If you have a SMART-on-FHIR client ID, edit `public/launch-context.json` to specify it
+5. If you'll be launching the app from an Epic EHR, modify `.env` to set `REACT_APP_EPIC_SUPPORTED_QUERIES` to `true`
 6. Serve the code by executing `yarn start` (runs on port 8000)
 
-## To run against the public SMART sandbox
+## To build and deploy using a standard web server (static HTML and JS)
+
+The Pain Management Summary can be deployed as static web resources on any HTTP server.  There are several customizations, however, that need to be made based on the site where it is deployed.
+
+1. Install [Node.js](https://nodejs.org/en/download/) (LTS edition, currently 8.x)
+2. Install [Yarn](https://yarnpkg.com/en/docs/install) (1.3.x or above)
+3. Install dependencies by executing `yarn` from the project's root directory
+4. Modify the `homepage` value in `package.json` to reflect the path (after the hostname) at which it will be deployed
+   a. For example, if deploying to https://my-server/pain-mgmt-summary/, the `homepage` value should be `"http://localhost:8000/pain-mgmt-summary"` (note that the hostname need not match)
+   b. If deploying to the root of the domain, you can leave `homepage` as `"."`
+5. Modify the `client_id` in `public/launch-context.json` to match the unique client ID you registered with the EHR from which this app will be launched
+6. If you've set up an analytics endpoint (see below), set the `analytics_endpoint` and `x_api_key` in `public/config.json`
+7. If you'll be launching the app from an Epic EHR, modify `.env` to set `REACT_APP_EPIC_SUPPORTED_QUERIES` to `true`
+   a. This modifies some queries based on Epic-specific requirements
+8. Run `yarn build` to compile the code to static files in the `build` folder
+9. Deploy the output from the `build` folder to a standard web server
+
+Optionally to step 9, you can run the static build contents in a simple Node http-server via the command: `yarn start-static`.
+
+### To run the unit tests
+
+To execute the unit tests:
+
+1. Run `yarn test`
+
+## To test the app using the public SMART sandbox
+
+Run the app via one of the options above, then:
 
 1. Browse to http://launch.smarthealthit.org/
 2. In the _App Launch URL_ box at the bottom of the page, enter: `http://localhost:8000/launch.html`
@@ -24,9 +69,9 @@ Testing this SMART App is more meaningful when we can supply test patients that 
 
 1. Run `yarn upload-test-patients`
 
-This adds a number of patients, mostly with the last name "Jackson" (for example, "Fuller Jackson" has entries in every section of the app).  The SMART sandbox is reset every night, so you will need to do this at least once each day you want to test.
+This adds a number of patients, mostly with the last name "Jackson" (for example, "Fuller Jackson" has entries in every section of the app).  The SMART sandbox may be reset at any time, so you may need to run this command again if the database has been reset.
 
-## To run in standalone mode on the public SMART sandbox
+### To test the app in standalone mode using the public SMART sandbox
 
 The SMART launcher has a bug that doesn't allow IE 11 to enter the launch URL.  This makes testing in IE 11 very difficult.  To overcome this, you can reconfigure the app as a standalone app.  To do so, follow these steps:
 
@@ -40,23 +85,16 @@ The SMART launcher has a bug that doesn't allow IE 11 to enter the launch URL.  
      "server": "url-goes-here"
    }
    ```
-1. Browse to http://launch.smarthealthit.org/
-2. In _Launch Type_, choose **Provider Standalone Launch**
-3. Copy the FHIR URL in the _FHIR Server URL_ box (e.g., `http://launch.smarthealthit.org/v/r2/sim/eyJoIjoiMSIsImkiOiIxIiwiaiI6IjEifQ/fhir`)
-4. Paste it into `/public/launch-context.json` file where `url-goes-here` is
-5. Browse to http://localhost:8000/launch.html
+2. Restart the application server
+3. Browse to http://launch.smarthealthit.org/
+4. In _Launch Type_, choose **Provider Standalone Launch**
+5. Copy the FHIR URL in the _FHIR Server URL_ box (e.g., `http://launch.smarthealthit.org/v/r2/sim/eyJoIjoiMSIsImkiOiIxIiwiaiI6IjEifQ/fhir`)
+6. Paste it into `/public/launch-context.json` file where `url-goes-here` is
+7. Browse to http://localhost:8000/launch.html
 
-_NOTE: Do *not* check in the modified launch-context.json! We may want to consider making a dev feature to better support this mode._
+_NOTE: Do *not* check in the modified launch-context.json!_
 
-## To run against the Epic SMART sandbox
-
-1. Browse to https://open.epic.com/Launchpad/Oauth2Sso
-2. Select a patient from the dropdown
-3. In the _YOUR APP'S LAUNCH URL_ box, enter: `http://localhost:8000/launch.html`
-4. In the _YOUR APP'S OAUTH2 REDIRECT URL_ box, enter: `http://localhost:8000/`
-5. Click _Launch App_
-
-## To run against a local instance of the SMART Platform
+## To test the app using a local instance of the SMART Platform
 
 First install the SMART Platform via: https://github.com/smart-on-fhir/installer
 
@@ -68,7 +106,7 @@ Verify it works via the sample apps included with it:
 5. Click "Launch"
 6. Click "Clark, Susan A."
 
-Then register the app via the SMART Platform:
+Then run the app via one of the options above and register it via the SMART Platform:
 
 1. Browse to http://localhost:9080/ (if not already signed in)
 2. Sign in using demo/demo (if not already signed in)
@@ -86,40 +124,39 @@ Then register the app via the SMART Platform:
 8. Click "Launch"
 9. Choose a patient
 
-## To create more test patients
+## To test the app using the Epic SMART sandbox
 
-The `upload-test-patients` task uploads test patients using a FHIR DSTU2 transaction bundle.  Test bundles can be created/updated by hand, but that can be tedious and error-prone.  There is also a slightly *less* tedious and *less* error-prone approach through the use of the *cds_artifact_collaboration* test framework, which allows for creating tests patients via a YAML format.
+The public Epic sandbox does not provide any synthetic patients that exercise the Pain Management Summary logic very well.  For this reason, testing against the public Epic sandbox is generally only useful to prove basic connection capability.
 
-### First Create the FHIR JSON test data bundle(s)
+Run the app via one of the options above, then:
 
-1. Clone the `cds_artifact_collaboration` repo via
-   ```
-   $ git clone git@gitlab.mitre.org:cds-connect/cds_artifact_collaboration.git
-   ```
-2. Switch to the `pmf` branch
-   ```
-   $ git checkout pmf
-   ```
-3. Note the set of test YAML patients already defined at: `test/PainManagementFactors/FHIRv102/fixtures`.
-   - These define the data that should go in the record for a test patient as well as a subset of expected results (usually the `Summary`).
-   - Perhaps the test patient you want is already represented?  If so, great!
-   - If your needs aren't already represented via an existing test patient, this is where you add one.
-4. The test framework converts the test data to FHIR JSON, but keeps it only in memory by default.  To dump it to disk, edit the file `test/loadYamlTestCases/index.js` so the `DUMP_PATIENTS` constant is `true` (to do, support modifing this via environment variable).
-5. To generate and dump the patients, you need to run the tests.  You don't want to run all the tests in the repo (there are 1000s), so just do this:
-   ```
-   npx mocha test/PainManagementFactors/FHIRv102/
-   ```
-6. Confirm you now have test patients in FHIR JSON format at `test_dump`.
-7. Add new test patients as necessary and re-run step 5 above.
-   - If you do not need to verify CQL results (you just want the test data JSON), you can remove the `results:` section of the YAML.  But ideally we should be verifying results.
+1. Browse to https://open.epic.com/Launchpad/Oauth2Sso
+2. Select a patient from the dropdown
+3. In the _YOUR APP'S LAUNCH URL_ box, enter: `http://localhost:8000/launch.html`
+4. In the _YOUR APP'S OAUTH2 REDIRECT URL_ box, enter: `http://localhost:8000/`
+5. Click _Launch App_
 
-### Then move desired bundles to pain-management-factors app
+## Advanced: To post application analytics
 
-1. Copy the JSON files you want to upload from the `cds_artifact_collaboration` repo's `test_dump` folder to `src/utils/test_patients` folder.  You probably want to rename the file and the bundle `id` in the file.  Many of our test patients also use the same name, gender, and birthdate -- so consider editing that as well.
-2. Run `yarn upload-test-patients` to upload the new patient(s) to the SMART server.
+This app can post JSON-formatted analytic data to an endpoint each time the application is invoked.
 
-## To post application analytics
+The data that is posted reports whether or not the patient met the CDS inclusion criteria, lists each section and subsection of the summary (along with the number of entries in each subsection), and provides an overall count of entries.  The basic form of the data is as follows:
 
-Basic analytics from the application can be sent to a server with a POST request. In order to do so, set the endpoint to be used to make the POST request in `public/config.json` as the `analytics_endpoint` value. The default value is an empty string, which will not POST any analytics.
+```
+{
+  "meetsInclusionCriteria": <boolean>,
+  "sections": [
+    {
+      "section": <stringName>,
+      "subSections": [
+        { "subSection": <stringName>, "numEntries": <intCount> },
+        ...
+      ]
+    },
+    ...
+  ],
+  "totalNumEntries": <intCount>
+}
+```
 
-If you are running into issues with the POST request and trying to POST to a server at a different origin, check to make sure the response from the server includes the correct CORS headers.
+To enable posting of analytics, configure the `analytics_endpoint` and `x_api_key` in the `public/config.json` file. The default value is an empty string, which will not post any analytics.
