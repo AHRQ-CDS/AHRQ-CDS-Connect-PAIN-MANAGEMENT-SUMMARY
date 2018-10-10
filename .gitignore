@@ -3,4 +3,5 @@
 /src/cql/valueset-db.json.original
 /build
 /coverage
+/tx_bundle_dump
 *.css

@@ -1,13 +1,16 @@
 const fs = require('fs');
 const path = require('path');
-const mkFhir = require('fhir.js');
-const baseUrl = 'http://launch.smarthealthit.org/v/r2/fhir';
+const rpn = require('request-promise-native');
+const mkdirp = require('mkdirp');
+
+const BASE_URL = 'http://launch.smarthealthit.org/v/r2/fhir/';
+const DUMP_TRANSACTION_BUNDLES = true;
 
 function convertToTx(bundle) {
   const tx = JSON.parse(JSON.stringify(bundle)); // clone it
   tx.type = 'transaction';
   for (const entry of tx.entry) {
-    entry.fullUrl = `${baseUrl}/${entry.resource.resourceType}/${entry.resource.id}`;
+    entry.fullUrl = `${BASE_URL}/${entry.resource.resourceType}/${entry.resource.id}`;
     entry.request = {
       method: 'PUT',
       url: `${entry.resource.resourceType}/${entry.resource.id}`
@@ -16,12 +19,11 @@ function convertToTx(bundle) {
   return tx;
 }
 
-function stringResult(response) {
-  const name = response.config.bundle.id;
-  const status = response.status;
+function stringResult(name, response) {
+  const status = `${response.statusCode} ${response.statusMessage}`;
   const statusMap = {};
-  if (response.data && response.data.entry && response.data.entry) {
-    response.data.entry.forEach(entry => {
+  if (response.body && response.body.entry) {
+    response.body.entry.forEach(entry => {
       const entryStatus = entry.response && entry.response.status ? entry.response.status : 'unknown';
       if (!statusMap[entryStatus]) {
         statusMap[entryStatus] = 1;
@@ -32,8 +34,6 @@ function stringResult(response) {
   }
   return name.padEnd(25) + '     ' + `${status}`.padEnd(9) + '     ' + JSON.stringify(statusMap);
 }
-
-const client = mkFhir({ baseUrl });
 
 console.log('-'.padEnd(80, '-'));
 console.log('bundle id                     tx status     entry statuses')
@@ -62,22 +62,48 @@ for (const fileName of fs.readdirSync(testPatientsPath)) {
   entriesJSON.id += '_entries';
   entriesJSON.entry = entriesJSON.entry.filter(e => e.resource && e.resource.resourceType !== 'Patient');
 
-  client.transaction({ bundle: convertToTx(patientJSON) }).then(
+  if (DUMP_TRANSACTION_BUNDLES) {
+    const dumpFolder = path.join(__dirname, '..', '..', 'tx_bundle_dump');
+    mkdirp.sync(dumpFolder);
+
+    const txPatient = convertToTx(patientJSON);
+    const txPatientFile = path.join(dumpFolder, fileName.replace('.json', '_patient_tx.json'));
+    fs.writeFileSync(txPatientFile, JSON.stringify(txPatient, null, 2), 'utf8');
+
+    const txEntries = convertToTx(entriesJSON);
+    const txEntriesFile = path.join(dumpFolder, fileName.replace('.json', '_entries_tx.json'));
+    fs.writeFileSync(txEntriesFile, JSON.stringify(txEntries, null, 2), 'utf8');
+  }
+
+  const ptOptions = {
+    method: 'POST',
+    uri: BASE_URL,
+    body: convertToTx(patientJSON),
+    resolveWithFullResponse: true,
+    json: true
+  }
+  rpn(ptOptions).then(
     (success) => {
-      console.log(stringResult(success));
-      client.transaction({ bundle: convertToTx(entriesJSON) }).then(
+      console.log(stringResult(patientJSON.id, success));
+      const entOptions = {
+        method: 'POST',
+        uri: BASE_URL,
+        body: convertToTx(entriesJSON),
+        resolveWithFullResponse: true,
+        json: true
+      }
+      rpn(entOptions).then(
         (success) => {
-          console.log(stringResult(success));
+          console.log(stringResult(entriesJSON.id, success));
         },
         (error) => {
-          console.error(stringResult(error));
+          console.error(stringResult(entriesJSON.id, error));
         }
       );
     },
     (error) => {
-      console.error(stringResult(error));
+      console.error(stringResult(patientJSON.id, error));
     }
   );
 }
-
 
