@@ -69,12 +69,12 @@
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
-    "fhir.js": "^0.0.20",
     "http-server": "^0.11.1",
+    "mkdirp": "^0.5.1",
+    "request-promise-native": "^1.0.5",
     "source-map-explorer": "^1.5.0"
   },
   "resolutions": {
-    "request": "2.87.0",
     "ucum": "cmoesel/ucum.js#es5-friendly"
   },
   "jest": {
