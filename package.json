@@ -2,8 +2,8 @@
   "name": "pain-management-factors",
   "version": "0.1.0",
   "description": "Pain Management Factors SMART-on-FHIR App",
-  "homepage": ".",
-  "private": true,
+  "homepage": "https://ahrq-cds.github.io/AHRQ-CDS-Connect-PAIN-MANAGEMENT-SUMMARY",
+  "license": "Apache-2.0",
   "dependencies": {
     "@babel/polyfill": "7.0.0-beta.46",
     "autoprefixer": "7.1.6",
@@ -69,6 +69,7 @@
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
+    "gh-pages": "^2.0.1",
     "http-server": "^0.11.1",
     "mkdirp": "^0.5.1",
     "request-promise-native": "^1.0.5",
@@ -129,6 +130,8 @@
     "start": "npm-run-all -p watch-css start-js",
     "build-js": "node scripts/build.js",
     "build": "npm-run-all build-css build-js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "node scripts/test.js --env=jsdom",
     "fix-vs-db": "node ./src/utils/fixVsDb",
     "upload-test-patients": "node ./src/utils/uploadTestPatients",
