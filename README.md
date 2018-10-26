@@ -2,7 +2,7 @@
 
 ## About
 
-The Pain Management Summary SMART on FHIR application was developed to support the pilot of the CDS artifact, “Factors to Consider in Managing Chronic Pain: A Pain Management Summary.”  This artifact presents a variety of key "factors" for clinicians to consider when assessing the history of a patient's chronic pain.  These factors include subjective and objective findings, along with recorded treatments and interventions to inform shared decision making on treatments moving forward.
+The Pain Management Summary SMART on FHIR application was developed to support the pilot of the CDS artifact, [Factors to Consider in Managing Chronic Pain: A Pain Management Summary](https://cds.ahrq.gov/cdsconnect/artifact/factors-consider-managing-chronic-pain-pain-management-summary).  This artifact presents a variety of key "factors" for clinicians to consider when assessing the history of a patient's chronic pain.  These factors include subjective and objective findings, along with recorded treatments and interventions to inform shared decision making on treatments moving forward.
 
 The Pain Management Summary SMART on FHIR application was piloted during Summer 2018.  Local modifications and development were needed to fully support this application in the pilot environment.  For example, custom development was needed to expose pain assessments via the FHIR API. See the pilot reports for more information.
 
@@ -19,6 +19,22 @@ The Pain Management Summary is a web-based application implemented with the popu
 The logic used to determine what data to display in the Pain Management Summary is defined using [CQL](http://cql.hl7.org/) and integrated into the application as the corresponding JSON ELM representation of the CQL.  The application analyzes the JSON ELM representation to determine what data is needed and then makes the corresponding queries to the FHIR server.
 
 Once the necessary FHIR data has been retrieved from the EHR, the open source [CQL execution engine](https://github.com/cqframework/cql-execution) library is invoked with it and the JSON ELM to calculate the structured summary of the data to display to the user.  This structured summary is then used by the React components to render a user-friendly view of the information.
+
+### Limitations
+
+This CDS logic queries for several concepts that do not yet have standardized codes.  To support this, the following local codes have been defined:
+| Code | System | Display |
+| --- | --- | --- |
+| PEGASSESSMENT | http://cds.ahrq.gov/cdsconnect/pms | Pain Enjoyment General Activity (PEG) Assessment |
+| PEGPAIN | http://cds.ahrq.gov/cdsconnect/pms | Pain |
+| PEGENJOYMENT | http://cds.ahrq.gov/cdsconnect/pms | Enjoyment of life |
+| PEGGENERALACTIVITY | http://cds.ahrq.gov/cdsconnect/pms | General activity |
+| STARTBACK | http://cds.ahrq.gov/cdsconnect/pms | STarT Back Screening Tool |
+| SQETOHUSE | http://cds.ahrq.gov/cdsconnect/pms | Single question r/t ETOH use |
+| SQDRUGUSE | http://cds.ahrq.gov/cdsconnect/pms | Single question r/t drug use |
+| MME | http://cds.ahrq.gov/cdsconnect/pms | Morphine Milligram Equivalent (MME) |
+
+Systems integrating the Pain Management Summary will need to expose the corresponding data as observations using the codes above.  As standardized codes become available, these local codes will be replaced.
 
 ### To build and run in development:
 
