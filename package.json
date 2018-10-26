@@ -131,7 +131,7 @@
     "build-js": "node scripts/build.js",
     "build": "npm-run-all build-css build-js",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d build/AHRQ-CDS-Connect-PAIN-MANAGEMENT-SUMMARY",
     "test": "node scripts/test.js --env=jsdom",
     "fix-vs-db": "node ./src/utils/fixVsDb",
     "upload-test-patients": "node ./src/utils/uploadTestPatients",
