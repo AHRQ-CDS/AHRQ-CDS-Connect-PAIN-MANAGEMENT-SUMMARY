@@ -29,7 +29,7 @@ function doSearch(smart, type, collector, callback) {
   }
   smart.patient.api.search({ type, query: q }).then(
     processSuccess(smart, collector, [], callback),
-    processError(smart, collector, callback)
+    processError(smart, collector, [], callback)
   );
 }
 
@@ -44,7 +44,7 @@ function processSuccess(smart, collector, resources, callback) {
         // There is a next page, so recursively process that before we do the callback
         smart.patient.api.nextPage({bundle: response.data}).then(
           processSuccess(smart, collector, resources, callback),
-          processError(smart, collector, callback)
+          processError(smart, collector, resources, callback)
         );
       } else {
         callback(resources);
@@ -55,10 +55,10 @@ function processSuccess(smart, collector, resources, callback) {
   }
 }
 
-function processError(smart, collector, callback) {
+function processError(smart, collector, resources, callback) {
   return (error) => {
     collector.push(error);
-    callback(null, error);
+    callback(resources, error);
   }
 }
 
