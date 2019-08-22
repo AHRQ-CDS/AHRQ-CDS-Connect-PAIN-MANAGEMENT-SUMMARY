@@ -76,6 +76,7 @@
     "source-map-explorer": "^1.5.0"
   },
   "resolutions": {
+    "js-yaml": "^3.13.1",
     "lodash": "^4.17.15",
     "ucum": "cmoesel/ucum.js#es5-friendly"
   },
