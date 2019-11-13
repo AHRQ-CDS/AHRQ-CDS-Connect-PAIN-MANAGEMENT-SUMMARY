@@ -103,10 +103,11 @@ The SMART launcher has a bug that doesn't allow IE 11 to enter the launch URL.  
    ```
 2. Restart the application server
 3. Browse to http://launch.smarthealthit.org/
-4. In _Launch Type_, choose **Provider Standalone Launch**
-5. Copy the FHIR URL in the _FHIR Server URL_ box (e.g., `http://launch.smarthealthit.org/v/r2/sim/eyJoIjoiMSIsImkiOiIxIiwiaiI6IjEifQ/fhir`)
-6. Paste it into `/public/launch-context.json` file where `url-goes-here` is
-7. Browse to http://localhost:8000/launch.html
+4. Select `R2 (DSTU2)` from the FHIR Version dropdown
+5. In _Launch Type_, choose **Provider Standalone Launch**
+6. Copy the FHIR URL in the _FHIR Server URL_ box at the bottom of the page (e.g., `http://launch.smarthealthit.org/v/r2/sim/eyJoIjoiMSIsImkiOiIxIiwiaiI6IjEifQ/fhir`)
+7. Paste it into `/public/launch-context.json` file where `url-goes-here` is
+8. Browse to http://localhost:8000/launch.html
 
 _NOTE: Do *not* check in the modified launch-context.json!_
 

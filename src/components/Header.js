@@ -21,7 +21,7 @@ export default class Header extends Component {
             <FontAwesome className="patient-icon" name="user-circle" />
 
             <div className="patient-info">
-              <div className="patient-name">{patientName}</div>
+              <h1 className="patient-name">{patientName}</h1>
 
               <div className="patient-demographics">
                 <span className="patient-age">{patientAge} YRS</span>
