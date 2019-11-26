@@ -160,6 +160,10 @@
         background-color: $color-white;
         margin: 20px;
 
+        .header-hidden {
+          opacity: 0;
+        }
+
         .info-icon {
           margin-left: 5px;
           font-size: 0.9em;
