@@ -116,7 +116,7 @@ export default class Summary extends Component {
     let columns = [
       {
         id: 'flagged',
-        Header: '',
+        Header: <span aria-label="flag"></span>,
         accessor: (entry) => this.isEntryFlagged(section, subSection.dataKey, entry),
         Cell: (props) =>
           <FontAwesome

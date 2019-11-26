@@ -15,9 +15,13 @@
   &.inclusion-banner,
   &.exclusion-banner {
     padding: 20px 20px 20px 60px;
-    margin-bottom: 4px;
+    margin-bottom: 10px;
     text-align: left;
     background-color: $color-beige;
+
+    &__tag {
+      margin-bottom: 20px;
+    }
 
     strong {
       color: $color-orange;
@@ -25,7 +29,7 @@
 
     .warning-inside {
       width: 450px;
-      background-color: lighten($color-orange, 33%);
+      background-color: lighten($color-orange, 52%);
       color: $color-orange;
       padding: 10px;
       font-weight: 600;
@@ -41,5 +45,12 @@
 
   &.exclusion-banner {
     font-size: 1.1em;
+  }
+
+  .exclusion-banner,
+  .inclusion-banner {
+    &__description {
+      color: $color-black;
+    }
   }
 }
