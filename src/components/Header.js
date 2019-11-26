@@ -24,7 +24,7 @@ export default class Header extends Component {
               <h1 className="patient-name">{patientName}</h1>
 
               <div className="patient-demographics">
-                <span className="patient-age">{patientAge} YRS</span>
+                <span className="patient-age" aria-label="years">{patientAge} YRS</span>
                 <span className="patient-gender">{patientGender}</span>
               </div>
             </div>

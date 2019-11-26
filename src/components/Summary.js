@@ -116,7 +116,7 @@ export default class Summary extends Component {
     let columns = [
       {
         id: 'flagged',
-        Header: <span className="header-hidden">flag</span>,
+        Header: <span aria-label="flag"></span>,
         accessor: (entry) => this.isEntryFlagged(section, subSection.dataKey, entry),
         Cell: (props) =>
           <FontAwesome
