@@ -11,6 +11,10 @@ export default class Header extends Component {
     return (
       <header className="header">
         <div className="header__logo">
+          <a className="header__return-link" href="/launch.html" alt="back to patient list">
+            <FontAwesome className="return-icon" name="chevron-left" />
+          </a>
+
           <img className="header__logo-img" src={process.env.PUBLIC_URL + "/assets/images/cds-connect-logo.png"}
             alt="cds connect logo" />
           <span className="header__logo-text">CDS Connect</span>
