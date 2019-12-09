@@ -59,11 +59,6 @@ export default class Landing extends Component {
     }
   }
 
-  componentDidMount() {
-    // const patientName = this.state.result.Summary.Patient.Name;
-    // if (patientName) document.title = patientName;
-  }
-
   componentDidUpdate() {
     if (!this.tocInitialized && !this.state.loading && this.state.result) {
       tocbot.init({
