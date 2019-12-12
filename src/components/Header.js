@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default class Header extends Component {
   render() {
@@ -12,7 +12,7 @@ export default class Header extends Component {
       <header className="header">
         <div className="header__logo">
           <a className="header__return-link" href="/launch.html" alt="back to patient list">
-            <FontAwesome className="return-icon" name="chevron-left" />
+            <FontAwesomeIcon className="return-icon" icon="chevron-left" title="back" />
           </a>
 
           <img className="header__logo-img" src={process.env.PUBLIC_URL + "/assets/images/cds-connect-logo.png"}
@@ -22,7 +22,7 @@ export default class Header extends Component {
 
         <div className="header__summary">
           <div className="header__summary-patient">
-            <FontAwesome className="patient-icon" name="user-circle" />
+            <FontAwesomeIcon className="patient-icon" icon="user-circle" title="patient" />
 
             <div className="patient-info">
               <h1 className="patient-name">{patientName}</h1>

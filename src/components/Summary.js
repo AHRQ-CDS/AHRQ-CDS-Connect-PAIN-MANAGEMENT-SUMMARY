@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Collapsible from 'react-collapsible';
 import ReactTooltip from 'react-tooltip';
 import ReactTable from 'react-table';
@@ -89,9 +89,10 @@ export default class Summary extends Component {
     return (
       <div className="table">
         <div className="no-entries">
-          <FontAwesome
+          <FontAwesomeIcon
             className={`flag flag-no-entry ${flaggedClass}`}
-            name="exclamation-circle"
+            icon="exclamation-circle"
+            title="flag"
             data-tip={tooltip}
           />
           no entries found
@@ -119,9 +120,10 @@ export default class Summary extends Component {
         Header: <span aria-label="flag"></span>,
         accessor: (entry) => this.isEntryFlagged(section, subSection.dataKey, entry),
         Cell: (props) =>
-          <FontAwesome
+          <FontAwesomeIcon
             className={`flag flag-entry ${props.value ? 'flagged' : ''}`}
-            name="exclamation-circle"
+            icon="exclamation-circle"
+            title="flag"
             data-tip={props.value ? props.value : ''} />,
         sortable: false,
         width: 35,
@@ -208,14 +210,16 @@ export default class Summary extends Component {
       return (
         <div key={subSection.dataKey} className="sub-section h3-wrapper">
           <h3 id={subSection.dataKey} className="sub-section__header">
-            <FontAwesome
+            <FontAwesomeIcon
               className={`flag flag-nav ${flaggedClass}`}
-              name={flagged ? 'exclamation-circle' : 'circle'} />
+              icon={flagged ? 'exclamation-circle' : 'circle'}
+              title="flag" />
             {subSection.name}
             {subSection.info &&
-              <FontAwesome
+              <FontAwesomeIcon
                 className='info-icon'
-                name="info-circle"
+                icon="info-circle"
+                title="info"
                 data-tip="more info"
                 onClick={() => this.handleOpenModal(subSection)} />
             }
@@ -258,11 +262,11 @@ export default class Summary extends Component {
 
           <span>
             {title}
-            <FontAwesome className={`flag flag-header ${flaggedClass}`} name="exclamation-circle" />
+            <FontAwesomeIcon className={`flag flag-header ${flaggedClass}`} icon="exclamation-circle" title="flag" />
           </span>
         </div>
 
-        <FontAwesome className="chevron" name="chevron-right" />
+        <FontAwesomeIcon className="chevron" icon="chevron-right" title="expand/collapse" />
       </h2>
     );
   };
