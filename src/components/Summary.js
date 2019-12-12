@@ -219,7 +219,7 @@ export default class Summary extends Component {
               <FontAwesomeIcon
                 className='info-icon'
                 icon="info-circle"
-                title="info"
+                title={`info: ${subSection.name}`}
                 data-tip="more info"
                 onClick={() => this.handleOpenModal(subSection)} />
             }
