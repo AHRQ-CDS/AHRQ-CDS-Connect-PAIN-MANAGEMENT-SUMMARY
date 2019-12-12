@@ -204,6 +204,8 @@ export default class Landing extends Component {
 
     return (
       <div className="landing">
+        <div id="skiptocontent"><a href="#maincontent">skip to main content</a></div>
+
         <Header
           patientName={summary.Patient.Name}
           patientAge={summary.Patient.Age}

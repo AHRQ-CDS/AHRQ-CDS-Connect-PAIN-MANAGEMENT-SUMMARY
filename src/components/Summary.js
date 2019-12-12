@@ -276,7 +276,7 @@ export default class Summary extends Component {
       <div className="summary">
         <div className="summary__nav-wrapper"><div className="summary__nav"></div></div>
 
-        <div className="summary__display">
+        <div className="summary__display" id="maincontent">
           <div className="summary__display-title">
             Factors to Consider in Managing Chronic Pain
           </div>
