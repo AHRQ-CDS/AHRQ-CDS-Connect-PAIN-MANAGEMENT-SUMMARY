@@ -11,9 +11,10 @@ export default class Header extends Component {
     return (
       <header className="header">
         <div className="header__logo">
-          <a className="header__return-link" href="/launch.html" alt="back to patient list">
+          {/* For development - adds a link back to sandbox patient list */}
+          {/* <a className="header__return-link" href="/launch.html" alt="back to patient list">
             <FontAwesomeIcon className="return-icon" icon="chevron-left" title="back" />
-          </a>
+          </a> */}
 
           <img className="header__logo-img" src={process.env.PUBLIC_URL + "/assets/images/cds-connect-logo.png"}
             alt="cds connect logo" />
