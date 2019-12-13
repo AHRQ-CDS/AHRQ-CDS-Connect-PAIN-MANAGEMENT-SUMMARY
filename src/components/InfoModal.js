@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactTable from 'react-table';
 
 export default class InfoModal extends Component {
@@ -49,7 +49,9 @@ export default class InfoModal extends Component {
 
     let data = references;
     data.forEach((reference) => {
-      reference.urlLink = <a href={reference.url} src={reference.title} target="_blank"><FontAwesome name="link" /></a>
+      reference.urlLink = (
+        <a href={reference.url} src={reference.title} target="_blank"><FontAwesomeIcon icon="link" title="link" /></a>
+      );
     });
 
     return (
@@ -75,7 +77,7 @@ export default class InfoModal extends Component {
       <div className="info-modal">
         <div className="info-modal__header">
           More Information for {subSection.name}
-          <FontAwesome name="close" className="close-icon" onClick={closeModal}/>
+          <FontAwesomeIcon icon="times" title="close" className="close-icon" onClick={closeModal}/>
         </div>
 
         <div className="info-modal__body">

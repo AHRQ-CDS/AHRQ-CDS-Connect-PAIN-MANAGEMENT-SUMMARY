@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import tocbot from 'tocbot';
-import FontAwesome from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import executeElm from '../utils/executeELM';
 import sumit from '../helpers/sumit';
@@ -71,6 +71,11 @@ export default class Landing extends Component {
       });
 
       this.tocInitialized = true;
+    }
+
+    if (this.state.result && this.state.result.Summary.Patient.Name) {
+      const patientName = this.state.result.Summary.Patient.Name;
+      document.title = `Pain Management Summary - ${patientName}`;
     }
   }
 
@@ -182,7 +187,7 @@ export default class Landing extends Component {
     if (this.state.result == null) {
       return (
         <div className="banner error">
-          <FontAwesome name="exclamation-circle" /> Error: See console for details.
+          <FontAwesomeIcon icon="exclamation-circle" title="error" /> Error: See console for details.
         </div>
       );
     }
@@ -199,6 +204,8 @@ export default class Landing extends Component {
 
     return (
       <div className="landing">
+        <div id="skiptocontent"><a href="#maincontent">skip to main content</a></div>
+
         <Header
           patientName={summary.Patient.Name}
           patientAge={summary.Patient.Age}

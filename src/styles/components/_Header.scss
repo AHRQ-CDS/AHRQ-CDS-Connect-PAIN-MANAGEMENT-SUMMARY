@@ -3,6 +3,13 @@
   align-items: center;
   height: 100px;
 
+  &__return-link .return-icon {
+    font-size: 1.5em;
+    margin-right: 20px;
+    cursor: pointer;
+    color: $color-white;
+  }
+
   &__logo {
     display: flex;
     align-items: center;

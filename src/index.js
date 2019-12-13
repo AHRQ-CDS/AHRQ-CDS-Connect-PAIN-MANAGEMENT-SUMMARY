@@ -4,6 +4,8 @@ import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+import './utils/fontawesomeLibrary';
+
 import Root from './containers/Root';
 // Disabling the service-worker, as it has limited value in this environment
 // See: https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#making-a-progressive-web-app

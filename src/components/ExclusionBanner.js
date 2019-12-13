@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import FontAwesome from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default class ExclusionBanner extends Component {
   constructor() {
@@ -16,11 +16,11 @@ export default class ExclusionBanner extends Component {
   render() {
     return (
       <div className="exclusion-banner banner" style={{display: this.state.displayed ? 'block' : 'none'}}>
-        <FontAwesome className="close-button" name="close" onClick={this.handleClose} />
+        <FontAwesomeIcon className="close-button" icon="times" title="close" onClick={this.handleClose} />
 
         <div className="exclusion-banner__description">
-          <strong><FontAwesome name="exclamation-circle" /> TAKE NOTICE:</strong> This summary is not intended
-          for patients who are undergoing <b>end-of-life care</b> (hospice or palliative) or <b>active cancer
+          <strong><FontAwesomeIcon icon="exclamation-circle" title="notice" /> TAKE NOTICE:</strong> This summary is not
+          intended for patients who are undergoing <b>end-of-life care</b> (hospice or palliative) or <b>active cancer
           treatment</b>.
         </div>
       </div>

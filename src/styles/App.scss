@@ -1,5 +1,5 @@
 /* ------------------------- IMPORT VARIABLES ------------------------------ */
-@import "elements/variables";
+@import 'elements/variables';
 
 /* ------------------------- IMPORT 3RD PARTY VENDORS ---------------------- */
 @import 'node_modules/tocbot/src/scss/tocbot-core';
@@ -7,12 +7,13 @@
 
 /* ------------------------- IMPORT CUSTOM SCSS ---------------------------- */
 // site-wide elements
-@import "elements/banners";
-@import "elements/base";
-@import "elements/modal";
-@import "elements/spinner";
-@import "elements/tables";
+@import 'elements/accessibility';
+@import 'elements/banners';
+@import 'elements/base';
+@import 'elements/modal';
+@import 'elements/spinner';
+@import 'elements/tables';
 
 // component-specific
-@import "components/Header";
-@import "components/Summary";
+@import 'components/Header';
+@import 'components/Summary';
