@@ -204,14 +204,14 @@
             "Question": {
               "key": "Questions",
               "formatter": "arrayFlatten",
-              "formatterArguments": ["Name"],
+              "formatterArguments": ["Name", "Score", true],
               "sortable": false,
               "minWidth": 200
             },
             "Question Score": {
               "key": "Questions",
               "formatter": "arrayFlatten",
-              "formatterArguments": ["Score"],
+              "formatterArguments": ["Score", null, false],
               "sortable": false,
               "minWidth": 150
             },
