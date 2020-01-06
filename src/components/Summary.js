@@ -278,7 +278,7 @@ export default class Summary extends Component {
 
     return (
       <div className="summary">
-        <div className="summary__nav-wrapper"><div className="summary__nav"></div></div>
+        <div className="summary__nav-wrapper"><nav className="summary__nav"></nav></div>
 
         <div className="summary__display" id="maincontent">
           <div className="summary__display-title">
@@ -290,7 +290,7 @@ export default class Summary extends Component {
           {!meetsInclusionCriteria && <InclusionBanner dismissible={meetsInclusionCriteria} />}
 
           {meetsInclusionCriteria &&
-            <div className="sections">
+            <main className="sections">
               <Collapsible trigger={this.renderSectionHeader("PertinentMedicalHistory")} open={true}>
                 {this.renderSection("PertinentMedicalHistory")}
               </Collapsible>
@@ -306,7 +306,7 @@ export default class Summary extends Component {
               <Collapsible trigger={this.renderSectionHeader("RiskConsiderations")} open={true}>
                 {this.renderSection("RiskConsiderations")}
               </Collapsible>
-            </div>
+            </main>
           }
 
           <div className="cdc-disclaimer">
