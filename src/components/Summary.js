@@ -92,8 +92,9 @@ export default class Summary extends Component {
           <FontAwesomeIcon
             className={`flag flag-no-entry ${flaggedClass}`}
             icon="exclamation-circle"
-            title="flag"
+            title={`flag: ${tooltip}`}
             data-tip={tooltip}
+            role="tooltip"
           />
           no entries found
         </div>
@@ -123,8 +124,10 @@ export default class Summary extends Component {
           <FontAwesomeIcon
             className={`flag flag-entry ${props.value ? 'flagged' : ''}`}
             icon="exclamation-circle"
-            title="flag"
-            data-tip={props.value ? props.value : ''} />,
+            title={props.value ? `flag: ${props.value}` : 'flag'}
+            data-tip={props.value ? props.value : ''}
+            role="tooltip"
+          />,
         sortable: false,
         width: 35,
         minWidth: 35
@@ -213,15 +216,23 @@ export default class Summary extends Component {
             <FontAwesomeIcon
               className={`flag flag-nav ${flaggedClass}`}
               icon={flagged ? 'exclamation-circle' : 'circle'}
-              title="flag" />
+              title="flag"
+            />
             {subSection.name}
             {subSection.info &&
-              <FontAwesomeIcon
-                className='info-icon'
-                icon="info-circle"
-                title={`info: ${subSection.name}`}
-                data-tip="more info"
-                onClick={() => this.handleOpenModal(subSection)} />
+              <div
+                onClick={() => this.handleOpenModal(subSection)}
+                onKeyDown={() => this.handleOpenModal(subSection)}
+                role="button"
+                tabindex="0">
+                <FontAwesomeIcon
+                  className='info-icon'
+                  icon="info-circle"
+                  title={`more info: ${subSection.name}`}
+                  data-tip="more info"
+                  role="tooltip"
+                />
+              </div>
             }
           </h3>
 
