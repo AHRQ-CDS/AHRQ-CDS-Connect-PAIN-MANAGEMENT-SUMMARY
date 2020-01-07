@@ -102,6 +102,7 @@ export default class Summary extends Component {
   }
 
   renderTable(table, entries, section, subSection, index) {
+    //console.log(section);
     // If a filter is provided, only render those things that have the filter field (or don't have it when it's negated)
     let filteredEntries = entries;
     if (table.filter && table.filter.length > 0) {
@@ -181,17 +182,17 @@ export default class Summary extends Component {
     });
 
     return (
-      <div key={index} className="table">
-        <ReactTable
-          className="sub-section__table"
-          columns={columns}
-          data={filteredEntries}
-          minRows={1}
-          showPagination={filteredEntries.length > 10}
-          pageSizeOptions={[10, 20, 50, 100]}
-          defaultPageSize={10}
-          resizable={false}
-        />
+      <div key={index} className="table" role="table" aria-label={subSection.name}>
+          <ReactTable
+            className="sub-section__table"
+            columns={columns}
+            data={filteredEntries}
+            minRows={1}
+            showPagination={filteredEntries.length > 10}
+            pageSizeOptions={[10, 20, 50, 100]}
+            defaultPageSize={10}
+            resizable={false}
+          />
       </div>
     );
   }
