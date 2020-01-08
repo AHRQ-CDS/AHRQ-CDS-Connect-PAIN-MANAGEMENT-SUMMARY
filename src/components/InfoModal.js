@@ -19,7 +19,7 @@ export default class InfoModal extends Component {
     }];
 
     return (
-      <div className="element">
+      <div className="element" role="table" aria-label={elements.description}>
         <h4>{elements.description}</h4>
         <ReactTable
           className="elements__table"
@@ -55,7 +55,7 @@ export default class InfoModal extends Component {
     });
 
     return (
-      <div className="reference">
+      <div className="reference" role="table" aria-label={reference.title}>
         <ReactTable
           className="elements__table"
           columns={columns}
