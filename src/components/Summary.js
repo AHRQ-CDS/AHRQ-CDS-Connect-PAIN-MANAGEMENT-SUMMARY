@@ -34,8 +34,11 @@ export default class Summary extends Component {
     ReactModal.setAppElement('body');
   }
 
-  handleOpenModal = (modalSubSection) => {
-    this.setState({ showModal: true, modalSubSection });
+  handleOpenModal = (modalSubSection,event) => {
+    //want to prevent modal from opening on tab key
+    if(event.keyCode !== 9) {
+        this.setState({showModal: true, modalSubSection});
+    }
   }
 
   handleCloseModal = () => {
@@ -222,10 +225,11 @@ export default class Summary extends Component {
             {subSection.name}
             {subSection.info &&
               <div
-                onClick={() => this.handleOpenModal(subSection)}
-                onKeyDown={() => this.handleOpenModal(subSection)}
+                onClick={(event) => this.handleOpenModal(subSection,event)}
+                onKeyDown={(event) => this.handleOpenModal(subSection,event)}
                 role="button"
-                tabindex="0">
+                tabIndex="0"
+                aria-label={subSection.name}>
                 <FontAwesomeIcon
                   className='info-icon'
                   icon="info-circle"
@@ -303,19 +307,19 @@ export default class Summary extends Component {
 
           {meetsInclusionCriteria &&
             <main className="sections">
-              <Collapsible trigger={this.renderSectionHeader("PertinentMedicalHistory")} open={true}>
+              <Collapsible tabIndex="0" trigger={this.renderSectionHeader("PertinentMedicalHistory")} open={true}>
                 {this.renderSection("PertinentMedicalHistory")}
               </Collapsible>
 
-              <Collapsible trigger={this.renderSectionHeader("PainAssessments")} open={true}>
+              <Collapsible tabIndex="0" trigger={this.renderSectionHeader("PainAssessments")} open={true}>
                 {this.renderSection("PainAssessments")}
               </Collapsible>
 
-              <Collapsible trigger={this.renderSectionHeader("HistoricalTreatments")} open={true}>
+              <Collapsible tabIndex="0" trigger={this.renderSectionHeader("HistoricalTreatments")} open={true}>
                 {this.renderSection("HistoricalTreatments")}
               </Collapsible>
 
-              <Collapsible trigger={this.renderSectionHeader("RiskConsiderations")} open={true}>
+              <Collapsible tabIndex="0" trigger={this.renderSectionHeader("RiskConsiderations")} open={true}>
                 {this.renderSection("RiskConsiderations")}
               </Collapsible>
             </main>
