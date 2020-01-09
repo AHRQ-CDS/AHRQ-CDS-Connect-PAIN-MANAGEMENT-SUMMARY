@@ -15,7 +15,10 @@ export default class ExclusionBanner extends Component {
 
   render() {
     return (
-      <div className="exclusion-banner banner" style={{display: this.state.displayed ? 'block' : 'none'}}>
+      <div
+        className="exclusion-banner banner"
+        style={{display: this.state.displayed ? 'block' : 'none'}}
+        role="banner">
         <FontAwesomeIcon className="close-button" icon="times" title="close" onClick={this.handleClose} />
 
         <div className="exclusion-banner__description">

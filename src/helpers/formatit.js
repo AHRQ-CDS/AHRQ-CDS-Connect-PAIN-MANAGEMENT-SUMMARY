@@ -54,11 +54,12 @@ export function booleanFormat(result, input) {
   return `${input}`;
 }
 
-export function arrayFlatten(result, input, property) {
+export function arrayFlatten(result, input, property, propertyAria, showAria) {
   if (input == null) return '';
   return input.map((question, i) => {
-    const toReturn = (<span key={i}>{question[property]}<br /></span>);
-    return toReturn;
+    let ariaLabel = '';
+    if (showAria) ariaLabel = `${question[property]} - Question Score: ${question[propertyAria]}`;
+    return <span key={i} aria-hidden={!showAria} aria-label={ariaLabel}>{question[property]}<br /></span>;
   });
 }
 
