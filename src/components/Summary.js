@@ -106,7 +106,6 @@ export default class Summary extends Component {
   }
 
   renderTable(table, entries, section, subSection, index) {
-    //console.log(section);
     // If a filter is provided, only render those things that have the filter field (or don't have it when it's negated)
     let filteredEntries = entries;
     if (table.filter && table.filter.length > 0) {
