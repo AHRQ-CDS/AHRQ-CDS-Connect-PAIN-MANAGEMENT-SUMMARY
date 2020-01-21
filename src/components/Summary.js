@@ -28,6 +28,8 @@ export default class Summary extends Component {
       showModal: false,
       modalSubSection: null
     };
+
+    this.subsectionTableProps = { id: 'react_sub-section__table'};
   }
 
   componentWillMount() {
@@ -35,8 +37,8 @@ export default class Summary extends Component {
   }
 
   handleOpenModal = (modalSubSection,event) => {
-    //want to prevent modal from opening on tab key
-    if(event.keyCode !== 9) {
+    //only open modal   on 'enter' or click
+    if(event.keyCode === 13 || event.type === "click") {
         this.setState({showModal: true, modalSubSection});
     }
   }
@@ -186,8 +188,12 @@ export default class Summary extends Component {
       columns.push(column);
     });
 
+    //ReactTable needs an ID for aria-describedby
+    let tableID = subSection.name.replace(/ /g,"_") + "-table";
+    let customProps = {id:tableID};
     return (
-      <div key={index} className="table" role="table" aria-label={subSection.name}>
+      <div key={index} className="table" role="table"
+           aria-label={subSection.name} aria-describedby={customProps.id}>
           <ReactTable
             className="sub-section__table"
             columns={columns}
@@ -197,6 +203,7 @@ export default class Summary extends Component {
             pageSizeOptions={[10, 20, 50, 100]}
             defaultPageSize={10}
             resizable={false}
+            getProps={() => customProps}
           />
       </div>
     );
@@ -227,7 +234,7 @@ export default class Summary extends Component {
                 onClick={(event) => this.handleOpenModal(subSection,event)}
                 onKeyDown={(event) => this.handleOpenModal(subSection,event)}
                 role="button"
-                tabIndex="0"
+                tabIndex={0}
                 aria-label={subSection.name}>
                 <FontAwesomeIcon
                   className='info-icon'
@@ -306,19 +313,19 @@ export default class Summary extends Component {
 
           {meetsInclusionCriteria &&
             <main className="sections">
-              <Collapsible tabIndex="0" trigger={this.renderSectionHeader("PertinentMedicalHistory")} open={true}>
+              <Collapsible tabIndex={0} trigger={this.renderSectionHeader("PertinentMedicalHistory")} open={true}>
                 {this.renderSection("PertinentMedicalHistory")}
               </Collapsible>
 
-              <Collapsible tabIndex="0" trigger={this.renderSectionHeader("PainAssessments")} open={true}>
+              <Collapsible tabIndex={0} trigger={this.renderSectionHeader("PainAssessments")} open={true}>
                 {this.renderSection("PainAssessments")}
               </Collapsible>
 
-              <Collapsible tabIndex="0" trigger={this.renderSectionHeader("HistoricalTreatments")} open={true}>
+              <Collapsible tabIndex={0} trigger={this.renderSectionHeader("HistoricalTreatments")} open={true}>
                 {this.renderSection("HistoricalTreatments")}
               </Collapsible>
 
-              <Collapsible tabIndex="0" trigger={this.renderSectionHeader("RiskConsiderations")} open={true}>
+              <Collapsible tabIndex={0} trigger={this.renderSectionHeader("RiskConsiderations")} open={true}>
                 {this.renderSection("RiskConsiderations")}
               </Collapsible>
             </main>
