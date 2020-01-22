@@ -4,6 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactTable from 'react-table';
 
 export default class InfoModal extends Component {
+
+  constructor () {
+    super(...arguments);
+
+    this.elementsTableProps = { id: 'react__elements__table'};
+    this.referencesTableProps = { id: 'react__references__table'};
+  }
+  
   renderElements = (elements) => {
     const tableElements = elements.elements;
     const columns = [{
@@ -17,9 +25,9 @@ export default class InfoModal extends Component {
       Header: () => <span className="col-header">Lookback</span>,
       accessor: 'lookback'
     }];
-
     return (
-      <div className="element">
+      <div className="element" role="table"
+           aria-label={elements.description} aria-describedby={this.elementsTableProps.id}>
         <h4>{elements.description}</h4>
         <ReactTable
           className="elements__table"
@@ -28,6 +36,7 @@ export default class InfoModal extends Component {
           minRows={1}
           showPagination={false}
           resizable={false}
+          getProps={() => this.elementsTableProps}
         />
       </div>
     );
@@ -55,7 +64,8 @@ export default class InfoModal extends Component {
     });
 
     return (
-      <div className="reference">
+      <div className="reference" role="table"
+           aria-label="References" aria-describedby={this.referencesTableProps.id}>
         <ReactTable
           className="elements__table"
           columns={columns}
@@ -63,6 +73,7 @@ export default class InfoModal extends Component {
           minRows={1}
           showPagination={false}
           resizable={false}
+          getProps={() => this.referencesTableProps}
         />
       </div>
     );
