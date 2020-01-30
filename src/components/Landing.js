@@ -7,11 +7,6 @@ import sumit from '../helpers/sumit';
 import flagit from '../helpers/flagit';
 import summaryMap from './summary.json';
 
-import factorsElm from '../cql/Factors_to_Consider_in_Managing_Chronic_Pain.json';
-import commonsElm from '../cql/CDS_Connect_Commons_for_FHIRv102.json';
-import fhirhelpersElm from '../cql/FHIRHelpers.json';
-import valueSetDB from '../cql/valueset-db.json';
-
 import Header from './Header';
 import Summary from './Summary';
 import Spinner from '../elements/Spinner';
@@ -35,28 +30,14 @@ export default class Landing extends Component {
   }
 
   componentWillMount() {
-    const elmDependencies = {
-      CDS_Connect_Commons_for_FHIRv102: commonsElm,
-      FHIRHelpers: fhirhelpersElm
-    };
-
-    try {
-      executeElm(factorsElm, elmDependencies, valueSetDB, this.state.collector, (result, error) => {
-        this.setState({ loading: false });
-
-        if (error) {
-          console.error(error);
-          return;
-        }
-
-        const { sectionFlags, flaggedCount } = this.processSummary(result.Summary);
-
-        this.setState({ result, sectionFlags, flaggedCount });
-      });
-    } catch (err) {
+    executeElm(this.state.collector).then((result) => {
+      this.setState({ loading: false });
+      const { sectionFlags, flaggedCount } = this.processSummary(result.Summary);
+      this.setState({ result, sectionFlags, flaggedCount });
+    }).catch((err) => {
       console.error(err);
       this.setState({ loading: false });
-    }
+    });
   }
 
   componentDidUpdate() {

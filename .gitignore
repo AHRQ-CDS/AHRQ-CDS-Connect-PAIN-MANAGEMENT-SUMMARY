@@ -4,4 +4,5 @@
 /build
 /coverage
 /tx_bundle_dump
+/test_patient_dump
 *.css

@@ -6,6 +6,8 @@ The Pain Management Summary SMART on FHIR application was developed to support t
 
 The Pain Management Summary SMART on FHIR application was piloted during Summer 2018.  Local modifications and development were needed to fully support this application in the pilot environment.  For example, custom development was needed to expose pain assessments via the FHIR API. See the pilot reports for more information.
 
+This application was originally piloted with support for FHIR DSTU2.  The app has been updated since the pilot to also support FHIR R4, although pilot R4 support has not been piloted in a clinical setting.
+
 This prototype application is part of the [CDS Connect](https://cds.ahrq.gov/cdsconnect) project, sponsored by the [Agency for Healthcare Research and Quality](https://www.ahrq.gov/) (AHRQ), and developed under contract with AHRQ by [MITRE's CAMH](https://www.mitre.org/centers/cms-alliances-to-modernize-healthcare/who-we-are) FFRDC.
 
 ## Contributions
@@ -56,7 +58,7 @@ The Pain Management Summary can be deployed as static web resources on any HTTP 
 4. Modify the `homepage` value in `package.json` to reflect the path (after the hostname) at which it will be deployed
    a. For example, if deploying to https://my-server/pain-mgmt-summary/, the `homepage` value should be `"http://localhost:8000/pain-mgmt-summary"` (note that the hostname need not match)
    b. If deploying to the root of the domain, you can leave `homepage` as `"."`
-5. Modify the `client_id` in `public/launch-context.json` to match the unique client ID you registered with the EHR from which this app will be launched
+5. Modify the `clientId` in `public/launch-context.json` to match the unique client ID you registered with the EHR from which this app will be launched
 6. NOTE: The launch context contains `"completeInTarget": true`. This is needed if you are running in an environment that initializes the app in a separate window (such as the public SMART sandbox).  It can be safely removed in other cases.
 7. If you've set up an analytics endpoint (see below), set the `analytics_endpoint` and `x_api_key` in `public/config.json`
 8. If you'll be launching the app from an Epic EHR, modify `.env` to set `REACT_APP_EPIC_SUPPORTED_QUERIES` to `true`
@@ -77,13 +79,14 @@ To execute the unit tests:
 Run the app via one of the options above, then:
 
 1. Browse to http://launch.smarthealthit.org/
-2. In the _App Launch URL_ box at the bottom of the page, enter: `http://localhost:8000/launch.html`
-3. Click _Launch App!_
-4. Select a patient
+2. Select `R2 (DSTU2)` or `R4` from the FHIR Version dropdown
+3. In the _App Launch URL_ box at the bottom of the page, enter: `http://localhost:8000/launch.html`
+4. Click _Launch App!_
+5. Select a patient
 
 ### To upload test patients to the public SMART sandbox
 
-Testing this SMART App is more meaningful when we can supply test patients that exercise various aspects of the application.  Test patients are represented as FHIR bundles at `src/utils/test_patients`.  To upload the test patients to the public SMART sandbox:
+Testing this SMART App is more meaningful when we can supply test patients that exercise various aspects of the application.  Test patients are represented as FHIR bundles at `src/utils/dstu2_test_patients` and `r4_test_patients`.  To upload the test patients to the public SMART sandbox:
 
 1. Run `yarn upload-test-patients`
 
@@ -96,51 +99,20 @@ The SMART launcher has a bug that doesn't allow IE 11 to enter the launch URL.  
 1. Overwrite the `/public/launch-context.json` file with these contents:
    ```json
    {
-     "client_id": "6c12dff4-24e7-4475-a742-b08972c4ea27",
+     "clientId": "6c12dff4-24e7-4475-a742-b08972c4ea27",
      "scope":  "patient/*.read launch/patient",
-     "server": "url-goes-here",
-     "completeInTarget": true
+     "iss": "url-goes-here"
    }
    ```
 2. Restart the application server
 3. Browse to http://launch.smarthealthit.org/
-4. Select `R2 (DSTU2)` from the FHIR Version dropdown
+4. Select `R2 (DSTU2)` or `R4` from the FHIR Version dropdown
 5. In _Launch Type_, choose **Provider Standalone Launch**
 6. Copy the FHIR URL in the _FHIR Server URL_ box at the bottom of the page (e.g., `http://launch.smarthealthit.org/v/r2/sim/eyJoIjoiMSIsImkiOiIxIiwiaiI6IjEifQ/fhir`)
 7. Paste it into `/public/launch-context.json` file where `url-goes-here` is
 8. Browse to http://localhost:8000/launch.html
 
 _NOTE: Do *not* check in the modified launch-context.json!_
-
-## To test the app using a local instance of the SMART Platform
-
-First install the SMART Platform via: https://github.com/smart-on-fhir/installer
-
-Verify it works via the sample apps included with it:
-1. Browse to http://localhost:9080/
-2. Sign in using demo/demo
-3. Pick "SMART DSTU2 Sandbox"
-4. Click "Growth Chart" app
-5. Click "Launch"
-6. Click "Clark, Susan A."
-
-Then run the app via one of the options above and register it via the SMART Platform:
-
-1. Browse to http://localhost:9080/ (if not already signed in)
-2. Sign in using demo/demo (if not already signed in)
-3. Pick "SMART DSTU2 Sandbox" (if not already signed in)
-4. Choose "Register Manually"
-5. Enter these values:
-   a. App Type: Public Client
-   b. App Name: CQL Demo
-   c. App Launch URI: http://localhost:8000/launch.html
-   d. App Redirect URIs: http://localhost:8000/
-   e. Allow Offline Access: NO
-   f. Patient Scoped App: YES
-6. Save
-7. Click the "CQL Demo" app
-8. Click "Launch"
-9. Choose a patient
 
 ## To test the app using the Epic SMART sandbox
 

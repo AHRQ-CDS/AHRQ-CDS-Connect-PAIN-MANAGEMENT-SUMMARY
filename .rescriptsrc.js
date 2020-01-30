@@ -114,11 +114,10 @@ const stubUnneededFiles = config => {
       // Replace cql-execution's packaged FHIR model w/ a stubbed version since we
       // don't use the FHIR model from cql-execution and it takes up a lot of space.
       resolve.alias['./fhir/models'] = path.resolve(__dirname, './src/stubs/fhir-models.js');
-      // Replace cql-exec-fhir's bundled 1.6, 3.0.0, and 4.0.0 modelinfos with stubs since we
-      // only use the 1.0.2 modelinfo and the others take up a lot of space.
+      // Replace cql-exec-fhir's bundled 1.6, and 3.0.0 modelinfos with stubs since we
+      // only use the 1.0.2 and 4.0.0 modelinfos and the others take up a lot of space.
       resolve.alias['./modelInfos/fhir-modelinfo-1.6.xml.js'] = path.resolve(__dirname, './src/stubs/fhir-modelinfo-stub.xml.js');
       resolve.alias['./modelInfos/fhir-modelinfo-3.0.0.xml.js'] = path.resolve(__dirname, './src/stubs/fhir-modelinfo-stub.xml.js');
-      resolve.alias['./modelInfos/fhir-modelinfo-4.0.0.xml.js'] = path.resolve(__dirname, './src/stubs/fhir-modelinfo-stub.xml.js');
       return resolve;
     },
     [['resolve']],
