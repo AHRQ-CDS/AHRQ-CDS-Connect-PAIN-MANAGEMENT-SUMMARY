@@ -8,4 +8,10 @@ configure({ adapter: new Adapter() });
 
 // mock local storage
 global.window = {};
-window.localStorage = global.localStorage;
+// see: https://github.com/letsrock-today/mock-local-storage/issues/17
+Object.defineProperty(window, 'localStorage', {
+  value: global.localStorage,
+  configurable:true,
+  enumerable:true,
+  writable:true
+});
