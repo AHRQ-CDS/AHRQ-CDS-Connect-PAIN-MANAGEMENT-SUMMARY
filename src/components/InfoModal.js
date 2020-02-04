@@ -11,7 +11,7 @@ export default class InfoModal extends Component {
     this.elementsTableProps = { id: 'react__elements__table'};
     this.referencesTableProps = { id: 'react__references__table'};
   }
-  
+
   renderElements = (elements) => {
     const tableElements = elements.elements;
     const columns = [{
@@ -59,7 +59,8 @@ export default class InfoModal extends Component {
     let data = references;
     data.forEach((reference) => {
       reference.urlLink = (
-        <a href={reference.url} src={reference.title} target="_blank"><FontAwesomeIcon icon="link" title="link" /></a>
+        <a href={reference.url} src={reference.title} target="_blank"
+           rel="noopener noreferrer"><FontAwesomeIcon icon="link" title="link" /></a>
       );
     });
 
