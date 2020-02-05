@@ -13,9 +13,12 @@ by editing the client ID in the `launch-context.json` file:
 ```json
 {
   "client_id": "6c12dff4-24e7-4475-a742-b08972c4ea27",
-  "scope": "patient/*.read"
+  "scope": "patient/*.read",
+  "completeInTarget": true
 }
 ```
+
+_NOTE: The launch context contains `"completeInTarget": true`. This is needed if you are running in an environment that initializes the app in a separate window (such as the public SMART sandbox).  It can be safely removed in other cases._
 
 ## To configure analytics reporting
 

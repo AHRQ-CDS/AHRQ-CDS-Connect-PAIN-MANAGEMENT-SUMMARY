@@ -3,7 +3,7 @@ import FhirQuery from '../../components/FhirQuery';
 
 const component = shallowRender(FhirQuery, {
   url: 'testUrl',
-  query: {}
+  data: {}
 });
 
 it('renders without crashing', () => {

@@ -42,8 +42,9 @@ Systems integrating the Pain Management Summary will need to expose the correspo
 2. Install [Yarn](https://yarnpkg.com/en/docs/install) (1.3.x or above)
 3. Install dependencies by executing `yarn` from the project's root directory
 4. If you have a SMART-on-FHIR client ID, edit `public/launch-context.json` to specify it
-5. If you'll be launching the app from an Epic EHR, modify `.env` to set `REACT_APP_EPIC_SUPPORTED_QUERIES` to `true`
-6. Serve the code by executing `yarn start` (runs on port 8000)
+5. NOTE: The launch context contains `"completeInTarget": true`. This is needed if you are running in an environment that initializes the app in a separate window (such as the public SMART sandbox).  It can be safely removed in other cases.
+6. If you'll be launching the app from an Epic EHR, modify `.env` to set `REACT_APP_EPIC_SUPPORTED_QUERIES` to `true`
+7. Serve the code by executing `yarn start` (runs on port 8000)
 
 ## To build and deploy using a standard web server (static HTML and JS)
 
@@ -56,11 +57,12 @@ The Pain Management Summary can be deployed as static web resources on any HTTP 
    a. For example, if deploying to https://my-server/pain-mgmt-summary/, the `homepage` value should be `"http://localhost:8000/pain-mgmt-summary"` (note that the hostname need not match)
    b. If deploying to the root of the domain, you can leave `homepage` as `"."`
 5. Modify the `client_id` in `public/launch-context.json` to match the unique client ID you registered with the EHR from which this app will be launched
-6. If you've set up an analytics endpoint (see below), set the `analytics_endpoint` and `x_api_key` in `public/config.json`
-7. If you'll be launching the app from an Epic EHR, modify `.env` to set `REACT_APP_EPIC_SUPPORTED_QUERIES` to `true`
+6. NOTE: The launch context contains `"completeInTarget": true`. This is needed if you are running in an environment that initializes the app in a separate window (such as the public SMART sandbox).  It can be safely removed in other cases.
+7. If you've set up an analytics endpoint (see below), set the `analytics_endpoint` and `x_api_key` in `public/config.json`
+8. If you'll be launching the app from an Epic EHR, modify `.env` to set `REACT_APP_EPIC_SUPPORTED_QUERIES` to `true`
    a. This modifies some queries based on Epic-specific requirements
-8. Run `yarn build` to compile the code to static files in the `build` folder
-9. Deploy the output from the `build` folder to a standard web server
+9. Run `yarn build` to compile the code to static files in the `build` folder
+10. Deploy the output from the `build` folder to a standard web server
 
 Optionally to step 9, you can run the static build contents in a simple Node http-server via the command: `yarn start-static`.
 
@@ -94,11 +96,10 @@ The SMART launcher has a bug that doesn't allow IE 11 to enter the launch URL.  
 1. Overwrite the `/public/launch-context.json` file with these contents:
    ```json
    {
-     "client": {
-       "client_id": "6c12dff4-24e7-4475-a742-b08972c4ea27",
-       "scope":  "patient/*.read launch/patient"
-     },
-     "server": "url-goes-here"
+     "client_id": "6c12dff4-24e7-4475-a742-b08972c4ea27",
+     "scope":  "patient/*.read launch/patient",
+     "server": "url-goes-here",
+     "completeInTarget": true
    }
    ```
 2. Restart the application server

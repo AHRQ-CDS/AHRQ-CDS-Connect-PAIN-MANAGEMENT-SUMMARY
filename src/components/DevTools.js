@@ -29,17 +29,10 @@ export default class DevTools extends Component {
   }
 
   errorMessage(er, i) {
-    let msg = 'See query info below for details';
-    if (er.error.responseJSON) {
-      msg = er.error.responseJSON.ExceptionMessage || er.error.responseJSON.Message;
-    } else if (er.error.statusText) {
-      msg = er.error.statusText;
-    }
-
     return (
       <tr key={i}>
-        <td>{er.config.type}</td>
-        <td>{msg}</td>
+        <td>{er.type}</td>
+        <td>{er.error.message || er.error.statusText || 'No error message provided'}</td>
       </tr>
     );
   }
@@ -77,9 +70,9 @@ export default class DevTools extends Component {
         <h4>FHIR Queries <button onClick={this.toggleFhirQueries}>[show/hide]</button></h4>
         <div style={{ display: this.state.displayFhirQueries ? 'block' : 'none' }}>
           {this.props.collector.map((item, i) => {
-            const url = i === 0 ? item.config.url : item.config.url.slice(item.config.url.lastIndexOf('/') + 1);
+            const url = i === 0 ? item.url : item.url.slice(item.url.lastIndexOf('/') + 1);
             return (
-              <FhirQuery key={i} url={url} query={item} />
+              <FhirQuery key={i} url={url} data={item.data} />
             );
           })}
         </div>
