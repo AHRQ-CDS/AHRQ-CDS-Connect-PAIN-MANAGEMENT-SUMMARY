@@ -8,10 +8,7 @@ import './utils/fontawesomeLibrary';
 
 import Root from './containers/Root';
 
-// The line below was in the ejected PMSA, but now React throws an error on it.
-// That said, it doesn't *seem* to affect output.  Leaving it in (commented) just in case...
-//import '../node_modules/font-awesome/css/font-awesome.css';
-import './styles/App.css';
+import './styles/App.scss';
 
 render(
   <Router basename={process.env.PUBLIC_URL}>
