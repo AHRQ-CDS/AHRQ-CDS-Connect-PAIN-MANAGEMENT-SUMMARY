@@ -25,6 +25,7 @@ Once the necessary FHIR data has been retrieved from the EHR, the open source [C
 ### Limitations
 
 This CDS logic queries for several concepts that do not yet have standardized codes.  To support this, the following local codes have been defined:
+
 | Code | System | Display |
 | --- | --- | --- |
 | PEGASSESSMENT | http://cds.ahrq.gov/cdsconnect/pms | Pain Enjoyment General Activity (PEG) Assessment |
