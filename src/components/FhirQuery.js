@@ -15,19 +15,19 @@ export default class FhirQuery extends Component {
   }
 
   render() {
-    const { query, url } = this.props;
-    if (!query) { return null; }
+    const { data, url } = this.props;
+    if (!data) { return null; }
 
     return (
       <div className="fhir-query">
         <b>{url}</b> <button href="#" onClick={this.toggleShowHide}>[show/hide]</button>
-        <pre style={{display: this.state.displayed ? 'block' : 'none'}}>{JSON.stringify(query.data, null, 2)}</pre>
+        <pre style={{display: this.state.displayed ? 'block' : 'none'}}>{JSON.stringify(data, null, 2)}</pre>
       </div>
     );
   }
 }
 
 FhirQuery.propTypes = {
-  query: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
   url: PropTypes.string.isRequired
 };

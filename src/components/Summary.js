@@ -30,9 +30,7 @@ export default class Summary extends Component {
     };
 
     this.subsectionTableProps = { id: 'react_sub-section__table'};
-  }
 
-  componentWillMount() {
     ReactModal.setAppElement('body');
   }
 

@@ -1,4 +1,5 @@
 {
-  "client_id": "6c12dff4-24e7-4475-a742-b08972c4ea27",
-  "scope": "patient/*.read launch/patient"
+  "clientId": "6c12dff4-24e7-4475-a742-b08972c4ea27",
+  "scope": "patient/*.read launch/patient",
+  "completeInTarget": true
 }

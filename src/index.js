@@ -1,5 +1,4 @@
 import '@babel/polyfill';
-import 'fhirclient';
 import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';

@@ -10,5 +10,8 @@ app.listen(8000, err => {
   if (err != null) {
     console.error(err);
   }
+  console.log('NOTE: This is a development server intended to test static deployment of the')
+  console.log('Pain Management Summary. This server is not intended for production use.')
+  console.log();
   console.log('Launch URL: http://localhost:8000/AHRQ-CDS-Connect-PAIN-MANAGEMENT-SUMMARY/launch.html');
 });
