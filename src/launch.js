@@ -1,4 +1,4 @@
-import FHIR from "fhirclient";
+import FHIR from 'fhirclient';
 
 fetch(`${process.env.PUBLIC_URL}/launch-context.json`)
   .then((response)      => response.json())

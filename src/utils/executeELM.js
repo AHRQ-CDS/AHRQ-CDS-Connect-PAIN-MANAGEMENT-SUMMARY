@@ -1,4 +1,4 @@
-import FHIR from "fhirclient"
+import FHIR from 'fhirclient';
 import cql from 'cql-execution';
 import cqlfhir from 'cql-exec-fhir';
 import extractResourcesFromELM from './extractResourcesFromELM';

@@ -29,7 +29,7 @@ export default class Landing extends Component {
     this.tocInitialized = false;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     executeElm(this.state.collector).then((result) => {
       this.setState({ loading: false });
       const { sectionFlags, flaggedCount } = this.processSummary(result.Summary);
