@@ -1755,21 +1755,6 @@
                "operand" : [ {
                   "name" : "Is18orOlder",
                   "type" : "ExpressionRef"
-               }, {
-                  "type" : "Or",
-                  "operand" : [ {
-                     "type" : "Or",
-                     "operand" : [ {
-                        "name" : "HasConditionAssociatedWithChronicPain",
-                        "type" : "ExpressionRef"
-                     }, {
-                        "name" : "HasRecentOpioidPainMedication",
-                        "type" : "ExpressionRef"
-                     } ]
-                  }, {
-                     "name" : "HasRecentAdjuvantAnalgesicMedication",
-                     "type" : "ExpressionRef"
-                  } ]
                } ]
             }
          }, {
