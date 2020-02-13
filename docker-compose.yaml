@@ -8,3 +8,5 @@ services:
       - 8000:8000
     volumes:
       - ./:/opt/app
+    env_file:
+      - frontend.env
