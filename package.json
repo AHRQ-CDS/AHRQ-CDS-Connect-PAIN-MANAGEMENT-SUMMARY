@@ -2,7 +2,6 @@
   "name": "pain-management-factors",
   "version": "0.2.1",
   "description": "Pain Management Factors SMART-on-FHIR App",
-  "homepage": "https://ahrq-cds.github.io/AHRQ-CDS-Connect-PAIN-MANAGEMENT-SUMMARY",
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/polyfill": "^7.8.3",
