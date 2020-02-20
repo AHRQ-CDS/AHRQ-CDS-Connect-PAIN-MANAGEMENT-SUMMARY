@@ -1,13 +1,21 @@
 .spinner {
+  /*
   margin: 100px auto 0;
   width: 100px;
   text-align: center;
+  */
+  position: fixed;
+  left: 47.5%;
+  top: 45%;
+  margin-left: -18px;
+  margin-top: -18px;
 
   > div {
     width: 18px;
     height: 18px;
     margin: 5px;
     background-color: $color-blue;
+    //background-color: $color-uw;
 
     border-radius: 100%;
     display: inline-block;

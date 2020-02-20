@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   height: 100px;
+  min-height: 124px;
 
   &__return-link .return-icon {
     font-size: 1.5em;
@@ -42,23 +43,27 @@
       .patient-icon {
         font-size: 2em;
         color: $color-blue;
+        //color: $color-uw-icon;
         margin-right: 30px;
       }
 
       .patient-name {
-        font-weight: normal;
+        //font-weight: normal;
+        font-weight: 600;
         line-height: 1em;
         margin: 0;
+        //color: $color-black;
       }
 
       .patient-demographics {
         display: flex;
+        justify-content: flex-end;
         color: $color-gray;
         font-weight: 600;
         text-transform: uppercase;
         font-size: 1.2em;
-
-        .patient-age { margin-right: 40px; }
+        margin-top: 4px;
+        .patient-age { margin-right: 16px; }
       }
     }
 
@@ -73,8 +78,9 @@
 
         &-count {
           font-size: 3em;
-          font-weight: 800;
+          font-weight: 700;
           margin-right: 20px;
+          //color: $color-black;
 
           &.flagged { color: $color-red-dark; }
         }
