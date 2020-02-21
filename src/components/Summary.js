@@ -98,6 +98,7 @@ export default class Summary extends Component {
             title={`flag: ${tooltip}`}
             data-tip={tooltip}
             role="tooltip"
+            tabIndex={0}
           />
           no entries found
         </div>
@@ -130,6 +131,7 @@ export default class Summary extends Component {
             title={props.value ? `flag: ${props.value}` : 'flag'}
             data-tip={props.value ? props.value : ''}
             role="tooltip"
+            tabIndex={0}
           />,
         sortable: false,
         width: 35,
@@ -189,6 +191,8 @@ export default class Summary extends Component {
     //ReactTable needs an ID for aria-describedby
     let tableID = subSection.name.replace(/ /g,"_") + "-table";
     let customProps = {id:tableID};
+    //getTheadThProps solution courtesy of:
+    //https://spectrum.chat/react-table/general/is-there-a-way-to-activate-sort-via-onkeypress~66656e87-7f5c-4767-8b23-ddf35d73f8af
     return (
       <div key={index} className="table" role="table"
            aria-label={subSection.name} aria-describedby={customProps.id}>
@@ -202,6 +206,17 @@ export default class Summary extends Component {
             defaultPageSize={10}
             resizable={false}
             getProps={() => customProps}
+            getTheadThProps={(state,rowInfo,column,instance) => {
+                return {
+                    tabIndex: 0,
+                    onKeyPress: (e, handleOriginal) => {
+                        if(e.which === 13) {
+                            instance.sortColumn(column);
+                            e.stopPropagation();
+                        }
+                    }
+                };
+            }}
           />
       </div>
     );
@@ -225,6 +240,7 @@ export default class Summary extends Component {
               className={`flag flag-nav ${flaggedClass}`}
               icon={flagged ? 'exclamation-circle' : 'circle'}
               title="flag"
+              tabIndex={0}
             />
             {subSection.name}
             {subSection.info &&
@@ -240,6 +256,7 @@ export default class Summary extends Component {
                   title={`more info: ${subSection.name}`}
                   data-tip="more info"
                   role="tooltip"
+                  tabIndex={0}
                 />
               </div>
             }
