@@ -4,9 +4,12 @@ services:
   frontend:
     build:
       context: .
+      dockerfile: ${FRONTEND_DOCKERFILE:-Dockerfile}
     ports:
-      - 8000:8000
+      # allow override of target and published port
+      - ${P_PORT:-8000}:${T_PORT:-8000}
     volumes:
       - ./:/opt/app
     env_file:
-      - frontend.env
+      # Reuse .env from CRA
+      - .env
