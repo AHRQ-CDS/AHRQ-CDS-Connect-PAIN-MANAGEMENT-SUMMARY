@@ -47,7 +47,11 @@ export default class Summary extends Component {
 
   isSectionFlagged(section) {
     const { sectionFlags } = this.props;
-    const subSections = Object.keys(sectionFlags[section]);
+    const subSections = sectionFlags[section] ? Object.keys(sectionFlags[section]): null;
+
+    if (!subSections) {
+      return false;
+    }
 
     for (let i = 0; i < subSections.length; ++i) {
       if (this.isSubsectionFlagged(section, subSections[i])) {
@@ -60,6 +64,9 @@ export default class Summary extends Component {
 
   isSubsectionFlagged(section, subSection) {
     const { sectionFlags } = this.props;
+    if (!sectionFlags[section] || !sectionFlags[section][subSection]) {
+      return false;
+    }
     if (sectionFlags[section][subSection] === true) {
       return true;
     } else if (sectionFlags[section][subSection] === false) {
@@ -86,17 +93,17 @@ export default class Summary extends Component {
   renderNoEntries(section, subSection) {
     const flagged = this.isSubsectionFlagged(section, subSection.dataKey);
     const flaggedClass = flagged ? 'flagged' : '';
-    const flagText = this.props.sectionFlags[section][subSection.dataKey];
+    const sectionElement = this.props.sectionFlags[section];
+    const flagText = sectionElement ? sectionElement[subSection.dataKey] : '';
     const tooltip = flagged ? flagText : '';
-
     return (
       <div className="table">
         <div className="no-entries">
           <FontAwesomeIcon
             className={`flag flag-no-entry ${flaggedClass}`}
             icon="exclamation-circle"
+            data-tip={flagText}
             title={`flag: ${tooltip}`}
-            data-tip={tooltip}
             role="tooltip"
             tabIndex={0}
           />
@@ -226,7 +233,8 @@ export default class Summary extends Component {
     const sectionMap = summaryMap[section];
 
     return sectionMap.map((subSection) => {
-      const data = this.props.summary[subSection.dataKeySource][subSection.dataKey];
+      const dataKeySource = this.props.summary[subSection.dataKeySource];
+      const data = dataKeySource ? dataKeySource[subSection.dataKey] : null;
       const entries = (Array.isArray(data) ? data : [data]).filter(r => r != null);
       const hasEntries = entries.length !== 0;
 
@@ -238,7 +246,7 @@ export default class Summary extends Component {
           <h3 id={subSection.dataKey} className="sub-section__header">
             <FontAwesomeIcon
               className={`flag flag-nav ${flaggedClass}`}
-              icon={flagged ? 'exclamation-circle' : 'circle'}
+              icon={'circle'}
               title="flag"
               tabIndex={0}
             />
@@ -274,7 +282,7 @@ export default class Summary extends Component {
   renderSectionHeader(section) {
     const flagged = this.isSectionFlagged(section);
     const flaggedClass = flagged ? 'flagged' : '';
-    const { numMedicalHistoryEntries, numPainEntries, numTreatmentsEntries, numRiskEntries } = this.props;
+    const { numMedicalHistoryEntries, numPainEntries, numTreatmentsEntries, numRiskEntries, numNonPharTreatmentEntries, numExternalDataEntries } = this.props;
 
     let icon = '';
     let title = '';
@@ -286,10 +294,16 @@ export default class Summary extends Component {
       title = `Pain Assessments (${numPainEntries})`
     } else if (section === 'HistoricalTreatments') {
       icon = <TreatmentsIcon width="36" height="38" />;
-      title = `Historical Pain-related Treatments (${numTreatmentsEntries})`
+      title = `EHR Medications (${numTreatmentsEntries})`
     } else if (section === 'RiskConsiderations') {
       icon = <RiskIcon width="35" height="34" />;
       title = `Risk Considerations (${numRiskEntries})`;
+    } else if (section === 'ExternalDataSet') {
+      icon = <MedicalHistoryIcon width="30" height="40" />;
+      title = `State PMP Prescriptions (${numExternalDataEntries})`;
+    } else if (section === 'NonPharmacologicTreatments') {
+      icon =  <TreatmentsIcon width="36" height="38" />;
+      title = `Non-Pharmacologic Treatments (${numNonPharTreatmentEntries})`;
     }
 
     return (
@@ -319,7 +333,7 @@ export default class Summary extends Component {
 
         <div className="summary__display" id="maincontent">
           <div className="summary__display-title">
-            Clinical Opioid Summary to Reduce Impact
+            Clinical Opioid Summary with Rx Integration
           </div>
 
           {meetsInclusionCriteria && <ExclusionBanner />}
@@ -328,22 +342,32 @@ export default class Summary extends Component {
 
           {meetsInclusionCriteria &&
             <div className="sections">
-            {/*  <Collapsible trigger={this.renderSectionHeader("PertinentMedicalHistory")} open={true}>
-                {this.renderSection("PertinentMedicalHistory")}
-              </Collapsible>
-
-              <Collapsible tabIndex={0} trigger={this.renderSectionHeader("PainAssessments")} open={true}>
-                {this.renderSection("PainAssessments")}
-             </Collapsible>
-			*/}
+  
               <Collapsible trigger={this.renderSectionHeader("HistoricalTreatments")} open={true}>
                 {this.renderSection("HistoricalTreatments")}
               </Collapsible>
 
-            {/*  <Collapsible trigger={this.renderSectionHeader("RiskConsiderations")} open={true}>
-                {this.renderSection("RiskConsiderations")}
+              <Collapsible trigger={this.renderSectionHeader("ExternalDataSet")} open={true}>
+              {this.renderSection("ExternalDataSet")}
               </Collapsible>
-			 */} 
+
+              <Collapsible trigger={this.renderSectionHeader("NonPharmacologicTreatments")} open={true}>
+              {this.renderSection("NonPharmacologicTreatments")}
+              </Collapsible>
+
+              {/*
+                <Collapsible trigger={this.renderSectionHeader("PertinentMedicalHistory")} open={true}>
+                  {this.renderSection("PertinentMedicalHistory")}
+                </Collapsible>
+
+                <Collapsible tabIndex={0} trigger={this.renderSectionHeader("PainAssessments")} open={true}>
+                  {this.renderSection("PainAssessments")}
+                </Collapsible>
+        
+                <Collapsible trigger={this.renderSectionHeader("RiskConsiderations")} open={true}>
+                  {this.renderSection("RiskConsiderations")}
+                </Collapsible>
+              */}
             </div>
           }
 
@@ -369,6 +393,7 @@ export default class Summary extends Component {
           <DevTools
             collector={collector}
             result={result}
+            summary={summary}
           />
 
           <ReactTooltip className="summary-tooltip" />
@@ -397,5 +422,7 @@ Summary.propTypes = {
   numMedicalHistoryEntries: PropTypes.number.isRequired,
   numPainEntries: PropTypes.number.isRequired,
   numTreatmentsEntries: PropTypes.number.isRequired,
-  numRiskEntries: PropTypes.number.isRequired
+  numRiskEntries: PropTypes.number.isRequired,
+  numNonPharTreatmentEntries: PropTypes.number.isRequired,
+  numExternalDataEntries: PropTypes.number.isRequired
 };

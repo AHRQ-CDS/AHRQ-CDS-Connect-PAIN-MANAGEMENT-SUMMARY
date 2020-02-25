@@ -78,6 +78,48 @@ export function quantityFormat(result, input) {
   // fall back to returning string
   return input;
 }
+/*
+ * TODO expand this to replace part of the text based on a provided matching criteria */
+export function stringSubstitutionFormat(result, input, replacement) {
+  if (input == null) return '';
+  if (replacement == null) return '';
+  return replacement;
+}
+
+/*
+ * string formatter for FHIR codeableConcept element
+ *  i.e.: {
+      "coding" : [{ Coding }], // Code defined by a terminology system
+      "text" : "<string>" // Plain text representation of the concept
+    }
+    @parameters
+    result: Summary json object
+    input: codeableconcept json object from Summary
+    key: name of the concept to match
+    field: field in concept to match
+    codingField: field in coding to match
+ */
+export function codeableConceptFormat(result, input, key, field, codingField) {
+  if (!input) {
+    return '';
+  }
+  if (typeof input === 'object' &&
+      input.hasOwnProperty(key) &&
+      input[key].hasOwnProperty(field)) {
+      if (field === 'text') {
+        return input[key][field];
+      }
+      if (field === 'coding') {
+        let matchedItem = (input[key][field]).find(item => item.hasOwnProperty(codingField));
+        if (matchedItem) {
+          return matchedItem[codingField];
+        }
+        return '';
+      }
+      return '';
+  }
+  return '';
+}
 
 function _datishAgeFormat(result, input, showAge) {
   const df = showAge ? dateAgeFormat : dateFormat;
@@ -106,3 +148,4 @@ function _datishAgeFormat(result, input, showAge) {
   // fall back to the input string
   return input;
 }
+

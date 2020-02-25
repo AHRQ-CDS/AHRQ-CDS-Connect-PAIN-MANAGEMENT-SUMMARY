@@ -24,12 +24,12 @@
             "Status": "Status",
             "Start": {
               "key": "Onset",
-              "formatter": "datishAgeFormat",
+              "formatter": "datishFormat",
               "minWidth": 150
             },
             "End": {
               "key": "Abatement",
-              "formatter": "datishAgeFormat",
+              "formatter": "datishFormat",
               "minWidth": 150
             },
             "Recorded": {
@@ -104,12 +104,12 @@
             "Status": "Status",
             "Start": {
               "key": "Onset",
-              "formatter": "datishAgeFormat",
+              "formatter": "datishFormat",
               "minWidth": 150
             },
             "End": {
               "key": "Abatement",
-              "formatter": "datishAgeFormat",
+              "formatter": "datishFormat",
               "minWidth": 150
             },
             "Recorded": {
@@ -275,10 +275,9 @@
       "tables": [
         {
           "headers": {
-            "Name": "Name",
-            "Type": "Type",
-            "Start": { "key": "Start", "formatter": "datishFormat" },
-            "End": { "key": "End", "formatter": "datishFormat" }
+            "Medication": "Name",
+            "Date": { "key": "Start", "formatter": "datishFormat" },
+            "Type": { "key": "Type", "formatter": "stringSubstitutionFormat", "formatterArguments": ["Order"]}
           },
           "flags": [
             {
@@ -309,48 +308,14 @@
       "tables": [
         {
           "headers": {
-            "Name": "Name",
-            "Type": "Type",
-            "Start": { "key": "Start", "formatter": "datishFormat" },
-            "End": { "key": "End", "formatter": "datishFormat" }
+            "Medication": "Name",
+            "Date": { "key": "Start", "formatter": "datishFormat" },
+            "Type": { "key": "Type", "formatter": "stringSubstitutionFormat", "formatterArguments": ["Order"]}
           },
           "flags": [
             {
               "flag": "ifNone",
               "flagText": "Absence of non-opioid medications"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Non-Pharmacologic Treatments",
-      "dataKey": "NonPharmacologicTreatments",
-      "dataKeySource": "HistoricalTreatments",
-      "info": [
-        {
-          "type": "elements",
-          "description": "Non-Pharmacologic Treatments queries the following elements:",
-          "elements": [
-            {
-              "name": "Non-pharmacologic procedures",
-              "status": "any",
-              "lookback": "2 years"
-            }
-          ]
-        }
-      ],
-      "tables": [
-        {
-          "headers": {
-            "Name": "Name",
-            "Type": "Type",
-            "Date": { "key": "Date", "formatter": "datishFormat" }
-          },
-          "flags": [
-            {
-              "flag": "ifNone",
-              "flagText": "Absence of non-pharmacologic treatments"
             }
           ]
         }
@@ -378,8 +343,7 @@
           "headers": {
             "Name": "Name",
             "Type": "Type",
-            "Start": { "key": "Start", "formatter": "datishFormat" },
-            "End": { "key": "End", "formatter": "datishFormat" }
+            "Date": { "key": "Start", "formatter": "datishFormat" }
           },
           "flags": [
             {
@@ -605,6 +569,74 @@
             "Name": "Name",
             "Score": { "key": "Score", "formatter": "quantityFormat" },
             "Date": { "key": "Date", "formatter": "datishFormat" }
+          }
+        }
+      ]
+    }
+  ],
+  "NonPharmacologicTreatments": [
+    {
+      "name": "Non-Pharmacologic Treatments",
+      "dataKey": "NonPharmacologicTreatments",
+      "dataKeySource": "HistoricalTreatments",
+      "info": [
+        {
+          "type": "elements",
+          "description": "Non-Pharmacologic Treatments queries the following elements:",
+          "elements": [
+            {
+              "name": "Non-pharmacologic procedures",
+              "status": "any",
+              "lookback": "2 years"
+            }
+          ]
+        }
+      ],
+      "tables": [
+        {
+          "headers": {
+            "Name": "Name",
+            "Date": { "key": "Date", "formatter": "datishFormat" },
+            "Type": "Type"
+          },
+          "flags": [
+            {
+              "flag": "ifNone",
+              "flagText": "Absence of non-pharmacologic treatments"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "ExternalDataSet": [
+    {
+      "name": "PMP Prescriptions",
+      "dataKey": "PDMPMedications",
+      "dataKeySource": "ExternalDataSet",
+      "info": [
+        {
+          "type": "elements",
+          "description": "The medication order queries the following elements:",
+          "elements": [
+            {
+              "name": "MedicationOrder",
+              "status": "any",
+              "lookback": "n/a"
+            }
+          ]
+        }
+      ],
+      "tables": [
+        {
+          "headers": {
+            "Medication": {
+              "key": "medicationCodeableConcept",
+              "formatter": "codeableConceptFormat",
+              "formatterArguments": ["medicationCodeableConcept", "text"]
+            },
+            "Date": { "key": "dateWritten", "formatter": "datishFormat" },
+            "Type": { "key": "resourceType", "formatter": "stringSubstitutionFormat", "formatterArguments": ["Order"]}
           }
         }
       ]

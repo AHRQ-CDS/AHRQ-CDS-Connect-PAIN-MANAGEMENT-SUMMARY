@@ -3,7 +3,8 @@ import DevTools from '../../components/DevTools';
 
 const component = shallowRender(DevTools, {
   collector: [],
-  result: {}
+  result: {},
+  summary: {}
 });
 
 it('renders without crashing', () => {

@@ -5,11 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import executeElm from '../utils/executeELM';
 import sumit from '../helpers/sumit';
 import flagit from '../helpers/flagit';
+import {datishFormat} from '../helpers/formatit';
 import summaryMap from './summary.json';
 
 import Header from './Header';
 import Summary from './Summary';
 import Spinner from '../elements/Spinner';
+
 
 let uuid = 0;
 
@@ -23,18 +25,27 @@ export default class Landing extends Component {
     this.state = {
       result: null,
       loading: true,
-      collector: []
+      collector: [],
+      externals: {}
     };
 
     this.tocInitialized = false;
   }
 
   componentDidMount() {
-    executeElm(this.state.collector).then((result) => {
-      this.setState({ loading: false });
-      const { sectionFlags, flaggedCount } = this.processSummary(result.Summary);
-      this.setState({ result, sectionFlags, flaggedCount });
-    }).catch((err) => {
+    Promise.all([executeElm(this.state.collector), this.getExternalData()])
+    .then(
+      response => {
+        //set result from data from EPIC
+        let result = response[0];
+        //add data from other sources, e.g. PDMP
+        result['Summary'] = {...result['Summary'], ...response[1]};
+        const { sectionFlags, flaggedCount } = this.processSummary(result.Summary);
+        this.setState({ loading: false });
+        this.setState({ result, sectionFlags, flaggedCount });
+      }
+    )
+    .catch((err) => {
       console.error(err);
       this.setState({ loading: false });
     });
@@ -59,6 +70,27 @@ export default class Landing extends Component {
       document.title = `Pain Management Summary - ${patientName}`;
     }
   }
+  /*
+   * function for retrieving data from other sources e.g. PDMP
+   */
+  async getExternalData() {
+      const externalDatasetKey = 'ExternalDataSet';
+      let dataSet = {};
+      dataSet[externalDatasetKey] = {};
+      let response = await fetch(`${process.env.REACT_APP_CONF_API_URL}/v/r2/fhir/MedicationOrder`)
+      .catch(e => console.log('Error fetching PDMP data: ', e.message));
+    
+      let pdmpDataSet = null;
+      try {
+        const json = await (response.json()).catch(e => console.log('Error parsing PDMP response json: ', e.message));
+        pdmpDataSet = json && json.entry? json.entry: null;
+      } catch(e) {
+        pdmpDataSet = null;
+      } finally {
+        dataSet[externalDatasetKey]['PDMPMedications'] = pdmpDataSet;
+        return dataSet;
+      }
+  }
 
   getAnalyticsData(endpoint, apikey, summary) {
     const meetsInclusionCriteria = summary.Patient.MeetsInclusionCriteria;
@@ -77,7 +109,10 @@ export default class Landing extends Component {
       Object.keys(cloneSections).forEach((sectionKey, i) => {
         applicationAnalytics.sections.push({ section: sectionKey, subSections: [] });
         Object.keys(cloneSections[sectionKey]).forEach(subSectionKey => {
-          const subSection = cloneSections[sectionKey][subSectionKey];
+          let SectionElement = cloneSections[sectionKey];
+          if (!SectionElement) return true;
+          const subSection = SectionElement[subSectionKey];
+          if (!subSectionKey) return true;
           let count;
           if (subSection instanceof Array) count = subSection.length;
           else if (subSection instanceof Object) count = 1;
@@ -109,15 +144,22 @@ export default class Landing extends Component {
   }
 
   processSummary(summary) {
+    /*
+     * TODO: certain sections we have chosen not to display so need to exclude those when tallying up flag counts
+     * suppressed section: "PertinentMedicalHistory", "PainAssessments", "RiskConsiderations"
+     */
     const sectionFlags = {};
     const sectionKeys = Object.keys(summaryMap);
     let flaggedCount = 0;
 
     sectionKeys.forEach((sectionKey, i) => { // for each section
       sectionFlags[sectionKey] = {};
-
       summaryMap[sectionKey].forEach((subSection) => { // for each sub section
-        const data = summary[subSection.dataKeySource][subSection.dataKey];
+        const keySource = summary[subSection.dataKeySource];
+        if (!keySource) {
+          return true;
+        }
+        const data = keySource[subSection.dataKey];
         const entries = (Array.isArray(data) ? data : [data]).filter(r => r != null);
 
         if (entries.length > 0) {
@@ -172,16 +214,19 @@ export default class Landing extends Component {
         </div>
       );
     }
-
+    const patientResource = this.state.collector[0]['data'];
     const summary = this.state.result.Summary;
     const { sectionFlags, flaggedCount } = this.state;
     const numMedicalHistoryEntries = sumit(summary.PertinentMedicalHistory || {});
     const numPainEntries = sumit(summary.PainAssessments || {});
-    const numTreatmentsEntries = sumit(summary.HistoricalTreatments || {});
+    const numNonPharTreatmentEntries =  sumit(summary.HistoricalTreatments['NonPharmacologicTreatments'] || {});
+    const numTreatmentsEntries = sumit(summary.HistoricalTreatments || {}) - numNonPharTreatmentEntries;
     const numRiskEntries =
       sumit(summary.RiskConsiderations || {}) +
       sumit(summary.MiscellaneousItems || {}); // TODO: update when CQL updates
-    const totalEntries = numMedicalHistoryEntries + numPainEntries + numTreatmentsEntries + numRiskEntries;
+    const numExternalDataEntries = sumit(summary.ExternalDataSet || {});
+    //const totalEntries = numMedicalHistoryEntries + numPainEntries + numTreatmentsEntries + numRiskEntries;
+    const totalEntries = numTreatmentsEntries + numNonPharTreatmentEntries + numExternalDataEntries;
 
     return (
       <div className="landing">
@@ -189,7 +234,7 @@ export default class Landing extends Component {
 
         <Header
           patientName={summary.Patient.Name}
-          patientAge={summary.Patient.Age}
+          patientDOB={datishFormat(this.state.result,patientResource.birthDate)}
           patientGender={summary.Patient.Gender}
           totalEntries={totalEntries}
           numFlaggedEntries={flaggedCount}
@@ -205,6 +250,8 @@ export default class Landing extends Component {
           numPainEntries={numPainEntries}
           numTreatmentsEntries={numTreatmentsEntries}
           numRiskEntries={numRiskEntries}
+          numNonPharTreatmentEntries={numNonPharTreatmentEntries}
+          numExternalDataEntries={numExternalDataEntries}
         />
       </div>
     );

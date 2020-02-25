@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   height: 100px;
-  min-height: 124px;
+  min-height: 136px;
 
   &__return-link .return-icon {
     font-size: 1.5em;
@@ -15,18 +15,50 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     height: 100%;
     width: 300px;
     background-color: $color-black;
     color: $color-white;
 
     &-img {
-      margin-right: 10px;
+     // margin-right: 10px;
+     &.primary {
+       width: 244px;
+     }
+     &.secondary {
+       width: 28px;
+     }
+     &.terciary {
+       position: relative;
+       margin-left: 20px;
+       top: -2px;
+       width: 140px;
+     }
+    }
+
+    .entry {
+      text-align: center;
     }
 
     &-text {
-      font-size: 1.5em;
+     // font-size: 1.5em;
+      display: inline-block;
+      vertical-align: top;
       font-weight: 600;
+      line-height: 1.5em;
+      position: relative;
+      top: 6px;
+      left: 2px;
+      font-size: 0.85em;
+    }
+    &-text--light {
+      line-height: 1.5em;
+      position: relative;
+      font-weight: 400;
+      display: inline-block;
+      font-size: 0.85em;
+      top: -6px;
     }
   }
 
@@ -45,6 +77,8 @@
         color: $color-blue;
         //color: $color-uw-icon;
         margin-right: 30px;
+        position: relative;
+        top: -0.8em;
       }
 
       .patient-name {
@@ -58,11 +92,13 @@
       .patient-demographics {
         display: flex;
         justify-content: flex-end;
+        flex-direction: column;
+        align-items: flex-end;
         color: $color-gray;
         font-weight: 600;
         text-transform: uppercase;
-        font-size: 1.2em;
-        margin-top: 4px;
+        font-size: 1.15em;
+        margin-top: 6px;
         .patient-age { margin-right: 16px; }
       }
     }
@@ -74,7 +110,10 @@
       .entries {
         display: flex;
         align-items: center;
-        margin: 0 20px;
+        margin: 0 12px;
+        img {
+          width: 185px;
+        }
 
         &-count {
           font-size: 3em;

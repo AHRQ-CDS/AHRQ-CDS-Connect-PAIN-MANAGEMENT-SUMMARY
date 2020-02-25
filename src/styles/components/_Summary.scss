@@ -284,12 +284,14 @@
 
       .cql-errors,
       .fhir-queries,
-      .cql-results {
+      .cql-results,
+      .pdmp-results {
         margin-left: 40px;
       }
 
       .fhir-query,
       .cql-results div,
+      .pdmp-results div,
       .cql-errors table {
         margin-left: 40px;
         background-color: $color-white;

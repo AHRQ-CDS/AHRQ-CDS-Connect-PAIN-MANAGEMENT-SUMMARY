@@ -9,7 +9,8 @@ export default class DevTools extends Component {
     this.state = {
       displayDevTools: false,
       displayFhirQueries: false,
-      displayCQLResults: false
+      displayCQLResults: false,
+      displayPDMPResults: false
     };
   }
 
@@ -20,12 +21,17 @@ export default class DevTools extends Component {
 
   toggleFhirQueries = (event) => {
     event.preventDefault();
-    this.setState({ displayFhirQueries: !this.state.displayFhirQueries });
+    this.setState({ displayFhirQueries: !this.state.displayFhirQueries});
   }
 
   toggleCQLResults = (event) => {
     event.preventDefault();
-    this.setState({ displayCQLResults: !this.state.displayCQLResults });
+    this.setState({ displayCQLResults: !this.state.displayCQLResults});
+  }
+
+  togglePDMPResults = (event) => {
+    event.preventDefault();
+    this.setState({ displayPDMPResults: !this.state.displayPDMPResults});
   }
 
   errorMessage(er, i) {
@@ -92,6 +98,21 @@ export default class DevTools extends Component {
     );
   }
 
+  renderPDMPResults() {
+    let externalDataset = this.props.summary.ExternalDataSet ? this.props.summary.ExternalDataSet : null;
+    const key = 'PDMPMedications';
+    return (
+      <div className='pdmp-results'>
+        <h4>PDMP Results <button onClick={this.togglePDMPResults}>[show/hide]</button></h4>
+        <div style={{ display: this.state.displayPDMPResults ? 'block' : 'none' }}>
+          <pre>{externalDataset && externalDataset[key] ? 
+                JSON.stringify(externalDataset[key], null, 2) : 
+                'No result'}</pre>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     if (!this.props.collector) { return null; }
 
@@ -107,6 +128,7 @@ export default class DevTools extends Component {
           {this.renderErrors()}
           {this.renderFHIRQueries()}
           {this.renderCQLResults()}
+          {this.renderPDMPResults()}
         </div>
       </div>
     );
@@ -115,5 +137,6 @@ export default class DevTools extends Component {
 
 DevTools.propTypes = {
   collector: PropTypes.array.isRequired,
-  result: PropTypes.object.isRequired
+  result: PropTypes.object.isRequired,
+  summary: PropTypes.object.isRequired
 };

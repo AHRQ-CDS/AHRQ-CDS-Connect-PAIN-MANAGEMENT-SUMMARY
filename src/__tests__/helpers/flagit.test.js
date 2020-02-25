@@ -106,7 +106,7 @@ it('flags "Non-Opioid Medications" entries correctly', () => {
 });
 
 it('flags "Non-Pharmacologic Treatments" entries correctly', () => {
-  const subSection = summaryMap['HistoricalTreatments'][2];
+  const subSection = summaryMap['NonPharmacologicTreatments'][0];
   const mockEntry = {
     "Type": "Procedure",
     "Name": "Chiropraxy (regime/therapy)",
@@ -118,7 +118,7 @@ it('flags "Non-Pharmacologic Treatments" entries correctly', () => {
 });
 
 it('flags "Stool Softeners and Laxatives" entries correctly', () => {
-  const subSection = summaryMap['HistoricalTreatments'][3];
+  const subSection = summaryMap['HistoricalTreatments'][2];
   const mockEntry = {
     "Type": "Statement",
     "Name": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution",

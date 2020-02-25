@@ -10,7 +10,9 @@ const component = shallowRender(Summary, {
   numMedicalHistoryEntries: 2,
   numPainEntries: 4,
   numTreatmentsEntries: 1,
-  numRiskEntries: 2
+  numRiskEntries: 2,
+  numNonPharTreatmentEntries: 1,
+  numExternalDataEntries: 1
 });
 
 it('renders without crashing', () => {
@@ -26,7 +28,7 @@ it('renders the summary display', () => {
 });
 
 it('renders all subsection headers', () => {
-  expect(component.find('.sub-section__header')).toHaveLength(14);
+  expect(component.find('.sub-section__header')).toHaveLength(5);
 });
 
 // TODO: Fix this test (it broke when React-Table was introduced)

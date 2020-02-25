@@ -10,7 +10,10 @@ function extractResourcesFromELM(elm) {
 
 function extractResourcesFromExpression(resources, expression) {
   if (expression && Array.isArray(expression)) {
-    expression.forEach(e => extractResourcesFromExpression(resources, e));
+    expression.forEach(e => {
+      if (typeof e === 'undefined') return true;
+      extractResourcesFromExpression(resources, e);
+    });
   } else if (expression && typeof expression === 'object') {
     if (expression.type === 'Retrieve') {
       const match = /^(\{http:\/\/hl7.org\/fhir\})?([A-Z][a-zA-Z]+)$/.exec(expression.dataType);
@@ -21,6 +24,9 @@ function extractResourcesFromExpression(resources, expression) {
       }
     } else {
       for (const val of Object.values(expression)) {
+        if (typeof val === 'undefined') {
+          continue;
+        }
         extractResourcesFromExpression(resources, val);
       }
     }
