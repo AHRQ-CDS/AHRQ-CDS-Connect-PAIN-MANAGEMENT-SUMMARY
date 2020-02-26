@@ -1,6 +1,6 @@
 {
   "name": "pain-management-factors",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Pain Management Factors SMART-on-FHIR App",
   "homepage": "https://ahrq-cds.github.io/AHRQ-CDS-Connect-PAIN-MANAGEMENT-SUMMARY",
   "license": "Apache-2.0",
@@ -31,6 +31,7 @@
     "@rescripts/cli": "^0.0.13",
     "@rescripts/utilities": "^0.0.6",
     "cors": "^2.8.5",
+    "cql-exec-vsac": "^1.0.4",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "express": "^4.17.1",
@@ -38,6 +39,7 @@
     "jest-enzyme": "^7.1.2",
     "mock-local-storage": "^1.1.11",
     "react-router-test-context": "^0.1.0",
+    "temp": "^0.9.1",
     "typescript": "^3.7.5"
   },
   "resolutions": {
@@ -66,7 +68,6 @@
     "eject": "rescripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "fix-vs-db": "node ./src/utils/fixVsDb",
     "upload-test-patients": "node ./src/utils/uploadTestPatients",
     "lint": "eslint ."
   }

@@ -66,7 +66,7 @@ function getLibrary(release) {
       }));
     case 4:
       return new cql.Library(r4FactorsELM, new cql.Repository({
-        CDS_Connect_Commons_for_FHIRv102: r4CommonsELM,
+        CDS_Connect_Commons_for_FHIRv400: r4CommonsELM,
         FHIRHelpers: r4HelpersELM
       }));
     default:
