@@ -6,7 +6,7 @@ The Pain Management Summary SMART on FHIR application was developed to support t
 
 The Pain Management Summary SMART on FHIR application was piloted during Summer 2018.  Local modifications and development were needed to fully support this application in the pilot environment.  For example, custom development was needed to expose pain assessments via the FHIR API. See the pilot reports for more information.
 
-This application was originally piloted with support for FHIR DSTU2.  The app has been updated since the pilot to also support FHIR R4, although pilot R4 support has not been piloted in a clinical setting.
+This application was originally piloted with support for FHIR DSTU2.  The app has been updated since the pilot to also support FHIR R4, although pilot R4 support has not been piloted in a clinical setting.  In addition, value sets and standardized codes have been updated since the pilot.  See the comments in the bundled CQL for details.
 
 This prototype application is part of the [CDS Connect](https://cds.ahrq.gov/cdsconnect) project, sponsored by the [Agency for Healthcare Research and Quality](https://www.ahrq.gov/) (AHRQ), and developed under contract with AHRQ by [MITRE's CAMH](https://www.mitre.org/centers/cms-alliances-to-modernize-healthcare/who-we-are) FFRDC.
 
@@ -28,11 +28,6 @@ This CDS logic queries for several concepts that do not yet have standardized co
 
 | Code | System | Display |
 | --- | --- | --- |
-| PEGASSESSMENT | http://cds.ahrq.gov/cdsconnect/pms | Pain Enjoyment General Activity (PEG) Assessment |
-| PEGPAIN | http://cds.ahrq.gov/cdsconnect/pms | Pain |
-| PEGENJOYMENT | http://cds.ahrq.gov/cdsconnect/pms | Enjoyment of life |
-| PEGGENERALACTIVITY | http://cds.ahrq.gov/cdsconnect/pms | General activity |
-| STARTBACK | http://cds.ahrq.gov/cdsconnect/pms | STarT Back Screening Tool |
 | SQETOHUSE | http://cds.ahrq.gov/cdsconnect/pms | Single question r/t ETOH use |
 | SQDRUGUSE | http://cds.ahrq.gov/cdsconnect/pms | Single question r/t drug use |
 | MME | http://cds.ahrq.gov/cdsconnect/pms | Morphine Milligram Equivalent (MME) |
@@ -68,6 +63,14 @@ The Pain Management Summary can be deployed as static web resources on any HTTP 
 10. Deploy the output from the `build` folder to a standard web server
 
 Optionally to step 9, you can run the static build contents in a simple Node http-server via the command: `yarn start-static`.
+
+### To update the valueset-db.json file
+
+The value set content used by the CQL is cached in a file named `valueset-db.json`.  If the CQL has been modified to add or remove value sets, or if the value sets themselves have been updated, you may wish to update the valueset-db.json with the latest codes.  To do this, you will need a [UMLS Terminology Services account](https://uts.nlm.nih.gov//license.html).
+
+To update the `valueset-db.json` file:
+
+1. Run `node src/utils/updateValueSetDB.js UMLS_USER_NAME UMLS_PASSWORD` _(replacing UMLS\_USER\_NAME and UMLS\_PASSWORD with your username and password)_
 
 ### To run the unit tests
 
