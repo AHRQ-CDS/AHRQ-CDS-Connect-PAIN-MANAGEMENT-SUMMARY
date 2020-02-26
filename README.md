@@ -36,7 +36,7 @@ Systems integrating the Pain Management Summary will need to expose the correspo
 
 ### To build and run in development:
 
-1. Install [Node.js](https://nodejs.org/en/download/) (LTS edition, currently 8.x)
+1. Install [Node.js](https://nodejs.org/en/download/) (LTS edition, currently 12.x)
 2. Install [Yarn](https://yarnpkg.com/en/docs/install) (1.3.x or above)
 3. Install dependencies by executing `yarn` from the project's root directory
 4. If you have a SMART-on-FHIR client ID, edit `public/launch-context.json` to specify it
@@ -48,7 +48,7 @@ Systems integrating the Pain Management Summary will need to expose the correspo
 
 The Pain Management Summary can be deployed as static web resources on any HTTP server.  There are several customizations, however, that need to be made based on the site where it is deployed.
 
-1. Install [Node.js](https://nodejs.org/en/download/) (LTS edition, currently 8.x)
+1. Install [Node.js](https://nodejs.org/en/download/) (LTS edition, currently 12.x)
 2. Install [Yarn](https://yarnpkg.com/en/docs/install) (1.3.x or above)
 3. Install dependencies by executing `yarn` from the project's root directory
 4. Modify the `homepage` value in `package.json` to reflect the path (after the hostname) at which it will be deployed
