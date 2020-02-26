@@ -29,6 +29,11 @@
 //
 // ##Source guideline: [CDC Guideline for Opioid Prescribing for Chronic Pain](https://www.cdc.gov/drugoverdose/prescribing/guideline.html)
 
+// Update 20200224
+//    Removed inclusion criteria excepting age 18
+//    Added opioid overdose for ICD-10 and SNOMED
+//    Changed lookback for opioids, non-opioids, and benzos from 2 to 100 years
+
 library Factors_to_Consider_in_Managing_Chronic_Pain_FHIRv400 version '1.0.0'
 
 // # Data model #
@@ -87,6 +92,12 @@ valueset "Substance use disorder": '2.16.840.1.113883.3.464.1003.106.12.1004'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113883.3.464.1003.106.11.1010/expansion)
 valueset "Substance Abuse": '2.16.840.1.113883.3.464.1003.106.11.1010'
+
+// [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1146.1008/expansion) 
+valueset "Opioid overdose and poisoning (ICD10CM)": '2.16.840.1.113762.1.4.1146.1008'
+
+// [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1146.1063/expansion) 
+valueset "Opioid overdose and poisoning (SNOMED)": '2.16.840.1.113762.1.4.1146.1063'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.102/expansion)
 valueset "Suicide Attempt": '2.16.840.1.113762.1.4.1032.102'
@@ -445,11 +456,15 @@ define HasRecentAdjuvantAnalgesicMedication:
 //   - OR Adjuvant analgesic medication
 define MeetsInclusionCriteria:
   Is18orOlder
-  and (
-    HasConditionAssociatedWithChronicPain
-    or HasRecentOpioidPainMedication
-    or HasRecentAdjuvantAnalgesicMedication
-  )
+
+// REMOVING AHRQ APP INCLUSION CRITERIA FOR COSRI 
+//  and (
+//    HasConditionAssociatedWithChronicPain
+//    or HasRecentOpioidPainMedication
+//    or HasRecentAdjuvantAnalgesicMedication
+//  )
+
+
 
 // EXCLUSIONS
 
@@ -495,6 +510,10 @@ define AnxietyConditions:
 define SubstanceUseDisorderConditions:
   C3F.Confirmed([Condition: "Substance use disorder"])
   union C3F.Confirmed([Condition: "Substance Abuse"])
+
+define OpioidOverdoseAndPoisoningConditions:
+  C3F.Confirmed([Condition: "Opioid overdose and poisoning (ICD10CM)"])
+  union C3F.Confirmed([Condition: "Opioid overdose and poisoning (SNOMED)"])
 
 define SuicideAttemptConditions:
   C3F.Confirmed([Condition: "Suicide Attempt"])
@@ -553,6 +572,8 @@ define EncounterRiskFactorsForOpioidRelatedHarms:
       or FHIRHelpers.ToConcept(R) in "Anxiety Disorders ICD9"
       or FHIRHelpers.ToConcept(R) in "Substance use disorder"
       or FHIRHelpers.ToConcept(R) in "Substance Abuse"
+      or FHIRHelpers.ToConcept(R) in "Opioid overdose and poisoning (ICD10CM)"
+      or FHIRHelpers.ToConcept(R) in "Opioid overdose and poisoning (SNOMED)"
       or FHIRHelpers.ToConcept(R) in "Suicide Attempt"
       or FHIRHelpers.ToConcept(R) in "Sleep-disordered breathing"
       or FHIRHelpers.ToConcept(R) in "Kidney Failure"
@@ -588,6 +609,8 @@ define function GetEncounterDiagnosesRiskFactorsForOpioidRelatedHarms(enc Encoun
       or FHIRHelpers.ToConcept(R) in "Anxiety Disorders ICD9"
       or FHIRHelpers.ToConcept(R) in "Substance use disorder"
       or FHIRHelpers.ToConcept(R) in "Substance Abuse"
+      or FHIRHelpers.ToConcept(R) in "Opioid overdose and poisoning (ICD10CM)"
+      or FHIRHelpers.ToConcept(R) in "Opioid overdose and poisoning (SNOMED)"
       or FHIRHelpers.ToConcept(R) in "Suicide Attempt"
       or FHIRHelpers.ToConcept(R) in "Sleep-disordered breathing"
       or FHIRHelpers.ToConcept(R) in "Kidney Failure"
@@ -762,13 +785,13 @@ define ReportSTarTBackAssessments:
 define OpioidMedicationRequests:
   C3F.ActiveCompletedOrStoppedMedicationRequest(C3F.MedicationRequestLookBack(
     [MedicationRequest: "Opioid Pain Medications"],
-    2 years
+    100 years //changed from 2 to 100
   ))
 
 define OpioidMedicationStatements:
   C3F.ActiveOrCompletedMedicationStatement(C3F.MedicationStatementLookBack(
     [MedicationStatement: "Opioid Pain Medications"],
-    2 years
+    100 years //changed from 2 to 100
   ))
 
 define ReportOpioidMedicationRequests:
@@ -802,13 +825,13 @@ define ReportOpioidMedications:
 define NonOpioidMedicationRequests:
   C3F.ActiveCompletedOrStoppedMedicationRequest(C3F.MedicationRequestLookBack(
     [MedicationRequest: "Non opiod pain medications"],
-    2 years
+    100 years //changed from 2 to 100
   ))
 
 define NonOpioidMedicationStatements:
   C3F.ActiveOrCompletedMedicationStatement(C3F.MedicationStatementLookBack(
     [MedicationStatement: "Non opiod pain medications"],
-    2 years
+    100 years //changed from 2 to 100
   ))
 
 define ReportNonOpioidMedicationRequests:
@@ -955,7 +978,7 @@ define ReportUrineDrugScreens:
 define BenzodiazepineMedicationRequests:
   C3F.ActiveCompletedOrStoppedMedicationRequest(C3F.MedicationRequestLookBack(
     [MedicationRequest: "Benzodiazepine medications"],
-    2 years
+    100 years //changed from 2 to 100
   ))
 
 define function MedicationStatementLookBack(MedList List<MedicationStatement>, LookBack System.Quantity):
@@ -967,7 +990,7 @@ MedList M
 define BenzodiazepineMedicationStatements:
   C3F.ActiveOrCompletedMedicationStatement(C3F.MedicationStatementLookBack(
     [MedicationStatement: "Benzodiazepine medications"],
-    2 years
+    100 years //changed from 2 to 100
   ))
 
 define ReportBenzodiazepineMedicationRequests:

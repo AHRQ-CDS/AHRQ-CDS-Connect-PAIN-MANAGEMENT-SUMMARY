@@ -93,6 +93,14 @@
             "id" : "2.16.840.1.113883.3.464.1003.106.11.1010",
             "accessLevel" : "Public"
          }, {
+            "name" : "Opioid overdose and poisoning (ICD10CM)",
+            "id" : "2.16.840.1.113762.1.4.1146.1008",
+            "accessLevel" : "Public"
+         }, {
+            "name" : "Opioid overdose and poisoning (SNOMED)",
+            "id" : "2.16.840.1.113762.1.4.1146.1063",
+            "accessLevel" : "Public"
+         }, {
             "name" : "Suicide Attempt",
             "id" : "2.16.840.1.113762.1.4.1032.102",
             "accessLevel" : "Public"
@@ -2154,26 +2162,8 @@
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
-               "type" : "And",
-               "operand" : [ {
-                  "name" : "Is18orOlder",
-                  "type" : "ExpressionRef"
-               }, {
-                  "type" : "Or",
-                  "operand" : [ {
-                     "type" : "Or",
-                     "operand" : [ {
-                        "name" : "HasConditionAssociatedWithChronicPain",
-                        "type" : "ExpressionRef"
-                     }, {
-                        "name" : "HasRecentOpioidPainMedication",
-                        "type" : "ExpressionRef"
-                     } ]
-                  }, {
-                     "name" : "HasRecentAdjuvantAnalgesicMedication",
-                     "type" : "ExpressionRef"
-                  } ]
-               } ]
+               "name" : "Is18orOlder",
+               "type" : "ExpressionRef"
             }
          }, {
             "name" : "ReportConditionsAssociatedWithChronicPain",
@@ -2389,6 +2379,40 @@
                      "type" : "Retrieve",
                      "codes" : {
                         "name" : "Substance Abuse",
+                        "type" : "ValueSetRef"
+                     }
+                  } ]
+               } ]
+            }
+         }, {
+            "name" : "OpioidOverdoseAndPoisoningConditions",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Union",
+               "operand" : [ {
+                  "name" : "Confirmed",
+                  "libraryName" : "C3F",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "dataType" : "{http://hl7.org/fhir}Condition",
+                     "codeProperty" : "code",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "name" : "Opioid overdose and poisoning (ICD10CM)",
+                        "type" : "ValueSetRef"
+                     }
+                  } ]
+               }, {
+                  "name" : "Confirmed",
+                  "libraryName" : "C3F",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "dataType" : "{http://hl7.org/fhir}Condition",
+                     "codeProperty" : "code",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "name" : "Opioid overdose and poisoning (SNOMED)",
                         "type" : "ValueSetRef"
                      }
                   } ]
@@ -2728,19 +2752,53 @@
                                                 "operand" : [ {
                                                    "type" : "Or",
                                                    "operand" : [ {
-                                                      "type" : "InValueSet",
-                                                      "code" : {
-                                                         "name" : "ToConcept",
-                                                         "libraryName" : "FHIRHelpers",
-                                                         "type" : "FunctionRef",
+                                                      "type" : "Or",
+                                                      "operand" : [ {
+                                                         "type" : "Or",
                                                          "operand" : [ {
-                                                            "name" : "R",
-                                                            "type" : "AliasRef"
+                                                            "type" : "InValueSet",
+                                                            "code" : {
+                                                               "name" : "ToConcept",
+                                                               "libraryName" : "FHIRHelpers",
+                                                               "type" : "FunctionRef",
+                                                               "operand" : [ {
+                                                                  "name" : "R",
+                                                                  "type" : "AliasRef"
+                                                               } ]
+                                                            },
+                                                            "valueset" : {
+                                                               "name" : "Major Depression"
+                                                            }
+                                                         }, {
+                                                            "type" : "InValueSet",
+                                                            "code" : {
+                                                               "name" : "ToConcept",
+                                                               "libraryName" : "FHIRHelpers",
+                                                               "type" : "FunctionRef",
+                                                               "operand" : [ {
+                                                                  "name" : "R",
+                                                                  "type" : "AliasRef"
+                                                               } ]
+                                                            },
+                                                            "valueset" : {
+                                                               "name" : "Depression Diagnosis ICD9"
+                                                            }
                                                          } ]
-                                                      },
-                                                      "valueset" : {
-                                                         "name" : "Major Depression"
-                                                      }
+                                                      }, {
+                                                         "type" : "InValueSet",
+                                                         "code" : {
+                                                            "name" : "ToConcept",
+                                                            "libraryName" : "FHIRHelpers",
+                                                            "type" : "FunctionRef",
+                                                            "operand" : [ {
+                                                               "name" : "R",
+                                                               "type" : "AliasRef"
+                                                            } ]
+                                                         },
+                                                         "valueset" : {
+                                                            "name" : "Anxiety"
+                                                         }
+                                                      } ]
                                                    }, {
                                                       "type" : "InValueSet",
                                                       "code" : {
@@ -2753,7 +2811,7 @@
                                                          } ]
                                                       },
                                                       "valueset" : {
-                                                         "name" : "Depression Diagnosis ICD9"
+                                                         "name" : "Anxiety Disorders ICD9"
                                                       }
                                                    } ]
                                                 }, {
@@ -2768,7 +2826,7 @@
                                                       } ]
                                                    },
                                                    "valueset" : {
-                                                      "name" : "Anxiety"
+                                                      "name" : "Substance use disorder"
                                                    }
                                                 } ]
                                              }, {
@@ -2783,7 +2841,7 @@
                                                    } ]
                                                 },
                                                 "valueset" : {
-                                                   "name" : "Anxiety Disorders ICD9"
+                                                   "name" : "Substance Abuse"
                                                 }
                                              } ]
                                           }, {
@@ -2798,7 +2856,7 @@
                                                 } ]
                                              },
                                              "valueset" : {
-                                                "name" : "Substance use disorder"
+                                                "name" : "Opioid overdose and poisoning (ICD10CM)"
                                              }
                                           } ]
                                        }, {
@@ -2813,7 +2871,7 @@
                                              } ]
                                           },
                                           "valueset" : {
-                                             "name" : "Substance Abuse"
+                                             "name" : "Opioid overdose and poisoning (SNOMED)"
                                           }
                                        } ]
                                     }, {
@@ -3082,19 +3140,53 @@
                                           "operand" : [ {
                                              "type" : "Or",
                                              "operand" : [ {
-                                                "type" : "InValueSet",
-                                                "code" : {
-                                                   "name" : "ToConcept",
-                                                   "libraryName" : "FHIRHelpers",
-                                                   "type" : "FunctionRef",
+                                                "type" : "Or",
+                                                "operand" : [ {
+                                                   "type" : "Or",
                                                    "operand" : [ {
-                                                      "name" : "R",
-                                                      "type" : "AliasRef"
+                                                      "type" : "InValueSet",
+                                                      "code" : {
+                                                         "name" : "ToConcept",
+                                                         "libraryName" : "FHIRHelpers",
+                                                         "type" : "FunctionRef",
+                                                         "operand" : [ {
+                                                            "name" : "R",
+                                                            "type" : "AliasRef"
+                                                         } ]
+                                                      },
+                                                      "valueset" : {
+                                                         "name" : "Major Depression"
+                                                      }
+                                                   }, {
+                                                      "type" : "InValueSet",
+                                                      "code" : {
+                                                         "name" : "ToConcept",
+                                                         "libraryName" : "FHIRHelpers",
+                                                         "type" : "FunctionRef",
+                                                         "operand" : [ {
+                                                            "name" : "R",
+                                                            "type" : "AliasRef"
+                                                         } ]
+                                                      },
+                                                      "valueset" : {
+                                                         "name" : "Depression Diagnosis ICD9"
+                                                      }
                                                    } ]
-                                                },
-                                                "valueset" : {
-                                                   "name" : "Major Depression"
-                                                }
+                                                }, {
+                                                   "type" : "InValueSet",
+                                                   "code" : {
+                                                      "name" : "ToConcept",
+                                                      "libraryName" : "FHIRHelpers",
+                                                      "type" : "FunctionRef",
+                                                      "operand" : [ {
+                                                         "name" : "R",
+                                                         "type" : "AliasRef"
+                                                      } ]
+                                                   },
+                                                   "valueset" : {
+                                                      "name" : "Anxiety"
+                                                   }
+                                                } ]
                                              }, {
                                                 "type" : "InValueSet",
                                                 "code" : {
@@ -3107,7 +3199,7 @@
                                                    } ]
                                                 },
                                                 "valueset" : {
-                                                   "name" : "Depression Diagnosis ICD9"
+                                                   "name" : "Anxiety Disorders ICD9"
                                                 }
                                              } ]
                                           }, {
@@ -3122,7 +3214,7 @@
                                                 } ]
                                              },
                                              "valueset" : {
-                                                "name" : "Anxiety"
+                                                "name" : "Substance use disorder"
                                              }
                                           } ]
                                        }, {
@@ -3137,7 +3229,7 @@
                                              } ]
                                           },
                                           "valueset" : {
-                                             "name" : "Anxiety Disorders ICD9"
+                                             "name" : "Substance Abuse"
                                           }
                                        } ]
                                     }, {
@@ -3152,7 +3244,7 @@
                                           } ]
                                        },
                                        "valueset" : {
-                                          "name" : "Substance use disorder"
+                                          "name" : "Opioid overdose and poisoning (ICD10CM)"
                                        }
                                     } ]
                                  }, {
@@ -3167,7 +3259,7 @@
                                        } ]
                                     },
                                     "valueset" : {
-                                       "name" : "Substance Abuse"
+                                       "name" : "Opioid overdose and poisoning (SNOMED)"
                                     }
                                  } ]
                               }, {
@@ -4606,7 +4698,7 @@
                         "type" : "ValueSetRef"
                      }
                   }, {
-                     "value" : 2,
+                     "value" : 100,
                      "unit" : "years",
                      "type" : "Quantity"
                   } ]
@@ -4633,7 +4725,7 @@
                         "type" : "ValueSetRef"
                      }
                   }, {
-                     "value" : 2,
+                     "value" : 100,
                      "unit" : "years",
                      "type" : "Quantity"
                   } ]
@@ -4887,7 +4979,7 @@
                         "type" : "ValueSetRef"
                      }
                   }, {
-                     "value" : 2,
+                     "value" : 100,
                      "unit" : "years",
                      "type" : "Quantity"
                   } ]
@@ -4914,7 +5006,7 @@
                         "type" : "ValueSetRef"
                      }
                   }, {
-                     "value" : 2,
+                     "value" : 100,
                      "unit" : "years",
                      "type" : "Quantity"
                   } ]
@@ -5958,7 +6050,7 @@
                         "type" : "ValueSetRef"
                      }
                   }, {
-                     "value" : 2,
+                     "value" : 100,
                      "unit" : "years",
                      "type" : "Quantity"
                   } ]
@@ -6086,7 +6178,7 @@
                         "type" : "ValueSetRef"
                      }
                   }, {
-                     "value" : 2,
+                     "value" : 100,
                      "unit" : "years",
                      "type" : "Quantity"
                   } ]

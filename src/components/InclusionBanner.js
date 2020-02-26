@@ -30,13 +30,16 @@ export default class InclusionBanner extends Component {
 
         <div className="inclusion-banner__description">
           <strong><FontAwesomeIcon icon="exclamation-circle" title="warning" /> WARNING:</strong> This summary
-          applies to patients 18 years or older who meet at least one of the following criteria:
+          applies only to patients 18 years or older. 
+          {/*
+          who meet at least one of the following criteria:
 
           <ul>
             <li>Has a condition likely to indicate chronic pain</li>
             <li>Has an active opioid medication in the last 180 days</li>
             <li>Has an active adjuvant analgesic medication in the last 180 days</li>
           </ul>
+          */}
         </div>
       </div>
     );

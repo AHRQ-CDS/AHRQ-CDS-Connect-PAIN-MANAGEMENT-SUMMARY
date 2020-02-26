@@ -23,8 +23,8 @@ export default class ExclusionBanner extends Component {
 
         <div className="exclusion-banner__description">
           <strong><FontAwesomeIcon icon="exclamation-circle" title="notice" /> TAKE NOTICE:</strong> This summary is not
-          intended for patients who are undergoing <b>end-of-life care</b> (hospice or palliative) or <b>active cancer
-          treatment</b>.
+          intended for patients who are undergoing <b>end-of-life care</b> (hospice or palliative), <b>inpatient treatment</b>, 
+          or <b>active cancer treatment</b>.
         </div>
       </div>
     );
