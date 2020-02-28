@@ -145,6 +145,14 @@
             "id" : "2.16.840.1.113762.1.4.1032.43",
             "accessLevel" : "Public"
          }, {
+            "name" : "Carisoprodol",
+            "id" : "2.16.840.1.113883.3.464.1003.196.11.1152",
+            "accessLevel" : "Public"
+         }, {
+            "name" : "Aspirin / Carisoprodol",
+            "id" : "2.16.840.1.113883.3.464.1003.196.11.1314",
+            "accessLevel" : "Public"
+         }, {
             "name" : "Naloxone medications",
             "id" : "2.16.840.1.113762.1.4.1032.42",
             "accessLevel" : "Public"
@@ -2667,41 +2675,47 @@
                      "operand" : [ {
                         "type" : "Union",
                         "operand" : [ {
-                           "name" : "DepressionConditions",
-                           "type" : "ExpressionRef"
+                           "type" : "Union",
+                           "operand" : [ {
+                              "name" : "DepressionConditions",
+                              "type" : "ExpressionRef"
+                           }, {
+                              "name" : "AnxietyConditions",
+                              "type" : "ExpressionRef"
+                           } ]
                         }, {
-                           "name" : "AnxietyConditions",
-                           "type" : "ExpressionRef"
+                           "type" : "Union",
+                           "operand" : [ {
+                              "name" : "SubstanceUseDisorderConditions",
+                              "type" : "ExpressionRef"
+                           }, {
+                              "name" : "OpioidOverdoseAndPoisoningConditions",
+                              "type" : "ExpressionRef"
+                           } ]
                         } ]
                      }, {
                         "type" : "Union",
                         "operand" : [ {
-                           "name" : "SubstanceUseDisorderConditions",
+                           "name" : "SuicideAttemptConditions",
                            "type" : "ExpressionRef"
                         }, {
-                           "name" : "SuicideAttemptConditions",
+                           "name" : "SleepDisorderedBreathingConditions",
                            "type" : "ExpressionRef"
                         } ]
                      } ]
                   }, {
                      "type" : "Union",
                      "operand" : [ {
-                        "name" : "SleepDisorderedBreathingConditions",
+                        "name" : "RenalDysfunctionConditions",
                         "type" : "ExpressionRef"
                      }, {
-                        "name" : "RenalDysfunctionConditions",
+                        "name" : "HepaticDysfunctionConditions",
                         "type" : "ExpressionRef"
                      } ]
                   } ]
                }, {
-                  "type" : "Union",
-                  "operand" : [ {
-                     "name" : "HepaticDysfunctionConditions",
-                     "type" : "ExpressionRef"
-                  }, {
-                     "name" : "PregnancyConditions",
-                     "type" : "ExpressionRef"
-                  } ]
+                  "name" : "PregnancyConditions",
+                  "type" : "ExpressionRef"
                } ]
             }
          }, {
@@ -6057,107 +6071,6 @@
                } ]
             }
          }, {
-            "name" : "MedicationStatementLookBack",
-            "context" : "Patient",
-            "accessLevel" : "Public",
-            "type" : "FunctionDef",
-            "expression" : {
-               "type" : "Query",
-               "source" : [ {
-                  "alias" : "M",
-                  "expression" : {
-                     "name" : "MedList",
-                     "type" : "OperandRef"
-                  }
-               } ],
-               "let" : [ {
-                  "identifier" : "LookBackInterval",
-                  "expression" : {
-                     "lowClosed" : true,
-                     "highClosed" : true,
-                     "type" : "Interval",
-                     "low" : {
-                        "type" : "Subtract",
-                        "operand" : [ {
-                           "type" : "Now"
-                        }, {
-                           "name" : "LookBack",
-                           "type" : "OperandRef"
-                        } ]
-                     },
-                     "high" : {
-                        "type" : "Now"
-                     }
-                  }
-               } ],
-               "relationship" : [ ],
-               "where" : {
-                  "type" : "Or",
-                  "operand" : [ {
-                     "type" : "In",
-                     "operand" : [ {
-                        "path" : "value",
-                        "type" : "Property",
-                        "source" : {
-                           "strict" : false,
-                           "type" : "As",
-                           "operand" : {
-                              "path" : "effective",
-                              "scope" : "M",
-                              "type" : "Property"
-                           },
-                           "asTypeSpecifier" : {
-                              "name" : "{http://hl7.org/fhir}dateTime",
-                              "type" : "NamedTypeSpecifier"
-                           }
-                        }
-                     }, {
-                        "name" : "LookBackInterval",
-                        "type" : "QueryLetRef"
-                     } ]
-                  }, {
-                     "type" : "Overlaps",
-                     "operand" : [ {
-                        "name" : "PeriodToInterval",
-                        "libraryName" : "C3F",
-                        "type" : "FunctionRef",
-                        "operand" : [ {
-                           "strict" : false,
-                           "type" : "As",
-                           "operand" : {
-                              "path" : "effective",
-                              "scope" : "M",
-                              "type" : "Property"
-                           },
-                           "asTypeSpecifier" : {
-                              "name" : "{http://hl7.org/fhir}Period",
-                              "type" : "NamedTypeSpecifier"
-                           }
-                        } ]
-                     }, {
-                        "name" : "LookBackInterval",
-                        "type" : "QueryLetRef"
-                     } ]
-                  } ]
-               }
-            },
-            "operand" : [ {
-               "name" : "MedList",
-               "operandTypeSpecifier" : {
-                  "type" : "ListTypeSpecifier",
-                  "elementType" : {
-                     "name" : "{http://hl7.org/fhir}MedicationStatement",
-                     "type" : "NamedTypeSpecifier"
-                  }
-               }
-            }, {
-               "name" : "LookBack",
-               "operandTypeSpecifier" : {
-                  "name" : "{urn:hl7-org:elm-types:r1}Quantity",
-                  "type" : "NamedTypeSpecifier"
-               }
-            } ]
-         }, {
             "name" : "BenzodiazepineMedicationStatements",
             "context" : "Patient",
             "accessLevel" : "Public",
@@ -6394,6 +6307,309 @@
                         "type" : "ExpressionRef"
                      }, {
                         "name" : "ReportBenzodiazepineMedicationStatements",
+                        "type" : "ExpressionRef"
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "sort" : {
+                  "by" : [ {
+                     "direction" : "desc",
+                     "path" : "Start",
+                     "type" : "ByColumn"
+                  }, {
+                     "direction" : "desc",
+                     "path" : "End",
+                     "type" : "ByColumn"
+                  } ]
+               }
+            }
+         }, {
+            "name" : "CarisoprodolMedicationRequests",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "name" : "ActiveCompletedOrStoppedMedicationRequest",
+               "libraryName" : "C3F",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "name" : "MedicationRequestLookBack",
+                  "libraryName" : "C3F",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "type" : "Union",
+                     "operand" : [ {
+                        "dataType" : "{http://hl7.org/fhir}MedicationRequest",
+                        "codeProperty" : "medication",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Carisoprodol",
+                           "type" : "ValueSetRef"
+                        }
+                     }, {
+                        "dataType" : "{http://hl7.org/fhir}MedicationRequest",
+                        "codeProperty" : "medication",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Aspirin / Carisoprodol",
+                           "type" : "ValueSetRef"
+                        }
+                     } ]
+                  }, {
+                     "value" : 100,
+                     "unit" : "years",
+                     "type" : "Quantity"
+                  } ]
+               } ]
+            }
+         }, {
+            "name" : "CarisoprodolMedicationStatements",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "name" : "ActiveOrCompletedMedicationStatement",
+               "libraryName" : "C3F",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "name" : "MedicationStatementLookBack",
+                  "libraryName" : "C3F",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "type" : "Union",
+                     "operand" : [ {
+                        "dataType" : "{http://hl7.org/fhir}MedicationStatement",
+                        "codeProperty" : "medication",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Carisoprodol",
+                           "type" : "ValueSetRef"
+                        }
+                     }, {
+                        "dataType" : "{http://hl7.org/fhir}MedicationStatement",
+                        "codeProperty" : "medication",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Aspirin / Carisoprodol",
+                           "type" : "ValueSetRef"
+                        }
+                     } ]
+                  }, {
+                     "value" : 100,
+                     "unit" : "years",
+                     "type" : "Quantity"
+                  } ]
+               } ]
+            }
+         }, {
+            "name" : "ReportCarisoprodolMedicationRequests",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "O",
+                  "expression" : {
+                     "name" : "CarisoprodolMedicationRequests",
+                     "type" : "ExpressionRef"
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "Type",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "Request",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "Name",
+                        "value" : {
+                           "name" : "ConceptText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "strict" : false,
+                              "type" : "As",
+                              "operand" : {
+                                 "path" : "medication",
+                                 "scope" : "O",
+                                 "type" : "Property"
+                              },
+                              "asTypeSpecifier" : {
+                                 "name" : "{http://hl7.org/fhir}CodeableConcept",
+                                 "type" : "NamedTypeSpecifier"
+                              }
+                           } ]
+                        }
+                     }, {
+                        "name" : "Start",
+                        "value" : {
+                           "name" : "DateTimeText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "authoredOn",
+                              "scope" : "O",
+                              "type" : "Property"
+                           } ]
+                        }
+                     }, {
+                        "name" : "End",
+                        "value" : {
+                           "strict" : false,
+                           "type" : "As",
+                           "operand" : {
+                              "type" : "Null"
+                           },
+                           "asTypeSpecifier" : {
+                              "name" : "{urn:hl7-org:elm-types:r1}String",
+                              "type" : "NamedTypeSpecifier"
+                           }
+                        }
+                     }, {
+                        "name" : "Status",
+                        "value" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "status",
+                              "scope" : "O",
+                              "type" : "Property"
+                           }
+                        }
+                     } ]
+                  }
+               },
+               "sort" : {
+                  "by" : [ {
+                     "direction" : "desc",
+                     "path" : "Start",
+                     "type" : "ByColumn"
+                  }, {
+                     "direction" : "desc",
+                     "path" : "End",
+                     "type" : "ByColumn"
+                  } ]
+               }
+            }
+         }, {
+            "name" : "ReportCarisoprodolMedicationStatements",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "S",
+                  "expression" : {
+                     "name" : "CarisoprodolMedicationStatements",
+                     "type" : "ExpressionRef"
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "Type",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "Statement",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "Name",
+                        "value" : {
+                           "name" : "ConceptText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "strict" : false,
+                              "type" : "As",
+                              "operand" : {
+                                 "path" : "medication",
+                                 "scope" : "S",
+                                 "type" : "Property"
+                              },
+                              "asTypeSpecifier" : {
+                                 "name" : "{http://hl7.org/fhir}CodeableConcept",
+                                 "type" : "NamedTypeSpecifier"
+                              }
+                           } ]
+                        }
+                     }, {
+                        "name" : "Start",
+                        "value" : {
+                           "name" : "MedicationStatementDate",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "name" : "S",
+                              "type" : "AliasRef"
+                           } ]
+                        }
+                     }, {
+                        "name" : "End",
+                        "value" : {
+                           "name" : "DateTimeText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "end",
+                              "type" : "Property",
+                              "source" : {
+                                 "strict" : false,
+                                 "type" : "As",
+                                 "operand" : {
+                                    "path" : "effective",
+                                    "scope" : "S",
+                                    "type" : "Property"
+                                 },
+                                 "asTypeSpecifier" : {
+                                    "name" : "{http://hl7.org/fhir}Period",
+                                    "type" : "NamedTypeSpecifier"
+                                 }
+                              }
+                           } ]
+                        }
+                     }, {
+                        "name" : "Status",
+                        "value" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "status",
+                              "scope" : "S",
+                              "type" : "Property"
+                           }
+                        }
+                     } ]
+                  }
+               },
+               "sort" : {
+                  "by" : [ {
+                     "direction" : "desc",
+                     "path" : "Start",
+                     "type" : "ByColumn"
+                  }, {
+                     "direction" : "desc",
+                     "path" : "End",
+                     "type" : "ByColumn"
+                  } ]
+               }
+            }
+         }, {
+            "name" : "ReportCarisoprodolMedications",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "M",
+                  "expression" : {
+                     "type" : "Union",
+                     "operand" : [ {
+                        "name" : "ReportCarisoprodolMedicationRequests",
+                        "type" : "ExpressionRef"
+                     }, {
+                        "name" : "ReportCarisoprodolMedicationStatements",
                         "type" : "ExpressionRef"
                      } ]
                   }
@@ -7121,6 +7337,12 @@
                         "name" : "BenzodiazepineMedications",
                         "value" : {
                            "name" : "ReportBenzodiazepineMedications",
+                           "type" : "ExpressionRef"
+                        }
+                     }, {
+                        "name" : "CarisoprodolMedications",
+                        "value" : {
+                           "name" : "ReportCarisoprodolMedications",
                            "type" : "ExpressionRef"
                         }
                      }, {

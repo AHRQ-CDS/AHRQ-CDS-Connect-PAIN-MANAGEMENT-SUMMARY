@@ -33,6 +33,9 @@
 //    Removed inclusion criteria excepting age 18
 //    Added opioid overdose for ICD-10 and SNOMED
 //    Changed lookback for opioids, non-opioids, and benzos from 2 to 100 years
+//Update 20200227
+//    Added carisoprodol as another risk factor for co-prescribing with opioids
+//    Also removed an old superfluous function
 
 library Factors_to_Consider_in_Managing_Chronic_Pain_FHIRv400 version '1.0.0'
 
@@ -1033,7 +1036,7 @@ define ReportBenzodiazepineMedications:
 define CarisoprodolMedicationRequests:
   C3F.ActiveCompletedOrStoppedMedicationRequest(C3F.MedicationRequestLookBack(
     [MedicationRequest: "Carisoprodol"]
-    union [MedicationRequest: "Aspirin / Carisoprodol"],
+    union [MedicationRequest: "Aspirin / Carisoprodol"]
   , 100 years))
 
 //define CarisoprodolMedicationRequests:
@@ -1046,15 +1049,15 @@ define CarisoprodolMedicationRequests:
 
 define CarisoprodolMedicationStatements:
   C3F.ActiveOrCompletedMedicationStatement(C3F.MedicationStatementLookBack(
-    [MedicationRequest: "Carisoprodol"]
-    union [MedicationRequest: "Aspirin / Carisoprodol"]
+    [MedicationStatement: "Carisoprodol"]
+    union [MedicationStatement: "Aspirin / Carisoprodol"]
   , 100 years))
 
 //define CarisoprodolMedicationStatements:
 //  C3F.ActiveOrCompletedMedicationStatement(C3F.MedicationStatementLookBack(
 //    [MedicationRequest: "Carisoprodol"],
 //    100 years))
-//  union C3F.ActiveCompletedOrStoppedMedicationRequest(C3F.MedicationRequestLookBack(
+//  union C3F.ActiveOrCompletedMedicationStatement(C3F.MedicationStatementLookBack(
 //    [MedicationRequest: "Aspirin / Carisoprodol"],
 //    100 years))
 
