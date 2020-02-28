@@ -132,6 +132,12 @@ valueset "Risk assessments relevant to pain management": '2.16.840.1.113762.1.4.
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.43/expansion)
 valueset "Benzodiazepine medications": '2.16.840.1.113762.1.4.1032.43'
 
+// [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113883.3.464.1003.196.11.1152/expansion)
+valueset "Carisoprodol": '2.16.840.1.113883.3.464.1003.196.11.1152'
+
+// [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113883.3.464.1003.196.11.1314/expansion)
+valueset "Aspirin / Carisoprodol": '2.16.840.1.113883.3.464.1003.196.11.1314'
+
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.42/expansion)
 valueset "Naloxone medications": '2.16.840.1.113762.1.4.1032.42'
 
@@ -551,6 +557,7 @@ define ConditionRiskFactorsForOpioidRelatedHarms:
   DepressionConditions
   union AnxietyConditions
   union SubstanceUseDisorderConditions
+  union OpioidOverdoseAndPoisoningConditions
   union SuicideAttemptConditions
   union SleepDisorderedBreathingConditions
   union RenalDysfunctionConditions
@@ -981,11 +988,12 @@ define BenzodiazepineMedicationRequests:
     100 years //changed from 2 to 100
   ))
 
-define function MedicationStatementLookBack(MedList List<MedicationStatement>, LookBack System.Quantity):
-MedList M
-  let LookBackInterval: Interval[Now() - LookBack, Now()]
-  where (M.effective as FHIR.dateTime).value in LookBackInterval
-    or C3F.PeriodToInterval(M.effective as FHIR.Period) overlaps LookBackInterval
+// I think this function is superfluous 
+//define function MedicationStatementLookBack(MedList List<MedicationStatement>, LookBack System.Quantity):
+//MedList M
+//  let LookBackInterval: Interval[Now() - LookBack, Now()]
+//  where (M.effective as FHIR.dateTime).value in LookBackInterval
+//    or C3F.PeriodToInterval(M.effective as FHIR.Period) overlaps LookBackInterval
 
 define BenzodiazepineMedicationStatements:
   C3F.ActiveOrCompletedMedicationStatement(C3F.MedicationStatementLookBack(
@@ -1018,6 +1026,64 @@ define ReportBenzodiazepineMedicationStatements:
 define ReportBenzodiazepineMedications:
   (ReportBenzodiazepineMedicationRequests union ReportBenzodiazepineMedicationStatements) M
   sort by Start desc, End desc
+
+
+// Carisoprodol Medications -  orders and statements with dates
+
+define CarisoprodolMedicationRequests:
+  C3F.ActiveCompletedOrStoppedMedicationRequest(C3F.MedicationRequestLookBack(
+    [MedicationRequest: "Carisoprodol"]
+    union [MedicationRequest: "Aspirin / Carisoprodol"],
+  , 100 years))
+
+//define CarisoprodolMedicationRequests:
+//  C3F.ActiveCompletedOrStoppedMedicationRequest(C3F.MedicationRequestLookBack(
+//    [MedicationRequest: "Carisoprodol"],
+//    100 years))
+//  union C3F.ActiveCompletedOrStoppedMedicationRequest(C3F.MedicationRequestLookBack(
+//    [MedicationRequest: "Aspirin / Carisoprodol"],
+//    100 years))
+
+define CarisoprodolMedicationStatements:
+  C3F.ActiveOrCompletedMedicationStatement(C3F.MedicationStatementLookBack(
+    [MedicationRequest: "Carisoprodol"]
+    union [MedicationRequest: "Aspirin / Carisoprodol"]
+  , 100 years))
+
+//define CarisoprodolMedicationStatements:
+//  C3F.ActiveOrCompletedMedicationStatement(C3F.MedicationStatementLookBack(
+//    [MedicationRequest: "Carisoprodol"],
+//    100 years))
+//  union C3F.ActiveCompletedOrStoppedMedicationRequest(C3F.MedicationRequestLookBack(
+//    [MedicationRequest: "Aspirin / Carisoprodol"],
+//    100 years))
+
+define ReportCarisoprodolMedicationRequests:
+  (CarisoprodolMedicationRequests) O
+  return {
+    Type:  'Request',
+    Name:  ConceptText(O.medication as FHIR.CodeableConcept),
+    Start: DateTimeText(O.authoredOn),
+    End:   null as String, // MedicationRequest end date not supported in R4,
+    Status: O.status.value
+  }
+  sort by Start desc, End desc
+
+define ReportCarisoprodolMedicationStatements:
+  (CarisoprodolMedicationStatements) S
+  return {
+    Type:  'Statement',
+    Name:  ConceptText(S.medication as FHIR.CodeableConcept),
+    Start: MedicationStatementDate(S),
+    End:   DateTimeText((S.effective as FHIR.Period)."end"),
+    Status: S.status.value
+  }
+  sort by Start desc, End desc
+
+define ReportCarisoprodolMedications:
+  (ReportCarisoprodolMedicationRequests union ReportCarisoprodolMedicationStatements) M
+  sort by Start desc, End desc
+
 
 // Naloxone Medications (unrestricted lookback) - orders and statements with dates
 
@@ -1111,6 +1177,7 @@ define Summary: {
     MostRecentMME: ReportMostRecentMME,
     UrineDrugScreens: ReportUrineDrugScreens,
     BenzodiazepineMedications: ReportBenzodiazepineMedications,
+    CarisoprodolMedications: ReportCarisoprodolMedications,
     NaloxoneMedications: ReportNaloxoneMedications,
     RiskScreeningsRelevantToPainManagement: ReportRiskScreeningsRelevantToPainManagement
   }
