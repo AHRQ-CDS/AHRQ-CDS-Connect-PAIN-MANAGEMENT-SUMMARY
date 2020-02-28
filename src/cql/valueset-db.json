@@ -28216,6 +28216,29 @@
       }
     ]
   },
+  "2.16.840.1.113883.3.464.1003.196.11.1152": {
+    "20170504": [
+      {
+        "code": "197446",
+        "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+        "version": "2020-02"
+      },
+      {
+        "code": "730794",
+        "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+        "version": "2020-02"
+      }
+    ]
+  },
+  "2.16.840.1.113883.3.464.1003.196.11.1314": {
+    "20170504": [
+      {
+        "code": "197447",
+        "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+        "version": "2020-02"
+      }
+    ]
+  },
   "2.16.840.1.113762.1.4.1032.44": {
     "20200211": [
       {

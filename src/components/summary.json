@@ -460,7 +460,7 @@
             {
               "name": "Benzodiazepine medication statements and orders",
               "status": "any",
-              "lookback": "2 years"
+              "lookback": "100 years"
             }
           ]
         }
@@ -491,6 +491,54 @@
             {
               "flag": "ifOneOrMore",
               "flagText": "Evidence of Benzodiazepine medication"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Carisoprodol Medications",
+      "dataKey": "CarisoprodolMedications",
+      "dataKeySource": "RiskConsiderations",
+      "info": [
+        {
+          "type": "elements",
+          "description": "Carisoprodol Medications queries the following elements:",
+          "elements": [
+            {
+              "name": "Carisoprodol medication statements and orders",
+              "status": "any",
+              "lookback": "100 years"
+            }
+          ]
+        }
+      ],
+      "tables": [
+        {
+          "headers": {
+            "Name": "Name",
+            "Type": "Type",
+            "Start": { "key": "Start", "formatter": "datishFormat" },
+            "End": { "key": "End", "formatter": "datishFormat" }
+          },
+          "flags": [
+            {
+              "flag": {
+                "ifAnd": [
+                  "ifOneOrMore",
+                  {
+                    "ifOneOrMore": {
+                      "table": "OpioidMedications",
+                      "source": "HistoricalTreatments"
+                    }
+                  }
+                ]
+              },
+              "flagText": "Carisoprodol medication and at least one opioid medication"
+            },
+            {
+              "flag": "ifOneOrMore",
+              "flagText": "Evidence of Carisoprodol medication"
             }
           ]
         }
