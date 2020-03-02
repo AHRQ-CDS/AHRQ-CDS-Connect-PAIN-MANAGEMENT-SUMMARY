@@ -28,11 +28,6 @@ This CDS logic queries for several concepts that do not yet have standardized co
 
 | Code | System | Display |
 | --- | --- | --- |
-| PEGASSESSMENT | http://cds.ahrq.gov/cdsconnect/pms | Pain Enjoyment General Activity (PEG) Assessment |
-| PEGPAIN | http://cds.ahrq.gov/cdsconnect/pms | Pain |
-| PEGENJOYMENT | http://cds.ahrq.gov/cdsconnect/pms | Enjoyment of life |
-| PEGGENERALACTIVITY | http://cds.ahrq.gov/cdsconnect/pms | General activity |
-| STARTBACK | http://cds.ahrq.gov/cdsconnect/pms | STarT Back Screening Tool |
 | SQETOHUSE | http://cds.ahrq.gov/cdsconnect/pms | Single question r/t ETOH use |
 | SQDRUGUSE | http://cds.ahrq.gov/cdsconnect/pms | Single question r/t drug use |
 | MME | http://cds.ahrq.gov/cdsconnect/pms | Morphine Milligram Equivalent (MME) |
