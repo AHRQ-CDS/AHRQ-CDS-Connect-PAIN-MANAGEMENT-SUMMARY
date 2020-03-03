@@ -93,6 +93,14 @@
             "id" : "2.16.840.1.113883.3.464.1003.106.11.1010",
             "accessLevel" : "Public"
          }, {
+            "name" : "Opioid overdose and poisoning (ICD10CM)",
+            "id" : "2.16.840.1.113762.1.4.1146.1008",
+            "accessLevel" : "Public"
+         }, {
+            "name" : "Opioid overdose and poisoning (SNOMED)",
+            "id" : "2.16.840.1.113762.1.4.1146.1063",
+            "accessLevel" : "Public"
+         }, {
             "name" : "Suicide Attempt",
             "id" : "2.16.840.1.113762.1.4.1032.102",
             "accessLevel" : "Public"
@@ -135,6 +143,14 @@
          }, {
             "name" : "Benzodiazepine medications",
             "id" : "2.16.840.1.113762.1.4.1032.43",
+            "accessLevel" : "Public"
+         }, {
+            "name" : "Carisoprodol",
+            "id" : "2.16.840.1.113883.3.464.1003.196.11.1152",
+            "accessLevel" : "Public"
+         }, {
+            "name" : "Aspirin / Carisoprodol",
+            "id" : "2.16.840.1.113883.3.464.1003.196.11.1314",
             "accessLevel" : "Public"
          }, {
             "name" : "Naloxone medications",
@@ -2037,26 +2053,8 @@
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
-               "type" : "And",
-               "operand" : [ {
-                  "name" : "Is18orOlder",
-                  "type" : "ExpressionRef"
-               }, {
-                  "type" : "Or",
-                  "operand" : [ {
-                     "type" : "Or",
-                     "operand" : [ {
-                        "name" : "HasConditionAssociatedWithChronicPain",
-                        "type" : "ExpressionRef"
-                     }, {
-                        "name" : "HasRecentOpioidPainMedication",
-                        "type" : "ExpressionRef"
-                     } ]
-                  }, {
-                     "name" : "HasRecentAdjuvantAnalgesicMedication",
-                     "type" : "ExpressionRef"
-                  } ]
-               } ]
+               "name" : "Is18orOlder",
+               "type" : "ExpressionRef"
             }
          }, {
             "name" : "ReportConditionsAssociatedWithChronicPain",
@@ -2257,6 +2255,40 @@
                      "type" : "Retrieve",
                      "codes" : {
                         "name" : "Substance Abuse",
+                        "type" : "ValueSetRef"
+                     }
+                  } ]
+               } ]
+            }
+         }, {
+            "name" : "OpioidOverdoseAndPoisoningConditions",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Union",
+               "operand" : [ {
+                  "name" : "Confirmed",
+                  "libraryName" : "C3F",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "dataType" : "{http://hl7.org/fhir}Condition",
+                     "codeProperty" : "code",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "name" : "Opioid overdose and poisoning (ICD10CM)",
+                        "type" : "ValueSetRef"
+                     }
+                  } ]
+               }, {
+                  "name" : "Confirmed",
+                  "libraryName" : "C3F",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "dataType" : "{http://hl7.org/fhir}Condition",
+                     "codeProperty" : "code",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "name" : "Opioid overdose and poisoning (SNOMED)",
                         "type" : "ValueSetRef"
                      }
                   } ]
@@ -2511,41 +2543,47 @@
                      "operand" : [ {
                         "type" : "Union",
                         "operand" : [ {
-                           "name" : "DepressionConditions",
-                           "type" : "ExpressionRef"
+                           "type" : "Union",
+                           "operand" : [ {
+                              "name" : "DepressionConditions",
+                              "type" : "ExpressionRef"
+                           }, {
+                              "name" : "AnxietyConditions",
+                              "type" : "ExpressionRef"
+                           } ]
                         }, {
-                           "name" : "AnxietyConditions",
-                           "type" : "ExpressionRef"
+                           "type" : "Union",
+                           "operand" : [ {
+                              "name" : "SubstanceUseDisorderConditions",
+                              "type" : "ExpressionRef"
+                           }, {
+                              "name" : "OpioidOverdoseAndPoisoningConditions",
+                              "type" : "ExpressionRef"
+                           } ]
                         } ]
                      }, {
                         "type" : "Union",
                         "operand" : [ {
-                           "name" : "SubstanceUseDisorderConditions",
+                           "name" : "SuicideAttemptConditions",
                            "type" : "ExpressionRef"
                         }, {
-                           "name" : "SuicideAttemptConditions",
+                           "name" : "SleepDisorderedBreathingConditions",
                            "type" : "ExpressionRef"
                         } ]
                      } ]
                   }, {
                      "type" : "Union",
                      "operand" : [ {
-                        "name" : "SleepDisorderedBreathingConditions",
+                        "name" : "RenalDysfunctionConditions",
                         "type" : "ExpressionRef"
                      }, {
-                        "name" : "RenalDysfunctionConditions",
+                        "name" : "HepaticDysfunctionConditions",
                         "type" : "ExpressionRef"
                      } ]
                   } ]
                }, {
-                  "type" : "Union",
-                  "operand" : [ {
-                     "name" : "HepaticDysfunctionConditions",
-                     "type" : "ExpressionRef"
-                  }, {
-                     "name" : "PregnancyConditions",
-                     "type" : "ExpressionRef"
-                  } ]
+                  "name" : "PregnancyConditions",
+                  "type" : "ExpressionRef"
                } ]
             }
          }, {
@@ -2596,19 +2634,53 @@
                                                 "operand" : [ {
                                                    "type" : "Or",
                                                    "operand" : [ {
-                                                      "type" : "InValueSet",
-                                                      "code" : {
-                                                         "name" : "NullSafeToConcept",
-                                                         "libraryName" : "C3F",
-                                                         "type" : "FunctionRef",
+                                                      "type" : "Or",
+                                                      "operand" : [ {
+                                                         "type" : "Or",
                                                          "operand" : [ {
-                                                            "name" : "R",
-                                                            "type" : "AliasRef"
+                                                            "type" : "InValueSet",
+                                                            "code" : {
+                                                               "name" : "NullSafeToConcept",
+                                                               "libraryName" : "C3F",
+                                                               "type" : "FunctionRef",
+                                                               "operand" : [ {
+                                                                  "name" : "R",
+                                                                  "type" : "AliasRef"
+                                                               } ]
+                                                            },
+                                                            "valueset" : {
+                                                               "name" : "Major Depression"
+                                                            }
+                                                         }, {
+                                                            "type" : "InValueSet",
+                                                            "code" : {
+                                                               "name" : "NullSafeToConcept",
+                                                               "libraryName" : "C3F",
+                                                               "type" : "FunctionRef",
+                                                               "operand" : [ {
+                                                                  "name" : "R",
+                                                                  "type" : "AliasRef"
+                                                               } ]
+                                                            },
+                                                            "valueset" : {
+                                                               "name" : "Depression Diagnosis ICD9"
+                                                            }
                                                          } ]
-                                                      },
-                                                      "valueset" : {
-                                                         "name" : "Major Depression"
-                                                      }
+                                                      }, {
+                                                         "type" : "InValueSet",
+                                                         "code" : {
+                                                            "name" : "NullSafeToConcept",
+                                                            "libraryName" : "C3F",
+                                                            "type" : "FunctionRef",
+                                                            "operand" : [ {
+                                                               "name" : "R",
+                                                               "type" : "AliasRef"
+                                                            } ]
+                                                         },
+                                                         "valueset" : {
+                                                            "name" : "Anxiety"
+                                                         }
+                                                      } ]
                                                    }, {
                                                       "type" : "InValueSet",
                                                       "code" : {
@@ -2621,7 +2693,7 @@
                                                          } ]
                                                       },
                                                       "valueset" : {
-                                                         "name" : "Depression Diagnosis ICD9"
+                                                         "name" : "Anxiety Disorders ICD9"
                                                       }
                                                    } ]
                                                 }, {
@@ -2636,7 +2708,7 @@
                                                       } ]
                                                    },
                                                    "valueset" : {
-                                                      "name" : "Anxiety"
+                                                      "name" : "Substance use disorder"
                                                    }
                                                 } ]
                                              }, {
@@ -2651,7 +2723,7 @@
                                                    } ]
                                                 },
                                                 "valueset" : {
-                                                   "name" : "Anxiety Disorders ICD9"
+                                                   "name" : "Substance Abuse"
                                                 }
                                              } ]
                                           }, {
@@ -2666,7 +2738,7 @@
                                                 } ]
                                              },
                                              "valueset" : {
-                                                "name" : "Substance use disorder"
+                                                "name" : "Opioid overdose and poisoning (ICD10CM)"
                                              }
                                           } ]
                                        }, {
@@ -2681,7 +2753,7 @@
                                              } ]
                                           },
                                           "valueset" : {
-                                             "name" : "Substance Abuse"
+                                             "name" : "Opioid overdose and poisoning (SNOMED)"
                                           }
                                        } ]
                                     }, {
@@ -2935,19 +3007,53 @@
                                           "operand" : [ {
                                              "type" : "Or",
                                              "operand" : [ {
-                                                "type" : "InValueSet",
-                                                "code" : {
-                                                   "name" : "NullSafeToConcept",
-                                                   "libraryName" : "C3F",
-                                                   "type" : "FunctionRef",
+                                                "type" : "Or",
+                                                "operand" : [ {
+                                                   "type" : "Or",
                                                    "operand" : [ {
-                                                      "name" : "R",
-                                                      "type" : "AliasRef"
+                                                      "type" : "InValueSet",
+                                                      "code" : {
+                                                         "name" : "NullSafeToConcept",
+                                                         "libraryName" : "C3F",
+                                                         "type" : "FunctionRef",
+                                                         "operand" : [ {
+                                                            "name" : "R",
+                                                            "type" : "AliasRef"
+                                                         } ]
+                                                      },
+                                                      "valueset" : {
+                                                         "name" : "Major Depression"
+                                                      }
+                                                   }, {
+                                                      "type" : "InValueSet",
+                                                      "code" : {
+                                                         "name" : "NullSafeToConcept",
+                                                         "libraryName" : "C3F",
+                                                         "type" : "FunctionRef",
+                                                         "operand" : [ {
+                                                            "name" : "R",
+                                                            "type" : "AliasRef"
+                                                         } ]
+                                                      },
+                                                      "valueset" : {
+                                                         "name" : "Depression Diagnosis ICD9"
+                                                      }
                                                    } ]
-                                                },
-                                                "valueset" : {
-                                                   "name" : "Major Depression"
-                                                }
+                                                }, {
+                                                   "type" : "InValueSet",
+                                                   "code" : {
+                                                      "name" : "NullSafeToConcept",
+                                                      "libraryName" : "C3F",
+                                                      "type" : "FunctionRef",
+                                                      "operand" : [ {
+                                                         "name" : "R",
+                                                         "type" : "AliasRef"
+                                                      } ]
+                                                   },
+                                                   "valueset" : {
+                                                      "name" : "Anxiety"
+                                                   }
+                                                } ]
                                              }, {
                                                 "type" : "InValueSet",
                                                 "code" : {
@@ -2960,7 +3066,7 @@
                                                    } ]
                                                 },
                                                 "valueset" : {
-                                                   "name" : "Depression Diagnosis ICD9"
+                                                   "name" : "Anxiety Disorders ICD9"
                                                 }
                                              } ]
                                           }, {
@@ -2975,7 +3081,7 @@
                                                 } ]
                                              },
                                              "valueset" : {
-                                                "name" : "Anxiety"
+                                                "name" : "Substance use disorder"
                                              }
                                           } ]
                                        }, {
@@ -2990,7 +3096,7 @@
                                              } ]
                                           },
                                           "valueset" : {
-                                             "name" : "Anxiety Disorders ICD9"
+                                             "name" : "Substance Abuse"
                                           }
                                        } ]
                                     }, {
@@ -3005,7 +3111,7 @@
                                           } ]
                                        },
                                        "valueset" : {
-                                          "name" : "Substance use disorder"
+                                          "name" : "Opioid overdose and poisoning (ICD10CM)"
                                        }
                                     } ]
                                  }, {
@@ -3020,7 +3126,7 @@
                                        } ]
                                     },
                                     "valueset" : {
-                                       "name" : "Substance Abuse"
+                                       "name" : "Opioid overdose and poisoning (SNOMED)"
                                     }
                                  } ]
                               }, {
@@ -4353,7 +4459,7 @@
                         "type" : "ValueSetRef"
                      }
                   }, {
-                     "value" : 2,
+                     "value" : 100,
                      "unit" : "years",
                      "type" : "Quantity"
                   } ]
@@ -4380,7 +4486,7 @@
                         "type" : "ValueSetRef"
                      }
                   }, {
-                     "value" : 2,
+                     "value" : 100,
                      "unit" : "years",
                      "type" : "Quantity"
                   } ]
@@ -4608,7 +4714,7 @@
                         "type" : "ValueSetRef"
                      }
                   }, {
-                     "value" : 2,
+                     "value" : 100,
                      "unit" : "years",
                      "type" : "Quantity"
                   } ]
@@ -4635,7 +4741,7 @@
                         "type" : "ValueSetRef"
                      }
                   }, {
-                     "value" : 2,
+                     "value" : 100,
                      "unit" : "years",
                      "type" : "Quantity"
                   } ]
@@ -5720,7 +5826,7 @@
                         "type" : "ValueSetRef"
                      }
                   }, {
-                     "value" : 2,
+                     "value" : 100,
                      "unit" : "years",
                      "type" : "Quantity"
                   } ]
@@ -5747,7 +5853,7 @@
                         "type" : "ValueSetRef"
                      }
                   }, {
-                     "value" : 2,
+                     "value" : 100,
                      "unit" : "years",
                      "type" : "Quantity"
                   } ]
@@ -5937,6 +6043,283 @@
                         "type" : "ExpressionRef"
                      }, {
                         "name" : "ReportBenzodiazepineMedicationStatements",
+                        "type" : "ExpressionRef"
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "sort" : {
+                  "by" : [ {
+                     "direction" : "desc",
+                     "path" : "Start",
+                     "type" : "ByColumn"
+                  }, {
+                     "direction" : "desc",
+                     "path" : "End",
+                     "type" : "ByColumn"
+                  } ]
+               }
+            }
+         }, {
+            "name" : "CarisoprodolMedicationOrders",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "name" : "ActiveCompletedOrStoppedMedicationOrder",
+               "libraryName" : "C3F",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "name" : "MedicationOrderLookBack",
+                  "libraryName" : "C3F",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "type" : "Union",
+                     "operand" : [ {
+                        "dataType" : "{http://hl7.org/fhir}MedicationOrder",
+                        "codeProperty" : "medicationCodeableConcept",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Carisoprodol",
+                           "type" : "ValueSetRef"
+                        }
+                     }, {
+                        "dataType" : "{http://hl7.org/fhir}MedicationOrder",
+                        "codeProperty" : "medicationCodeableConcept",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Aspirin / Carisoprodol",
+                           "type" : "ValueSetRef"
+                        }
+                     } ]
+                  }, {
+                     "value" : 100,
+                     "unit" : "years",
+                     "type" : "Quantity"
+                  } ]
+               } ]
+            }
+         }, {
+            "name" : "CarisoprodolMedicationStatements",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "name" : "ActiveOrCompletedMedicationStatement",
+               "libraryName" : "C3F",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "name" : "MedicationStatementLookBack",
+                  "libraryName" : "C3F",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "type" : "Union",
+                     "operand" : [ {
+                        "dataType" : "{http://hl7.org/fhir}MedicationStatement",
+                        "codeProperty" : "medicationCodeableConcept",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Carisoprodol",
+                           "type" : "ValueSetRef"
+                        }
+                     }, {
+                        "dataType" : "{http://hl7.org/fhir}MedicationStatement",
+                        "codeProperty" : "medicationCodeableConcept",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Aspirin / Carisoprodol",
+                           "type" : "ValueSetRef"
+                        }
+                     } ]
+                  }, {
+                     "value" : 100,
+                     "unit" : "years",
+                     "type" : "Quantity"
+                  } ]
+               } ]
+            }
+         }, {
+            "name" : "ReportCarisoprodolMedicationOrders",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "O",
+                  "expression" : {
+                     "name" : "CarisoprodolMedicationOrders",
+                     "type" : "ExpressionRef"
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "Type",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "Order",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "Name",
+                        "value" : {
+                           "name" : "ConceptText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "medicationCodeableConcept",
+                              "scope" : "O",
+                              "type" : "Property"
+                           } ]
+                        }
+                     }, {
+                        "name" : "Start",
+                        "value" : {
+                           "name" : "DateTimeText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "dateWritten",
+                              "scope" : "O",
+                              "type" : "Property"
+                           } ]
+                        }
+                     }, {
+                        "name" : "End",
+                        "value" : {
+                           "name" : "DateTimeText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "dateEnded",
+                              "scope" : "O",
+                              "type" : "Property"
+                           } ]
+                        }
+                     }, {
+                        "name" : "Status",
+                        "value" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "status",
+                              "scope" : "O",
+                              "type" : "Property"
+                           }
+                        }
+                     } ]
+                  }
+               },
+               "sort" : {
+                  "by" : [ {
+                     "direction" : "desc",
+                     "path" : "Start",
+                     "type" : "ByColumn"
+                  }, {
+                     "direction" : "desc",
+                     "path" : "End",
+                     "type" : "ByColumn"
+                  } ]
+               }
+            }
+         }, {
+            "name" : "ReportCarisoprodolMedicationStatements",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "S",
+                  "expression" : {
+                     "name" : "CarisoprodolMedicationStatements",
+                     "type" : "ExpressionRef"
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "Type",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "Statement",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "Name",
+                        "value" : {
+                           "name" : "ConceptText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "medicationCodeableConcept",
+                              "scope" : "S",
+                              "type" : "Property"
+                           } ]
+                        }
+                     }, {
+                        "name" : "Start",
+                        "value" : {
+                           "name" : "MedicationStatementDate",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "name" : "S",
+                              "type" : "AliasRef"
+                           } ]
+                        }
+                     }, {
+                        "name" : "End",
+                        "value" : {
+                           "name" : "DateTimeText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "end",
+                              "type" : "Property",
+                              "source" : {
+                                 "path" : "effectivePeriod",
+                                 "scope" : "S",
+                                 "type" : "Property"
+                              }
+                           } ]
+                        }
+                     }, {
+                        "name" : "Status",
+                        "value" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "status",
+                              "scope" : "S",
+                              "type" : "Property"
+                           }
+                        }
+                     } ]
+                  }
+               },
+               "sort" : {
+                  "by" : [ {
+                     "direction" : "desc",
+                     "path" : "Start",
+                     "type" : "ByColumn"
+                  }, {
+                     "direction" : "desc",
+                     "path" : "End",
+                     "type" : "ByColumn"
+                  } ]
+               }
+            }
+         }, {
+            "name" : "ReportCarisoprodolMedications",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "M",
+                  "expression" : {
+                     "type" : "Union",
+                     "operand" : [ {
+                        "name" : "ReportCarisoprodolMedicationOrders",
+                        "type" : "ExpressionRef"
+                     }, {
+                        "name" : "ReportCarisoprodolMedicationStatements",
                         "type" : "ExpressionRef"
                      } ]
                   }
@@ -6614,6 +6997,12 @@
                         "name" : "BenzodiazepineMedications",
                         "value" : {
                            "name" : "ReportBenzodiazepineMedications",
+                           "type" : "ExpressionRef"
+                        }
+                     }, {
+                        "name" : "CarisoprodolMedications",
+                        "value" : {
+                           "name" : "ReportCarisoprodolMedications",
                            "type" : "ExpressionRef"
                         }
                      }, {

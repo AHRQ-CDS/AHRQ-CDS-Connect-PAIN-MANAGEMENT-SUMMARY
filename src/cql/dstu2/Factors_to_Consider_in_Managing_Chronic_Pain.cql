@@ -32,6 +32,13 @@
 //
 // ##Source guideline: [CDC Guideline for Opioid Prescribing for Chronic Pain](https://www.cdc.gov/drugoverdose/prescribing/guideline.html)
 
+// Update 20200302
+//    Removed inclusion critieria excepting age 18
+//    Added opioid overdose for ICD-10 and SNOMED
+//    Changed lookback for opioids, non-opioids, and benzos from 2 to 100 years
+//    Added carisoprodol as another risk factor for co-prescribing with opioids
+
+
 library Factors_to_Consider_in_Managing_Chronic_Pain version '1.1.0'
 
 // # Data model #
@@ -91,6 +98,12 @@ valueset "Substance use disorder": '2.16.840.1.113883.3.464.1003.106.12.1004'
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113883.3.464.1003.106.11.1010/expansion)
 valueset "Substance Abuse": '2.16.840.1.113883.3.464.1003.106.11.1010'
 
+// [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1146.1008/expansion) 
+valueset "Opioid overdose and poisoning (ICD10CM)": '2.16.840.1.113762.1.4.1146.1008'
+
+// [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1146.1063/expansion) 
+valueset "Opioid overdose and poisoning (SNOMED)": '2.16.840.1.113762.1.4.1146.1063'
+
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.102/expansion)
 valueset "Suicide Attempt": '2.16.840.1.113762.1.4.1032.102'
 
@@ -123,6 +136,12 @@ valueset "Risk assessments relevant to pain management": '2.16.840.1.113762.1.4.
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.43/expansion)
 valueset "Benzodiazepine medications": '2.16.840.1.113762.1.4.1032.43'
+
+// [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113883.3.464.1003.196.11.1152/expansion)
+valueset "Carisoprodol": '2.16.840.1.113883.3.464.1003.196.11.1152'
+
+// [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113883.3.464.1003.196.11.1314/expansion)
+valueset "Aspirin / Carisoprodol": '2.16.840.1.113883.3.464.1003.196.11.1314'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.42/expansion)
 valueset "Naloxone medications": '2.16.840.1.113762.1.4.1032.42'
@@ -440,11 +459,13 @@ define HasRecentAdjuvantAnalgesicMedication:
 //   - OR Adjuvant analgesic medication
 define MeetsInclusionCriteria:
   Is18orOlder
-  and (
-    HasConditionAssociatedWithChronicPain
-    or HasRecentOpioidPainMedication
-    or HasRecentAdjuvantAnalgesicMedication
-  )
+
+// REMOVING AHRQ APP INCLUSION CRITERIA FOR COSRI
+//  and (
+//    HasConditionAssociatedWithChronicPain
+//    or HasRecentOpioidPainMedication
+//    or HasRecentAdjuvantAnalgesicMedication
+//  )
 
 // EXCLUSIONS
 
@@ -491,6 +512,10 @@ define SubstanceUseDisorderConditions:
   C3F.Confirmed([Condition: "Substance use disorder"])
   union C3F.Confirmed([Condition: "Substance Abuse"])
 
+define OpioidOverdoseAndPoisoningConditions:
+  C3F.Confirmed([Condition: "Opioid overdose and poisoning (ICD10CM)"])
+  union C3F.Confirmed([Condition: "Opioid overdose and poisoning (SNOMED)"])
+
 define SuicideAttemptConditions:
   C3F.Confirmed([Condition: "Suicide Attempt"])
 
@@ -527,6 +552,7 @@ define ConditionRiskFactorsForOpioidRelatedHarms:
   DepressionConditions
   union AnxietyConditions
   union SubstanceUseDisorderConditions
+  union OpioidOverdoseAndPoisoningConditions
   union SuicideAttemptConditions
   union SleepDisorderedBreathingConditions
   union RenalDysfunctionConditions
@@ -547,6 +573,8 @@ define EncounterRiskFactorsForOpioidRelatedHarms:
       or C3F.NullSafeToConcept(R) in "Anxiety Disorders ICD9"
       or C3F.NullSafeToConcept(R) in "Substance use disorder"
       or C3F.NullSafeToConcept(R) in "Substance Abuse"
+      or C3F.NullSafeToConcept(R) in "Opioid overdose and poisoning (ICD10CM)"
+      or C3F.NullSafeToConcept(R) in "Opioid overdose and poisoning (SNOMED)"
       or C3F.NullSafeToConcept(R) in "Suicide Attempt"
       or C3F.NullSafeToConcept(R) in "Sleep-disordered breathing"
       or C3F.NullSafeToConcept(R) in "Kidney Failure"
@@ -582,6 +610,8 @@ define function GetEncounterDiagnosesRiskFactorsForOpioidRelatedHarms(enc Encoun
       or C3F.NullSafeToConcept(R) in "Anxiety Disorders ICD9"
       or C3F.NullSafeToConcept(R) in "Substance use disorder"
       or C3F.NullSafeToConcept(R) in "Substance Abuse"
+      or C3F.NullSafeToConcept(R) in "Opioid overdose and poisoning (ICD10CM)"
+      or C3F.NullSafeToConcept(R) in "Opioid overdose and poisoning (SNOMED)"
       or C3F.NullSafeToConcept(R) in "Suicide Attempt"
       or C3F.NullSafeToConcept(R) in "Sleep-disordered breathing"
       or C3F.NullSafeToConcept(R) in "Kidney Failure"
@@ -756,13 +786,13 @@ define ReportSTarTBackAssessments:
 define OpioidMedicationOrders:
   C3F.ActiveCompletedOrStoppedMedicationOrder(C3F.MedicationOrderLookBack(
     [MedicationOrder: "Opioid Pain Medications"],
-    2 years
+    100 years //changed from 2 to 100
   ))
 
 define OpioidMedicationStatements:
   C3F.ActiveOrCompletedMedicationStatement(C3F.MedicationStatementLookBack(
     [MedicationStatement: "Opioid Pain Medications"],
-    2 years
+    100 years //changed from 2 to 100
   ))
 
 define ReportOpioidMedicationOrders:
@@ -796,13 +826,13 @@ define ReportOpioidMedications:
 define NonOpioidMedicationOrders:
   C3F.ActiveCompletedOrStoppedMedicationOrder(C3F.MedicationOrderLookBack(
     [MedicationOrder: "Non opiod pain medications"],
-    2 years
+    100 years //changed from 2 to 100
   ))
 
 define NonOpioidMedicationStatements:
   C3F.ActiveOrCompletedMedicationStatement(C3F.MedicationStatementLookBack(
     [MedicationStatement: "Non opiod pain medications"],
-    2 years
+    100 years //changed from 2 to 100
   ))
 
 define ReportNonOpioidMedicationOrders:
@@ -960,13 +990,13 @@ define ReportUrineDrugScreens:
 define BenzodiazepineMedicationOrders:
   C3F.ActiveCompletedOrStoppedMedicationOrder(C3F.MedicationOrderLookBack(
     [MedicationOrder: "Benzodiazepine medications"],
-    2 years
+    100 years //changed from 2 to 100
   ))
 
 define BenzodiazepineMedicationStatements:
   C3F.ActiveOrCompletedMedicationStatement(C3F.MedicationStatementLookBack(
     [MedicationStatement: "Benzodiazepine medications"],
-    2 years
+    100 years //changed from 2 to 100
   ))
 
 define ReportBenzodiazepineMedicationOrders:
@@ -994,6 +1024,47 @@ define ReportBenzodiazepineMedicationStatements:
 define ReportBenzodiazepineMedications:
   (ReportBenzodiazepineMedicationOrders union ReportBenzodiazepineMedicationStatements) M
   sort by Start desc, End desc
+
+// Carisoprodol Medications -  orders and statements with dates
+
+define CarisoprodolMedicationOrders:
+  C3F.ActiveCompletedOrStoppedMedicationOrder(C3F.MedicationOrderLookBack(
+    [MedicationOrder: "Carisoprodol"]
+    union [MedicationOrder: "Aspirin / Carisoprodol"]
+  , 100 years))
+
+define CarisoprodolMedicationStatements:
+  C3F.ActiveOrCompletedMedicationStatement(C3F.MedicationStatementLookBack(
+    [MedicationStatement: "Carisoprodol"]
+    union [MedicationStatement: "Aspirin / Carisoprodol"]
+  , 100 years))
+
+define ReportCarisoprodolMedicationOrders:
+  (CarisoprodolMedicationOrders) O
+  return {
+    Type:  'Order',
+    Name:  ConceptText(O.medicationCodeableConcept),
+    Start: DateTimeText(O.dateWritten),
+    End:   DateTimeText(O.dateEnded),
+    Status: O.status.value
+  }
+  sort by Start desc, End desc
+
+define ReportCarisoprodolMedicationStatements:
+  (CarisoprodolMedicationStatements) S
+  return {
+    Type:  'Statement',
+    Name:  ConceptText(S.medicationCodeableConcept),
+    Start: MedicationStatementDate(S),
+    End:   DateTimeText(S.effectivePeriod."end"),
+    Status: S.status.value
+  }
+  sort by Start desc, End desc
+
+define ReportCarisoprodolMedications:
+  (ReportCarisoprodolMedicationOrders union ReportCarisoprodolMedicationStatements) M
+  sort by Start desc, End desc
+
 
 // Naloxone Medications (unrestricted lookback) - orders and statements with dates
 
@@ -1081,6 +1152,7 @@ define Summary: {
     MostRecentMME: ReportMostRecentMME,
     UrineDrugScreens: ReportUrineDrugScreens,
     BenzodiazepineMedications: ReportBenzodiazepineMedications,
+    CarisoprodolMedications: ReportCarisoprodolMedications,
     NaloxoneMedications: ReportNaloxoneMedications,
     RiskScreeningsRelevantToPainManagement: ReportRiskScreeningsRelevantToPainManagement
   }
