@@ -8,6 +8,8 @@ The Pain Management Summary SMART on FHIR application was piloted during Summer 
 
 This application was originally piloted with support for FHIR DSTU2.  The app has been updated since the pilot to also support FHIR R4, although pilot R4 support has not been piloted in a clinical setting.  In addition, value sets and standardized codes have been updated since the pilot.  See the comments in the bundled CQL for details.
 
+Taking steps to ensure accessibility by the widest range of users, an accessibility subject matter expert performed a review of the application, enumerated issues found, and provided recommended remediations.  In addition to the recommendations, the [Mozilla ARIA Accessibility](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA) reference was used to address issues.  The application was then manually tested using accessibility tools including JAWS, VoiceOver, and the [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/).
+
 This prototype application is part of the [CDS Connect](https://cds.ahrq.gov/cdsconnect) project, sponsored by the [Agency for Healthcare Research and Quality](https://www.ahrq.gov/) (AHRQ), and developed under contract with AHRQ by [MITRE's CAMH](https://www.mitre.org/centers/cms-alliances-to-modernize-healthcare/who-we-are) FFRDC.
 
 ## Contributions

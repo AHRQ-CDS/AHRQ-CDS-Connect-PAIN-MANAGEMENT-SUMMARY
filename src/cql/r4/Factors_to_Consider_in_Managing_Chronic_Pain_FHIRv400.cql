@@ -11,7 +11,7 @@
 // stakeholders, and are documented in the logic and/or in the CDS Connect artifact metadata.
 //
 // NOTE: This is a FHIR R4 port of the original FHIR DSTU2 CQL piloted for CDS Connect.  In addition to the changes
-// to support FHIR R4, it contains the following additional changes from the artifact that was piloted:
+// to support FHIR R4, it contains the following changes from the artifact that was piloted:
 // - Added the following value sets for identifying Risk Factors for Opiod-Related Harms (in addition to existing ones)
 //   - Depression Diagnosis ICD9 (2.16.840.1.113883.3.600.143)
 //   - Anxiety Disorders ICD9 (2.16.840.1.113883.3.1240.2017.3.2.1015)
@@ -26,6 +26,34 @@
 //   - Previous local code is still supported (but discouraged)
 // - Added logic to display range for Opioid Risk Tool (ORT)
 // - Updated QuantityText logic to not include '{score}' units (since scalar number is enough in those cases)
+//
+// In addition to the changes above, the R4 representation contains the following changes related to the movement from
+// FHIR DSTU2 to FHIR R4:
+//
+// - MedicationOrder is replaced by MedicationRequest, and as a result, the reported type has changed from
+//   "Order" to "Request"
+// - MedicationOrder dateWritten is replaced by MedicationRequest authoredOn
+// - MedicationRequest no longer supports the dateEnded property, so end dates will always be blank
+//   for MedicationRequests
+// - MedicationStatement no longer supports the wasNotTaken property
+// - Observation adds an "instant" variant of the effective time
+// - Observation's interpretation changed from single-value to multi-value, so the FHIR R4-based CQL only looks at the
+//   first interpretation value
+// - Observations now check for verificationStatus "corrected", in addition to "final" and "amended"
+// - Condition no longer supports the abatementBoolean property
+// - Condition's clinicalStatus was changed from a code to a CodeableConcept
+// - Condition's dateRecorded (Date) is replaced by recordedDate (DateTime)
+// - ActiveOrRecurring Conditions now check for clinicalStatus "recurrence" in addition to "active" and "relapse"
+// - ProcedureRequest is replaced by ServiceRequest
+// - ProcedureRequest's orderedOn is replaced by ServiceRequest's authoredOn
+// - ReferralRequest is replaced by ServiceRequest
+// - ProcedureRequest's dateSent is replaced by ServiceRequest's authoredOn
+// - NonPharmacologicTreatmentServiceRequests now queries for active or completed ServiceRequests rather than
+//   accepted, in-progress, or completed ProcedureRequests and accepted, active, or completed ReferralRequests
+// - Procedure no longer supports the notDone property
+// - ProcedurePerformance now excludes statuses: preparation, not-done, entered-in-error, and unknown
+// - Due to changes in the CQL model representation of FHIR, choices are now accessed via CQL casts rather than
+//   explicit properties
 //
 // ##Source guideline: [CDC Guideline for Opioid Prescribing for Chronic Pain](https://www.cdc.gov/drugoverdose/prescribing/guideline.html)
 
@@ -957,12 +985,6 @@ define BenzodiazepineMedicationRequests:
     [MedicationRequest: "Benzodiazepine medications"],
     2 years
   ))
-
-define function MedicationStatementLookBack(MedList List<MedicationStatement>, LookBack System.Quantity):
-MedList M
-  let LookBackInterval: Interval[Now() - LookBack, Now()]
-  where (M.effective as FHIR.dateTime).value in LookBackInterval
-    or C3F.PeriodToInterval(M.effective as FHIR.Period) overlaps LookBackInterval
 
 define BenzodiazepineMedicationStatements:
   C3F.ActiveOrCompletedMedicationStatement(C3F.MedicationStatementLookBack(
