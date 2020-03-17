@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/AHRQ-CDS-Connect-PAIN-MANAGEMENT-SUMMARY/precache-manifest.9964cf752a771cf6a38942e706c6c603.js"
+  "/AHRQ-CDS-Connect-PAIN-MANAGEMENT-SUMMARY/precache-manifest.0ec27d8eada3a955b044046f85749124.js"
 );
 
 self.addEventListener('message', (event) => {
