@@ -1,0 +1,1647 @@
+{
+	"library": {
+		"identifier": {
+			"id": "OpioidCDS_REC_11_Patient_View",
+			"version": "1.1.1"
+		},
+		"schemaIdentifier": {
+			"id": "urn:hl7-org:elm",
+			"version": "r1"
+		},
+		"usings": {
+			"def": [
+				{
+					"localIdentifier": "System",
+					"uri": "urn:hl7-org:elm-types:r1"
+				},
+				{
+					"localId": "1",
+					"locator": "3:1-3:26",
+					"localIdentifier": "FHIR",
+					"uri": "http://hl7.org/fhir",
+					"version": "3.0.0"
+				}
+			]
+		},
+		"includes": {
+			"def": [
+				{
+					"localId": "2",
+					"locator": "5:1-5:54",
+					"localIdentifier": "FHIRHelpers",
+					"path": "FHIRHelpers",
+					"version": "3.0.0"
+				},
+				{
+					"localId": "3",
+					"locator": "6:1-6:54",
+					"localIdentifier": "Common",
+					"path": "OpioidCDS_Common",
+					"version": "1.1.1"
+				}
+			]
+		},
+		"statements": {
+			"def": [
+				{
+					"locator": "34:1-34:15",
+					"name": "Patient",
+					"context": "Patient",
+					"expression": {
+						"type": "SingletonFrom",
+						"operand": {
+							"locator": "34:1-34:15",
+							"dataType": "{http://hl7.org/fhir}Patient",
+							"type": "Retrieve"
+						}
+					}
+				},
+				{
+					"localId": "15",
+					"locator": "36:1-41:5",
+					"name": "Inclusion Criteria",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "15",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Inclusion Criteria\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "14",
+										"s": [
+											{
+												"r": "6",
+												"s": [
+													{
+														"r": "4",
+														"s": [
+															{
+																"value": [
+																	"AgeInYears",
+																	"()"
+																]
+															}
+														]
+													},
+													{
+														"r": "5",
+														"value": [
+															" ",
+															">=",
+															" ",
+															"18"
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    and "
+												]
+											},
+											{
+												"r": "13",
+												"s": [
+													{
+														"value": [
+															"(\n      "
+														]
+													},
+													{
+														"r": "13",
+														"s": [
+															{
+																"r": "9",
+																"s": [
+																	{
+																		"value": [
+																			"exists "
+																		]
+																	},
+																	{
+																		"r": "8",
+																		"s": [
+																			{
+																				"value": [
+																					"("
+																				]
+																			},
+																			{
+																				"r": "8",
+																				"s": [
+																					{
+																						"r": "7",
+																						"s": [
+																							{
+																								"value": [
+																									"Common"
+																								]
+																							}
+																						]
+																					},
+																					{
+																						"value": [
+																							"."
+																						]
+																					},
+																					{
+																						"r": "8",
+																						"s": [
+																							{
+																								"value": [
+																									"\"Active Ambulatory Benzodiazepine Rx\""
+																								]
+																							}
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"value": [
+																					")"
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	"\n        and "
+																]
+															},
+															{
+																"r": "12",
+																"s": [
+																	{
+																		"value": [
+																			"exists "
+																		]
+																	},
+																	{
+																		"r": "11",
+																		"s": [
+																			{
+																				"value": [
+																					"("
+																				]
+																			},
+																			{
+																				"r": "11",
+																				"s": [
+																					{
+																						"r": "10",
+																						"s": [
+																							{
+																								"value": [
+																									"Common"
+																								]
+																							}
+																						]
+																					},
+																					{
+																						"value": [
+																							"."
+																						]
+																					},
+																					{
+																						"r": "11",
+																						"s": [
+																							{
+																								"value": [
+																									"\"Active Ambulatory Opioid Rx\""
+																								]
+																							}
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"value": [
+																					")"
+																				]
+																			}
+																		]
+																	}
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															"\n    )"
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "14",
+						"locator": "37:3-41:5",
+						"type": "And",
+						"operand": [
+							{
+								"localId": "6",
+								"locator": "37:3-37:20",
+								"type": "GreaterOrEqual",
+								"operand": [
+									{
+										"localId": "4",
+										"locator": "37:3-37:14",
+										"precision": "Year",
+										"type": "CalculateAge",
+										"operand": {
+											"path": "birthDate.value",
+											"type": "Property",
+											"source": {
+												"name": "Patient",
+												"type": "ExpressionRef"
+											}
+										}
+									},
+									{
+										"localId": "5",
+										"locator": "37:19-37:20",
+										"valueType": "{urn:hl7-org:elm-types:r1}Integer",
+										"value": "18",
+										"type": "Literal"
+									}
+								]
+							},
+							{
+								"localId": "13",
+								"locator": "38:9-41:5",
+								"type": "And",
+								"operand": [
+									{
+										"localId": "9",
+										"locator": "39:7-39:59",
+										"type": "Exists",
+										"operand": {
+											"localId": "8",
+											"locator": "39:14-39:59",
+											"name": "Active Ambulatory Benzodiazepine Rx",
+											"libraryName": "Common",
+											"type": "ExpressionRef"
+										}
+									},
+									{
+										"localId": "12",
+										"locator": "40:13-40:57",
+										"type": "Exists",
+										"operand": {
+											"localId": "11",
+											"locator": "40:20-40:57",
+											"name": "Active Ambulatory Opioid Rx",
+											"libraryName": "Common",
+											"type": "ExpressionRef"
+										}
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"localId": "20",
+					"locator": "43:1-46:11",
+					"name": "Get Indicator",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "20",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Get Indicator\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "19",
+										"s": [
+											{
+												"value": [
+													"if "
+												]
+											},
+											{
+												"r": "16",
+												"s": [
+													{
+														"value": [
+															"\"Inclusion Criteria\""
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    then "
+												]
+											},
+											{
+												"r": "17",
+												"s": [
+													{
+														"value": [
+															"'warning'"
+														]
+													}
+												]
+											},
+											{
+												"r": "18",
+												"value": [
+													"\n  else ",
+													"null"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "19",
+						"locator": "44:3-46:11",
+						"type": "If",
+						"condition": {
+							"asType": "{urn:hl7-org:elm-types:r1}Boolean",
+							"type": "As",
+							"operand": {
+								"localId": "16",
+								"locator": "44:6-44:25",
+								"name": "Inclusion Criteria",
+								"type": "ExpressionRef"
+							}
+						},
+						"then": {
+							"localId": "17",
+							"locator": "45:10-45:18",
+							"valueType": "{urn:hl7-org:elm-types:r1}String",
+							"value": "warning",
+							"type": "Literal"
+						},
+						"else": {
+							"asType": "{urn:hl7-org:elm-types:r1}String",
+							"type": "As",
+							"operand": {
+								"localId": "18",
+								"locator": "46:8-46:11",
+								"type": "Null"
+							}
+						}
+					}
+				},
+				{
+					"localId": "25",
+					"locator": "48:1-51:11",
+					"name": "Get Summary",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "25",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Get Summary\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "24",
+										"s": [
+											{
+												"value": [
+													"if "
+												]
+											},
+											{
+												"r": "21",
+												"s": [
+													{
+														"value": [
+															"\"Inclusion Criteria\""
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    then "
+												]
+											},
+											{
+												"r": "22",
+												"s": [
+													{
+														"value": [
+															"'Patient has active prescriptions for opioid pain medication and benzodiazepines'"
+														]
+													}
+												]
+											},
+											{
+												"r": "23",
+												"value": [
+													"\n  else ",
+													"null"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "24",
+						"locator": "49:3-51:11",
+						"type": "If",
+						"condition": {
+							"asType": "{urn:hl7-org:elm-types:r1}Boolean",
+							"type": "As",
+							"operand": {
+								"localId": "21",
+								"locator": "49:6-49:25",
+								"name": "Inclusion Criteria",
+								"type": "ExpressionRef"
+							}
+						},
+						"then": {
+							"localId": "22",
+							"locator": "50:10-50:90",
+							"valueType": "{urn:hl7-org:elm-types:r1}String",
+							"value": "Patient has active prescriptions for opioid pain medication and benzodiazepines",
+							"type": "Literal"
+						},
+						"else": {
+							"asType": "{urn:hl7-org:elm-types:r1}String",
+							"type": "As",
+							"operand": {
+								"localId": "23",
+								"locator": "51:8-51:11",
+								"type": "Null"
+							}
+						}
+					}
+				},
+				{
+					"localId": "30",
+					"locator": "53:1-56:11",
+					"name": "Get Detail",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "30",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Get Detail\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "29",
+										"s": [
+											{
+												"value": [
+													"if "
+												]
+											},
+											{
+												"r": "26",
+												"s": [
+													{
+														"value": [
+															"\"Inclusion Criteria\""
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    then "
+												]
+											},
+											{
+												"r": "27",
+												"s": [
+													{
+														"value": [
+															"'Avoid prescribing opioid pain medication and benzodiazepines concurrently whenever possible'"
+														]
+													}
+												]
+											},
+											{
+												"r": "28",
+												"value": [
+													"\n  else ",
+													"null"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "29",
+						"locator": "54:3-56:11",
+						"type": "If",
+						"condition": {
+							"asType": "{urn:hl7-org:elm-types:r1}Boolean",
+							"type": "As",
+							"operand": {
+								"localId": "26",
+								"locator": "54:6-54:25",
+								"name": "Inclusion Criteria",
+								"type": "ExpressionRef"
+							}
+						},
+						"then": {
+							"localId": "27",
+							"locator": "55:10-55:102",
+							"valueType": "{urn:hl7-org:elm-types:r1}String",
+							"value": "Avoid prescribing opioid pain medication and benzodiazepines concurrently whenever possible",
+							"type": "Literal"
+						},
+						"else": {
+							"asType": "{urn:hl7-org:elm-types:r1}String",
+							"type": "As",
+							"operand": {
+								"localId": "28",
+								"locator": "56:8-56:11",
+								"type": "Null"
+							}
+						}
+					}
+				},
+				{
+					"localId": "65",
+					"locator": "60:1-76:3",
+					"name": "Concurrent Benzodiazepine Prescription Issue",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "65",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Concurrent Benzodiazepine Prescription Issue\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "64",
+										"s": [
+											{
+												"value": [
+													"DetectedIssue",
+													" {\n    //identifier:,\n    "
+												]
+											},
+											{
+												"s": [
+													{
+														"value": [
+															"status",
+															": "
+														]
+													},
+													{
+														"r": "32",
+														"s": [
+															{
+																"value": [
+																	"FHIR",
+																	".",
+																	"ObservationStatus",
+																	" { "
+																]
+															},
+															{
+																"s": [
+																	{
+																		"value": [
+																			"value",
+																			": "
+																		]
+																	},
+																	{
+																		"r": "31",
+																		"s": [
+																			{
+																				"value": [
+																					"'preliminary'"
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	" }"
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													",\n    "
+												]
+											},
+											{
+												"s": [
+													{
+														"value": [
+															"category",
+															": "
+														]
+													},
+													{
+														"r": "35",
+														"s": [
+															{
+																"value": [
+																	"FHIR",
+																	".",
+																	"CodeableConcept",
+																	" { "
+																]
+															},
+															{
+																"s": [
+																	{
+																		"value": [
+																			"text",
+																			": "
+																		]
+																	},
+																	{
+																		"r": "34",
+																		"s": [
+																			{
+																				"value": [
+																					"FHIR",
+																					".",
+																					"string",
+																					" { "
+																				]
+																			},
+																			{
+																				"s": [
+																					{
+																						"value": [
+																							"value",
+																							": "
+																						]
+																					},
+																					{
+																						"r": "33",
+																						"s": [
+																							{
+																								"value": [
+																									"\"Get Summary\""
+																								]
+																							}
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"value": [
+																					" }"
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	" }"
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													",\n    "
+												]
+											},
+											{
+												"s": [
+													{
+														"value": [
+															"severity",
+															": "
+														]
+													},
+													{
+														"r": "37",
+														"s": [
+															{
+																"value": [
+																	"FHIR",
+																	".",
+																	"DetectedIssueSeverity",
+																	" { "
+																]
+															},
+															{
+																"s": [
+																	{
+																		"value": [
+																			"value",
+																			": "
+																		]
+																	},
+																	{
+																		"r": "36",
+																		"s": [
+																			{
+																				"value": [
+																					"'moderate'"
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	" }"
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													",\n    "
+												]
+											},
+											{
+												"s": [
+													{
+														"value": [
+															"patient",
+															": "
+														]
+													},
+													{
+														"r": "43",
+														"s": [
+															{
+																"value": [
+																	"FHIR",
+																	".",
+																	"Reference",
+																	" { "
+																]
+															},
+															{
+																"s": [
+																	{
+																		"value": [
+																			"reference",
+																			": "
+																		]
+																	},
+																	{
+																		"r": "42",
+																		"s": [
+																			{
+																				"value": [
+																					"FHIR",
+																					".",
+																					"string",
+																					" { "
+																				]
+																			},
+																			{
+																				"s": [
+																					{
+																						"value": [
+																							"value",
+																							": "
+																						]
+																					},
+																					{
+																						"r": "41",
+																						"s": [
+																							{
+																								"r": "38",
+																								"s": [
+																									{
+																										"value": [
+																											"'Patient/'"
+																										]
+																									}
+																								]
+																							},
+																							{
+																								"value": [
+																									" + "
+																								]
+																							},
+																							{
+																								"r": "40",
+																								"s": [
+																									{
+																										"r": "39",
+																										"s": [
+																											{
+																												"value": [
+																													"Patient"
+																												]
+																											}
+																										]
+																									},
+																									{
+																										"value": [
+																											"."
+																										]
+																									},
+																									{
+																										"r": "40",
+																										"s": [
+																											{
+																												"value": [
+																													"id"
+																												]
+																											}
+																										]
+																									}
+																								]
+																							}
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"value": [
+																					" }"
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	" }"
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													",\n    "
+												]
+											},
+											{
+												"s": [
+													{
+														"value": [
+															"date",
+															": "
+														]
+													},
+													{
+														"r": "45",
+														"s": [
+															{
+																"value": [
+																	"FHIR",
+																	".",
+																	"dateTime",
+																	" { "
+																]
+															},
+															{
+																"s": [
+																	{
+																		"value": [
+																			"value",
+																			": "
+																		]
+																	},
+																	{
+																		"r": "44",
+																		"s": [
+																			{
+																				"value": [
+																					"Now",
+																					"()"
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	" }"
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													",\n    // TODO: Device representation...\n    // author:,\n    "
+												]
+											},
+											{
+												"s": [
+													{
+														"value": [
+															"implicated",
+															":\n      "
+														]
+													},
+													{
+														"r": "59",
+														"s": [
+															{
+																"s": [
+																	{
+																		"r": "51",
+																		"s": [
+																			{
+																				"r": "50",
+																				"s": [
+																					{
+																						"value": [
+																							"("
+																						]
+																					},
+																					{
+																						"r": "50",
+																						"s": [
+																							{
+																								"r": "47",
+																								"s": [
+																									{
+																										"r": "46",
+																										"s": [
+																											{
+																												"value": [
+																													"Common"
+																												]
+																											}
+																										]
+																									},
+																									{
+																										"value": [
+																											"."
+																										]
+																									},
+																									{
+																										"r": "47",
+																										"s": [
+																											{
+																												"value": [
+																													"\"Active Ambulatory Benzodiazepine Rx\""
+																												]
+																											}
+																										]
+																									}
+																								]
+																							},
+																							{
+																								"value": [
+																									"\n\t\t\t\tunion "
+																								]
+																							},
+																							{
+																								"r": "49",
+																								"s": [
+																									{
+																										"r": "48",
+																										"s": [
+																											{
+																												"value": [
+																													"Common"
+																												]
+																											}
+																										]
+																									},
+																									{
+																										"value": [
+																											"."
+																										]
+																									},
+																									{
+																										"r": "49",
+																										"s": [
+																											{
+																												"value": [
+																													"\"Active Ambulatory Opioid Rx\""
+																												]
+																											}
+																										]
+																									}
+																								]
+																							}
+																						]
+																					},
+																					{
+																						"value": [
+																							")"
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"value": [
+																					" ",
+																					"M"
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	"\n        "
+																]
+															},
+															{
+																"r": "58",
+																"s": [
+																	{
+																		"value": [
+																			"return "
+																		]
+																	},
+																	{
+																		"r": "57",
+																		"s": [
+																			{
+																				"value": [
+																					"FHIR",
+																					".",
+																					"Reference",
+																					" { "
+																				]
+																			},
+																			{
+																				"s": [
+																					{
+																						"value": [
+																							"reference",
+																							": "
+																						]
+																					},
+																					{
+																						"r": "56",
+																						"s": [
+																							{
+																								"value": [
+																									"FHIR",
+																									".",
+																									"string",
+																									" { "
+																								]
+																							},
+																							{
+																								"s": [
+																									{
+																										"value": [
+																											"value",
+																											": "
+																										]
+																									},
+																									{
+																										"r": "55",
+																										"s": [
+																											{
+																												"r": "52",
+																												"s": [
+																													{
+																														"value": [
+																															"'MedicationRequest/'"
+																														]
+																													}
+																												]
+																											},
+																											{
+																												"value": [
+																													" + "
+																												]
+																											},
+																											{
+																												"r": "54",
+																												"s": [
+																													{
+																														"r": "53",
+																														"s": [
+																															{
+																																"value": [
+																																	"M"
+																																]
+																															}
+																														]
+																													},
+																													{
+																														"value": [
+																															"."
+																														]
+																													},
+																													{
+																														"r": "54",
+																														"s": [
+																															{
+																																"value": [
+																																	"id"
+																																]
+																															}
+																														]
+																													}
+																												]
+																											}
+																										]
+																									}
+																								]
+																							},
+																							{
+																								"value": [
+																									" }"
+																								]
+																							}
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"value": [
+																					" }"
+																				]
+																			}
+																		]
+																	}
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													",\n    "
+												]
+											},
+											{
+												"s": [
+													{
+														"value": [
+															"detail",
+															": "
+														]
+													},
+													{
+														"r": "61",
+														"s": [
+															{
+																"value": [
+																	"FHIR",
+																	".",
+																	"string",
+																	" { "
+																]
+															},
+															{
+																"s": [
+																	{
+																		"value": [
+																			"value",
+																			": "
+																		]
+																	},
+																	{
+																		"r": "60",
+																		"s": [
+																			{
+																				"value": [
+																					"\"Get Detail\""
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	" }"
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													",\n    "
+												]
+											},
+											{
+												"s": [
+													{
+														"value": [
+															"reference",
+															": "
+														]
+													},
+													{
+														"r": "63",
+														"s": [
+															{
+																"value": [
+																	"FHIR",
+																	".",
+																	"uri",
+																	" { "
+																]
+															},
+															{
+																"s": [
+																	{
+																		"value": [
+																			"value",
+																			": "
+																		]
+																	},
+																	{
+																		"r": "62",
+																		"s": [
+																			{
+																				"value": [
+																					"'http://fhir.org/guides/cdc/opioid-cds/PlanDefinition/opioidcds-11-patient-view'"
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	"}"
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n  }"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "64",
+						"locator": "61:3-76:3",
+						"classType": "{http://hl7.org/fhir}DetectedIssue",
+						"type": "Instance",
+						"element": [
+							{
+								"name": "status",
+								"value": {
+									"localId": "32",
+									"locator": "63:13-63:59",
+									"classType": "{http://hl7.org/fhir}ObservationStatus",
+									"type": "Instance",
+									"element": [
+										{
+											"name": "value",
+											"value": {
+												"localId": "31",
+												"locator": "63:45-63:57",
+												"valueType": "{urn:hl7-org:elm-types:r1}String",
+												"value": "preliminary",
+												"type": "Literal"
+											}
+										}
+									]
+								}
+							},
+							{
+								"name": "category",
+								"value": {
+									"localId": "35",
+									"locator": "64:15-64:81",
+									"classType": "{http://hl7.org/fhir}CodeableConcept",
+									"type": "Instance",
+									"element": [
+										{
+											"name": "text",
+											"value": {
+												"localId": "34",
+												"locator": "64:44-64:79",
+												"classType": "{http://hl7.org/fhir}string",
+												"type": "Instance",
+												"element": [
+													{
+														"name": "value",
+														"value": {
+															"localId": "33",
+															"locator": "64:65-64:77",
+															"name": "Get Summary",
+															"type": "ExpressionRef"
+														}
+													}
+												]
+											}
+										}
+									]
+								}
+							},
+							{
+								"name": "severity",
+								"value": {
+									"localId": "37",
+									"locator": "65:15-65:62",
+									"classType": "{http://hl7.org/fhir}DetectedIssueSeverity",
+									"type": "Instance",
+									"element": [
+										{
+											"name": "value",
+											"value": {
+												"localId": "36",
+												"locator": "65:51-65:60",
+												"valueType": "{urn:hl7-org:elm-types:r1}String",
+												"value": "moderate",
+												"type": "Literal"
+											}
+										}
+									]
+								}
+							},
+							{
+								"name": "patient",
+								"value": {
+									"localId": "43",
+									"locator": "66:14-66:89",
+									"classType": "{http://hl7.org/fhir}Reference",
+									"type": "Instance",
+									"element": [
+										{
+											"name": "reference",
+											"value": {
+												"localId": "42",
+												"locator": "66:42-66:87",
+												"classType": "{http://hl7.org/fhir}string",
+												"type": "Instance",
+												"element": [
+													{
+														"name": "value",
+														"value": {
+															"localId": "41",
+															"locator": "66:63-66:85",
+															"type": "Concatenate",
+															"operand": [
+																{
+																	"localId": "38",
+																	"locator": "66:63-66:72",
+																	"valueType": "{urn:hl7-org:elm-types:r1}String",
+																	"value": "Patient/",
+																	"type": "Literal"
+																},
+																{
+																	"name": "ToString",
+																	"libraryName": "FHIRHelpers",
+																	"type": "FunctionRef",
+																	"operand": [
+																		{
+																			"localId": "40",
+																			"locator": "66:76-66:85",
+																			"path": "id",
+																			"type": "Property",
+																			"source": {
+																				"localId": "39",
+																				"locator": "66:76-66:82",
+																				"name": "Patient",
+																				"type": "ExpressionRef"
+																			}
+																		}
+																	]
+																}
+															]
+														}
+													}
+												]
+											}
+										}
+									]
+								}
+							},
+							{
+								"name": "date",
+								"value": {
+									"localId": "45",
+									"locator": "67:11-67:40",
+									"classType": "{http://hl7.org/fhir}dateTime",
+									"type": "Instance",
+									"element": [
+										{
+											"name": "value",
+											"value": {
+												"localId": "44",
+												"locator": "67:34-67:38",
+												"type": "Now"
+											}
+										}
+									]
+								}
+							},
+							{
+								"name": "implicated",
+								"value": {
+									"localId": "59",
+									"locator": "71:7-73:95",
+									"type": "Query",
+									"source": [
+										{
+											"localId": "51",
+											"locator": "71:7-72:49",
+											"alias": "M",
+											"expression": {
+												"localId": "50",
+												"locator": "71:7-72:47",
+												"type": "Union",
+												"operand": [
+													{
+														"localId": "47",
+														"locator": "71:8-71:51",
+														"name": "Active Ambulatory Benzodiazepine Rx",
+														"libraryName": "Common",
+														"type": "ExpressionRef"
+													},
+													{
+														"localId": "49",
+														"locator": "72:11-72:46",
+														"name": "Active Ambulatory Opioid Rx",
+														"libraryName": "Common",
+														"type": "ExpressionRef"
+													}
+												]
+											}
+										}
+									],
+									"relationship": [],
+									"return": {
+										"localId": "58",
+										"locator": "73:9-73:95",
+										"expression": {
+											"localId": "57",
+											"locator": "73:16-73:95",
+											"classType": "{http://hl7.org/fhir}Reference",
+											"type": "Instance",
+											"element": [
+												{
+													"name": "reference",
+													"value": {
+														"localId": "56",
+														"locator": "73:44-73:93",
+														"classType": "{http://hl7.org/fhir}string",
+														"type": "Instance",
+														"element": [
+															{
+																"name": "value",
+																"value": {
+																	"localId": "55",
+																	"locator": "73:65-73:91",
+																	"type": "Concatenate",
+																	"operand": [
+																		{
+																			"localId": "52",
+																			"locator": "73:65-73:84",
+																			"valueType": "{urn:hl7-org:elm-types:r1}String",
+																			"value": "MedicationRequest/",
+																			"type": "Literal"
+																		},
+																		{
+																			"name": "ToString",
+																			"libraryName": "FHIRHelpers",
+																			"type": "FunctionRef",
+																			"operand": [
+																				{
+																					"localId": "54",
+																					"locator": "73:88-73:91",
+																					"path": "id",
+																					"scope": "M",
+																					"type": "Property"
+																				}
+																			]
+																		}
+																	]
+																}
+															}
+														]
+													}
+												}
+											]
+										}
+									}
+								}
+							},
+							{
+								"name": "detail",
+								"value": {
+									"localId": "61",
+									"locator": "74:13-74:47",
+									"classType": "{http://hl7.org/fhir}string",
+									"type": "Instance",
+									"element": [
+										{
+											"name": "value",
+											"value": {
+												"localId": "60",
+												"locator": "74:34-74:45",
+												"name": "Get Detail",
+												"type": "ExpressionRef"
+											}
+										}
+									]
+								}
+							},
+							{
+								"name": "reference",
+								"value": {
+									"localId": "63",
+									"locator": "75:16-75:114",
+									"classType": "{http://hl7.org/fhir}uri",
+									"type": "Instance",
+									"element": [
+										{
+											"name": "value",
+											"value": {
+												"localId": "62",
+												"locator": "75:34-75:113",
+												"valueType": "{urn:hl7-org:elm-types:r1}String",
+												"value": "http://fhir.org/guides/cdc/opioid-cds/PlanDefinition/opioidcds-11-patient-view",
+												"type": "Literal"
+											}
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		}
+	}
+}

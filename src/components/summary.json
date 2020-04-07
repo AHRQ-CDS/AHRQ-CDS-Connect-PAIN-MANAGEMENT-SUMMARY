@@ -1,4 +1,50 @@
 {
+  "CDSHooksAssessment": [
+    {
+      "name": "Requests And Responses",
+      "dataKey": "RequestsAndResponses",
+      "dataKeySource": "CDSHooksAssessment",
+      "info": [
+        {
+          "type": "elements",
+          "description": "What hooks are we doing:",
+          "elements": [
+            {
+              "name": "Hooky 1",
+              "status": "final or amended",
+              "lookback": "most recent in past 6 months"
+            }
+          ]
+        }
+      ],
+      "tables": [
+        {
+          "headers": {
+            "Name": "Name",
+            "Result": {
+              "key": "Result",
+              "formatter": "quantityFormat"
+            },
+            "Date": {
+              "key": "Date",
+              "formatter": "datishFormat"
+            }
+          },
+          "flags": [
+            {
+              "flag": {
+                "ifGreaterThanOrEqualTo": {
+                  "header": "Result",
+                  "value": 50
+                }
+              },
+              "flagText": "We hooked up"
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "PertinentMedicalHistory": [
     {
       "name": "Conditions Associated with Chronic Pain",

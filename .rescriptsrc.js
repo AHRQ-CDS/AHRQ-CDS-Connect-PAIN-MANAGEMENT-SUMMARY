@@ -116,8 +116,9 @@ const stubUnneededFiles = config => {
       resolve.alias['./fhir/models'] = path.resolve(__dirname, './src/stubs/fhir-models.js');
       // Replace cql-exec-fhir's bundled 1.6, and 3.0.0 modelinfos with stubs since we
       // only use the 1.0.2 and 4.0.0 modelinfos and the others take up a lot of space.
+      //  bryant 3.26.2020 - put 3.00 back in to use for MyPAIN/PainManager work
       resolve.alias['./modelInfos/fhir-modelinfo-1.6.xml.js'] = path.resolve(__dirname, './src/stubs/fhir-modelinfo-stub.xml.js');
-      resolve.alias['./modelInfos/fhir-modelinfo-3.0.0.xml.js'] = path.resolve(__dirname, './src/stubs/fhir-modelinfo-stub.xml.js');
+//      resolve.alias['./modelInfos/fhir-modelinfo-3.0.0.xml.js'] = path.resolve(__dirname, './src/stubs/fhir-modelinfo-stub.xml.js');
       return resolve;
     },
     [['resolve']],

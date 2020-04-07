@@ -8,6 +8,10 @@ const DUMP_TEST_PATIENT_JSON = true;
 // DSTU2
 upload('DSTU2', 'https://r2.smarthealthit.org', path.join(__dirname, 'dstu2_test_patients'))
 .then(() => {
+  // DSTU3
+  console.log();
+  upload('DSTU3', 'https://r3.smarthealthit.org', path.join(__dirname, 'dstu3_test_patients'));
+}).then(() => {
   // R4
   console.log();
   upload('R4', 'https://r4.smarthealthit.org', path.join(__dirname, 'r4_test_patients'));

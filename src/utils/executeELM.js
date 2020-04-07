@@ -5,6 +5,20 @@ import extractResourcesFromELM from './extractResourcesFromELM';
 import dstu2FactorsELM from '../cql/dstu2/Factors_to_Consider_in_Managing_Chronic_Pain.json'
 import dstu2CommonsELM from '../cql/dstu2/CDS_Connect_Commons_for_FHIRv102.json';
 import dstu2HelpersELM from '../cql/dstu2/FHIRHelpers.json';
+
+import dstu3FactorsELM from '../cql/dstu3/Factors_to_Consider_in_Managing_Chronic_Pain_FHIRv300.json'
+import dstu3CommonsELM from '../cql/dstu3/CDS_Connect_Commons_for_FHIRv300.json';
+import dstu3HelpersELM from '../cql/dstu3/FHIRHelpers.json';
+//****************************** CDSHooks libraries
+import dstu3opioidcds_rec_10ELM from '../cql/dstu3/CDC/opioidcds_rec_10.json'
+import dstu3opioidcds_rec_10_pv_ELM from '../cql/dstu3/CDC/opioidcds_rec_10_patient_view.json';
+import dstu3opioidcds_rec_11ELM from '../cql/dstu3/CDC/opioidcds_rec_11.json';
+import dstu3opioidcds_rec_11_pv_ELM from '../cql/dstu3/CDC/opioidcds_rec_11_patient_view.json';
+import dstu3FHIRHelpersELM from '../cql/dstu3/CDC/fhirhelpers.json';
+import dstu3omtkdataELM from '../cql/dstu3/CDC/omtkdata2019.json';
+import dstu3omtklogicELM from '../cql/dstu3/CDC/omtklogiccql.json';
+import dstu3cds_commonsELM from '../cql/dstu3/CDC/opioidcds_common.json';
+//******************************
 import r4FactorsELM from '../cql/r4/Factors_to_Consider_in_Managing_Chronic_Pain_FHIRv400.json';
 import r4CommonsELM from '../cql/r4/CDS_Connect_Commons_for_FHIRv400.json';
 import r4HelpersELM from '../cql/r4/FHIRHelpers.json';
@@ -64,13 +78,25 @@ function getLibrary(release) {
         CDS_Connect_Commons_for_FHIRv102: dstu2CommonsELM,
         FHIRHelpers: dstu2HelpersELM
       }));
+    case 3:
+ /*     return new cql.Library(dstu3opioidcds_rec_10_pv_ELM, new cql.Repository({
+        FHIRHelpers: dstu3FHIRHelpersELM,
+        OMTKData: dstu3omtkdataELM,
+        OMTKLogic: dstu3omtklogicELM,
+        CDS_Commons: dstu3cds_commonsELM
+      }));
+*/
+      return new cql.Library(dstu3FactorsELM, new cql.Repository({
+        CDS_Connect_Commons_for_FHIRv300: dstu3CommonsELM,
+        FHIRHelpers: dstu3HelpersELM
+      }));
     case 4:
       return new cql.Library(r4FactorsELM, new cql.Repository({
         CDS_Connect_Commons_for_FHIRv400: r4CommonsELM,
         FHIRHelpers: r4HelpersELM
       }));
     default:
-      throw new Error('Only FHIR DSTU2 and FHIR R4 servers are supported');
+      throw new Error('Only FHIR DSTU2, FHIR DSTU3 and FHIR R4 servers are supported');
   }
 }
 
@@ -78,6 +104,8 @@ function getPatientSource(release) {
   switch(release) {
     case 2:
       return cqlfhir.PatientSource.FHIRv102();
+    case 3:
+      return cqlfhir.PatientSource.FHIRv300();
     case 4:
       return cqlfhir.PatientSource.FHIRv400();
     default:

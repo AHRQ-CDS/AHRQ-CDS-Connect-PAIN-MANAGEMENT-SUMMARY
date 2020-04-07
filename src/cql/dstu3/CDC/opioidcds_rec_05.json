@@ -1,0 +1,1157 @@
+{
+	"library": {
+		"identifier": {
+			"id": "OpioidCDS_REC_05",
+			"version": "1.1.1"
+		},
+		"schemaIdentifier": {
+			"id": "urn:hl7-org:elm",
+			"version": "r1"
+		},
+		"usings": {
+			"def": [
+				{
+					"localIdentifier": "System",
+					"uri": "urn:hl7-org:elm-types:r1"
+				},
+				{
+					"localId": "1",
+					"locator": "3:1-3:26",
+					"localIdentifier": "FHIR",
+					"uri": "http://hl7.org/fhir",
+					"version": "3.0.0"
+				}
+			]
+		},
+		"includes": {
+			"def": [
+				{
+					"localId": "2",
+					"locator": "5:1-5:54",
+					"localIdentifier": "Common",
+					"path": "OpioidCDS_Common",
+					"version": "1.1.1"
+				}
+			]
+		},
+		"parameters": {
+			"def": [
+				{
+					"localId": "5",
+					"locator": "18:1-18:54",
+					"name": "ContextPrescriptions",
+					"accessLevel": "Public",
+					"parameterTypeSpecifier": {
+						"localId": "4",
+						"locator": "18:32-18:54",
+						"type": "ListTypeSpecifier",
+						"elementType": {
+							"localId": "3",
+							"locator": "18:37-18:53",
+							"name": "{http://hl7.org/fhir}MedicationRequest",
+							"type": "NamedTypeSpecifier"
+						}
+					}
+				}
+			]
+		},
+		"statements": {
+			"def": [
+				{
+					"locator": "20:1-20:15",
+					"name": "Patient",
+					"context": "Patient",
+					"expression": {
+						"type": "SingletonFrom",
+						"operand": {
+							"locator": "20:1-20:15",
+							"dataType": "{http://hl7.org/fhir}Patient",
+							"type": "Retrieve"
+						}
+					}
+				},
+				{
+					"localId": "11",
+					"locator": "27:1-28:33",
+					"name": "Exclusion Criteria",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "11",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Exclusion Criteria\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "10",
+										"s": [
+											{
+												"r": "9",
+												"s": [
+													{
+														"value": [
+															"Common"
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"."
+												]
+											},
+											{
+												"r": "10",
+												"s": [
+													{
+														"value": [
+															"\"End of Life Assessment\""
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "10",
+						"locator": "28:3-28:33",
+						"name": "End of Life Assessment",
+						"libraryName": "Common",
+						"type": "ExpressionRef"
+					}
+				},
+				{
+					"localId": "21",
+					"locator": "30:1-31:82",
+					"name": "Total MME",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "21",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Total MME\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "20",
+										"s": [
+											{
+												"r": "15",
+												"s": [
+													{
+														"value": [
+															"Common"
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"."
+												]
+											},
+											{
+												"r": "20",
+												"s": [
+													{
+														"value": [
+															"TotalMME",
+															"("
+														]
+													},
+													{
+														"r": "19",
+														"s": [
+															{
+																"r": "16",
+																"s": [
+																	{
+																		"value": [
+																			"ContextPrescriptions"
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	" union "
+																]
+															},
+															{
+																"r": "18",
+																"s": [
+																	{
+																		"r": "17",
+																		"s": [
+																			{
+																				"value": [
+																					"Common"
+																				]
+																			}
+																		]
+																	},
+																	{
+																		"value": [
+																			"."
+																		]
+																	},
+																	{
+																		"r": "18",
+																		"s": [
+																			{
+																				"value": [
+																					"\"Active Ambulatory Opioid Rx\""
+																				]
+																			}
+																		]
+																	}
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															")"
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "20",
+						"locator": "31:3-31:82",
+						"name": "TotalMME",
+						"libraryName": "Common",
+						"type": "FunctionRef",
+						"operand": [
+							{
+								"localId": "19",
+								"locator": "31:19-31:81",
+								"type": "Union",
+								"operand": [
+									{
+										"localId": "16",
+										"locator": "31:19-31:38",
+										"name": "ContextPrescriptions",
+										"type": "ParameterRef"
+									},
+									{
+										"localId": "18",
+										"locator": "31:46-31:81",
+										"name": "Active Ambulatory Opioid Rx",
+										"libraryName": "Common",
+										"type": "ExpressionRef"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"localId": "26",
+					"locator": "22:1-25:32",
+					"name": "Inclusion Criteria",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "26",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Inclusion Criteria\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "25",
+										"s": [
+											{
+												"r": "14",
+												"s": [
+													{
+														"r": "8",
+														"s": [
+															{
+																"r": "6",
+																"s": [
+																	{
+																		"value": [
+																			"AgeInYears",
+																			"()"
+																		]
+																	}
+																]
+															},
+															{
+																"r": "7",
+																"value": [
+																	" ",
+																	">=",
+																	" ",
+																	"18"
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															"\n    and "
+														]
+													},
+													{
+														"r": "13",
+														"s": [
+															{
+																"value": [
+																	"not "
+																]
+															},
+															{
+																"r": "12",
+																"s": [
+																	{
+																		"value": [
+																			"\"Exclusion Criteria\""
+																		]
+																	}
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    and "
+												]
+											},
+											{
+												"r": "24",
+												"s": [
+													{
+														"r": "22",
+														"s": [
+															{
+																"value": [
+																	"\"Total MME\""
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															" ",
+															">=",
+															" "
+														]
+													},
+													{
+														"r": "23",
+														"s": [
+															{
+																"value": [
+																	"50 ",
+																	"'mg/d'"
+																]
+															}
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "25",
+						"locator": "23:3-25:32",
+						"type": "And",
+						"operand": [
+							{
+								"localId": "14",
+								"locator": "23:3-24:32",
+								"type": "And",
+								"operand": [
+									{
+										"localId": "8",
+										"locator": "23:3-23:20",
+										"type": "GreaterOrEqual",
+										"operand": [
+											{
+												"localId": "6",
+												"locator": "23:3-23:14",
+												"precision": "Year",
+												"type": "CalculateAge",
+												"operand": {
+													"path": "birthDate.value",
+													"type": "Property",
+													"source": {
+														"name": "Patient",
+														"type": "ExpressionRef"
+													}
+												}
+											},
+											{
+												"localId": "7",
+												"locator": "23:19-23:20",
+												"valueType": "{urn:hl7-org:elm-types:r1}Integer",
+												"value": "18",
+												"type": "Literal"
+											}
+										]
+									},
+									{
+										"localId": "13",
+										"locator": "24:9-24:32",
+										"type": "Not",
+										"operand": {
+											"localId": "12",
+											"locator": "24:13-24:32",
+											"name": "Exclusion Criteria",
+											"type": "ExpressionRef"
+										}
+									}
+								]
+							},
+							{
+								"localId": "24",
+								"locator": "25:9-25:32",
+								"type": "GreaterOrEqual",
+								"operand": [
+									{
+										"localId": "22",
+										"locator": "25:9-25:19",
+										"name": "Total MME",
+										"type": "ExpressionRef"
+									},
+									{
+										"localId": "23",
+										"locator": "25:24-25:32",
+										"value": 50,
+										"unit": "mg/d",
+										"type": "Quantity"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"localId": "31",
+					"locator": "33:1-33:43",
+					"name": "Taper Now",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "31",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Taper Now\"",
+											": "
+										]
+									},
+									{
+										"r": "30",
+										"s": [
+											{
+												"r": "28",
+												"s": [
+													{
+														"r": "27",
+														"s": [
+															{
+																"value": [
+																	"\"Total MME\""
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															"."
+														]
+													},
+													{
+														"r": "28",
+														"s": [
+															{
+																"value": [
+																	"value"
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"r": "29",
+												"value": [
+													" ",
+													">=",
+													" ",
+													"90"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "30",
+						"locator": "33:21-33:43",
+						"type": "GreaterOrEqual",
+						"operand": [
+							{
+								"localId": "28",
+								"locator": "33:21-33:37",
+								"path": "value",
+								"type": "Property",
+								"source": {
+									"localId": "27",
+									"locator": "33:21-33:31",
+									"name": "Total MME",
+									"type": "ExpressionRef"
+								}
+							},
+							{
+								"type": "ToDecimal",
+								"operand": {
+									"localId": "29",
+									"locator": "33:42-33:43",
+									"valueType": "{urn:hl7-org:elm-types:r1}Integer",
+									"value": "90",
+									"type": "Literal"
+								}
+							}
+						]
+					}
+				},
+				{
+					"localId": "36",
+					"locator": "35:1-35:50",
+					"name": "Consider Tapering",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "36",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Consider Tapering\"",
+											": "
+										]
+									},
+									{
+										"r": "35",
+										"s": [
+											{
+												"r": "33",
+												"s": [
+													{
+														"r": "32",
+														"s": [
+															{
+																"value": [
+																	"\"Total MME\""
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															"."
+														]
+													},
+													{
+														"r": "33",
+														"s": [
+															{
+																"value": [
+																	"value"
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"r": "34",
+												"value": [
+													" ",
+													"<",
+													" ",
+													"90"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "35",
+						"locator": "35:29-35:50",
+						"type": "Less",
+						"operand": [
+							{
+								"localId": "33",
+								"locator": "35:29-35:45",
+								"path": "value",
+								"type": "Property",
+								"source": {
+									"localId": "32",
+									"locator": "35:29-35:39",
+									"name": "Total MME",
+									"type": "ExpressionRef"
+								}
+							},
+							{
+								"type": "ToDecimal",
+								"operand": {
+									"localId": "34",
+									"locator": "35:49-35:50",
+									"valueType": "{urn:hl7-org:elm-types:r1}Integer",
+									"value": "90",
+									"type": "Literal"
+								}
+							}
+						]
+					}
+				},
+				{
+					"localId": "41",
+					"locator": "37:1-40:11",
+					"name": "Get Indicator",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "41",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Get Indicator\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "40",
+										"s": [
+											{
+												"value": [
+													"if "
+												]
+											},
+											{
+												"r": "37",
+												"s": [
+													{
+														"value": [
+															"\"Inclusion Criteria\""
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    then "
+												]
+											},
+											{
+												"r": "38",
+												"s": [
+													{
+														"value": [
+															"'warning'"
+														]
+													}
+												]
+											},
+											{
+												"r": "39",
+												"value": [
+													"\n  else ",
+													"null"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "40",
+						"locator": "38:3-40:11",
+						"type": "If",
+						"condition": {
+							"asType": "{urn:hl7-org:elm-types:r1}Boolean",
+							"type": "As",
+							"operand": {
+								"localId": "37",
+								"locator": "38:6-38:25",
+								"name": "Inclusion Criteria",
+								"type": "ExpressionRef"
+							}
+						},
+						"then": {
+							"localId": "38",
+							"locator": "39:10-39:18",
+							"valueType": "{urn:hl7-org:elm-types:r1}String",
+							"value": "warning",
+							"type": "Literal"
+						},
+						"else": {
+							"asType": "{urn:hl7-org:elm-types:r1}String",
+							"type": "As",
+							"operand": {
+								"localId": "39",
+								"locator": "40:8-40:11",
+								"type": "Null"
+							}
+						}
+					}
+				},
+				{
+					"localId": "52",
+					"locator": "42:1-50:11",
+					"name": "Get Summary",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "52",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Get Summary\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "51",
+										"s": [
+											{
+												"value": [
+													"if "
+												]
+											},
+											{
+												"r": "42",
+												"s": [
+													{
+														"value": [
+															"\"Inclusion Criteria\""
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    then\n      "
+												]
+											},
+											{
+												"r": "49",
+												"s": [
+													{
+														"r": "43",
+														"s": [
+															{
+																"value": [
+																	"'High risk for opioid overdose - '"
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															"\n        + "
+														]
+													},
+													{
+														"r": "48",
+														"s": [
+															{
+																"value": [
+																	"case "
+																]
+															},
+															{
+																"r": "46",
+																"s": [
+																	{
+																		"value": [
+																			"when "
+																		]
+																	},
+																	{
+																		"r": "44",
+																		"s": [
+																			{
+																				"value": [
+																					"\"Taper Now\""
+																				]
+																			}
+																		]
+																	},
+																	{
+																		"value": [
+																			"\n           then "
+																		]
+																	},
+																	{
+																		"r": "45",
+																		"s": [
+																			{
+																				"value": [
+																					"'taper now'"
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	"\n           else "
+																]
+															},
+															{
+																"r": "47",
+																"s": [
+																	{
+																		"value": [
+																			"'consider tapering'"
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	"\n         end"
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"r": "50",
+												"value": [
+													"\n  else ",
+													"null"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "51",
+						"locator": "43:3-50:11",
+						"type": "If",
+						"condition": {
+							"asType": "{urn:hl7-org:elm-types:r1}Boolean",
+							"type": "As",
+							"operand": {
+								"localId": "42",
+								"locator": "43:6-43:25",
+								"name": "Inclusion Criteria",
+								"type": "ExpressionRef"
+							}
+						},
+						"then": {
+							"localId": "49",
+							"locator": "45:7-49:12",
+							"type": "Concatenate",
+							"operand": [
+								{
+									"localId": "43",
+									"locator": "45:7-45:40",
+									"valueType": "{urn:hl7-org:elm-types:r1}String",
+									"value": "High risk for opioid overdose - ",
+									"type": "Literal"
+								},
+								{
+									"localId": "48",
+									"locator": "46:11-49:12",
+									"type": "Case",
+									"caseItem": [
+										{
+											"localId": "46",
+											"locator": "46:16-47:27",
+											"when": {
+												"localId": "44",
+												"locator": "46:21-46:31",
+												"name": "Taper Now",
+												"type": "ExpressionRef"
+											},
+											"then": {
+												"localId": "45",
+												"locator": "47:17-47:27",
+												"valueType": "{urn:hl7-org:elm-types:r1}String",
+												"value": "taper now",
+												"type": "Literal"
+											}
+										}
+									],
+									"else": {
+										"localId": "47",
+										"locator": "48:17-48:35",
+										"valueType": "{urn:hl7-org:elm-types:r1}String",
+										"value": "consider tapering",
+										"type": "Literal"
+									}
+								}
+							]
+						},
+						"else": {
+							"asType": "{urn:hl7-org:elm-types:r1}String",
+							"type": "As",
+							"operand": {
+								"localId": "50",
+								"locator": "50:8-50:11",
+								"type": "Null"
+							}
+						}
+					}
+				},
+				{
+					"localId": "62",
+					"locator": "52:1-55:11",
+					"name": "Get Detail",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "62",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Get Detail\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "61",
+										"s": [
+											{
+												"value": [
+													"if "
+												]
+											},
+											{
+												"r": "53",
+												"s": [
+													{
+														"value": [
+															"\"Inclusion Criteria\""
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    then"
+												]
+											},
+											{
+												"r": "59",
+												"s": [
+													{
+														"r": "57",
+														"s": [
+															{
+																"r": "54",
+																"s": [
+																	{
+																		"value": [
+																			"'Total morphine milligram equivalent (MME) is '"
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	" + "
+																]
+															},
+															{
+																"r": "56",
+																"s": [
+																	{
+																		"value": [
+																			"ToString",
+																			"("
+																		]
+																	},
+																	{
+																		"r": "55",
+																		"s": [
+																			{
+																				"value": [
+																					"\"Total MME\""
+																				]
+																			}
+																		]
+																	},
+																	{
+																		"value": [
+																			")"
+																		]
+																	}
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															" + "
+														]
+													},
+													{
+														"r": "58",
+														"s": [
+															{
+																"value": [
+																	"'. Taper to less than 50.'"
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"r": "60",
+												"value": [
+													"\n  else ",
+													"null"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "61",
+						"locator": "53:3-55:11",
+						"type": "If",
+						"condition": {
+							"asType": "{urn:hl7-org:elm-types:r1}Boolean",
+							"type": "As",
+							"operand": {
+								"localId": "53",
+								"locator": "53:6-53:25",
+								"name": "Inclusion Criteria",
+								"type": "ExpressionRef"
+							}
+						},
+						"then": {
+							"localId": "59",
+							"locator": "54:9-54:108",
+							"type": "Concatenate",
+							"operand": [
+								{
+									"localId": "57",
+									"locator": "54:9-54:79",
+									"type": "Concatenate",
+									"operand": [
+										{
+											"localId": "54",
+											"locator": "54:9-54:55",
+											"valueType": "{urn:hl7-org:elm-types:r1}String",
+											"value": "Total morphine milligram equivalent (MME) is ",
+											"type": "Literal"
+										},
+										{
+											"localId": "56",
+											"locator": "54:59-54:79",
+											"type": "ToString",
+											"operand": {
+												"localId": "55",
+												"locator": "54:68-54:78",
+												"name": "Total MME",
+												"type": "ExpressionRef"
+											}
+										}
+									]
+								},
+								{
+									"localId": "58",
+									"locator": "54:83-54:108",
+									"valueType": "{urn:hl7-org:elm-types:r1}String",
+									"value": ". Taper to less than 50.",
+									"type": "Literal"
+								}
+							]
+						},
+						"else": {
+							"asType": "{urn:hl7-org:elm-types:r1}String",
+							"type": "As",
+							"operand": {
+								"localId": "60",
+								"locator": "55:8-55:11",
+								"type": "Null"
+							}
+						}
+					}
+				}
+			]
+		}
+	}
+}

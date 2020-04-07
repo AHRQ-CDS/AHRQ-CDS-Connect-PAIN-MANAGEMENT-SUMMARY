@@ -1,0 +1,2969 @@
+{
+	"library": {
+		"identifier": {
+			"id": "OpioidCDS_REC_11",
+			"version": "1.1.1"
+		},
+		"schemaIdentifier": {
+			"id": "urn:hl7-org:elm",
+			"version": "r1"
+		},
+		"usings": {
+			"def": [
+				{
+					"localIdentifier": "System",
+					"uri": "urn:hl7-org:elm-types:r1"
+				},
+				{
+					"localId": "1",
+					"locator": "3:1-3:26",
+					"localIdentifier": "FHIR",
+					"uri": "http://hl7.org/fhir",
+					"version": "3.0.0"
+				}
+			]
+		},
+		"includes": {
+			"def": [
+				{
+					"localId": "2",
+					"locator": "5:1-5:54",
+					"localIdentifier": "FHIRHelpers",
+					"path": "FHIRHelpers",
+					"version": "3.0.0"
+				},
+				{
+					"localId": "3",
+					"locator": "6:1-6:54",
+					"localIdentifier": "Common",
+					"path": "OpioidCDS_Common",
+					"version": "1.1.1"
+				}
+			]
+		},
+		"parameters": {
+			"def": [
+				{
+					"localId": "6",
+					"locator": "34:1-34:54",
+					"name": "ContextPrescriptions",
+					"accessLevel": "Public",
+					"parameterTypeSpecifier": {
+						"localId": "5",
+						"locator": "34:32-34:54",
+						"type": "ListTypeSpecifier",
+						"elementType": {
+							"localId": "4",
+							"locator": "34:37-34:53",
+							"name": "{http://hl7.org/fhir}MedicationRequest",
+							"type": "NamedTypeSpecifier"
+						}
+					}
+				}
+			]
+		},
+		"statements": {
+			"def": [
+				{
+					"locator": "36:1-36:15",
+					"name": "Patient",
+					"context": "Patient",
+					"expression": {
+						"type": "SingletonFrom",
+						"operand": {
+							"locator": "36:1-36:15",
+							"dataType": "{http://hl7.org/fhir}Patient",
+							"type": "Retrieve"
+						}
+					}
+				},
+				{
+					"localId": "49",
+					"locator": "38:1-54:3",
+					"name": "Validate Trigger Event For Benzodiazepine",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "49",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Validate Trigger Event For Benzodiazepine\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "48",
+										"s": [
+											{
+												"value": [
+													"exists"
+												]
+											},
+											{
+												"r": "47",
+												"s": [
+													{
+														"value": [
+															"(\n    "
+														]
+													},
+													{
+														"r": "47",
+														"s": [
+															{
+																"s": [
+																	{
+																		"r": "8",
+																		"s": [
+																			{
+																				"r": "7",
+																				"s": [
+																					{
+																						"s": [
+																							{
+																								"value": [
+																									"ContextPrescriptions"
+																								]
+																							}
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"value": [
+																					" ",
+																					"TriggerScript"
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	"\n      "
+																]
+															},
+															{
+																"r": "46",
+																"s": [
+																	{
+																		"value": [
+																			"where "
+																		]
+																	},
+																	{
+																		"r": "46",
+																		"s": [
+																			{
+																				"value": [
+																					"if "
+																				]
+																			},
+																			{
+																				"r": "12",
+																				"s": [
+																					{
+																						"r": "10",
+																						"s": [
+																							{
+																								"r": "9",
+																								"s": [
+																									{
+																										"value": [
+																											"TriggerScript"
+																										]
+																									}
+																								]
+																							},
+																							{
+																								"value": [
+																									"."
+																								]
+																							},
+																							{
+																								"r": "10",
+																								"s": [
+																									{
+																										"value": [
+																											"medication"
+																										]
+																									}
+																								]
+																							}
+																						]
+																					},
+																					{
+																						"value": [
+																							" is "
+																						]
+																					},
+																					{
+																						"r": "11",
+																						"s": [
+																							{
+																								"value": [
+																									"FHIR",
+																									".",
+																									"Reference"
+																								]
+																							}
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"value": [
+																					"\n        then "
+																				]
+																			},
+																			{
+																				"r": "22",
+																				"s": [
+																					{
+																						"value": [
+																							"exists "
+																						]
+																					},
+																					{
+																						"r": "21",
+																						"s": [
+																							{
+																								"value": [
+																									"(\n          "
+																								]
+																							},
+																							{
+																								"r": "21",
+																								"s": [
+																									{
+																										"s": [
+																											{
+																												"r": "14",
+																												"s": [
+																													{
+																														"r": "13",
+																														"s": [
+																															{
+																																"r": "13",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"[",
+																																			"Medication",
+																																			": "
+																																		]
+																																	},
+																																	{
+																																		"s": [
+																																			{
+																																				"value": [
+																																					"Common",
+																																					".",
+																																					"\"Benzodiazepines\""
+																																				]
+																																			}
+																																		]
+																																	},
+																																	{
+																																		"value": [
+																																			"]"
+																																		]
+																																	}
+																																]
+																															}
+																														]
+																													},
+																													{
+																														"value": [
+																															" ",
+																															"BenzodiazepineMedication"
+																														]
+																													}
+																												]
+																											}
+																										]
+																									},
+																									{
+																										"value": [
+																											"\n            "
+																										]
+																									},
+																									{
+																										"r": "20",
+																										"s": [
+																											{
+																												"value": [
+																													"where "
+																												]
+																											},
+																											{
+																												"r": "20",
+																												"s": [
+																													{
+																														"value": [
+																															"EndsWith",
+																															"("
+																														]
+																													},
+																													{
+																														"r": "17",
+																														"s": [
+																															{
+																																"r": "16",
+																																"s": [
+																																	{
+																																		"r": "15",
+																																		"s": [
+																																			{
+																																				"value": [
+																																					"TriggerScript"
+																																				]
+																																			}
+																																		]
+																																	},
+																																	{
+																																		"value": [
+																																			"."
+																																		]
+																																	},
+																																	{
+																																		"r": "16",
+																																		"s": [
+																																			{
+																																				"value": [
+																																					"medication"
+																																				]
+																																			}
+																																		]
+																																	}
+																																]
+																															},
+																															{
+																																"value": [
+																																	"."
+																																]
+																															},
+																															{
+																																"r": "17",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"reference"
+																																		]
+																																	}
+																																]
+																															}
+																														]
+																													},
+																													{
+																														"value": [
+																															", "
+																														]
+																													},
+																													{
+																														"r": "19",
+																														"s": [
+																															{
+																																"r": "18",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"BenzodiazepineMedication"
+																																		]
+																																	}
+																																]
+																															},
+																															{
+																																"value": [
+																																	"."
+																																]
+																															},
+																															{
+																																"r": "19",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"id"
+																																		]
+																																	}
+																																]
+																															}
+																														]
+																													},
+																													{
+																														"value": [
+																															")"
+																														]
+																													}
+																												]
+																											}
+																										]
+																									}
+																								]
+																							},
+																							{
+																								"value": [
+																									"\n        )"
+																								]
+																							}
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"value": [
+																					"\n        else "
+																				]
+																			},
+																			{
+																				"r": "45",
+																				"s": [
+																					{
+																						"r": "27",
+																						"s": [
+																							{
+																								"r": "24",
+																								"s": [
+																									{
+																										"r": "23",
+																										"s": [
+																											{
+																												"value": [
+																													"TriggerScript"
+																												]
+																											}
+																										]
+																									},
+																									{
+																										"value": [
+																											"."
+																										]
+																									},
+																									{
+																										"r": "24",
+																										"s": [
+																											{
+																												"value": [
+																													"medication"
+																												]
+																											}
+																										]
+																									}
+																								]
+																							},
+																							{
+																								"value": [
+																									" in "
+																								]
+																							},
+																							{
+																								"r": "26",
+																								"s": [
+																									{
+																										"r": "25",
+																										"s": [
+																											{
+																												"value": [
+																													"Common"
+																												]
+																											}
+																										]
+																									},
+																									{
+																										"value": [
+																											"."
+																										]
+																									},
+																									{
+																										"r": "26",
+																										"s": [
+																											{
+																												"value": [
+																													"\"Benzodiazepines\""
+																												]
+																											}
+																										]
+																									}
+																								]
+																							}
+																						]
+																					},
+																					{
+																						"value": [
+																							"\n      and "
+																						]
+																					},
+																					{
+																						"r": "44",
+																						"s": [
+																							{
+																								"value": [
+																									"(\n        "
+																								]
+																							},
+																							{
+																								"r": "44",
+																								"s": [
+																									{
+																										"r": "34",
+																										"s": [
+																											{
+																												"r": "31",
+																												"s": [
+																													{
+																														"r": "28",
+																														"s": [
+																															{
+																																"value": [
+																																	"FHIRHelpers"
+																																]
+																															}
+																														]
+																													},
+																													{
+																														"value": [
+																															"."
+																														]
+																													},
+																													{
+																														"r": "31",
+																														"s": [
+																															{
+																																"value": [
+																																	"ToConcept",
+																																	"("
+																																]
+																															},
+																															{
+																																"r": "30",
+																																"s": [
+																																	{
+																																		"r": "29",
+																																		"s": [
+																																			{
+																																				"value": [
+																																					"TriggerScript"
+																																				]
+																																			}
+																																		]
+																																	},
+																																	{
+																																		"value": [
+																																			"."
+																																		]
+																																	},
+																																	{
+																																		"r": "30",
+																																		"s": [
+																																			{
+																																				"value": [
+																																					"category"
+																																				]
+																																			}
+																																		]
+																																	}
+																																]
+																															},
+																															{
+																																"value": [
+																																	")"
+																																]
+																															}
+																														]
+																													}
+																												]
+																											},
+																											{
+																												"value": [
+																													" ",
+																													"~",
+																													" "
+																												]
+																											},
+																											{
+																												"r": "33",
+																												"s": [
+																													{
+																														"r": "32",
+																														"s": [
+																															{
+																																"value": [
+																																	"Common"
+																																]
+																															}
+																														]
+																													},
+																													{
+																														"value": [
+																															"."
+																														]
+																													},
+																													{
+																														"r": "33",
+																														"s": [
+																															{
+																																"value": [
+																																	"\"Community\""
+																																]
+																															}
+																														]
+																													}
+																												]
+																											}
+																										]
+																									},
+																									{
+																										"value": [
+																											"\n          or "
+																										]
+																									},
+																									{
+																										"r": "43",
+																										"s": [
+																											{
+																												"value": [
+																													"(\n            "
+																												]
+																											},
+																											{
+																												"r": "43",
+																												"s": [
+																													{
+																														"r": "36",
+																														"s": [
+																															{
+																																"r": "35",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"Common"
+																																		]
+																																	}
+																																]
+																															},
+																															{
+																																"value": [
+																																	"."
+																																]
+																															},
+																															{
+																																"r": "36",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"IgnoreOutpatientCategorySystem"
+																																		]
+																																	}
+																																]
+																															}
+																														]
+																													},
+																													{
+																														"value": [
+																															"\n              and "
+																														]
+																													},
+																													{
+																														"r": "42",
+																														"s": [
+																															{
+																																"r": "37",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"Common"
+																																		]
+																																	}
+																																]
+																															},
+																															{
+																																"value": [
+																																	"."
+																																]
+																															},
+																															{
+																																"r": "42",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"ConceptCodeOnlyEquivalent",
+																																			"("
+																																		]
+																																	},
+																																	{
+																																		"r": "39",
+																																		"s": [
+																																			{
+																																				"r": "38",
+																																				"s": [
+																																					{
+																																						"value": [
+																																							"TriggerScript"
+																																						]
+																																					}
+																																				]
+																																			},
+																																			{
+																																				"value": [
+																																					"."
+																																				]
+																																			},
+																																			{
+																																				"r": "39",
+																																				"s": [
+																																					{
+																																						"value": [
+																																							"category"
+																																						]
+																																					}
+																																				]
+																																			}
+																																		]
+																																	},
+																																	{
+																																		"value": [
+																																			", "
+																																		]
+																																	},
+																																	{
+																																		"r": "41",
+																																		"s": [
+																																			{
+																																				"r": "40",
+																																				"s": [
+																																					{
+																																						"value": [
+																																							"Common"
+																																						]
+																																					}
+																																				]
+																																			},
+																																			{
+																																				"value": [
+																																					"."
+																																				]
+																																			},
+																																			{
+																																				"r": "41",
+																																				"s": [
+																																					{
+																																						"value": [
+																																							"\"Community\""
+																																						]
+																																					}
+																																				]
+																																			}
+																																		]
+																																	},
+																																	{
+																																		"value": [
+																																			")"
+																																		]
+																																	}
+																																]
+																															}
+																														]
+																													}
+																												]
+																											},
+																											{
+																												"value": [
+																													"\n          )"
+																												]
+																											}
+																										]
+																									}
+																								]
+																							},
+																							{
+																								"value": [
+																									"\n      )"
+																								]
+																							}
+																						]
+																					}
+																				]
+																			}
+																		]
+																	}
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															"\n  )"
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "48",
+						"locator": "39:3-54:3",
+						"type": "Exists",
+						"operand": {
+							"localId": "47",
+							"locator": "39:9-54:3",
+							"type": "Query",
+							"source": [
+								{
+									"localId": "8",
+									"locator": "40:5-40:38",
+									"alias": "TriggerScript",
+									"expression": {
+										"localId": "7",
+										"locator": "40:5-40:24",
+										"name": "ContextPrescriptions",
+										"type": "ParameterRef"
+									}
+								}
+							],
+							"relationship": [],
+							"where": {
+								"localId": "46",
+								"locator": "41:7-53:7",
+								"type": "If",
+								"condition": {
+									"asType": "{urn:hl7-org:elm-types:r1}Boolean",
+									"type": "As",
+									"operand": {
+										"localId": "12",
+										"locator": "41:16-41:57",
+										"type": "Is",
+										"operand": {
+											"localId": "10",
+											"locator": "41:16-41:39",
+											"path": "medication",
+											"scope": "TriggerScript",
+											"type": "Property"
+										},
+										"isTypeSpecifier": {
+											"localId": "11",
+											"locator": "41:44-41:57",
+											"name": "{http://hl7.org/fhir}Reference",
+											"type": "NamedTypeSpecifier"
+										}
+									}
+								},
+								"then": {
+									"localId": "22",
+									"locator": "42:14-45:9",
+									"type": "Exists",
+									"operand": {
+										"localId": "21",
+										"locator": "42:21-45:9",
+										"type": "Query",
+										"source": [
+											{
+												"localId": "14",
+												"locator": "43:11-43:73",
+												"alias": "BenzodiazepineMedication",
+												"expression": {
+													"localId": "13",
+													"locator": "43:11-43:48",
+													"dataType": "{http://hl7.org/fhir}Medication",
+													"codeProperty": "code",
+													"type": "Retrieve",
+													"codes": {
+														"locator": "43:24-43:47",
+														"name": "Benzodiazepines",
+														"libraryName": "Common",
+														"type": "ValueSetRef"
+													}
+												}
+											}
+										],
+										"relationship": [],
+										"where": {
+											"localId": "20",
+											"locator": "44:13-44:91",
+											"type": "EndsWith",
+											"operand": [
+												{
+													"name": "ToString",
+													"libraryName": "FHIRHelpers",
+													"type": "FunctionRef",
+													"operand": [
+														{
+															"localId": "17",
+															"locator": "44:28-44:61",
+															"path": "reference",
+															"type": "Property",
+															"source": {
+																"localId": "16",
+																"locator": "44:28-44:51",
+																"path": "medication",
+																"scope": "TriggerScript",
+																"type": "Property"
+															}
+														}
+													]
+												},
+												{
+													"name": "ToString",
+													"libraryName": "FHIRHelpers",
+													"type": "FunctionRef",
+													"operand": [
+														{
+															"localId": "19",
+															"locator": "44:64-44:90",
+															"path": "id",
+															"scope": "BenzodiazepineMedication",
+															"type": "Property"
+														}
+													]
+												}
+											]
+										}
+									}
+								},
+								"else": {
+									"localId": "45",
+									"locator": "46:14-53:7",
+									"type": "And",
+									"operand": [
+										{
+											"localId": "27",
+											"locator": "46:14-46:65",
+											"type": "InValueSet",
+											"code": {
+												"name": "ToConcept",
+												"libraryName": "FHIRHelpers",
+												"type": "FunctionRef",
+												"operand": [
+													{
+														"asType": "{http://hl7.org/fhir}CodeableConcept",
+														"type": "As",
+														"operand": {
+															"localId": "24",
+															"locator": "46:14-46:37",
+															"path": "medication",
+															"scope": "TriggerScript",
+															"type": "Property"
+														}
+													}
+												]
+											},
+											"valueset": {
+												"localId": "26",
+												"locator": "46:42-46:65",
+												"name": "Benzodiazepines",
+												"libraryName": "Common"
+											}
+										},
+										{
+											"localId": "44",
+											"locator": "47:11-53:7",
+											"type": "Or",
+											"operand": [
+												{
+													"localId": "34",
+													"locator": "48:9-48:74",
+													"type": "Equivalent",
+													"operand": [
+														{
+															"localId": "31",
+															"locator": "48:9-48:53",
+															"name": "ToConcept",
+															"libraryName": "FHIRHelpers",
+															"type": "FunctionRef",
+															"operand": [
+																{
+																	"localId": "30",
+																	"locator": "48:31-48:52",
+																	"path": "category",
+																	"scope": "TriggerScript",
+																	"type": "Property"
+																}
+															]
+														},
+														{
+															"type": "ToConcept",
+															"operand": {
+																"localId": "33",
+																"locator": "48:57-48:74",
+																"name": "Community",
+																"libraryName": "Common",
+																"type": "CodeRef"
+															}
+														}
+													]
+												},
+												{
+													"localId": "43",
+													"locator": "49:14-52:11",
+													"type": "And",
+													"operand": [
+														{
+															"localId": "36",
+															"locator": "50:13-50:49",
+															"name": "IgnoreOutpatientCategorySystem",
+															"libraryName": "Common",
+															"type": "ExpressionRef"
+														},
+														{
+															"localId": "42",
+															"locator": "51:19-51:94",
+															"name": "ConceptCodeOnlyEquivalent",
+															"libraryName": "Common",
+															"type": "FunctionRef",
+															"operand": [
+																{
+																	"name": "ToConcept",
+																	"libraryName": "FHIRHelpers",
+																	"type": "FunctionRef",
+																	"operand": [
+																		{
+																			"localId": "39",
+																			"locator": "51:52-51:73",
+																			"path": "category",
+																			"scope": "TriggerScript",
+																			"type": "Property"
+																		}
+																	]
+																},
+																{
+																	"localId": "41",
+																	"locator": "51:76-51:93",
+																	"name": "Community",
+																	"libraryName": "Common",
+																	"type": "CodeRef"
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				{
+					"localId": "92",
+					"locator": "60:1-76:3",
+					"name": "Validate Trigger Event For Ambulatory Care Abuse Potential",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "92",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Validate Trigger Event For Ambulatory Care Abuse Potential\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "91",
+										"s": [
+											{
+												"value": [
+													"exists"
+												]
+											},
+											{
+												"r": "90",
+												"s": [
+													{
+														"value": [
+															"(\n    "
+														]
+													},
+													{
+														"r": "90",
+														"s": [
+															{
+																"s": [
+																	{
+																		"r": "51",
+																		"s": [
+																			{
+																				"r": "50",
+																				"s": [
+																					{
+																						"s": [
+																							{
+																								"value": [
+																									"ContextPrescriptions"
+																								]
+																							}
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"value": [
+																					" ",
+																					"TriggerScript"
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	"\n      "
+																]
+															},
+															{
+																"r": "89",
+																"s": [
+																	{
+																		"value": [
+																			"where "
+																		]
+																	},
+																	{
+																		"r": "89",
+																		"s": [
+																			{
+																				"value": [
+																					"if "
+																				]
+																			},
+																			{
+																				"r": "55",
+																				"s": [
+																					{
+																						"r": "53",
+																						"s": [
+																							{
+																								"r": "52",
+																								"s": [
+																									{
+																										"value": [
+																											"TriggerScript"
+																										]
+																									}
+																								]
+																							},
+																							{
+																								"value": [
+																									"."
+																								]
+																							},
+																							{
+																								"r": "53",
+																								"s": [
+																									{
+																										"value": [
+																											"medication"
+																										]
+																									}
+																								]
+																							}
+																						]
+																					},
+																					{
+																						"value": [
+																							" is "
+																						]
+																					},
+																					{
+																						"r": "54",
+																						"s": [
+																							{
+																								"value": [
+																									"FHIR",
+																									".",
+																									"Reference"
+																								]
+																							}
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"value": [
+																					"\n        then "
+																				]
+																			},
+																			{
+																				"r": "65",
+																				"s": [
+																					{
+																						"value": [
+																							"exists "
+																						]
+																					},
+																					{
+																						"r": "64",
+																						"s": [
+																							{
+																								"value": [
+																									"(\n          "
+																								]
+																							},
+																							{
+																								"r": "64",
+																								"s": [
+																									{
+																										"s": [
+																											{
+																												"r": "57",
+																												"s": [
+																													{
+																														"r": "56",
+																														"s": [
+																															{
+																																"r": "56",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"[",
+																																			"Medication",
+																																			": "
+																																		]
+																																	},
+																																	{
+																																		"s": [
+																																			{
+																																				"value": [
+																																					"Common",
+																																					".",
+																																					"\"Ambulatory Abuse Potential Opioids\""
+																																				]
+																																			}
+																																		]
+																																	},
+																																	{
+																																		"value": [
+																																			"]"
+																																		]
+																																	}
+																																]
+																															}
+																														]
+																													},
+																													{
+																														"value": [
+																															" ",
+																															"OpioidMedication"
+																														]
+																													}
+																												]
+																											}
+																										]
+																									},
+																									{
+																										"value": [
+																											"\n            "
+																										]
+																									},
+																									{
+																										"r": "63",
+																										"s": [
+																											{
+																												"value": [
+																													"where "
+																												]
+																											},
+																											{
+																												"r": "63",
+																												"s": [
+																													{
+																														"value": [
+																															"EndsWith",
+																															"("
+																														]
+																													},
+																													{
+																														"r": "60",
+																														"s": [
+																															{
+																																"r": "59",
+																																"s": [
+																																	{
+																																		"r": "58",
+																																		"s": [
+																																			{
+																																				"value": [
+																																					"TriggerScript"
+																																				]
+																																			}
+																																		]
+																																	},
+																																	{
+																																		"value": [
+																																			"."
+																																		]
+																																	},
+																																	{
+																																		"r": "59",
+																																		"s": [
+																																			{
+																																				"value": [
+																																					"medication"
+																																				]
+																																			}
+																																		]
+																																	}
+																																]
+																															},
+																															{
+																																"value": [
+																																	"."
+																																]
+																															},
+																															{
+																																"r": "60",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"reference"
+																																		]
+																																	}
+																																]
+																															}
+																														]
+																													},
+																													{
+																														"value": [
+																															", "
+																														]
+																													},
+																													{
+																														"r": "62",
+																														"s": [
+																															{
+																																"r": "61",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"OpioidMedication"
+																																		]
+																																	}
+																																]
+																															},
+																															{
+																																"value": [
+																																	"."
+																																]
+																															},
+																															{
+																																"r": "62",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"id"
+																																		]
+																																	}
+																																]
+																															}
+																														]
+																													},
+																													{
+																														"value": [
+																															")"
+																														]
+																													}
+																												]
+																											}
+																										]
+																									}
+																								]
+																							},
+																							{
+																								"value": [
+																									"\n        )"
+																								]
+																							}
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"value": [
+																					"\n        else "
+																				]
+																			},
+																			{
+																				"r": "88",
+																				"s": [
+																					{
+																						"r": "70",
+																						"s": [
+																							{
+																								"r": "67",
+																								"s": [
+																									{
+																										"r": "66",
+																										"s": [
+																											{
+																												"value": [
+																													"TriggerScript"
+																												]
+																											}
+																										]
+																									},
+																									{
+																										"value": [
+																											"."
+																										]
+																									},
+																									{
+																										"r": "67",
+																										"s": [
+																											{
+																												"value": [
+																													"medication"
+																												]
+																											}
+																										]
+																									}
+																								]
+																							},
+																							{
+																								"value": [
+																									" in "
+																								]
+																							},
+																							{
+																								"r": "69",
+																								"s": [
+																									{
+																										"r": "68",
+																										"s": [
+																											{
+																												"value": [
+																													"Common"
+																												]
+																											}
+																										]
+																									},
+																									{
+																										"value": [
+																											"."
+																										]
+																									},
+																									{
+																										"r": "69",
+																										"s": [
+																											{
+																												"value": [
+																													"\"Ambulatory Abuse Potential Opioids\""
+																												]
+																											}
+																										]
+																									}
+																								]
+																							}
+																						]
+																					},
+																					{
+																						"value": [
+																							"\n      and "
+																						]
+																					},
+																					{
+																						"r": "87",
+																						"s": [
+																							{
+																								"value": [
+																									"(\n        "
+																								]
+																							},
+																							{
+																								"r": "87",
+																								"s": [
+																									{
+																										"r": "77",
+																										"s": [
+																											{
+																												"r": "74",
+																												"s": [
+																													{
+																														"r": "71",
+																														"s": [
+																															{
+																																"value": [
+																																	"FHIRHelpers"
+																																]
+																															}
+																														]
+																													},
+																													{
+																														"value": [
+																															"."
+																														]
+																													},
+																													{
+																														"r": "74",
+																														"s": [
+																															{
+																																"value": [
+																																	"ToConcept",
+																																	"("
+																																]
+																															},
+																															{
+																																"r": "73",
+																																"s": [
+																																	{
+																																		"r": "72",
+																																		"s": [
+																																			{
+																																				"value": [
+																																					"TriggerScript"
+																																				]
+																																			}
+																																		]
+																																	},
+																																	{
+																																		"value": [
+																																			"."
+																																		]
+																																	},
+																																	{
+																																		"r": "73",
+																																		"s": [
+																																			{
+																																				"value": [
+																																					"category"
+																																				]
+																																			}
+																																		]
+																																	}
+																																]
+																															},
+																															{
+																																"value": [
+																																	")"
+																																]
+																															}
+																														]
+																													}
+																												]
+																											},
+																											{
+																												"value": [
+																													" ",
+																													"~",
+																													" "
+																												]
+																											},
+																											{
+																												"r": "76",
+																												"s": [
+																													{
+																														"r": "75",
+																														"s": [
+																															{
+																																"value": [
+																																	"Common"
+																																]
+																															}
+																														]
+																													},
+																													{
+																														"value": [
+																															"."
+																														]
+																													},
+																													{
+																														"r": "76",
+																														"s": [
+																															{
+																																"value": [
+																																	"\"Community\""
+																																]
+																															}
+																														]
+																													}
+																												]
+																											}
+																										]
+																									},
+																									{
+																										"value": [
+																											"\n          or "
+																										]
+																									},
+																									{
+																										"r": "86",
+																										"s": [
+																											{
+																												"value": [
+																													"(\n            "
+																												]
+																											},
+																											{
+																												"r": "86",
+																												"s": [
+																													{
+																														"r": "79",
+																														"s": [
+																															{
+																																"r": "78",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"Common"
+																																		]
+																																	}
+																																]
+																															},
+																															{
+																																"value": [
+																																	"."
+																																]
+																															},
+																															{
+																																"r": "79",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"IgnoreOutpatientCategorySystem"
+																																		]
+																																	}
+																																]
+																															}
+																														]
+																													},
+																													{
+																														"value": [
+																															"\n              and "
+																														]
+																													},
+																													{
+																														"r": "85",
+																														"s": [
+																															{
+																																"r": "80",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"Common"
+																																		]
+																																	}
+																																]
+																															},
+																															{
+																																"value": [
+																																	"."
+																																]
+																															},
+																															{
+																																"r": "85",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"ConceptCodeOnlyEquivalent",
+																																			"("
+																																		]
+																																	},
+																																	{
+																																		"r": "82",
+																																		"s": [
+																																			{
+																																				"r": "81",
+																																				"s": [
+																																					{
+																																						"value": [
+																																							"TriggerScript"
+																																						]
+																																					}
+																																				]
+																																			},
+																																			{
+																																				"value": [
+																																					"."
+																																				]
+																																			},
+																																			{
+																																				"r": "82",
+																																				"s": [
+																																					{
+																																						"value": [
+																																							"category"
+																																						]
+																																					}
+																																				]
+																																			}
+																																		]
+																																	},
+																																	{
+																																		"value": [
+																																			", "
+																																		]
+																																	},
+																																	{
+																																		"r": "84",
+																																		"s": [
+																																			{
+																																				"r": "83",
+																																				"s": [
+																																					{
+																																						"value": [
+																																							"Common"
+																																						]
+																																					}
+																																				]
+																																			},
+																																			{
+																																				"value": [
+																																					"."
+																																				]
+																																			},
+																																			{
+																																				"r": "84",
+																																				"s": [
+																																					{
+																																						"value": [
+																																							"\"Community\""
+																																						]
+																																					}
+																																				]
+																																			}
+																																		]
+																																	},
+																																	{
+																																		"value": [
+																																			")"
+																																		]
+																																	}
+																																]
+																															}
+																														]
+																													}
+																												]
+																											},
+																											{
+																												"value": [
+																													"\n          )"
+																												]
+																											}
+																										]
+																									}
+																								]
+																							},
+																							{
+																								"value": [
+																									"\n      )"
+																								]
+																							}
+																						]
+																					}
+																				]
+																			}
+																		]
+																	}
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															"\n  )"
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "91",
+						"locator": "61:3-76:3",
+						"type": "Exists",
+						"operand": {
+							"localId": "90",
+							"locator": "61:9-76:3",
+							"type": "Query",
+							"source": [
+								{
+									"localId": "51",
+									"locator": "62:5-62:38",
+									"alias": "TriggerScript",
+									"expression": {
+										"localId": "50",
+										"locator": "62:5-62:24",
+										"name": "ContextPrescriptions",
+										"type": "ParameterRef"
+									}
+								}
+							],
+							"relationship": [],
+							"where": {
+								"localId": "89",
+								"locator": "63:7-75:7",
+								"type": "If",
+								"condition": {
+									"asType": "{urn:hl7-org:elm-types:r1}Boolean",
+									"type": "As",
+									"operand": {
+										"localId": "55",
+										"locator": "63:16-63:57",
+										"type": "Is",
+										"operand": {
+											"localId": "53",
+											"locator": "63:16-63:39",
+											"path": "medication",
+											"scope": "TriggerScript",
+											"type": "Property"
+										},
+										"isTypeSpecifier": {
+											"localId": "54",
+											"locator": "63:44-63:57",
+											"name": "{http://hl7.org/fhir}Reference",
+											"type": "NamedTypeSpecifier"
+										}
+									}
+								},
+								"then": {
+									"localId": "65",
+									"locator": "64:14-67:9",
+									"type": "Exists",
+									"operand": {
+										"localId": "64",
+										"locator": "64:21-67:9",
+										"type": "Query",
+										"source": [
+											{
+												"localId": "57",
+												"locator": "65:11-65:84",
+												"alias": "OpioidMedication",
+												"expression": {
+													"localId": "56",
+													"locator": "65:11-65:67",
+													"dataType": "{http://hl7.org/fhir}Medication",
+													"codeProperty": "code",
+													"type": "Retrieve",
+													"codes": {
+														"locator": "65:24-65:66",
+														"name": "Ambulatory Abuse Potential Opioids",
+														"libraryName": "Common",
+														"type": "ValueSetRef"
+													}
+												}
+											}
+										],
+										"relationship": [],
+										"where": {
+											"localId": "63",
+											"locator": "66:13-66:83",
+											"type": "EndsWith",
+											"operand": [
+												{
+													"name": "ToString",
+													"libraryName": "FHIRHelpers",
+													"type": "FunctionRef",
+													"operand": [
+														{
+															"localId": "60",
+															"locator": "66:28-66:61",
+															"path": "reference",
+															"type": "Property",
+															"source": {
+																"localId": "59",
+																"locator": "66:28-66:51",
+																"path": "medication",
+																"scope": "TriggerScript",
+																"type": "Property"
+															}
+														}
+													]
+												},
+												{
+													"name": "ToString",
+													"libraryName": "FHIRHelpers",
+													"type": "FunctionRef",
+													"operand": [
+														{
+															"localId": "62",
+															"locator": "66:64-66:82",
+															"path": "id",
+															"scope": "OpioidMedication",
+															"type": "Property"
+														}
+													]
+												}
+											]
+										}
+									}
+								},
+								"else": {
+									"localId": "88",
+									"locator": "68:14-75:7",
+									"type": "And",
+									"operand": [
+										{
+											"localId": "70",
+											"locator": "68:14-68:84",
+											"type": "InValueSet",
+											"code": {
+												"name": "ToConcept",
+												"libraryName": "FHIRHelpers",
+												"type": "FunctionRef",
+												"operand": [
+													{
+														"asType": "{http://hl7.org/fhir}CodeableConcept",
+														"type": "As",
+														"operand": {
+															"localId": "67",
+															"locator": "68:14-68:37",
+															"path": "medication",
+															"scope": "TriggerScript",
+															"type": "Property"
+														}
+													}
+												]
+											},
+											"valueset": {
+												"localId": "69",
+												"locator": "68:42-68:84",
+												"name": "Ambulatory Abuse Potential Opioids",
+												"libraryName": "Common"
+											}
+										},
+										{
+											"localId": "87",
+											"locator": "69:11-75:7",
+											"type": "Or",
+											"operand": [
+												{
+													"localId": "77",
+													"locator": "70:9-70:74",
+													"type": "Equivalent",
+													"operand": [
+														{
+															"localId": "74",
+															"locator": "70:9-70:53",
+															"name": "ToConcept",
+															"libraryName": "FHIRHelpers",
+															"type": "FunctionRef",
+															"operand": [
+																{
+																	"localId": "73",
+																	"locator": "70:31-70:52",
+																	"path": "category",
+																	"scope": "TriggerScript",
+																	"type": "Property"
+																}
+															]
+														},
+														{
+															"type": "ToConcept",
+															"operand": {
+																"localId": "76",
+																"locator": "70:57-70:74",
+																"name": "Community",
+																"libraryName": "Common",
+																"type": "CodeRef"
+															}
+														}
+													]
+												},
+												{
+													"localId": "86",
+													"locator": "71:14-74:11",
+													"type": "And",
+													"operand": [
+														{
+															"localId": "79",
+															"locator": "72:13-72:49",
+															"name": "IgnoreOutpatientCategorySystem",
+															"libraryName": "Common",
+															"type": "ExpressionRef"
+														},
+														{
+															"localId": "85",
+															"locator": "73:19-73:94",
+															"name": "ConceptCodeOnlyEquivalent",
+															"libraryName": "Common",
+															"type": "FunctionRef",
+															"operand": [
+																{
+																	"name": "ToConcept",
+																	"libraryName": "FHIRHelpers",
+																	"type": "FunctionRef",
+																	"operand": [
+																		{
+																			"localId": "82",
+																			"locator": "73:52-73:73",
+																			"path": "category",
+																			"scope": "TriggerScript",
+																			"type": "Property"
+																		}
+																	]
+																},
+																{
+																	"localId": "84",
+																	"locator": "73:76-73:93",
+																	"name": "Community",
+																	"libraryName": "Common",
+																	"type": "CodeRef"
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				{
+					"localId": "102",
+					"locator": "86:1-87:33",
+					"name": "Exclusion Criteria",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "102",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Exclusion Criteria\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "101",
+										"s": [
+											{
+												"r": "100",
+												"s": [
+													{
+														"value": [
+															"Common"
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"."
+												]
+											},
+											{
+												"r": "101",
+												"s": [
+													{
+														"value": [
+															"\"End of Life Assessment\""
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "101",
+						"locator": "87:3-87:33",
+						"name": "End of Life Assessment",
+						"libraryName": "Common",
+						"type": "ExpressionRef"
+					}
+				},
+				{
+					"localId": "111",
+					"locator": "89:1-91:59",
+					"name": "On Benzodiazepine",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "111",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"On Benzodiazepine\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "110",
+										"s": [
+											{
+												"r": "106",
+												"s": [
+													{
+														"value": [
+															"\"Validate Trigger Event For Benzodiazepine\""
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n  or "
+												]
+											},
+											{
+												"r": "109",
+												"s": [
+													{
+														"value": [
+															"exists"
+														]
+													},
+													{
+														"r": "108",
+														"s": [
+															{
+																"value": [
+																	"( "
+																]
+															},
+															{
+																"r": "108",
+																"s": [
+																	{
+																		"r": "107",
+																		"s": [
+																			{
+																				"value": [
+																					"Common"
+																				]
+																			}
+																		]
+																	},
+																	{
+																		"value": [
+																			"."
+																		]
+																	},
+																	{
+																		"r": "108",
+																		"s": [
+																			{
+																				"value": [
+																					"\"Active Ambulatory Benzodiazepine Rx\""
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	" )"
+																]
+															}
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "110",
+						"locator": "90:3-91:59",
+						"type": "Or",
+						"operand": [
+							{
+								"localId": "106",
+								"locator": "90:3-90:45",
+								"name": "Validate Trigger Event For Benzodiazepine",
+								"type": "ExpressionRef"
+							},
+							{
+								"localId": "109",
+								"locator": "91:6-91:59",
+								"type": "Exists",
+								"operand": {
+									"localId": "108",
+									"locator": "91:12-91:59",
+									"name": "Active Ambulatory Benzodiazepine Rx",
+									"libraryName": "Common",
+									"type": "ExpressionRef"
+								}
+							}
+						]
+					}
+				},
+				{
+					"localId": "119",
+					"locator": "93:1-95:51",
+					"name": "Opioid with Ambulatory Care Abuse Potential",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "119",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Opioid with Ambulatory Care Abuse Potential\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "118",
+										"s": [
+											{
+												"r": "114",
+												"s": [
+													{
+														"value": [
+															"\"Validate Trigger Event For Ambulatory Care Abuse Potential\""
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n  or "
+												]
+											},
+											{
+												"r": "117",
+												"s": [
+													{
+														"value": [
+															"exists"
+														]
+													},
+													{
+														"r": "116",
+														"s": [
+															{
+																"value": [
+																	"( "
+																]
+															},
+															{
+																"r": "116",
+																"s": [
+																	{
+																		"r": "115",
+																		"s": [
+																			{
+																				"value": [
+																					"Common"
+																				]
+																			}
+																		]
+																	},
+																	{
+																		"value": [
+																			"."
+																		]
+																	},
+																	{
+																		"r": "116",
+																		"s": [
+																			{
+																				"value": [
+																					"\"Active Ambulatory Opioid Rx\""
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	" )"
+																]
+															}
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "118",
+						"locator": "94:3-95:51",
+						"type": "Or",
+						"operand": [
+							{
+								"localId": "114",
+								"locator": "94:3-94:62",
+								"name": "Validate Trigger Event For Ambulatory Care Abuse Potential",
+								"type": "ExpressionRef"
+							},
+							{
+								"localId": "117",
+								"locator": "95:6-95:51",
+								"type": "Exists",
+								"operand": {
+									"localId": "116",
+									"locator": "95:12-95:51",
+									"name": "Active Ambulatory Opioid Rx",
+									"libraryName": "Common",
+									"type": "ExpressionRef"
+								}
+							}
+						]
+					}
+				},
+				{
+					"localId": "122",
+					"locator": "78:1-84:53",
+					"name": "Inclusion Criteria",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "122",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Inclusion Criteria\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "121",
+										"s": [
+											{
+												"r": "113",
+												"s": [
+													{
+														"r": "105",
+														"s": [
+															{
+																"r": "99",
+																"s": [
+																	{
+																		"r": "95",
+																		"s": [
+																			{
+																				"r": "93",
+																				"s": [
+																					{
+																						"value": [
+																							"AgeInYears",
+																							"()"
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"r": "94",
+																				"value": [
+																					" ",
+																					">=",
+																					" ",
+																					"18"
+																				]
+																			}
+																		]
+																	},
+																	{
+																		"value": [
+																			"\n    and "
+																		]
+																	},
+																	{
+																		"r": "98",
+																		"s": [
+																			{
+																				"value": [
+																					"("
+																				]
+																			},
+																			{
+																				"r": "98",
+																				"s": [
+																					{
+																						"r": "96",
+																						"s": [
+																							{
+																								"value": [
+																									"\"Validate Trigger Event For Benzodiazepine\""
+																								]
+																							}
+																						]
+																					},
+																					{
+																						"value": [
+																							"\n      or "
+																						]
+																					},
+																					{
+																						"r": "97",
+																						"s": [
+																							{
+																								"value": [
+																									"\"Validate Trigger Event For Ambulatory Care Abuse Potential\""
+																								]
+																							}
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"value": [
+																					")"
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	"\n    and "
+																]
+															},
+															{
+																"r": "104",
+																"s": [
+																	{
+																		"value": [
+																			"not "
+																		]
+																	},
+																	{
+																		"r": "103",
+																		"s": [
+																			{
+																				"value": [
+																					"\"Exclusion Criteria\""
+																				]
+																			}
+																		]
+																	}
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															"\n    and "
+														]
+													},
+													{
+														"r": "112",
+														"s": [
+															{
+																"value": [
+																	"\"On Benzodiazepine\""
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    and "
+												]
+											},
+											{
+												"r": "120",
+												"s": [
+													{
+														"value": [
+															"\"Opioid with Ambulatory Care Abuse Potential\""
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "121",
+						"locator": "79:3-84:53",
+						"type": "And",
+						"operand": [
+							{
+								"localId": "113",
+								"locator": "79:3-83:27",
+								"type": "And",
+								"operand": [
+									{
+										"localId": "105",
+										"locator": "79:3-82:32",
+										"type": "And",
+										"operand": [
+											{
+												"localId": "99",
+												"locator": "79:3-81:70",
+												"type": "And",
+												"operand": [
+													{
+														"localId": "95",
+														"locator": "79:3-79:20",
+														"type": "GreaterOrEqual",
+														"operand": [
+															{
+																"localId": "93",
+																"locator": "79:3-79:14",
+																"precision": "Year",
+																"type": "CalculateAge",
+																"operand": {
+																	"path": "birthDate.value",
+																	"type": "Property",
+																	"source": {
+																		"name": "Patient",
+																		"type": "ExpressionRef"
+																	}
+																}
+															},
+															{
+																"localId": "94",
+																"locator": "79:19-79:20",
+																"valueType": "{urn:hl7-org:elm-types:r1}Integer",
+																"value": "18",
+																"type": "Literal"
+															}
+														]
+													},
+													{
+														"localId": "98",
+														"locator": "80:9-81:70",
+														"type": "Or",
+														"operand": [
+															{
+																"localId": "96",
+																"locator": "80:10-80:52",
+																"name": "Validate Trigger Event For Benzodiazepine",
+																"type": "ExpressionRef"
+															},
+															{
+																"localId": "97",
+																"locator": "81:10-81:69",
+																"name": "Validate Trigger Event For Ambulatory Care Abuse Potential",
+																"type": "ExpressionRef"
+															}
+														]
+													}
+												]
+											},
+											{
+												"localId": "104",
+												"locator": "82:9-82:32",
+												"type": "Not",
+												"operand": {
+													"localId": "103",
+													"locator": "82:13-82:32",
+													"name": "Exclusion Criteria",
+													"type": "ExpressionRef"
+												}
+											}
+										]
+									},
+									{
+										"localId": "112",
+										"locator": "83:9-83:27",
+										"name": "On Benzodiazepine",
+										"type": "ExpressionRef"
+									}
+								]
+							},
+							{
+								"localId": "120",
+								"locator": "84:9-84:53",
+								"name": "Opioid with Ambulatory Care Abuse Potential",
+								"type": "ExpressionRef"
+							}
+						]
+					}
+				},
+				{
+					"localId": "127",
+					"locator": "97:1-100:11",
+					"name": "Get Indicator",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "127",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Get Indicator\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "126",
+										"s": [
+											{
+												"value": [
+													"if "
+												]
+											},
+											{
+												"r": "123",
+												"s": [
+													{
+														"value": [
+															"\"Inclusion Criteria\""
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    then "
+												]
+											},
+											{
+												"r": "124",
+												"s": [
+													{
+														"value": [
+															"'warning'"
+														]
+													}
+												]
+											},
+											{
+												"r": "125",
+												"value": [
+													"\n  else ",
+													"null"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "126",
+						"locator": "98:3-100:11",
+						"type": "If",
+						"condition": {
+							"asType": "{urn:hl7-org:elm-types:r1}Boolean",
+							"type": "As",
+							"operand": {
+								"localId": "123",
+								"locator": "98:6-98:25",
+								"name": "Inclusion Criteria",
+								"type": "ExpressionRef"
+							}
+						},
+						"then": {
+							"localId": "124",
+							"locator": "99:10-99:18",
+							"valueType": "{urn:hl7-org:elm-types:r1}String",
+							"value": "warning",
+							"type": "Literal"
+						},
+						"else": {
+							"asType": "{urn:hl7-org:elm-types:r1}String",
+							"type": "As",
+							"operand": {
+								"localId": "125",
+								"locator": "100:8-100:11",
+								"type": "Null"
+							}
+						}
+					}
+				},
+				{
+					"localId": "132",
+					"locator": "102:1-105:11",
+					"name": "Get Summary",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "132",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Get Summary\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "131",
+										"s": [
+											{
+												"value": [
+													"if "
+												]
+											},
+											{
+												"r": "128",
+												"s": [
+													{
+														"value": [
+															"\"Inclusion Criteria\""
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    then "
+												]
+											},
+											{
+												"r": "129",
+												"s": [
+													{
+														"value": [
+															"'Avoid prescribing opioid pain medication and benzodiazepine concurrently whenever possible.'"
+														]
+													}
+												]
+											},
+											{
+												"r": "130",
+												"value": [
+													"\n  else ",
+													"null"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "131",
+						"locator": "103:3-105:11",
+						"type": "If",
+						"condition": {
+							"asType": "{urn:hl7-org:elm-types:r1}Boolean",
+							"type": "As",
+							"operand": {
+								"localId": "128",
+								"locator": "103:6-103:25",
+								"name": "Inclusion Criteria",
+								"type": "ExpressionRef"
+							}
+						},
+						"then": {
+							"localId": "129",
+							"locator": "104:10-104:102",
+							"valueType": "{urn:hl7-org:elm-types:r1}String",
+							"value": "Avoid prescribing opioid pain medication and benzodiazepine concurrently whenever possible.",
+							"type": "Literal"
+						},
+						"else": {
+							"asType": "{urn:hl7-org:elm-types:r1}String",
+							"type": "As",
+							"operand": {
+								"localId": "130",
+								"locator": "105:8-105:11",
+								"type": "Null"
+							}
+						}
+					}
+				},
+				{
+					"localId": "140",
+					"locator": "107:1-113:11",
+					"name": "Get Detail",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "140",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Get Detail\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "139",
+										"s": [
+											{
+												"value": [
+													"if "
+												]
+											},
+											{
+												"r": "133",
+												"s": [
+													{
+														"value": [
+															"\"Inclusion Criteria\""
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    then\n      "
+												]
+											},
+											{
+												"r": "137",
+												"s": [
+													{
+														"value": [
+															"if "
+														]
+													},
+													{
+														"r": "134",
+														"s": [
+															{
+																"value": [
+																	"\"Validate Trigger Event For Benzodiazepine\""
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															"\n        then "
+														]
+													},
+													{
+														"r": "135",
+														"s": [
+															{
+																"value": [
+																	"'The benzodiazepine prescription request is concurrent with an active opioid prescription'"
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															"\n      else "
+														]
+													},
+													{
+														"r": "136",
+														"s": [
+															{
+																"value": [
+																	"'The opioid prescription request is concurrent with an active benzodiazepine prescription'"
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"r": "138",
+												"value": [
+													"\n  else ",
+													"null"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "139",
+						"locator": "108:3-113:11",
+						"type": "If",
+						"condition": {
+							"asType": "{urn:hl7-org:elm-types:r1}Boolean",
+							"type": "As",
+							"operand": {
+								"localId": "133",
+								"locator": "108:6-108:25",
+								"name": "Inclusion Criteria",
+								"type": "ExpressionRef"
+							}
+						},
+						"then": {
+							"localId": "137",
+							"locator": "110:7-112:101",
+							"type": "If",
+							"condition": {
+								"asType": "{urn:hl7-org:elm-types:r1}Boolean",
+								"type": "As",
+								"operand": {
+									"localId": "134",
+									"locator": "110:10-110:52",
+									"name": "Validate Trigger Event For Benzodiazepine",
+									"type": "ExpressionRef"
+								}
+							},
+							"then": {
+								"localId": "135",
+								"locator": "111:14-111:103",
+								"valueType": "{urn:hl7-org:elm-types:r1}String",
+								"value": "The benzodiazepine prescription request is concurrent with an active opioid prescription",
+								"type": "Literal"
+							},
+							"else": {
+								"localId": "136",
+								"locator": "112:12-112:101",
+								"valueType": "{urn:hl7-org:elm-types:r1}String",
+								"value": "The opioid prescription request is concurrent with an active benzodiazepine prescription",
+								"type": "Literal"
+							}
+						},
+						"else": {
+							"asType": "{urn:hl7-org:elm-types:r1}String",
+							"type": "As",
+							"operand": {
+								"localId": "138",
+								"locator": "113:8-113:11",
+								"type": "Null"
+							}
+						}
+					}
+				}
+			]
+		}
+	}
+}

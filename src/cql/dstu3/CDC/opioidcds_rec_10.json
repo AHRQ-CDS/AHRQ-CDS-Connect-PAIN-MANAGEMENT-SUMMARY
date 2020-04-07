@@ -1,0 +1,4120 @@
+{
+	"library": {
+		"identifier": {
+			"id": "OpioidCDS_REC_10",
+			"version": "1.1.1"
+		},
+		"schemaIdentifier": {
+			"id": "urn:hl7-org:elm",
+			"version": "r1"
+		},
+		"usings": {
+			"def": [
+				{
+					"localIdentifier": "System",
+					"uri": "urn:hl7-org:elm-types:r1"
+				},
+				{
+					"localId": "1",
+					"locator": "3:1-3:26",
+					"localIdentifier": "FHIR",
+					"uri": "http://hl7.org/fhir",
+					"version": "3.0.0"
+				}
+			]
+		},
+		"includes": {
+			"def": [
+				{
+					"localId": "2",
+					"locator": "5:1-5:54",
+					"localIdentifier": "FHIRHelpers",
+					"path": "FHIRHelpers",
+					"version": "3.0.0"
+				},
+				{
+					"localId": "3",
+					"locator": "6:1-6:54",
+					"localIdentifier": "Common",
+					"path": "OpioidCDS_Common",
+					"version": "1.1.1"
+				}
+			]
+		},
+		"parameters": {
+			"def": [
+				{
+					"localId": "6",
+					"locator": "43:1-43:54",
+					"name": "ContextPrescriptions",
+					"accessLevel": "Public",
+					"parameterTypeSpecifier": {
+						"localId": "5",
+						"locator": "43:32-43:54",
+						"type": "ListTypeSpecifier",
+						"elementType": {
+							"localId": "4",
+							"locator": "43:37-43:53",
+							"name": "{http://hl7.org/fhir}MedicationRequest",
+							"type": "NamedTypeSpecifier"
+						}
+					}
+				}
+			]
+		},
+		"statements": {
+			"def": [
+				{
+					"locator": "45:1-45:15",
+					"name": "Patient",
+					"context": "Patient",
+					"expression": {
+						"type": "SingletonFrom",
+						"operand": {
+							"locator": "45:1-45:15",
+							"dataType": "{http://hl7.org/fhir}Patient",
+							"type": "Retrieve"
+						}
+					}
+				},
+				{
+					"localId": "16",
+					"locator": "47:1-48:57",
+					"name": "Lookback Year",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "16",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Lookback Year\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "15",
+										"s": [
+											{
+												"value": [
+													"Interval["
+												]
+											},
+											{
+												"r": "11",
+												"s": [
+													{
+														"r": "9",
+														"s": [
+															{
+																"r": "7",
+																"s": [
+																	{
+																		"value": [
+																			"Today",
+																			"()"
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	" - "
+																]
+															},
+															{
+																"r": "8",
+																"s": [
+																	{
+																		"value": [
+																			"12 ",
+																			"months"
+																		]
+																	}
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															" - "
+														]
+													},
+													{
+														"r": "10",
+														"s": [
+															{
+																"value": [
+																	"1 ",
+																	"days"
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													", "
+												]
+											},
+											{
+												"r": "14",
+												"s": [
+													{
+														"r": "12",
+														"s": [
+															{
+																"value": [
+																	"Today",
+																	"()"
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															" - "
+														]
+													},
+													{
+														"r": "13",
+														"s": [
+															{
+																"value": [
+																	"1 ",
+																	"day"
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"]"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "15",
+						"locator": "48:3-48:57",
+						"lowClosed": true,
+						"highClosed": true,
+						"type": "Interval",
+						"low": {
+							"localId": "11",
+							"locator": "48:12-48:39",
+							"type": "Subtract",
+							"operand": [
+								{
+									"localId": "9",
+									"locator": "48:12-48:30",
+									"type": "Subtract",
+									"operand": [
+										{
+											"localId": "7",
+											"locator": "48:12-48:18",
+											"type": "Today"
+										},
+										{
+											"localId": "8",
+											"locator": "48:22-48:30",
+											"value": 12,
+											"unit": "months",
+											"type": "Quantity"
+										}
+									]
+								},
+								{
+									"localId": "10",
+									"locator": "48:34-48:39",
+									"value": 1,
+									"unit": "days",
+									"type": "Quantity"
+								}
+							]
+						},
+						"high": {
+							"localId": "14",
+							"locator": "48:42-48:56",
+							"type": "Subtract",
+							"operand": [
+								{
+									"localId": "12",
+									"locator": "48:42-48:48",
+									"type": "Today"
+								},
+								{
+									"localId": "13",
+									"locator": "48:52-48:56",
+									"value": 1,
+									"unit": "day",
+									"type": "Quantity"
+								}
+							]
+						}
+					}
+				},
+				{
+					"localId": "59",
+					"locator": "50:1-66:3",
+					"name": "Validate Trigger Event",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "59",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Validate Trigger Event\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "58",
+										"s": [
+											{
+												"value": [
+													"exists "
+												]
+											},
+											{
+												"r": "57",
+												"s": [
+													{
+														"value": [
+															"(\n    "
+														]
+													},
+													{
+														"r": "57",
+														"s": [
+															{
+																"s": [
+																	{
+																		"r": "18",
+																		"s": [
+																			{
+																				"r": "17",
+																				"s": [
+																					{
+																						"s": [
+																							{
+																								"value": [
+																									"ContextPrescriptions"
+																								]
+																							}
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"value": [
+																					" ",
+																					"TriggerScript"
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	"\n      "
+																]
+															},
+															{
+																"r": "56",
+																"s": [
+																	{
+																		"value": [
+																			"where "
+																		]
+																	},
+																	{
+																		"r": "56",
+																		"s": [
+																			{
+																				"value": [
+																					"if "
+																				]
+																			},
+																			{
+																				"r": "22",
+																				"s": [
+																					{
+																						"r": "20",
+																						"s": [
+																							{
+																								"r": "19",
+																								"s": [
+																									{
+																										"value": [
+																											"TriggerScript"
+																										]
+																									}
+																								]
+																							},
+																							{
+																								"value": [
+																									"."
+																								]
+																							},
+																							{
+																								"r": "20",
+																								"s": [
+																									{
+																										"value": [
+																											"medication"
+																										]
+																									}
+																								]
+																							}
+																						]
+																					},
+																					{
+																						"value": [
+																							" is "
+																						]
+																					},
+																					{
+																						"r": "21",
+																						"s": [
+																							{
+																								"value": [
+																									"FHIR",
+																									".",
+																									"Reference"
+																								]
+																							}
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"value": [
+																					"\n        then "
+																				]
+																			},
+																			{
+																				"r": "32",
+																				"s": [
+																					{
+																						"value": [
+																							"exists "
+																						]
+																					},
+																					{
+																						"r": "31",
+																						"s": [
+																							{
+																								"value": [
+																									"(\n          "
+																								]
+																							},
+																							{
+																								"r": "31",
+																								"s": [
+																									{
+																										"s": [
+																											{
+																												"r": "24",
+																												"s": [
+																													{
+																														"r": "23",
+																														"s": [
+																															{
+																																"r": "23",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"[",
+																																			"Medication",
+																																			": "
+																																		]
+																																	},
+																																	{
+																																		"s": [
+																																			{
+																																				"value": [
+																																					"Common",
+																																					".",
+																																					"\"Ambulatory Abuse Potential Opioids\""
+																																				]
+																																			}
+																																		]
+																																	},
+																																	{
+																																		"value": [
+																																			"]"
+																																		]
+																																	}
+																																]
+																															}
+																														]
+																													},
+																													{
+																														"value": [
+																															" ",
+																															"OpioidMedication"
+																														]
+																													}
+																												]
+																											}
+																										]
+																									},
+																									{
+																										"value": [
+																											"\n            "
+																										]
+																									},
+																									{
+																										"r": "30",
+																										"s": [
+																											{
+																												"value": [
+																													"where "
+																												]
+																											},
+																											{
+																												"r": "30",
+																												"s": [
+																													{
+																														"value": [
+																															"EndsWith",
+																															"("
+																														]
+																													},
+																													{
+																														"r": "27",
+																														"s": [
+																															{
+																																"r": "26",
+																																"s": [
+																																	{
+																																		"r": "25",
+																																		"s": [
+																																			{
+																																				"value": [
+																																					"TriggerScript"
+																																				]
+																																			}
+																																		]
+																																	},
+																																	{
+																																		"value": [
+																																			"."
+																																		]
+																																	},
+																																	{
+																																		"r": "26",
+																																		"s": [
+																																			{
+																																				"value": [
+																																					"medication"
+																																				]
+																																			}
+																																		]
+																																	}
+																																]
+																															},
+																															{
+																																"value": [
+																																	"."
+																																]
+																															},
+																															{
+																																"r": "27",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"reference"
+																																		]
+																																	}
+																																]
+																															}
+																														]
+																													},
+																													{
+																														"value": [
+																															", "
+																														]
+																													},
+																													{
+																														"r": "29",
+																														"s": [
+																															{
+																																"r": "28",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"OpioidMedication"
+																																		]
+																																	}
+																																]
+																															},
+																															{
+																																"value": [
+																																	"."
+																																]
+																															},
+																															{
+																																"r": "29",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"id"
+																																		]
+																																	}
+																																]
+																															}
+																														]
+																													},
+																													{
+																														"value": [
+																															")"
+																														]
+																													}
+																												]
+																											}
+																										]
+																									}
+																								]
+																							},
+																							{
+																								"value": [
+																									"\n        )"
+																								]
+																							}
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"value": [
+																					"\n        else "
+																				]
+																			},
+																			{
+																				"r": "55",
+																				"s": [
+																					{
+																						"r": "37",
+																						"s": [
+																							{
+																								"r": "34",
+																								"s": [
+																									{
+																										"r": "33",
+																										"s": [
+																											{
+																												"value": [
+																													"TriggerScript"
+																												]
+																											}
+																										]
+																									},
+																									{
+																										"value": [
+																											"."
+																										]
+																									},
+																									{
+																										"r": "34",
+																										"s": [
+																											{
+																												"value": [
+																													"medication"
+																												]
+																											}
+																										]
+																									}
+																								]
+																							},
+																							{
+																								"value": [
+																									" in "
+																								]
+																							},
+																							{
+																								"r": "36",
+																								"s": [
+																									{
+																										"r": "35",
+																										"s": [
+																											{
+																												"value": [
+																													"Common"
+																												]
+																											}
+																										]
+																									},
+																									{
+																										"value": [
+																											"."
+																										]
+																									},
+																									{
+																										"r": "36",
+																										"s": [
+																											{
+																												"value": [
+																													"\"Ambulatory Abuse Potential Opioids\""
+																												]
+																											}
+																										]
+																									}
+																								]
+																							}
+																						]
+																					},
+																					{
+																						"value": [
+																							"\n      and "
+																						]
+																					},
+																					{
+																						"r": "54",
+																						"s": [
+																							{
+																								"value": [
+																									"(\n        "
+																								]
+																							},
+																							{
+																								"r": "54",
+																								"s": [
+																									{
+																										"r": "44",
+																										"s": [
+																											{
+																												"r": "41",
+																												"s": [
+																													{
+																														"r": "38",
+																														"s": [
+																															{
+																																"value": [
+																																	"FHIRHelpers"
+																																]
+																															}
+																														]
+																													},
+																													{
+																														"value": [
+																															"."
+																														]
+																													},
+																													{
+																														"r": "41",
+																														"s": [
+																															{
+																																"value": [
+																																	"ToConcept",
+																																	"("
+																																]
+																															},
+																															{
+																																"r": "40",
+																																"s": [
+																																	{
+																																		"r": "39",
+																																		"s": [
+																																			{
+																																				"value": [
+																																					"TriggerScript"
+																																				]
+																																			}
+																																		]
+																																	},
+																																	{
+																																		"value": [
+																																			"."
+																																		]
+																																	},
+																																	{
+																																		"r": "40",
+																																		"s": [
+																																			{
+																																				"value": [
+																																					"category"
+																																				]
+																																			}
+																																		]
+																																	}
+																																]
+																															},
+																															{
+																																"value": [
+																																	")"
+																																]
+																															}
+																														]
+																													}
+																												]
+																											},
+																											{
+																												"value": [
+																													" ",
+																													"~",
+																													" "
+																												]
+																											},
+																											{
+																												"r": "43",
+																												"s": [
+																													{
+																														"r": "42",
+																														"s": [
+																															{
+																																"value": [
+																																	"Common"
+																																]
+																															}
+																														]
+																													},
+																													{
+																														"value": [
+																															"."
+																														]
+																													},
+																													{
+																														"r": "43",
+																														"s": [
+																															{
+																																"value": [
+																																	"\"Community\""
+																																]
+																															}
+																														]
+																													}
+																												]
+																											}
+																										]
+																									},
+																									{
+																										"value": [
+																											"\n          or "
+																										]
+																									},
+																									{
+																										"r": "53",
+																										"s": [
+																											{
+																												"value": [
+																													"(\n            "
+																												]
+																											},
+																											{
+																												"r": "53",
+																												"s": [
+																													{
+																														"r": "46",
+																														"s": [
+																															{
+																																"r": "45",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"Common"
+																																		]
+																																	}
+																																]
+																															},
+																															{
+																																"value": [
+																																	"."
+																																]
+																															},
+																															{
+																																"r": "46",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"IgnoreOutpatientCategorySystem"
+																																		]
+																																	}
+																																]
+																															}
+																														]
+																													},
+																													{
+																														"value": [
+																															"\n              and "
+																														]
+																													},
+																													{
+																														"r": "52",
+																														"s": [
+																															{
+																																"r": "47",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"Common"
+																																		]
+																																	}
+																																]
+																															},
+																															{
+																																"value": [
+																																	"."
+																																]
+																															},
+																															{
+																																"r": "52",
+																																"s": [
+																																	{
+																																		"value": [
+																																			"ConceptCodeOnlyEquivalent",
+																																			"("
+																																		]
+																																	},
+																																	{
+																																		"r": "49",
+																																		"s": [
+																																			{
+																																				"r": "48",
+																																				"s": [
+																																					{
+																																						"value": [
+																																							"TriggerScript"
+																																						]
+																																					}
+																																				]
+																																			},
+																																			{
+																																				"value": [
+																																					"."
+																																				]
+																																			},
+																																			{
+																																				"r": "49",
+																																				"s": [
+																																					{
+																																						"value": [
+																																							"category"
+																																						]
+																																					}
+																																				]
+																																			}
+																																		]
+																																	},
+																																	{
+																																		"value": [
+																																			", "
+																																		]
+																																	},
+																																	{
+																																		"r": "51",
+																																		"s": [
+																																			{
+																																				"r": "50",
+																																				"s": [
+																																					{
+																																						"value": [
+																																							"Common"
+																																						]
+																																					}
+																																				]
+																																			},
+																																			{
+																																				"value": [
+																																					"."
+																																				]
+																																			},
+																																			{
+																																				"r": "51",
+																																				"s": [
+																																					{
+																																						"value": [
+																																							"\"Community\""
+																																						]
+																																					}
+																																				]
+																																			}
+																																		]
+																																	},
+																																	{
+																																		"value": [
+																																			")"
+																																		]
+																																	}
+																																]
+																															}
+																														]
+																													}
+																												]
+																											},
+																											{
+																												"value": [
+																													"\n          )"
+																												]
+																											}
+																										]
+																									}
+																								]
+																							},
+																							{
+																								"value": [
+																									"\n      )"
+																								]
+																							}
+																						]
+																					}
+																				]
+																			}
+																		]
+																	}
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															"\n  )"
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "58",
+						"locator": "51:3-66:3",
+						"type": "Exists",
+						"operand": {
+							"localId": "57",
+							"locator": "51:10-66:3",
+							"type": "Query",
+							"source": [
+								{
+									"localId": "18",
+									"locator": "52:5-52:38",
+									"alias": "TriggerScript",
+									"expression": {
+										"localId": "17",
+										"locator": "52:5-52:24",
+										"name": "ContextPrescriptions",
+										"type": "ParameterRef"
+									}
+								}
+							],
+							"relationship": [],
+							"where": {
+								"localId": "56",
+								"locator": "53:7-65:7",
+								"type": "If",
+								"condition": {
+									"asType": "{urn:hl7-org:elm-types:r1}Boolean",
+									"type": "As",
+									"operand": {
+										"localId": "22",
+										"locator": "53:16-53:57",
+										"type": "Is",
+										"operand": {
+											"localId": "20",
+											"locator": "53:16-53:39",
+											"path": "medication",
+											"scope": "TriggerScript",
+											"type": "Property"
+										},
+										"isTypeSpecifier": {
+											"localId": "21",
+											"locator": "53:44-53:57",
+											"name": "{http://hl7.org/fhir}Reference",
+											"type": "NamedTypeSpecifier"
+										}
+									}
+								},
+								"then": {
+									"localId": "32",
+									"locator": "54:14-57:9",
+									"type": "Exists",
+									"operand": {
+										"localId": "31",
+										"locator": "54:21-57:9",
+										"type": "Query",
+										"source": [
+											{
+												"localId": "24",
+												"locator": "55:11-55:84",
+												"alias": "OpioidMedication",
+												"expression": {
+													"localId": "23",
+													"locator": "55:11-55:67",
+													"dataType": "{http://hl7.org/fhir}Medication",
+													"codeProperty": "code",
+													"type": "Retrieve",
+													"codes": {
+														"locator": "55:24-55:66",
+														"name": "Ambulatory Abuse Potential Opioids",
+														"libraryName": "Common",
+														"type": "ValueSetRef"
+													}
+												}
+											}
+										],
+										"relationship": [],
+										"where": {
+											"localId": "30",
+											"locator": "56:13-56:83",
+											"type": "EndsWith",
+											"operand": [
+												{
+													"name": "ToString",
+													"libraryName": "FHIRHelpers",
+													"type": "FunctionRef",
+													"operand": [
+														{
+															"localId": "27",
+															"locator": "56:28-56:61",
+															"path": "reference",
+															"type": "Property",
+															"source": {
+																"localId": "26",
+																"locator": "56:28-56:51",
+																"path": "medication",
+																"scope": "TriggerScript",
+																"type": "Property"
+															}
+														}
+													]
+												},
+												{
+													"name": "ToString",
+													"libraryName": "FHIRHelpers",
+													"type": "FunctionRef",
+													"operand": [
+														{
+															"localId": "29",
+															"locator": "56:64-56:82",
+															"path": "id",
+															"scope": "OpioidMedication",
+															"type": "Property"
+														}
+													]
+												}
+											]
+										}
+									}
+								},
+								"else": {
+									"localId": "55",
+									"locator": "58:14-65:7",
+									"type": "And",
+									"operand": [
+										{
+											"localId": "37",
+											"locator": "58:14-58:84",
+											"type": "InValueSet",
+											"code": {
+												"name": "ToConcept",
+												"libraryName": "FHIRHelpers",
+												"type": "FunctionRef",
+												"operand": [
+													{
+														"asType": "{http://hl7.org/fhir}CodeableConcept",
+														"type": "As",
+														"operand": {
+															"localId": "34",
+															"locator": "58:14-58:37",
+															"path": "medication",
+															"scope": "TriggerScript",
+															"type": "Property"
+														}
+													}
+												]
+											},
+											"valueset": {
+												"localId": "36",
+												"locator": "58:42-58:84",
+												"name": "Ambulatory Abuse Potential Opioids",
+												"libraryName": "Common"
+											}
+										},
+										{
+											"localId": "54",
+											"locator": "59:11-65:7",
+											"type": "Or",
+											"operand": [
+												{
+													"localId": "44",
+													"locator": "60:9-60:74",
+													"type": "Equivalent",
+													"operand": [
+														{
+															"localId": "41",
+															"locator": "60:9-60:53",
+															"name": "ToConcept",
+															"libraryName": "FHIRHelpers",
+															"type": "FunctionRef",
+															"operand": [
+																{
+																	"localId": "40",
+																	"locator": "60:31-60:52",
+																	"path": "category",
+																	"scope": "TriggerScript",
+																	"type": "Property"
+																}
+															]
+														},
+														{
+															"type": "ToConcept",
+															"operand": {
+																"localId": "43",
+																"locator": "60:57-60:74",
+																"name": "Community",
+																"libraryName": "Common",
+																"type": "CodeRef"
+															}
+														}
+													]
+												},
+												{
+													"localId": "53",
+													"locator": "61:14-64:11",
+													"type": "And",
+													"operand": [
+														{
+															"localId": "46",
+															"locator": "62:13-62:49",
+															"name": "IgnoreOutpatientCategorySystem",
+															"libraryName": "Common",
+															"type": "ExpressionRef"
+														},
+														{
+															"localId": "52",
+															"locator": "63:19-63:94",
+															"name": "ConceptCodeOnlyEquivalent",
+															"libraryName": "Common",
+															"type": "FunctionRef",
+															"operand": [
+																{
+																	"name": "ToConcept",
+																	"libraryName": "FHIRHelpers",
+																	"type": "FunctionRef",
+																	"operand": [
+																		{
+																			"localId": "49",
+																			"locator": "63:52-63:73",
+																			"path": "category",
+																			"scope": "TriggerScript",
+																			"type": "Property"
+																		}
+																	]
+																},
+																{
+																	"localId": "51",
+																	"locator": "63:76-63:93",
+																	"name": "Community",
+																	"libraryName": "Common",
+																	"type": "CodeRef"
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				{
+					"localId": "67",
+					"locator": "78:1-79:33",
+					"name": "Exclusion Criteria",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "67",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Exclusion Criteria\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "66",
+										"s": [
+											{
+												"r": "65",
+												"s": [
+													{
+														"value": [
+															"Common"
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"."
+												]
+											},
+											{
+												"r": "66",
+												"s": [
+													{
+														"value": [
+															"\"End of Life Assessment\""
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "66",
+						"locator": "79:3-79:33",
+						"name": "End of Life Assessment",
+						"libraryName": "Common",
+						"type": "ExpressionRef"
+					}
+				},
+				{
+					"localId": "92",
+					"locator": "81:1-84:29",
+					"name": "Illicit Drug Urine Screenings in Last 12 Months",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "92",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Illicit Drug Urine Screenings in Last 12 Months\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "91",
+										"s": [
+											{
+												"s": [
+													{
+														"r": "80",
+														"s": [
+															{
+																"r": "79",
+																"s": [
+																	{
+																		"r": "79",
+																		"s": [
+																			{
+																				"value": [
+																					"[",
+																					"Observation",
+																					": ",
+																					"\"code\"",
+																					" in "
+																				]
+																			},
+																			{
+																				"s": [
+																					{
+																						"value": [
+																							"Common",
+																							".",
+																							"\"Illicit Drug Screening\""
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"value": [
+																					"]"
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	" ",
+																	"IllicitDrugScreen"
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    "
+												]
+											},
+											{
+												"r": "86",
+												"s": [
+													{
+														"value": [
+															"where "
+														]
+													},
+													{
+														"r": "86",
+														"s": [
+															{
+																"r": "84",
+																"s": [
+																	{
+																		"value": [
+																			"date from "
+																		]
+																	},
+																	{
+																		"r": "83",
+																		"s": [
+																			{
+																				"r": "82",
+																				"s": [
+																					{
+																						"r": "81",
+																						"s": [
+																							{
+																								"value": [
+																									"IllicitDrugScreen"
+																								]
+																							}
+																						]
+																					},
+																					{
+																						"value": [
+																							"."
+																						]
+																					},
+																					{
+																						"r": "82",
+																						"s": [
+																							{
+																								"value": [
+																									"effective"
+																								]
+																							}
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"value": [
+																					"."
+																				]
+																			},
+																			{
+																				"r": "83",
+																				"s": [
+																					{
+																						"value": [
+																							"value"
+																						]
+																					}
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	" in day of "
+																]
+															},
+															{
+																"r": "85",
+																"s": [
+																	{
+																		"value": [
+																			"\"Lookback Year\""
+																		]
+																	}
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n      "
+												]
+											},
+											{
+												"r": "90",
+												"s": [
+													{
+														"value": [
+															"sort by "
+														]
+													},
+													{
+														"r": "89",
+														"s": [
+															{
+																"r": "88",
+																"s": [
+																	{
+																		"r": "87",
+																		"s": [
+																			{
+																				"value": [
+																					"effective"
+																				]
+																			}
+																		]
+																	},
+																	{
+																		"value": [
+																			"."
+																		]
+																	},
+																	{
+																		"r": "88",
+																		"s": [
+																			{
+																				"value": [
+																					"value"
+																				]
+																			}
+																		]
+																	}
+																]
+															}
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "91",
+						"locator": "82:3-84:29",
+						"type": "Query",
+						"source": [
+							{
+								"localId": "80",
+								"locator": "82:3-82:76",
+								"alias": "IllicitDrugScreen",
+								"expression": {
+									"localId": "79",
+									"locator": "82:3-82:58",
+									"dataType": "{http://hl7.org/fhir}Observation",
+									"codeProperty": "code",
+									"type": "Retrieve",
+									"codes": {
+										"locator": "82:27-82:57",
+										"name": "Illicit Drug Screening",
+										"libraryName": "Common",
+										"type": "ValueSetRef"
+									}
+								}
+							}
+						],
+						"relationship": [],
+						"where": {
+							"localId": "86",
+							"locator": "83:5-83:79",
+							"precision": "Day",
+							"type": "In",
+							"operand": [
+								{
+									"localId": "84",
+									"locator": "83:11-83:53",
+									"type": "DateFrom",
+									"operand": {
+										"localId": "83",
+										"locator": "83:21-83:53",
+										"path": "value",
+										"type": "Property",
+										"source": {
+											"localId": "82",
+											"locator": "83:21-83:47",
+											"path": "effective",
+											"scope": "IllicitDrugScreen",
+											"type": "Property"
+										}
+									}
+								},
+								{
+									"localId": "85",
+									"locator": "83:65-83:79",
+									"name": "Lookback Year",
+									"type": "ExpressionRef"
+								}
+							]
+						},
+						"sort": {
+							"localId": "90",
+							"locator": "84:7-84:29",
+							"by": [
+								{
+									"localId": "89",
+									"locator": "84:15-84:29",
+									"direction": "asc",
+									"type": "ByExpression",
+									"expression": {
+										"localId": "88",
+										"locator": "84:15-84:29",
+										"path": "value",
+										"type": "Property",
+										"source": {
+											"localId": "87",
+											"locator": "84:15-84:23",
+											"name": "effective",
+											"type": "IdentifierRef"
+										}
+									}
+								}
+							]
+						}
+					}
+				},
+				{
+					"localId": "95",
+					"locator": "91:1-92:59",
+					"name": "Most Recent Illicit Drug Urine Screenings in Last 12 Months",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "95",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Most Recent Illicit Drug Urine Screenings in Last 12 Months\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "94",
+										"s": [
+											{
+												"value": [
+													"Last",
+													"( "
+												]
+											},
+											{
+												"r": "93",
+												"s": [
+													{
+														"value": [
+															"\"Illicit Drug Urine Screenings in Last 12 Months\""
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													" )"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "94",
+						"locator": "92:3-92:59",
+						"type": "Last",
+						"source": {
+							"localId": "93",
+							"locator": "92:9-92:57",
+							"name": "Illicit Drug Urine Screenings in Last 12 Months",
+							"type": "ExpressionRef"
+						}
+					}
+				},
+				{
+					"localId": "111",
+					"locator": "86:1-89:29",
+					"name": "Opioid Drug Urine Screenings in Last 12 Months",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "111",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Opioid Drug Urine Screenings in Last 12 Months\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "110",
+										"s": [
+											{
+												"s": [
+													{
+														"r": "99",
+														"s": [
+															{
+																"r": "98",
+																"s": [
+																	{
+																		"r": "98",
+																		"s": [
+																			{
+																				"value": [
+																					"[",
+																					"Observation",
+																					": ",
+																					"\"code\"",
+																					" in "
+																				]
+																			},
+																			{
+																				"s": [
+																					{
+																						"value": [
+																							"Common",
+																							".",
+																							"\"Opioid Drug Screening\""
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"value": [
+																					"]"
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	" ",
+																	"OpioidDrugScreen"
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    "
+												]
+											},
+											{
+												"r": "105",
+												"s": [
+													{
+														"value": [
+															"where "
+														]
+													},
+													{
+														"r": "105",
+														"s": [
+															{
+																"r": "103",
+																"s": [
+																	{
+																		"value": [
+																			"date from "
+																		]
+																	},
+																	{
+																		"r": "102",
+																		"s": [
+																			{
+																				"r": "101",
+																				"s": [
+																					{
+																						"r": "100",
+																						"s": [
+																							{
+																								"value": [
+																									"OpioidDrugScreen"
+																								]
+																							}
+																						]
+																					},
+																					{
+																						"value": [
+																							"."
+																						]
+																					},
+																					{
+																						"r": "101",
+																						"s": [
+																							{
+																								"value": [
+																									"effective"
+																								]
+																							}
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"value": [
+																					"."
+																				]
+																			},
+																			{
+																				"r": "102",
+																				"s": [
+																					{
+																						"value": [
+																							"value"
+																						]
+																					}
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	" in day of "
+																]
+															},
+															{
+																"r": "104",
+																"s": [
+																	{
+																		"value": [
+																			"\"Lookback Year\""
+																		]
+																	}
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n      "
+												]
+											},
+											{
+												"r": "109",
+												"s": [
+													{
+														"value": [
+															"sort by "
+														]
+													},
+													{
+														"r": "108",
+														"s": [
+															{
+																"r": "107",
+																"s": [
+																	{
+																		"r": "106",
+																		"s": [
+																			{
+																				"value": [
+																					"effective"
+																				]
+																			}
+																		]
+																	},
+																	{
+																		"value": [
+																			"."
+																		]
+																	},
+																	{
+																		"r": "107",
+																		"s": [
+																			{
+																				"value": [
+																					"value"
+																				]
+																			}
+																		]
+																	}
+																]
+															}
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "110",
+						"locator": "87:3-89:29",
+						"type": "Query",
+						"source": [
+							{
+								"localId": "99",
+								"locator": "87:3-87:74",
+								"alias": "OpioidDrugScreen",
+								"expression": {
+									"localId": "98",
+									"locator": "87:3-87:57",
+									"dataType": "{http://hl7.org/fhir}Observation",
+									"codeProperty": "code",
+									"type": "Retrieve",
+									"codes": {
+										"locator": "87:27-87:56",
+										"name": "Opioid Drug Screening",
+										"libraryName": "Common",
+										"type": "ValueSetRef"
+									}
+								}
+							}
+						],
+						"relationship": [],
+						"where": {
+							"localId": "105",
+							"locator": "88:5-88:78",
+							"precision": "Day",
+							"type": "In",
+							"operand": [
+								{
+									"localId": "103",
+									"locator": "88:11-88:52",
+									"type": "DateFrom",
+									"operand": {
+										"localId": "102",
+										"locator": "88:21-88:52",
+										"path": "value",
+										"type": "Property",
+										"source": {
+											"localId": "101",
+											"locator": "88:21-88:46",
+											"path": "effective",
+											"scope": "OpioidDrugScreen",
+											"type": "Property"
+										}
+									}
+								},
+								{
+									"localId": "104",
+									"locator": "88:64-88:78",
+									"name": "Lookback Year",
+									"type": "ExpressionRef"
+								}
+							]
+						},
+						"sort": {
+							"localId": "109",
+							"locator": "89:7-89:29",
+							"by": [
+								{
+									"localId": "108",
+									"locator": "89:15-89:29",
+									"direction": "asc",
+									"type": "ByExpression",
+									"expression": {
+										"localId": "107",
+										"locator": "89:15-89:29",
+										"path": "value",
+										"type": "Property",
+										"source": {
+											"localId": "106",
+											"locator": "89:15-89:23",
+											"name": "effective",
+											"type": "IdentifierRef"
+										}
+									}
+								}
+							]
+						}
+					}
+				},
+				{
+					"localId": "114",
+					"locator": "94:1-95:58",
+					"name": "Most Recent Opioid Drug Urine Screenings in Last 12 Months",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "114",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Most Recent Opioid Drug Urine Screenings in Last 12 Months\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "113",
+										"s": [
+											{
+												"value": [
+													"Last",
+													"( "
+												]
+											},
+											{
+												"r": "112",
+												"s": [
+													{
+														"value": [
+															"\"Opioid Drug Urine Screenings in Last 12 Months\""
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													" )"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "113",
+						"locator": "95:3-95:58",
+						"type": "Last",
+						"source": {
+							"localId": "112",
+							"locator": "95:9-95:56",
+							"name": "Opioid Drug Urine Screenings in Last 12 Months",
+							"type": "ExpressionRef"
+						}
+					}
+				},
+				{
+					"localId": "118",
+					"locator": "97:1-99:76",
+					"name": "No Urine Screening In Last 12 Months",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "118",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"No Urine Screening In Last 12 Months\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "117",
+										"s": [
+											{
+												"r": "97",
+												"s": [
+													{
+														"r": "96",
+														"s": [
+															{
+																"value": [
+																	"\"Most Recent Illicit Drug Urine Screenings in Last 12 Months\""
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															" is null"
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    and "
+												]
+											},
+											{
+												"r": "116",
+												"s": [
+													{
+														"r": "115",
+														"s": [
+															{
+																"value": [
+																	"\"Most Recent Opioid Drug Urine Screenings in Last 12 Months\""
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															" is null"
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "117",
+						"locator": "98:3-99:76",
+						"type": "And",
+						"operand": [
+							{
+								"localId": "97",
+								"locator": "98:3-98:71",
+								"type": "IsNull",
+								"operand": {
+									"localId": "96",
+									"locator": "98:3-98:63",
+									"name": "Most Recent Illicit Drug Urine Screenings in Last 12 Months",
+									"type": "ExpressionRef"
+								}
+							},
+							{
+								"localId": "116",
+								"locator": "99:9-99:76",
+								"type": "IsNull",
+								"operand": {
+									"localId": "115",
+									"locator": "99:9-99:68",
+									"name": "Most Recent Opioid Drug Urine Screenings in Last 12 Months",
+									"type": "ExpressionRef"
+								}
+							}
+						]
+					}
+				},
+				{
+					"localId": "122",
+					"locator": "110:1-111:74",
+					"name": "Has Evidence of Opioids",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "122",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Has Evidence of Opioids\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "121",
+										"s": [
+											{
+												"r": "120",
+												"s": [
+													{
+														"value": [
+															"\"Most Recent Opioid Drug Urine Screenings in Last 12 Months\""
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													" is not null"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "121",
+						"locator": "111:3-111:74",
+						"type": "Not",
+						"operand": {
+							"locator": "111:3-111:74",
+							"type": "IsNull",
+							"operand": {
+								"localId": "120",
+								"locator": "111:3-111:62",
+								"name": "Most Recent Opioid Drug Urine Screenings in Last 12 Months",
+								"type": "ExpressionRef"
+							}
+						}
+					}
+				},
+				{
+					"localId": "127",
+					"locator": "104:1-105:75",
+					"name": "Has Evidence of Illicit Drugs",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "127",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Has Evidence of Illicit Drugs\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "126",
+										"s": [
+											{
+												"r": "125",
+												"s": [
+													{
+														"value": [
+															"\"Most Recent Illicit Drug Urine Screenings in Last 12 Months\""
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													" is not null"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "126",
+						"locator": "105:3-105:75",
+						"type": "Not",
+						"operand": {
+							"locator": "105:3-105:75",
+							"type": "IsNull",
+							"operand": {
+								"localId": "125",
+								"locator": "105:3-105:63",
+								"name": "Most Recent Illicit Drug Urine Screenings in Last 12 Months",
+								"type": "ExpressionRef"
+							}
+						}
+					}
+				},
+				{
+					"localId": "131",
+					"locator": "68:1-76:43",
+					"name": "Inclusion Criteria",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "131",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Inclusion Criteria\"",
+											":\n   "
+										]
+									},
+									{
+										"r": "130",
+										"s": [
+											{
+												"r": "78",
+												"s": [
+													{
+														"r": "70",
+														"s": [
+															{
+																"r": "64",
+																"s": [
+																	{
+																		"r": "62",
+																		"s": [
+																			{
+																				"r": "60",
+																				"s": [
+																					{
+																						"value": [
+																							"AgeInYears",
+																							"()"
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"r": "61",
+																				"value": [
+																					" ",
+																					">=",
+																					" ",
+																					"18"
+																				]
+																			}
+																		]
+																	},
+																	{
+																		"value": [
+																			"\n    and "
+																		]
+																	},
+																	{
+																		"r": "63",
+																		"s": [
+																			{
+																				"value": [
+																					"\"Validate Trigger Event\""
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	"\n    and "
+																]
+															},
+															{
+																"r": "69",
+																"s": [
+																	{
+																		"value": [
+																			"not "
+																		]
+																	},
+																	{
+																		"r": "68",
+																		"s": [
+																			{
+																				"value": [
+																					"\"Exclusion Criteria\""
+																				]
+																			}
+																		]
+																	}
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															"\n    and "
+														]
+													},
+													{
+														"r": "77",
+														"s": [
+															{
+																"value": [
+																	"AnyTrue",
+																	"("
+																]
+															},
+															{
+																"r": "76",
+																"s": [
+																	{
+																		"r": "71",
+																		"s": [
+																			{
+																				"value": [
+																					"Common"
+																				]
+																			}
+																		]
+																	},
+																	{
+																		"value": [
+																			"."
+																		]
+																	},
+																	{
+																		"r": "76",
+																		"s": [
+																			{
+																				"value": [
+																					"ProbableDaysInRange",
+																					"("
+																				]
+																			},
+																			{
+																				"r": "73",
+																				"s": [
+																					{
+																						"r": "72",
+																						"s": [
+																							{
+																								"value": [
+																									"Common"
+																								]
+																							}
+																						]
+																					},
+																					{
+																						"value": [
+																							"."
+																						]
+																					},
+																					{
+																						"r": "73",
+																						"s": [
+																							{
+																								"value": [
+																									"\"Active Ambulatory Opioid Rx\""
+																								]
+																							}
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"r": "74",
+																				"value": [
+																					", ",
+																					"90",
+																					", ",
+																					"80",
+																					")"
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	")"
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    and\n      "
+												]
+											},
+											{
+												"r": "129",
+												"s": [
+													{
+														"value": [
+															"("
+														]
+													},
+													{
+														"r": "129",
+														"s": [
+															{
+																"r": "124",
+																"s": [
+																	{
+																		"r": "119",
+																		"s": [
+																			{
+																				"value": [
+																					"\"No Urine Screening In Last 12 Months\""
+																				]
+																			}
+																		]
+																	},
+																	{
+																		"value": [
+																			"\n        or "
+																		]
+																	},
+																	{
+																		"r": "123",
+																		"s": [
+																			{
+																				"value": [
+																					"\"Has Evidence of Opioids\""
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	"\n        or "
+																]
+															},
+															{
+																"r": "128",
+																"s": [
+																	{
+																		"value": [
+																			"\"Has Evidence of Illicit Drugs\""
+																		]
+																	}
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															")"
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "130",
+						"locator": "69:4-76:43",
+						"type": "And",
+						"operand": [
+							{
+								"localId": "78",
+								"locator": "69:4-72:89",
+								"type": "And",
+								"operand": [
+									{
+										"localId": "70",
+										"locator": "69:4-71:32",
+										"type": "And",
+										"operand": [
+											{
+												"localId": "64",
+												"locator": "69:4-70:32",
+												"type": "And",
+												"operand": [
+													{
+														"localId": "62",
+														"locator": "69:4-69:21",
+														"type": "GreaterOrEqual",
+														"operand": [
+															{
+																"localId": "60",
+																"locator": "69:4-69:15",
+																"precision": "Year",
+																"type": "CalculateAge",
+																"operand": {
+																	"path": "birthDate.value",
+																	"type": "Property",
+																	"source": {
+																		"name": "Patient",
+																		"type": "ExpressionRef"
+																	}
+																}
+															},
+															{
+																"localId": "61",
+																"locator": "69:20-69:21",
+																"valueType": "{urn:hl7-org:elm-types:r1}Integer",
+																"value": "18",
+																"type": "Literal"
+															}
+														]
+													},
+													{
+														"localId": "63",
+														"locator": "70:9-70:32",
+														"name": "Validate Trigger Event",
+														"type": "ExpressionRef"
+													}
+												]
+											},
+											{
+												"localId": "69",
+												"locator": "71:9-71:32",
+												"type": "Not",
+												"operand": {
+													"localId": "68",
+													"locator": "71:13-71:32",
+													"name": "Exclusion Criteria",
+													"type": "ExpressionRef"
+												}
+											}
+										]
+									},
+									{
+										"localId": "77",
+										"locator": "72:9-72:89",
+										"type": "AnyTrue",
+										"source": {
+											"localId": "76",
+											"locator": "72:17-72:88",
+											"name": "ProbableDaysInRange",
+											"libraryName": "Common",
+											"type": "FunctionRef",
+											"operand": [
+												{
+													"localId": "73",
+													"locator": "72:44-72:79",
+													"name": "Active Ambulatory Opioid Rx",
+													"libraryName": "Common",
+													"type": "ExpressionRef"
+												},
+												{
+													"localId": "74",
+													"locator": "72:82-72:83",
+													"valueType": "{urn:hl7-org:elm-types:r1}Integer",
+													"value": "90",
+													"type": "Literal"
+												},
+												{
+													"localId": "75",
+													"locator": "72:86-72:87",
+													"valueType": "{urn:hl7-org:elm-types:r1}Integer",
+													"value": "80",
+													"type": "Literal"
+												}
+											]
+										}
+									}
+								]
+							},
+							{
+								"localId": "129",
+								"locator": "74:7-76:43",
+								"type": "Or",
+								"operand": [
+									{
+										"localId": "124",
+										"locator": "74:8-75:36",
+										"type": "Or",
+										"operand": [
+											{
+												"localId": "119",
+												"locator": "74:8-74:45",
+												"name": "No Urine Screening In Last 12 Months",
+												"type": "ExpressionRef"
+											},
+											{
+												"localId": "123",
+												"locator": "75:12-75:36",
+												"name": "Has Evidence of Opioids",
+												"type": "ExpressionRef"
+											}
+										]
+									},
+									{
+										"localId": "128",
+										"locator": "76:12-76:42",
+										"name": "Has Evidence of Illicit Drugs",
+										"type": "ExpressionRef"
+									}
+								]
+							}
+						]
+					}
+				},
+				{
+					"localId": "134",
+					"locator": "101:1-102:68",
+					"name": "Positive Illicit Drug Screening Qualifying Codes",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "134",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Positive Illicit Drug Screening Qualifying Codes\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "133",
+										"s": [
+											{
+												"r": "132",
+												"s": [
+													{
+														"value": [
+															"\"Most Recent Illicit Drug Urine Screenings in Last 12 Months\""
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"."
+												]
+											},
+											{
+												"r": "133",
+												"s": [
+													{
+														"value": [
+															"code"
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "133",
+						"locator": "102:3-102:68",
+						"path": "code",
+						"type": "Property",
+						"source": {
+							"localId": "132",
+							"locator": "102:3-102:63",
+							"name": "Most Recent Illicit Drug Urine Screenings in Last 12 Months",
+							"type": "ExpressionRef"
+						}
+					}
+				},
+				{
+					"localId": "137",
+					"locator": "107:1-108:67",
+					"name": "Positive Opioid Drug Screening Qualifying Codes",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "137",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Positive Opioid Drug Screening Qualifying Codes\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "136",
+										"s": [
+											{
+												"r": "135",
+												"s": [
+													{
+														"value": [
+															"\"Most Recent Opioid Drug Urine Screenings in Last 12 Months\""
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"."
+												]
+											},
+											{
+												"r": "136",
+												"s": [
+													{
+														"value": [
+															"code"
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "136",
+						"locator": "108:3-108:67",
+						"path": "code",
+						"type": "Property",
+						"source": {
+							"localId": "135",
+							"locator": "108:3-108:62",
+							"name": "Most Recent Opioid Drug Urine Screenings in Last 12 Months",
+							"type": "ExpressionRef"
+						}
+					}
+				},
+				{
+					"localId": "142",
+					"locator": "113:1-116:11",
+					"name": "No Screening In Last 12 Months Indicator",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "142",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"No Screening In Last 12 Months Indicator\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "141",
+										"s": [
+											{
+												"value": [
+													"if "
+												]
+											},
+											{
+												"r": "138",
+												"s": [
+													{
+														"value": [
+															"\"Inclusion Criteria\""
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    then "
+												]
+											},
+											{
+												"r": "139",
+												"s": [
+													{
+														"value": [
+															"'warning'"
+														]
+													}
+												]
+											},
+											{
+												"r": "140",
+												"value": [
+													"\n  else ",
+													"null"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "141",
+						"locator": "114:3-116:11",
+						"type": "If",
+						"condition": {
+							"asType": "{urn:hl7-org:elm-types:r1}Boolean",
+							"type": "As",
+							"operand": {
+								"localId": "138",
+								"locator": "114:6-114:25",
+								"name": "Inclusion Criteria",
+								"type": "ExpressionRef"
+							}
+						},
+						"then": {
+							"localId": "139",
+							"locator": "115:10-115:18",
+							"valueType": "{urn:hl7-org:elm-types:r1}String",
+							"value": "warning",
+							"type": "Literal"
+						},
+						"else": {
+							"asType": "{urn:hl7-org:elm-types:r1}String",
+							"type": "As",
+							"operand": {
+								"localId": "140",
+								"locator": "116:8-116:11",
+								"type": "Null"
+							}
+						}
+					}
+				},
+				{
+					"localId": "147",
+					"locator": "118:1-121:11",
+					"name": "Evidence Opioids Indicator",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "147",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Evidence Opioids Indicator\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "146",
+										"s": [
+											{
+												"value": [
+													"if "
+												]
+											},
+											{
+												"r": "143",
+												"s": [
+													{
+														"value": [
+															"\"Inclusion Criteria\""
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    then "
+												]
+											},
+											{
+												"r": "144",
+												"s": [
+													{
+														"value": [
+															"'warning'"
+														]
+													}
+												]
+											},
+											{
+												"r": "145",
+												"value": [
+													"\n  else ",
+													"null"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "146",
+						"locator": "119:3-121:11",
+						"type": "If",
+						"condition": {
+							"asType": "{urn:hl7-org:elm-types:r1}Boolean",
+							"type": "As",
+							"operand": {
+								"localId": "143",
+								"locator": "119:6-119:25",
+								"name": "Inclusion Criteria",
+								"type": "ExpressionRef"
+							}
+						},
+						"then": {
+							"localId": "144",
+							"locator": "120:10-120:18",
+							"valueType": "{urn:hl7-org:elm-types:r1}String",
+							"value": "warning",
+							"type": "Literal"
+						},
+						"else": {
+							"asType": "{urn:hl7-org:elm-types:r1}String",
+							"type": "As",
+							"operand": {
+								"localId": "145",
+								"locator": "121:8-121:11",
+								"type": "Null"
+							}
+						}
+					}
+				},
+				{
+					"localId": "152",
+					"locator": "123:1-126:11",
+					"name": "Evidence of Illicit Drugs Indicator",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "152",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Evidence of Illicit Drugs Indicator\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "151",
+										"s": [
+											{
+												"value": [
+													"if "
+												]
+											},
+											{
+												"r": "148",
+												"s": [
+													{
+														"value": [
+															"\"Inclusion Criteria\""
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    then "
+												]
+											},
+											{
+												"r": "149",
+												"s": [
+													{
+														"value": [
+															"'warning'"
+														]
+													}
+												]
+											},
+											{
+												"r": "150",
+												"value": [
+													"\n  else ",
+													"null"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "151",
+						"locator": "124:3-126:11",
+						"type": "If",
+						"condition": {
+							"asType": "{urn:hl7-org:elm-types:r1}Boolean",
+							"type": "As",
+							"operand": {
+								"localId": "148",
+								"locator": "124:6-124:25",
+								"name": "Inclusion Criteria",
+								"type": "ExpressionRef"
+							}
+						},
+						"then": {
+							"localId": "149",
+							"locator": "125:10-125:18",
+							"valueType": "{urn:hl7-org:elm-types:r1}String",
+							"value": "warning",
+							"type": "Literal"
+						},
+						"else": {
+							"asType": "{urn:hl7-org:elm-types:r1}String",
+							"type": "As",
+							"operand": {
+								"localId": "150",
+								"locator": "126:8-126:11",
+								"type": "Null"
+							}
+						}
+					}
+				},
+				{
+					"localId": "159",
+					"locator": "128:1-131:11",
+					"name": "No Screening In Last 12 Months Summary",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "159",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"No Screening In Last 12 Months Summary\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "158",
+										"s": [
+											{
+												"value": [
+													"if "
+												]
+											},
+											{
+												"r": "155",
+												"s": [
+													{
+														"r": "153",
+														"s": [
+															{
+																"value": [
+																	"\"Inclusion Criteria\""
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															" and "
+														]
+													},
+													{
+														"r": "154",
+														"s": [
+															{
+																"value": [
+																	"\"No Urine Screening In Last 12 Months\""
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    then "
+												]
+											},
+											{
+												"r": "156",
+												"s": [
+													{
+														"value": [
+															"'Annual Urine Screening Check'"
+														]
+													}
+												]
+											},
+											{
+												"r": "157",
+												"value": [
+													"\n  else ",
+													"null"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "158",
+						"locator": "129:3-131:11",
+						"type": "If",
+						"condition": {
+							"asType": "{urn:hl7-org:elm-types:r1}Boolean",
+							"type": "As",
+							"operand": {
+								"localId": "155",
+								"locator": "129:6-129:68",
+								"type": "And",
+								"operand": [
+									{
+										"localId": "153",
+										"locator": "129:6-129:25",
+										"name": "Inclusion Criteria",
+										"type": "ExpressionRef"
+									},
+									{
+										"localId": "154",
+										"locator": "129:31-129:68",
+										"name": "No Urine Screening In Last 12 Months",
+										"type": "ExpressionRef"
+									}
+								]
+							}
+						},
+						"then": {
+							"localId": "156",
+							"locator": "130:10-130:39",
+							"valueType": "{urn:hl7-org:elm-types:r1}String",
+							"value": "Annual Urine Screening Check",
+							"type": "Literal"
+						},
+						"else": {
+							"asType": "{urn:hl7-org:elm-types:r1}String",
+							"type": "As",
+							"operand": {
+								"localId": "157",
+								"locator": "131:8-131:11",
+								"type": "Null"
+							}
+						}
+					}
+				},
+				{
+					"localId": "166",
+					"locator": "133:1-136:11",
+					"name": "Evidence of Opioids Summary",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "166",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Evidence of Opioids Summary\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "165",
+										"s": [
+											{
+												"value": [
+													"if "
+												]
+											},
+											{
+												"r": "162",
+												"s": [
+													{
+														"r": "160",
+														"s": [
+															{
+																"value": [
+																	"\"Inclusion Criteria\""
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															" and "
+														]
+													},
+													{
+														"r": "161",
+														"s": [
+															{
+																"value": [
+																	"\"Has Evidence of Opioids\""
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    then "
+												]
+											},
+											{
+												"r": "163",
+												"s": [
+													{
+														"value": [
+															"'Opioids Found In Urine Screening'"
+														]
+													}
+												]
+											},
+											{
+												"r": "164",
+												"value": [
+													"\n  else ",
+													"null"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "165",
+						"locator": "134:3-136:11",
+						"type": "If",
+						"condition": {
+							"asType": "{urn:hl7-org:elm-types:r1}Boolean",
+							"type": "As",
+							"operand": {
+								"localId": "162",
+								"locator": "134:6-134:55",
+								"type": "And",
+								"operand": [
+									{
+										"localId": "160",
+										"locator": "134:6-134:25",
+										"name": "Inclusion Criteria",
+										"type": "ExpressionRef"
+									},
+									{
+										"localId": "161",
+										"locator": "134:31-134:55",
+										"name": "Has Evidence of Opioids",
+										"type": "ExpressionRef"
+									}
+								]
+							}
+						},
+						"then": {
+							"localId": "163",
+							"locator": "135:10-135:43",
+							"valueType": "{urn:hl7-org:elm-types:r1}String",
+							"value": "Opioids Found In Urine Screening",
+							"type": "Literal"
+						},
+						"else": {
+							"asType": "{urn:hl7-org:elm-types:r1}String",
+							"type": "As",
+							"operand": {
+								"localId": "164",
+								"locator": "136:8-136:11",
+								"type": "Null"
+							}
+						}
+					}
+				},
+				{
+					"localId": "173",
+					"locator": "138:1-141:11",
+					"name": "Evidence of Illicit Drugs Summary",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "173",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Evidence of Illicit Drugs Summary\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "172",
+										"s": [
+											{
+												"value": [
+													"if "
+												]
+											},
+											{
+												"r": "169",
+												"s": [
+													{
+														"r": "167",
+														"s": [
+															{
+																"value": [
+																	"\"Inclusion Criteria\""
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															" and "
+														]
+													},
+													{
+														"r": "168",
+														"s": [
+															{
+																"value": [
+																	"\"Has Evidence of Illicit Drugs\""
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    then "
+												]
+											},
+											{
+												"r": "170",
+												"s": [
+													{
+														"value": [
+															"'Illicit Drugs Found In Urine Screening'"
+														]
+													}
+												]
+											},
+											{
+												"r": "171",
+												"value": [
+													"\n  else ",
+													"null"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "172",
+						"locator": "139:3-141:11",
+						"type": "If",
+						"condition": {
+							"asType": "{urn:hl7-org:elm-types:r1}Boolean",
+							"type": "As",
+							"operand": {
+								"localId": "169",
+								"locator": "139:6-139:61",
+								"type": "And",
+								"operand": [
+									{
+										"localId": "167",
+										"locator": "139:6-139:25",
+										"name": "Inclusion Criteria",
+										"type": "ExpressionRef"
+									},
+									{
+										"localId": "168",
+										"locator": "139:31-139:61",
+										"name": "Has Evidence of Illicit Drugs",
+										"type": "ExpressionRef"
+									}
+								]
+							}
+						},
+						"then": {
+							"localId": "170",
+							"locator": "140:10-140:49",
+							"valueType": "{urn:hl7-org:elm-types:r1}String",
+							"value": "Illicit Drugs Found In Urine Screening",
+							"type": "Literal"
+						},
+						"else": {
+							"asType": "{urn:hl7-org:elm-types:r1}String",
+							"type": "As",
+							"operand": {
+								"localId": "171",
+								"locator": "141:8-141:11",
+								"type": "Null"
+							}
+						}
+					}
+				},
+				{
+					"localId": "180",
+					"locator": "143:1-146:11",
+					"name": "No Screening In Last 12 Months Detail",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "180",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"No Screening In Last 12 Months Detail\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "179",
+										"s": [
+											{
+												"value": [
+													"if "
+												]
+											},
+											{
+												"r": "176",
+												"s": [
+													{
+														"r": "174",
+														"s": [
+															{
+																"value": [
+																	"\"Inclusion Criteria\""
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															" and "
+														]
+													},
+													{
+														"r": "175",
+														"s": [
+															{
+																"value": [
+																	"\"No Urine Screening In Last 12 Months\""
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    then "
+												]
+											},
+											{
+												"r": "177",
+												"s": [
+													{
+														"value": [
+															"'Patients on opioid therapy should have a urine drug test performed every 12 months.'"
+														]
+													}
+												]
+											},
+											{
+												"r": "178",
+												"value": [
+													"\n  else ",
+													"null"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "179",
+						"locator": "144:3-146:11",
+						"type": "If",
+						"condition": {
+							"asType": "{urn:hl7-org:elm-types:r1}Boolean",
+							"type": "As",
+							"operand": {
+								"localId": "176",
+								"locator": "144:6-144:68",
+								"type": "And",
+								"operand": [
+									{
+										"localId": "174",
+										"locator": "144:6-144:25",
+										"name": "Inclusion Criteria",
+										"type": "ExpressionRef"
+									},
+									{
+										"localId": "175",
+										"locator": "144:31-144:68",
+										"name": "No Urine Screening In Last 12 Months",
+										"type": "ExpressionRef"
+									}
+								]
+							}
+						},
+						"then": {
+							"localId": "177",
+							"locator": "145:10-145:94",
+							"valueType": "{urn:hl7-org:elm-types:r1}String",
+							"value": "Patients on opioid therapy should have a urine drug test performed every 12 months.",
+							"type": "Literal"
+						},
+						"else": {
+							"asType": "{urn:hl7-org:elm-types:r1}String",
+							"type": "As",
+							"operand": {
+								"localId": "178",
+								"locator": "146:8-146:11",
+								"type": "Null"
+							}
+						}
+					}
+				},
+				{
+					"localId": "191",
+					"locator": "148:1-153:11",
+					"name": "Evidence of Opioids Detail",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "191",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Evidence of Opioids Detail\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "190",
+										"s": [
+											{
+												"value": [
+													"if "
+												]
+											},
+											{
+												"r": "183",
+												"s": [
+													{
+														"r": "181",
+														"s": [
+															{
+																"value": [
+																	"\"Inclusion Criteria\""
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															" and "
+														]
+													},
+													{
+														"r": "182",
+														"s": [
+															{
+																"value": [
+																	"\"Has Evidence of Opioids\""
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    then\n      "
+												]
+											},
+											{
+												"r": "188",
+												"s": [
+													{
+														"r": "184",
+														"s": [
+															{
+																"value": [
+																	"'Found the following opioid(s): '"
+																]
+															}
+														]
+													},
+													{
+														"value": [
+															" +\n      "
+														]
+													},
+													{
+														"r": "187",
+														"s": [
+															{
+																"r": "185",
+																"s": [
+																	{
+																		"value": [
+																			"Common"
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	"."
+																]
+															},
+															{
+																"r": "187",
+																"s": [
+																	{
+																		"value": [
+																			"CodeableConceptToString",
+																			"("
+																		]
+																	},
+																	{
+																		"r": "186",
+																		"s": [
+																			{
+																				"value": [
+																					"\"Positive Opioid Drug Screening Qualifying Codes\""
+																				]
+																			}
+																		]
+																	},
+																	{
+																		"value": [
+																			")"
+																		]
+																	}
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"r": "189",
+												"value": [
+													"\n  else ",
+													"null"
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "190",
+						"locator": "149:3-153:11",
+						"type": "If",
+						"condition": {
+							"asType": "{urn:hl7-org:elm-types:r1}Boolean",
+							"type": "As",
+							"operand": {
+								"localId": "183",
+								"locator": "149:6-149:55",
+								"type": "And",
+								"operand": [
+									{
+										"localId": "181",
+										"locator": "149:6-149:25",
+										"name": "Inclusion Criteria",
+										"type": "ExpressionRef"
+									},
+									{
+										"localId": "182",
+										"locator": "149:31-149:55",
+										"name": "Has Evidence of Opioids",
+										"type": "ExpressionRef"
+									}
+								]
+							}
+						},
+						"then": {
+							"localId": "188",
+							"locator": "151:7-152:87",
+							"type": "Concatenate",
+							"operand": [
+								{
+									"localId": "184",
+									"locator": "151:7-151:39",
+									"valueType": "{urn:hl7-org:elm-types:r1}String",
+									"value": "Found the following opioid(s): ",
+									"type": "Literal"
+								},
+								{
+									"localId": "187",
+									"locator": "152:7-152:87",
+									"name": "CodeableConceptToString",
+									"libraryName": "Common",
+									"type": "FunctionRef",
+									"operand": [
+										{
+											"localId": "186",
+											"locator": "152:38-152:86",
+											"name": "Positive Opioid Drug Screening Qualifying Codes",
+											"type": "ExpressionRef"
+										}
+									]
+								}
+							]
+						},
+						"else": {
+							"asType": "{urn:hl7-org:elm-types:r1}String",
+							"type": "As",
+							"operand": {
+								"localId": "189",
+								"locator": "153:8-153:11",
+								"type": "Null"
+							}
+						}
+					}
+				},
+				{
+					"localId": "206",
+					"locator": "155:1-162:17",
+					"name": "Evidence of Illicit Drugs Detail",
+					"context": "Patient",
+					"accessLevel": "Public",
+					"annotation": [
+						{
+							"type": "Annotation",
+							"s": {
+								"r": "206",
+								"s": [
+									{
+										"value": [
+											"define ",
+											"\"Evidence of Illicit Drugs Detail\"",
+											":\n  "
+										]
+									},
+									{
+										"r": "205",
+										"s": [
+											{
+												"s": [
+													{
+														"r": "193",
+														"s": [
+															{
+																"r": "192",
+																"s": [
+																	{
+																		"s": [
+																			{
+																				"value": [
+																					"\"Positive Illicit Drug Screening Qualifying Codes\""
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	" ",
+																	"positiveScreening"
+																]
+															}
+														]
+													}
+												]
+											},
+											{
+												"value": [
+													"\n    "
+												]
+											},
+											{
+												"r": "204",
+												"s": [
+													{
+														"value": [
+															"return\n      "
+														]
+													},
+													{
+														"r": "203",
+														"s": [
+															{
+																"value": [
+																	"if "
+																]
+															},
+															{
+																"r": "196",
+																"s": [
+																	{
+																		"value": [
+																			"("
+																		]
+																	},
+																	{
+																		"r": "196",
+																		"s": [
+																			{
+																				"r": "194",
+																				"s": [
+																					{
+																						"value": [
+																							"\"Inclusion Criteria\""
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"value": [
+																					" and "
+																				]
+																			},
+																			{
+																				"r": "195",
+																				"s": [
+																					{
+																						"value": [
+																							"\"Has Evidence of Illicit Drugs\""
+																						]
+																					}
+																				]
+																			}
+																		]
+																	},
+																	{
+																		"value": [
+																			")"
+																		]
+																	}
+																]
+															},
+															{
+																"value": [
+																	"\n        then\n          "
+																]
+															},
+															{
+																"r": "201",
+																"s": [
+																	{
+																		"r": "197",
+																		"s": [
+																			{
+																				"value": [
+																					"'Found the following illicit drug(s) in urine drug screen: '"
+																				]
+																			}
+																		]
+																	},
+																	{
+																		"value": [
+																			" +\n            "
+																		]
+																	},
+																	{
+																		"r": "200",
+																		"s": [
+																			{
+																				"r": "198",
+																				"s": [
+																					{
+																						"value": [
+																							"Common"
+																						]
+																					}
+																				]
+																			},
+																			{
+																				"value": [
+																					"."
+																				]
+																			},
+																			{
+																				"r": "200",
+																				"s": [
+																					{
+																						"value": [
+																							"CodeableConceptToString",
+																							"("
+																						]
+																					},
+																					{
+																						"r": "199",
+																						"s": [
+																							{
+																								"value": [
+																									"positiveScreening"
+																								]
+																							}
+																						]
+																					},
+																					{
+																						"value": [
+																							")"
+																						]
+																					}
+																				]
+																			}
+																		]
+																	}
+																]
+															},
+															{
+																"r": "202",
+																"value": [
+																	"\n        else ",
+																	"null"
+																]
+															}
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						}
+					],
+					"expression": {
+						"localId": "205",
+						"locator": "156:3-162:17",
+						"type": "Query",
+						"source": [
+							{
+								"localId": "193",
+								"locator": "156:3-156:70",
+								"alias": "positiveScreening",
+								"expression": {
+									"localId": "192",
+									"locator": "156:3-156:52",
+									"name": "Positive Illicit Drug Screening Qualifying Codes",
+									"type": "ExpressionRef"
+								}
+							}
+						],
+						"relationship": [],
+						"return": {
+							"localId": "204",
+							"locator": "157:5-162:17",
+							"expression": {
+								"localId": "203",
+								"locator": "158:7-162:17",
+								"type": "If",
+								"condition": {
+									"asType": "{urn:hl7-org:elm-types:r1}Boolean",
+									"type": "As",
+									"operand": {
+										"localId": "196",
+										"locator": "158:10-158:67",
+										"type": "And",
+										"operand": [
+											{
+												"localId": "194",
+												"locator": "158:11-158:30",
+												"name": "Inclusion Criteria",
+												"type": "ExpressionRef"
+											},
+											{
+												"localId": "195",
+												"locator": "158:36-158:66",
+												"name": "Has Evidence of Illicit Drugs",
+												"type": "ExpressionRef"
+											}
+										]
+									}
+								},
+								"then": {
+									"localId": "201",
+									"locator": "160:11-161:61",
+									"type": "Concatenate",
+									"operand": [
+										{
+											"localId": "197",
+											"locator": "160:11-160:70",
+											"valueType": "{urn:hl7-org:elm-types:r1}String",
+											"value": "Found the following illicit drug(s) in urine drug screen: ",
+											"type": "Literal"
+										},
+										{
+											"localId": "200",
+											"locator": "161:13-161:61",
+											"name": "CodeableConceptToString",
+											"libraryName": "Common",
+											"type": "FunctionRef",
+											"operand": [
+												{
+													"localId": "199",
+													"locator": "161:44-161:60",
+													"name": "positiveScreening",
+													"type": "AliasRef"
+												}
+											]
+										}
+									]
+								},
+								"else": {
+									"asType": "{urn:hl7-org:elm-types:r1}String",
+									"type": "As",
+									"operand": {
+										"localId": "202",
+										"locator": "162:14-162:17",
+										"type": "Null"
+									}
+								}
+							}
+						}
+					}
+				}
+			]
+		}
+	}
+}
