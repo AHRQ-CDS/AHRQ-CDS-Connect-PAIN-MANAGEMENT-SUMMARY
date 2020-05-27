@@ -26,8 +26,26 @@
         "subject": {
           "reference": "Patient/5c41cecf-cf81-434f-9da7-e24e5a99aaa3"
         },
-        "clinicalStatus": "active",
-        "verificationStatus": "confirmed",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ],
+          "text": "Active"
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ],
+          "text": "Confirmed"
+        },
         "code": {
           "coding": [
             {
@@ -39,7 +57,7 @@
           "text": "Fibromyalgia (disorder)"
         },
         "onsetDateTime": "2013-04-05T16:00:00.000Z",
-        "dateRecorded": "2013-04-05T00:00:00.000Z"
+        "recordedDate": "2013-04-05T00:00:00.000Z"
       }
     },
     {
@@ -49,8 +67,26 @@
         "subject": {
           "reference": "Patient/5c41cecf-cf81-434f-9da7-e24e5a99aaa3"
         },
-        "clinicalStatus": "active",
-        "verificationStatus": "confirmed",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ],
+          "text": "Active"
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ],
+          "text": "Confirmed"
+        },
         "code": {
           "coding": [
             {
@@ -62,7 +98,7 @@
           "text": "Low back pain"
         },
         "onsetDateTime": "2008-11-12T16:00:00.000Z",
-        "dateRecorded": "2008-11-12T00:00:00.000Z"
+        "recordedDate": "2008-11-12T00:00:00.000Z"
       }
     },
     {
@@ -72,8 +108,26 @@
         "subject": {
           "reference": "Patient/5c41cecf-cf81-434f-9da7-e24e5a99aaa3"
         },
-        "clinicalStatus": "active",
-        "verificationStatus": "confirmed",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ],
+          "text": "Active"
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ],
+          "text": "Confirmed"
+        },
         "code": {
           "coding": [
             {
@@ -85,7 +139,7 @@
           "text": "Lumbar post-laminectomy syndrome (disorder)"
         },
         "onsetDateTime": "2012-02-01T16:00:00.000Z",
-        "dateRecorded": "2012-02-16T00:00:00.000Z"
+        "recordedDate": "2012-02-16T00:00:00.000Z"
       }
     },
     {
@@ -95,8 +149,26 @@
         "subject": {
           "reference": "Patient/5c41cecf-cf81-434f-9da7-e24e5a99aaa3"
         },
-        "clinicalStatus": "active",
-        "verificationStatus":"confirmed",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            }
+          ],
+          "text": "Active"
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            }
+          ],
+          "text": "Confirmed"
+        },
         "code": {
           "coding": [
             {
@@ -635,6 +707,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -657,6 +730,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -679,6 +753,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -701,6 +776,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -723,6 +799,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -745,6 +822,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -767,6 +845,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -789,6 +868,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -811,6 +891,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -833,6 +914,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -855,6 +937,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -877,6 +960,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -899,6 +983,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -921,6 +1006,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -943,6 +1029,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -965,6 +1052,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -987,6 +1075,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -1009,6 +1098,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -1031,6 +1121,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -1053,6 +1144,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -1075,6 +1167,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -1097,6 +1190,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -1119,6 +1213,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -1141,6 +1236,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -1163,6 +1259,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -1185,6 +1282,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -1312,6 +1410,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -1334,6 +1433,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -1356,6 +1456,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -1378,6 +1479,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -1400,6 +1502,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -1724,6 +1827,7 @@
         },
         "status": "active",
         "intent": "order",
+        "doNotPerform": false,
         "medicationCodeableConcept": {
           "coding": [
             {

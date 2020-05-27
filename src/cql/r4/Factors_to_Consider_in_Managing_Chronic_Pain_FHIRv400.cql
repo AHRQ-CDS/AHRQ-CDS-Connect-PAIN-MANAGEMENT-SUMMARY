@@ -986,6 +986,12 @@ define BenzodiazepineMedicationRequests:
     2 years
   ))
 
+define function MedicationStatementLookBack(MedList List<MedicationStatement>, LookBack System.Quantity):
+MedList M
+  let LookBackInterval: Interval[Now() - LookBack, Now()]
+  where (M.effective as FHIR.dateTime).value in LookBackInterval
+    or C3F.PeriodToInterval(M.effective as FHIR.Period) overlaps LookBackInterval
+
 define BenzodiazepineMedicationStatements:
   C3F.ActiveOrCompletedMedicationStatement(C3F.MedicationStatementLookBack(
     [MedicationStatement: "Benzodiazepine medications"],
@@ -1084,12 +1090,28 @@ define ReportRiskScreeningsRelevantToPainManagement:
 // display the data to the user in a friendly manner.  See the Pain Management Summary SMART on FHIR application as
 // an example of how to integrate this summary into an EHR using modern web UI technologies.
 
+define RequestsAndResponses:
+    C3F.Confirmed(C3F.ActiveOrRecurring([Condition: "Conditions associated with chronic pain"]))
+
+define ReportRequestsAndResponses:
+  (RequestsAndResponses) RR
+  return {
+    Name:   ConceptText(RR.code),
+    Status: RR.clinicalStatus.coding[0].code.value,
+    Onset:  Onset(RR),
+    DateRecorded: DateTimeText(RR.recordedDate)
+  }
+  sort by (Onset as String) desc
+
 define Summary: {
   Patient: {
     Name: Combine(Patient.name.given G return G.value, ' ') + ' ' + Combine(Patient.name.family F return F.value, ' '),
     Gender: Patient.gender.value,
     Age: AgeInYears(),
     MeetsInclusionCriteria: MeetsInclusionCriteria
+  },
+  CDSHooksAssessment: {
+    RequestsAndResponses:ReportRequestsAndResponses
   },
   PertinentMedicalHistory: {
     ConditionsAssociatedWithChronicPain: ReportConditionsAssociatedWithChronicPain,

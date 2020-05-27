@@ -1,5 +1,9 @@
 {
    "library" : {
+      "annotation" : [ {
+         "translatorOptions" : "",
+         "type" : "CqlToElmInfo"
+      } ],
       "identifier" : {
          "id" : "Factors_to_Consider_in_Managing_Chronic_Pain_FHIRv400",
          "version" : "1.0.0"
@@ -2562,8 +2566,9 @@
                      "codeProperty" : "code",
                      "type" : "Retrieve",
                      "codes" : {
-                        "type" : "ToList",
-                        "operand" : {
+                        "path" : "codes",
+                        "type" : "Property",
+                        "source" : {
                            "name" : "Pregnancy status",
                            "type" : "ConceptRef"
                         }
@@ -3954,8 +3959,9 @@
                      "codeProperty" : "code",
                      "type" : "Retrieve",
                      "codes" : {
-                        "type" : "ToList",
-                        "operand" : {
+                        "path" : "codes",
+                        "type" : "Property",
+                        "source" : {
                            "name" : "Pain severity Wong-Baker FACES Scale",
                            "type" : "ConceptRef"
                         }
@@ -4087,8 +4093,9 @@
                         "codeProperty" : "code",
                         "type" : "Retrieve",
                         "codes" : {
-                           "type" : "ToList",
-                           "operand" : {
+                           "path" : "codes",
+                           "type" : "Property",
+                           "source" : {
                               "name" : "Mean score [PEG]",
                               "type" : "ConceptRef"
                            }
@@ -4098,8 +4105,9 @@
                         "codeProperty" : "code",
                         "type" : "Retrieve",
                         "codes" : {
-                           "type" : "ToList",
-                           "operand" : {
+                           "path" : "codes",
+                           "type" : "Property",
+                           "source" : {
                               "name" : "Pain Enjoyment General Activity (PEG) Assessment LEGACY",
                               "type" : "ConceptRef"
                            }
@@ -4459,8 +4467,9 @@
                         "codeProperty" : "code",
                         "type" : "Retrieve",
                         "codes" : {
-                           "type" : "ToList",
-                           "operand" : {
+                           "path" : "codes",
+                           "type" : "Property",
+                           "source" : {
                               "name" : "Total score [STarT Back]",
                               "type" : "ConceptRef"
                            }
@@ -4470,8 +4479,9 @@
                         "codeProperty" : "code",
                         "type" : "Retrieve",
                         "codes" : {
-                           "type" : "ToList",
-                           "operand" : {
+                           "path" : "codes",
+                           "type" : "Property",
+                           "source" : {
                               "name" : "STarT Back Screening Tool LEGACY",
                               "type" : "ConceptRef"
                            }
@@ -5676,8 +5686,9 @@
                         "codeProperty" : "code",
                         "type" : "Retrieve",
                         "codes" : {
-                           "type" : "ToList",
-                           "operand" : {
+                           "path" : "codes",
+                           "type" : "Property",
+                           "source" : {
                               "name" : "Morphine Milligram Equivalent (MME)",
                               "type" : "ConceptRef"
                            }
@@ -5964,6 +5975,107 @@
                   } ]
                } ]
             }
+         }, {
+            "name" : "MedicationStatementLookBack",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "type" : "FunctionDef",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "M",
+                  "expression" : {
+                     "name" : "MedList",
+                     "type" : "OperandRef"
+                  }
+               } ],
+               "let" : [ {
+                  "identifier" : "LookBackInterval",
+                  "expression" : {
+                     "lowClosed" : true,
+                     "highClosed" : true,
+                     "type" : "Interval",
+                     "low" : {
+                        "type" : "Subtract",
+                        "operand" : [ {
+                           "type" : "Now"
+                        }, {
+                           "name" : "LookBack",
+                           "type" : "OperandRef"
+                        } ]
+                     },
+                     "high" : {
+                        "type" : "Now"
+                     }
+                  }
+               } ],
+               "relationship" : [ ],
+               "where" : {
+                  "type" : "Or",
+                  "operand" : [ {
+                     "type" : "In",
+                     "operand" : [ {
+                        "path" : "value",
+                        "type" : "Property",
+                        "source" : {
+                           "strict" : false,
+                           "type" : "As",
+                           "operand" : {
+                              "path" : "effective",
+                              "scope" : "M",
+                              "type" : "Property"
+                           },
+                           "asTypeSpecifier" : {
+                              "name" : "{http://hl7.org/fhir}dateTime",
+                              "type" : "NamedTypeSpecifier"
+                           }
+                        }
+                     }, {
+                        "name" : "LookBackInterval",
+                        "type" : "QueryLetRef"
+                     } ]
+                  }, {
+                     "type" : "Overlaps",
+                     "operand" : [ {
+                        "name" : "PeriodToInterval",
+                        "libraryName" : "C3F",
+                        "type" : "FunctionRef",
+                        "operand" : [ {
+                           "strict" : false,
+                           "type" : "As",
+                           "operand" : {
+                              "path" : "effective",
+                              "scope" : "M",
+                              "type" : "Property"
+                           },
+                           "asTypeSpecifier" : {
+                              "name" : "{http://hl7.org/fhir}Period",
+                              "type" : "NamedTypeSpecifier"
+                           }
+                        } ]
+                     }, {
+                        "name" : "LookBackInterval",
+                        "type" : "QueryLetRef"
+                     } ]
+                  } ]
+               }
+            },
+            "operand" : [ {
+               "name" : "MedList",
+               "operandTypeSpecifier" : {
+                  "type" : "ListTypeSpecifier",
+                  "elementType" : {
+                     "name" : "{http://hl7.org/fhir}MedicationStatement",
+                     "type" : "NamedTypeSpecifier"
+                  }
+               }
+            }, {
+               "name" : "LookBack",
+               "operandTypeSpecifier" : {
+                  "name" : "{urn:hl7-org:elm-types:r1}Quantity",
+                  "type" : "NamedTypeSpecifier"
+               }
+            } ]
          }, {
             "name" : "BenzodiazepineMedicationStatements",
             "context" : "Patient",
@@ -6510,8 +6622,9 @@
                            "codeProperty" : "code",
                            "type" : "Retrieve",
                            "codes" : {
-                              "type" : "ToList",
-                              "operand" : {
+                              "path" : "codes",
+                              "type" : "Property",
+                              "source" : {
                                  "name" : "Single question r/t ETOH use",
                                  "type" : "ConceptRef"
                               }
@@ -6522,8 +6635,9 @@
                         "codeProperty" : "code",
                         "type" : "Retrieve",
                         "codes" : {
-                           "type" : "ToList",
-                           "operand" : {
+                           "path" : "codes",
+                           "type" : "Property",
+                           "source" : {
                               "name" : "Single question r/t drug use",
                               "type" : "ConceptRef"
                            }
@@ -6653,6 +6767,126 @@
                      "direction" : "desc",
                      "path" : "Date",
                      "type" : "ByColumn"
+                  } ]
+               }
+            }
+         }, {
+            "name" : "RequestsAndResponses",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "name" : "Confirmed",
+               "libraryName" : "C3F",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "name" : "ActiveOrRecurring",
+                  "libraryName" : "C3F",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "dataType" : "{http://hl7.org/fhir}Condition",
+                     "codeProperty" : "code",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "name" : "Conditions associated with chronic pain",
+                        "type" : "ValueSetRef"
+                     }
+                  } ]
+               } ]
+            }
+         }, {
+            "name" : "ReportRequestsAndResponses",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "RR",
+                  "expression" : {
+                     "name" : "RequestsAndResponses",
+                     "type" : "ExpressionRef"
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "Name",
+                        "value" : {
+                           "name" : "ConceptText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "code",
+                              "scope" : "RR",
+                              "type" : "Property"
+                           } ]
+                        }
+                     }, {
+                        "name" : "Status",
+                        "value" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "code",
+                              "type" : "Property",
+                              "source" : {
+                                 "type" : "Indexer",
+                                 "operand" : [ {
+                                    "path" : "coding",
+                                    "type" : "Property",
+                                    "source" : {
+                                       "path" : "clinicalStatus",
+                                       "scope" : "RR",
+                                       "type" : "Property"
+                                    }
+                                 }, {
+                                    "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                                    "value" : "0",
+                                    "type" : "Literal"
+                                 } ]
+                              }
+                           }
+                        }
+                     }, {
+                        "name" : "Onset",
+                        "value" : {
+                           "name" : "Onset",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "name" : "RR",
+                              "type" : "AliasRef"
+                           } ]
+                        }
+                     }, {
+                        "name" : "DateRecorded",
+                        "value" : {
+                           "name" : "DateTimeText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "recordedDate",
+                              "scope" : "RR",
+                              "type" : "Property"
+                           } ]
+                        }
+                     } ]
+                  }
+               },
+               "sort" : {
+                  "by" : [ {
+                     "direction" : "desc",
+                     "type" : "ByExpression",
+                     "expression" : {
+                        "strict" : false,
+                        "type" : "As",
+                        "operand" : {
+                           "name" : "Onset",
+                           "type" : "IdentifierRef"
+                        },
+                        "asTypeSpecifier" : {
+                           "name" : "{urn:hl7-org:elm-types:r1}String",
+                           "type" : "NamedTypeSpecifier"
+                        }
+                     }
                   } ]
                }
             }
@@ -6832,6 +7066,18 @@
                         "name" : "MeetsInclusionCriteria",
                         "value" : {
                            "name" : "MeetsInclusionCriteria",
+                           "type" : "ExpressionRef"
+                        }
+                     } ]
+                  }
+               }, {
+                  "name" : "CDSHooksAssessment",
+                  "value" : {
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "RequestsAndResponses",
+                        "value" : {
+                           "name" : "ReportRequestsAndResponses",
                            "type" : "ExpressionRef"
                         }
                      } ]

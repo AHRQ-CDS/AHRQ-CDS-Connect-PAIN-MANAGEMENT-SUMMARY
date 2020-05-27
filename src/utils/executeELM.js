@@ -10,9 +10,9 @@ import dstu3FactorsELM from '../cql/dstu3/Factors_to_Consider_in_Managing_Chroni
 import dstu3CommonsELM from '../cql/dstu3/CDS_Connect_Commons_for_FHIRv300.json';
 import dstu3HelpersELM from '../cql/dstu3/FHIRHelpers.json';
 //****************************** CDSHooks libraries
-import dstu3opioidcds_rec_10ELM from '../cql/dstu3/CDC/opioidcds_rec_10.json'
-import dstu3opioidcds_rec_10_pv_ELM from '../cql/dstu3/CDC/opioidcds_rec_10_patient_view.json';
-import dstu3opioidcds_rec_11ELM from '../cql/dstu3/CDC/opioidcds_rec_11.json';
+//import dstu3opioidcds_rec_10ELM from '../cql/dstu3/CDC/opioidcds_rec_10.json'
+//import dstu3opioidcds_rec_10_pv_ELM from '../cql/dstu3/CDC/opioidcds_rec_10_patient_view.json';
+//import dstu3opioidcds_rec_11ELM from '../cql/dstu3/CDC/opioidcds_rec_11.json';
 import dstu3opioidcds_rec_11_pv_ELM from '../cql/dstu3/CDC/opioidcds_rec_11_patient_view.json';
 import dstu3FHIRHelpersELM from '../cql/dstu3/CDC/fhirhelpers.json';
 import dstu3omtkdataELM from '../cql/dstu3/CDC/omtkdata2019.json';
@@ -23,6 +23,8 @@ import r4FactorsELM from '../cql/r4/Factors_to_Consider_in_Managing_Chronic_Pain
 import r4CommonsELM from '../cql/r4/CDS_Connect_Commons_for_FHIRv400.json';
 import r4HelpersELM from '../cql/r4/FHIRHelpers.json';
 import valueSetDB from '../cql/valueset-db.json';
+import doCDSCall from "./executeCDSHooksCall";
+import getDecisionType from "./getDecisionType";
 
 function executeELM(collector) {
   let client, release, library;
@@ -55,7 +57,7 @@ function executeELM(collector) {
         return {
           resourceType: "Bundle",
           entry: resources.map(r => ({ resource: r }))
-        };;
+        };
       });
     })
     // then execute the library and return the results (wrapped in a Promise)
@@ -65,6 +67,14 @@ function executeELM(collector) {
       const executor = new cql.Executor(library, codeService);
       patientSource.loadBundles([bundle]);
       const results = executor.exec(patientSource);
+      if (getDecisionType === 'externalCDS') {
+        const cdsLibrary = getCDSHooksLibrary();
+        const cdsPatientSource = getPatientSource(release);
+        cdsPatientSource.loadBundles([bundle]);
+        const cdsExecutor = new cql.Executor(cdsLibrary, codeService)
+        const cdsResults = cdsExecutor.exec(cdsPatientSource);
+        console.log(cdsResults.patientResults[Object.keys(results.patientResults)[0]]);
+      }
       return results.patientResults[Object.keys(results.patientResults)[0]];
     });
     resolve(results);
@@ -79,13 +89,6 @@ function getLibrary(release) {
         FHIRHelpers: dstu2HelpersELM
       }));
     case 3:
- /*     return new cql.Library(dstu3opioidcds_rec_10_pv_ELM, new cql.Repository({
-        FHIRHelpers: dstu3FHIRHelpersELM,
-        OMTKData: dstu3omtkdataELM,
-        OMTKLogic: dstu3omtklogicELM,
-        CDS_Commons: dstu3cds_commonsELM
-      }));
-*/
       return new cql.Library(dstu3FactorsELM, new cql.Repository({
         CDS_Connect_Commons_for_FHIRv300: dstu3CommonsELM,
         FHIRHelpers: dstu3HelpersELM
@@ -100,6 +103,16 @@ function getLibrary(release) {
   }
 }
 
+function getCDSHooksLibrary(){
+  return new cql.Library(dstu3opioidcds_rec_11_pv_ELM, new cql.Repository({
+    FHIRHelpers: dstu3FHIRHelpersELM,
+    OMTKData: dstu3omtkdataELM,
+    OMTKLogic: dstu3omtklogicELM,
+    CDS_Commons: dstu3cds_commonsELM
+  }));
+
+}
+
 function getPatientSource(release) {
   switch(release) {
     case 2:
@@ -109,7 +122,7 @@ function getPatientSource(release) {
     case 4:
       return cqlfhir.PatientSource.FHIRv400();
     default:
-      throw new Error('Only FHIR DSTU2 and FHIR R4 servers are supported');
+      throw new Error('Only FHIR DSTU2, FHIR DSTU3 and FHIR R4 servers are supported');
   }
 }
 
@@ -175,7 +188,7 @@ function updateSearchParams(params, release, type) {
         default:
           //nothing
       }
-    } else if (release === 4) {
+    } else if (release === 4 || release === 3) {
       // NOTE: Epic doesn't currently support R4, but assuming R4 versions of Epic would need this
       switch (type) {
         case 'Observation':

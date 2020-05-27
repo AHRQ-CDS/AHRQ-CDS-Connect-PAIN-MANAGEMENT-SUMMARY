@@ -20,6 +20,7 @@ import ExclusionBanner from './ExclusionBanner';
 import InfoModal from './InfoModal';
 import DevTools from './DevTools';
 import doCDSCall from '../utils/executeCDSHooksCall';
+import getDecisionType from '../utils/getDecisionType';
 
 export default class Summary extends Component {
   constructor () {
@@ -36,10 +37,12 @@ export default class Summary extends Component {
   }
 
   componentDidMount () {
+    if (getDecisionType === 'externalCDS') {
       doCDSCall(this.props.collector)
           .then((result1) => {
             this.setState({result1:result1});
           });
+    }
   }
 
   handleOpenModal = (modalSubSection,event) => {
@@ -297,8 +300,7 @@ export default class Summary extends Component {
     let icon = '';
     let title = '';
     if (section === 'CDSHooksAssessment') {
-      icon = <RiskIcon width="35" height="34" />;
-      title = `Hookies (${numRiskEntries})`;
+      title = `Recommendations`;
     }else if (section === 'PertinentMedicalHistory') {
       icon = <MedicalHistoryIcon width="30" height="40" />;
       title = `Pertinent Medical History (${numMedicalHistoryEntries})`;
@@ -311,7 +313,9 @@ export default class Summary extends Component {
     } else if (section === 'RiskConsiderations') {
       icon = <RiskIcon width="35" height="34" />;
       title = `Risk Considerations (${numRiskEntries})`;
-    }
+     }// else if (section === 'SharedDecisionMaking') {
+    //   title = `Shared Decision Making`;
+    // }
 
     return (
       <h2 id={section} className="section__header">
@@ -367,6 +371,10 @@ export default class Summary extends Component {
               <Collapsible tabIndex={0} trigger={this.renderSectionHeader("RiskConsiderations")} open={true}>
                 {this.renderSection("RiskConsiderations")}
               </Collapsible>
+
+              {/*<Collapsible tabIndex={0} trigger={this.renderSectionHeader("SharedDecisionMaking")} open={true}>*/}
+              {/*  {this.renderSection("SharedDecisionMaking")}*/}
+              {/*</Collapsible>*/}
             </main>
           }
 
