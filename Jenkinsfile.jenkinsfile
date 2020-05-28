@@ -1,0 +1,24 @@
+pipeline {
+  agent any
+    
+  tools {nodejs "node11"}
+    
+  stages {
+     
+    stage('Build') {
+      steps {
+        sh 'yarn install'
+        sh 'yarn build'
+      }
+    }  
+
+    stage('Publish') {
+        steps {
+            withAWS(region:'us-west-2', credentials:'jasonevans') {
+                s3Upload(bucket: 'cds4cpm-painmanager-develop', workingDir: 'build', includePathPattern: '**/*')
+            }
+        }
+    }
+
+  }
+}
