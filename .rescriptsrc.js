@@ -21,13 +21,13 @@ const path = require('path');
 const addLaunch = config => {
   return edit(
     entries => {
-      if (!Array.isArray(entries) || entries.filter(e => e.endsWith('/index.js')).length !== 1) {
+      if (!Array.isArray(entries) || entries.filter(e => e.endsWith(`${path.sep}index.js`)).length !== 1) {
         console.error('Cannot add launch.js to entry. Unexpected starting value for entry:', entries);
         return entries;
       }
       return {
         main: entries,
-        launch: entries.map(e => e.replace(/\/index.js$/, '/launch.js'))
+        launch: entries.map(e => e.replace(/[\/\\]index.js$/, `${path.sep}launch.js`))
       }
     },
     [['entry']],
