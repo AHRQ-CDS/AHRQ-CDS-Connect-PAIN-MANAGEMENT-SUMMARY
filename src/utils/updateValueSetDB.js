@@ -9,9 +9,6 @@ const { CodeService } = require('cql-exec-vsac');
 const dstu2FactorsELM = require('../cql/dstu2/Factors_to_Consider_in_Managing_Chronic_Pain.json');
 const dstu2CommonsELM = require('../cql/dstu2/CDS_Connect_Commons_for_FHIRv102.json');
 const dstu2HelpersELM = require('../cql/dstu2/FHIRHelpers.json');
-const dstu3FactorsELM  = require('../cql/dstu3/Factors_to_Consider_in_Managing_Chronic_Pain_FHIRv300.json');
-const dstu3CommonsELM = require('../cql/dstu3/CDS_Connect_Commons_for_FHIRv300.json');
-const dstu3HelpersELM = require('../cql/dstu3/FHIRHelpers.json');
 const r4FactorsELM = require('../cql/r4/Factors_to_Consider_in_Managing_Chronic_Pain_FHIRv400.json');
 const r4CommonsELM = require('../cql/r4/CDS_Connect_Commons_for_FHIRv400.json');
 const r4HelpersELM = require('../cql/r4/FHIRHelpers.json');
@@ -38,10 +35,6 @@ console.log(`Using temp folder: ${tempFolder}`);
 const dstu2Lib = new Library(dstu2FactorsELM, new Repository({
   CDS_Connect_Commons_for_FHIRv102: dstu2CommonsELM,
   FHIRHelpers: dstu2HelpersELM
-}));
-const dstu3Lib = new Library(dstu3FactorsELM, new Repository({
-    CDS_Connect_Commons_for_FHIRv300: dstu3CommonsELM,
-    FHIRHelpers: dstu3HelpersELM
 }));
 const r4Lib = new Library(r4FactorsELM, new Repository({
   CDS_Connect_Commons_for_FHIRv400: r4CommonsELM,
