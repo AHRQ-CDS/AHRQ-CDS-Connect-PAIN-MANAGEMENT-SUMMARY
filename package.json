@@ -2,7 +2,7 @@
   "name": "pain-management-factors",
   "version": "0.3.2",
   "description": "Pain Management Factors SMART-on-FHIR App",
-  "homepage": "https://cqframework.github.io/AHRQ-CDS-Connect-PAIN-MANAGEMENT-SUMMARY",
+  "homepage": ".",
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/polyfill": "^7.8.3",
