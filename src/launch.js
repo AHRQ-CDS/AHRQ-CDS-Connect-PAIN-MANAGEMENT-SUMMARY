@@ -1,6 +1,5 @@
 import FHIR from 'fhirclient';
 
-alert('starting launch');
 let params = new URLSearchParams(document.location.search.substring(1));
 let encodedLaunch = params.get('launch');
 let decodedLaunch = atob(encodedLaunch);
