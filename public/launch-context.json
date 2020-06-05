@@ -1,7 +1,6 @@
 {
   "clientId": "6c12dff4-24e7-4475-a742-b08972c4ea27",
   "scope": "patient/*.read launch/patient",
-  "fhirServiceUrl": "http://localhost:8080/cqf-ruler-r4/fhir/",
-  "patientId": "5c41cecf-cf81-434f-9da7-e24e5a99dbc2",
+  "fhirServiceUrl": "http://cds4cpm-sandbox.alphora.com/cqf-ruler-r4/fhir/",
   "completeInTarget": true
 }

@@ -26,7 +26,9 @@ function executeELM(collector) {
       library = getLibrary(release);
     })
     // then query the FHIR server for the patient, sending it to the next step
-    .then(() => client.patient.read())
+    .then(() => {
+      return client.patient.read();
+    })
     // then gather all the patient's relevant resource instances and send them in a bundle to the next step
     .then((pt) => {
       collector.push({ data: pt, url: `Patient/${pt.id}`});
