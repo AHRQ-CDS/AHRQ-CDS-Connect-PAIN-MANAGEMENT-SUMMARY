@@ -4,6 +4,19 @@ pipeline {
   tools {nodejs "node11"}
     
   stages {
+
+    stage('Set environment') {
+      steps {
+        script {
+          def environment = 'staging'
+          if (env.GIT_BRANCH != 'origin/master') {
+            environment = env.GIT_BRANCH.split("/")[1]
+            println("Environment: ${environment}");
+          }
+          env.ENVIRONMENT_NAME = environment  
+        }
+      }
+    }
      
     stage('Build') {
       steps {
@@ -15,7 +28,7 @@ pipeline {
     stage('Publish') {
         steps {
             withAWS(region:'us-west-2', credentials:'jasonevans') {
-                s3Upload(bucket: 'cds4cpm-painmanager-develop', path: 'AHRQ-CDS-Connect-PAIN-MANAGEMENT-SUMMARY', workingDir: 'build', includePathPattern: '**/*')
+                s3Upload(bucket: "cds4cpm-painmanager-${env.ENVIRONMENT_NAME}", path: 'AHRQ-CDS-Connect-PAIN-MANAGEMENT-SUMMARY', workingDir: 'build', includePathPattern: '**/*')
             }
         }
     }
