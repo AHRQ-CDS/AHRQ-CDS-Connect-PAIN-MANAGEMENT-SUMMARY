@@ -19,6 +19,8 @@ import InclusionBanner from './InclusionBanner';
 import ExclusionBanner from './ExclusionBanner';
 import InfoModal from './InfoModal';
 import DevTools from './DevTools';
+import doCDSCall from '../utils/executeCDSHooksCall';
+import getDecisionType from '../utils/getDecisionType';
 
 export default class Summary extends Component {
   constructor () {
@@ -32,6 +34,15 @@ export default class Summary extends Component {
     this.subsectionTableProps = { id: 'react_sub-section__table'};
 
     ReactModal.setAppElement('body');
+  }
+
+  componentDidMount () {
+    if (getDecisionType === 'externalCDS') {
+      doCDSCall(this.props.collector)
+          .then((result1) => {
+            this.setState({result1:result1});
+          });
+    }
   }
 
   handleOpenModal = (modalSubSection,event) => {
@@ -223,6 +234,16 @@ export default class Summary extends Component {
   }
 
   renderSection(section) {
+    if(section === 'CDSHooksAssessment' && this.state.result1){
+      return (
+        <div>
+          <blockquote>
+            {this.state.result1}<br />
+          </blockquote>
+        </div>
+      )
+    }
+
     const sectionMap = summaryMap[section];
 
     return sectionMap.map((subSection) => {
@@ -278,7 +299,9 @@ export default class Summary extends Component {
 
     let icon = '';
     let title = '';
-    if (section === 'PertinentMedicalHistory') {
+    if (section === 'CDSHooksAssessment') {
+      title = `Recommendations`;
+    }else if (section === 'PertinentMedicalHistory') {
       icon = <MedicalHistoryIcon width="30" height="40" />;
       title = `Pertinent Medical History (${numMedicalHistoryEntries})`;
     } else if (section === 'PainAssessments') {
@@ -290,7 +313,9 @@ export default class Summary extends Component {
     } else if (section === 'RiskConsiderations') {
       icon = <RiskIcon width="35" height="34" />;
       title = `Risk Considerations (${numRiskEntries})`;
-    }
+     }// else if (section === 'SharedDecisionMaking') {
+    //   title = `Shared Decision Making`;
+    // }
 
     return (
       <h2 id={section} className="section__header">
@@ -328,6 +353,9 @@ export default class Summary extends Component {
 
           {meetsInclusionCriteria &&
             <main className="sections">
+              <Collapsible tabIndex={0} trigger={this.renderSectionHeader("CDSHooksAssessment")} open={true}>
+                {this.renderSection("CDSHooksAssessment")}
+              </Collapsible>
               <Collapsible tabIndex={0} trigger={this.renderSectionHeader("PertinentMedicalHistory")} open={true}>
                 {this.renderSection("PertinentMedicalHistory")}
               </Collapsible>
@@ -343,6 +371,10 @@ export default class Summary extends Component {
               <Collapsible tabIndex={0} trigger={this.renderSectionHeader("RiskConsiderations")} open={true}>
                 {this.renderSection("RiskConsiderations")}
               </Collapsible>
+
+              {/*<Collapsible tabIndex={0} trigger={this.renderSectionHeader("SharedDecisionMaking")} open={true}>*/}
+              {/*  {this.renderSection("SharedDecisionMaking")}*/}
+              {/*</Collapsible>*/}
             </main>
           }
 

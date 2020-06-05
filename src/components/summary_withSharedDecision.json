@@ -655,5 +655,95 @@
         }
       ]
     }
-  ]
+  ],
+  "SharedDecisionMaking": [
+  {
+    "name": "Sharing",
+    "dataKey": "Sharing",
+    "dataKeySource": "SharedDecisionMaking",
+    "info": [
+      {
+        "type": "elements",
+        "description": "Decision 1:",
+        "elements": [
+          {
+            "name": "Decision1",
+            "status": "final or amended",
+            "lookback": "most recent in past 6 months"
+          }
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "headers": {
+          "Name": "Name",
+          "Result": {
+            "key": "Result",
+            "formatter": "quantityFormat"
+          },
+          "Date": {
+            "key": "Date",
+            "formatter": "datishFormat"
+          }
+        },
+        "flags": [
+          {
+            "flag": {
+              "ifGreaterThanOrEqualTo": {
+                "header": "Result",
+                "value": 50
+              }
+            },
+            "flagText": "Decision One"
+          }
+        ]
+      }
+    ]
+  },
+    {
+      "name": "Decisions",
+      "dataKey": "Decisions",
+      "dataKeySource": "SharedDecisionMaking",
+      "info": [
+        {
+          "type": "elements",
+          "description": "Decision 1.2:",
+          "elements": [
+            {
+              "name": "Decision1.2",
+              "status": "final or amended",
+              "lookback": "most recent in past 6 months"
+            }
+          ]
+        }
+      ],
+      "tables": [
+        {
+          "headers": {
+            "Name": "Name",
+            "Result": {
+              "key": "Result",
+              "formatter": "quantityFormat"
+            },
+            "Date": {
+              "key": "Date",
+              "formatter": "datishFormat"
+            }
+          },
+          "flags": [
+            {
+              "flag": {
+                "ifGreaterThanOrEqualTo": {
+                  "header": "Result",
+                  "value": 50
+                }
+              },
+              "flagText": "Decision One"
+            }
+          ]
+        }
+      ]
+    }
+]
 }

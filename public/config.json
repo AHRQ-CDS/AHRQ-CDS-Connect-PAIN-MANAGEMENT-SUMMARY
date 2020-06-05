@@ -1,4 +1,5 @@
 {
-  "analytics_endpoint": "",
-  "x_api_key": ""
+  "analytics_endpoint": "http://localhost:8000/launch.html",
+  "x_api_key": "123456789",
+  "decisionComponent": "internalCDS"
 }

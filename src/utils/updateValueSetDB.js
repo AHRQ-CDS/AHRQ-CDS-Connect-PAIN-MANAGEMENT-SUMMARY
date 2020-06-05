@@ -48,6 +48,7 @@ const r4Lib = new Library(r4FactorsELM, new Repository({
 // for the current CQL, but may be helpful for people who extend it.
 console.log(`Loading value sets from VSAC using account: ${user}`);
 codeService.ensureValueSetsInLibrary(dstu2Lib, true, user, password)
+  .then(() => codeService.ensureValueSetsInLibrary(dstu3Lib, true, user, password))
   .then(() => codeService.ensureValueSetsInLibrary(r4Lib, true, user, password))
   .then(() => {
     // The valueset-db.json that the codeService produces isn't exactly the
