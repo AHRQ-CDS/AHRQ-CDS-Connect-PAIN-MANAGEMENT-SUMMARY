@@ -11,9 +11,17 @@ pipeline {
           def environment = 'staging'
           if (env.GIT_BRANCH != 'origin/master') {
             environment = env.GIT_BRANCH.split("/")[1]
-            println("Environment: ${environment}");
           }
-          env.ENVIRONMENT_NAME = environment  
+          env.ENVIRONMENT_NAME = environment
+          println("Environment: ${env.ENVIRONMENT_NAME}");
+
+          if (env.ENVIRONMENT_NAME == 'staging') {
+            env.CLOUDFRONT_DISTRIBUTION = 'EWZAE22C1XWVA'
+          } 
+          else if (env.ENVIRONMENT_NAME == 'develop') {
+            env.CLOUDFRONT_DISTRIBUTION = 'E14F64TABWIPBD'
+          } 
+          println("CloudFront Distribution: ${environment}");
         }
       }
     }
@@ -29,6 +37,7 @@ pipeline {
         steps {
             withAWS(region:'us-west-2', credentials:'jasonevans') {
                 s3Upload(bucket: "cds4cpm-painmanager-${env.ENVIRONMENT_NAME}", path: 'AHRQ-CDS-Connect-PAIN-MANAGEMENT-SUMMARY', workingDir: 'build', includePathPattern: '**/*')
+                cfInvalidate(distribution:"${env.CLOUDFRONT_DISTRIBUTION}", paths:['/*'], waitForCompletion: true)
             }
         }
     }
