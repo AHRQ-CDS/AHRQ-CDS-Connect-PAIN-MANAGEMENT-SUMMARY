@@ -156,3 +156,13 @@ The data that is posted reports whether or not the patient met the CDS inclusion
 ```
 
 To enable posting of analytics, configure the `analytics_endpoint` and `x_api_key` in the `public/config.json` file. The default value is an empty string, which will not post any analytics.
+
+## Docker
+
+To build with docker run:
+
+`docker build .`
+
+from the root directory. This is will build a container which serves content on port 80. You can run this with:
+
+`docker run -p 80:80 <hash>`
