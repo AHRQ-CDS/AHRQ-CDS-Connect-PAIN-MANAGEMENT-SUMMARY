@@ -12,4 +12,5 @@ COPY --chown=node:node . .
 RUN yarn build
 
 FROM nginx:alpine
+COPY default.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /home/node/app/build/ /usr/share/nginx/html
