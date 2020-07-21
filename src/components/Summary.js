@@ -334,7 +334,7 @@ export default class Summary extends Component {
   };
 
   render() {
-    const { summary, collector, result } = this.props;
+    const { summary, collector, qrCollector, result } = this.props;
     const meetsInclusionCriteria = summary.Patient.MeetsInclusionCriteria;
     if (!summary) { return null; }
 
@@ -392,6 +392,7 @@ export default class Summary extends Component {
 
           <DevTools
             collector={collector}
+            qrCollector={qrCollector}
             result={result}
           />
 
@@ -417,6 +418,7 @@ Summary.propTypes = {
   summary: PropTypes.object.isRequired,
   sectionFlags: PropTypes.object.isRequired,
   collector: PropTypes.array.isRequired,
+  qrCollector: PropTypes.array.isRequired,
   result: PropTypes.object.isRequired,
   numMedicalHistoryEntries: PropTypes.number.isRequired,
   numPainEntries: PropTypes.number.isRequired,

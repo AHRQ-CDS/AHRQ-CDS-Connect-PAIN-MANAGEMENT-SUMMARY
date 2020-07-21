@@ -274,11 +274,13 @@
 
       .cql-errors,
       .fhir-queries,
-      .cql-results {
+      .cql-results,
+      .qrobs-results{
         margin-left: 40px;
       }
 
       .fhir-query,
+      .qrobs-results div,
       .cql-results div,
       .cql-errors table {
         margin-left: 40px;

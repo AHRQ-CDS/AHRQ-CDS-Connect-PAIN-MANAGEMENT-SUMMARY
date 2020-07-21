@@ -9,7 +9,8 @@ export default class DevTools extends Component {
     this.state = {
       displayDevTools: false,
       displayFhirQueries: false,
-      displayCQLResults: false
+      displayCQLResults: false,
+      displayQRObsResults: false
     };
   }
 
@@ -26,6 +27,11 @@ export default class DevTools extends Component {
   toggleCQLResults = (event) => {
     event.preventDefault();
     this.setState({ displayCQLResults: !this.state.displayCQLResults });
+  }
+
+  toggleQRObsResults = (event) => {
+      event.preventDefault();
+      this.setState({ displayQRObsResults: !this.state.displayQRObsResults });
   }
 
   errorMessage(er, i) {
@@ -92,6 +98,17 @@ export default class DevTools extends Component {
     );
   }
 
+    renderQRObsResults() {
+        return (
+            <div className="qrobs-results">
+                <h4>MyPAIN Results <button onClick={this.toggleQRObsResults}>[show/hide]</button></h4>
+                <div style={{ display: this.state.displayQRObsResults ? 'block' : 'none' }}>
+                    <pre>{JSON.stringify(this.props.qrCollector, null, 2)}</pre>
+                </div>
+            </div>
+        );
+    }
+
   render() {
     if (!this.props.collector) { return null; }
 
@@ -107,6 +124,7 @@ export default class DevTools extends Component {
           {this.renderErrors()}
           {this.renderFHIRQueries()}
           {this.renderCQLResults()}
+          {this.renderQRObsResults()}
         </div>
       </div>
     );
@@ -115,5 +133,6 @@ export default class DevTools extends Component {
 
 DevTools.propTypes = {
   collector: PropTypes.array.isRequired,
-  result: PropTypes.object.isRequired
+  result: PropTypes.object.isRequired,
+  qrCollector: PropTypes.array
 };
