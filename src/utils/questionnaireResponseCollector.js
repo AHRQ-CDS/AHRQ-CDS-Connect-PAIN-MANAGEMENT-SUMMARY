@@ -78,9 +78,11 @@ function collectObsQR(obsCollector, rawQRCollector, qrCollector){
 
 function processPage(collector){
     return (bundle) => {
-        bundle.entry.forEach(entry => {
-            collector.push(entry);
-        });
+        if(bundle.entry) {
+            bundle.entry.forEach(entry => {
+                collector.push(entry);
+            });
+        }
     }
 }
 //  go through Observations inside this.state.collector[Observation].data.entry.
