@@ -9,8 +9,6 @@ import r4FactorsELM from '../cql/r4/Factors_to_Consider_in_Managing_Chronic_Pain
 import r4CommonsELM from '../cql/r4/CDS_Connect_Commons_for_FHIRv400.json';
 import r4HelpersELM from '../cql/r4/FHIRHelpers.json';
 import valueSetDB from '../cql/valueset-db.json';
-import doCDSCall from "./executeCDSHooksCall";
-import getDecisionType from "./getDecisionType";
 
 function executeELM(collector) {
   let client, release, library;
@@ -55,14 +53,6 @@ function executeELM(collector) {
       const executor = new cql.Executor(library, codeService);
       patientSource.loadBundles([bundle]);
       const results = executor.exec(patientSource);
-      if (getDecisionType === 'externalCDS') {
-        const cdsLibrary = getCDSHooksLibrary();
-        const cdsPatientSource = getPatientSource(release);
-        cdsPatientSource.loadBundles([bundle]);
-        const cdsExecutor = new cql.Executor(cdsLibrary, codeService)
-        const cdsResults = cdsExecutor.exec(cdsPatientSource);
-        console.log(cdsResults.patientResults[Object.keys(results.patientResults)[0]]);
-      }
       return results.patientResults[Object.keys(results.patientResults)[0]];
     });
     resolve(results);
@@ -84,25 +74,6 @@ function getLibrary(release) {
     default:
       throw new Error('Only FHIR DSTU2 and FHIR R4 servers are supported');
   }
-}
-
-/* TODO - use the r4 versions of these
-import dstu3opioidcds_rec_11_pv_ELM from '../cql/dstu3/CDC/opioidcds_rec_11_patient_view.json';
-import dstu3FHIRHelpersELM from '../cql/dstu3/CDC/fhirhelpers.json';
-import dstu3omtkdataELM from '../cql/dstu3/CDC/omtkdata2019.json';
-import dstu3omtklogicELM from '../cql/dstu3/CDC/omtklogiccql.json';
-r4FactorsELM
-r4CommonsELM
- */
-function getCDSHooksLibrary(){
-  return null;
-   // return new cql.Library(dstu3opioidcds_rec_11_pv_ELM, new cql.Repository({
-   //   FHIRHelpers: dstu3FHIRHelpersELM,
-   //   OMTKData: dstu3omtkdataELM,
-   //   OMTKLogic: dstu3omtklogicELM,
-   //   CDS_Commons: r4HelpersELM
-   // }));
-
 }
 
 function getPatientSource(release) {

@@ -1,0 +1,620 @@
+{
+   "library" : {
+      "annotation" : [ {
+         "translatorOptions" : "",
+         "type" : "CqlToElmInfo"
+      } ],
+      "identifier" : {
+         "id" : "OpioidCDSREC09",
+         "version" : "2.0.0"
+      },
+      "schemaIdentifier" : {
+         "id" : "urn:hl7-org:elm",
+         "version" : "r1"
+      },
+      "usings" : {
+         "def" : [ {
+            "localIdentifier" : "System",
+            "uri" : "urn:hl7-org:elm-types:r1"
+         }, {
+            "localIdentifier" : "FHIR",
+            "uri" : "http://hl7.org/fhir",
+            "version" : "4.0.0"
+         } ]
+      },
+      "includes" : {
+         "def" : [ {
+            "localIdentifier" : "FHIRHelpers",
+            "path" : "FHIRHelpers",
+            "version" : "4.0.0"
+         }, {
+            "localIdentifier" : "Common",
+            "path" : "OpioidCDSCommon",
+            "version" : "2.0.0"
+         }, {
+            "localIdentifier" : "Config",
+            "path" : "OpioidCDSCommonConfig",
+            "version" : "2.0.0"
+         }, {
+            "localIdentifier" : "Routines",
+            "path" : "OpioidCDSRoutines",
+            "version" : "2.0.0"
+         } ]
+      },
+      "parameters" : {
+         "def" : [ {
+            "name" : "ContextPrescriptions",
+            "accessLevel" : "Public",
+            "parameterTypeSpecifier" : {
+               "type" : "ListTypeSpecifier",
+               "elementType" : {
+                  "name" : "{http://hl7.org/fhir}MedicationRequest",
+                  "type" : "NamedTypeSpecifier"
+               }
+            }
+         } ]
+      },
+      "contexts" : {
+         "def" : [ {
+            "name" : "Patient"
+         } ]
+      },
+      "statements" : {
+         "def" : [ {
+            "name" : "Patient",
+            "context" : "Patient",
+            "expression" : {
+               "type" : "SingletonFrom",
+               "operand" : {
+                  "dataType" : "{http://hl7.org/fhir}Patient",
+                  "type" : "Retrieve"
+               }
+            }
+         }, {
+            "name" : "Look Back 90 Days",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "lowClosed" : true,
+               "highClosed" : true,
+               "type" : "Interval",
+               "low" : {
+                  "type" : "Subtract",
+                  "operand" : [ {
+                     "type" : "Today"
+                  }, {
+                     "value" : 90,
+                     "unit" : "days",
+                     "type" : "Quantity"
+                  } ]
+               },
+               "high" : {
+                  "type" : "Today"
+               }
+            }
+         }, {
+            "name" : "Chronic Pain Opioid Analgesic with Ambulatory Misuse Potential Prescriptions",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "AmbulatoryOpioidPrescription",
+                  "expression" : {
+                     "name" : "Is Opioid Analgesic with Ambulatory Misuse Potential?",
+                     "libraryName" : "Common",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "name" : "ContextPrescriptions",
+                        "type" : "ParameterRef"
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "where" : {
+                  "name" : "Is Chronic Pain Prescription?",
+                  "libraryName" : "Routines",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "name" : "AmbulatoryOpioidPrescription",
+                     "type" : "AliasRef"
+                  } ]
+               }
+            }
+         }, {
+            "name" : "Patient Is Being Prescribed Opioid Analgesic with Ambulatory Misuse Potential",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Exists",
+               "operand" : {
+                  "name" : "Chronic Pain Opioid Analgesic with Ambulatory Misuse Potential Prescriptions",
+                  "type" : "ExpressionRef"
+               }
+            }
+         }, {
+            "name" : "PDMP Data Not Reviewed in Past 90 Days",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "And",
+               "operand" : [ {
+                  "name" : "PDMP Data Not Reviewed in Past 90 Days Criteria Enabled",
+                  "libraryName" : "Config",
+                  "type" : "ExpressionRef"
+               }, {
+                  "type" : "Not",
+                  "operand" : {
+                     "type" : "Or",
+                     "operand" : [ {
+                        "type" : "Exists",
+                        "operand" : {
+                           "type" : "Query",
+                           "source" : [ {
+                              "alias" : "P",
+                              "expression" : {
+                                 "dataType" : "{http://hl7.org/fhir}Procedure",
+                                 "codeProperty" : "code",
+                                 "codeComparator" : "in",
+                                 "type" : "Retrieve",
+                                 "codes" : {
+                                    "name" : "PDMP review procedure",
+                                    "libraryName" : "Common",
+                                    "type" : "ValueSetRef"
+                                 }
+                              }
+                           } ],
+                           "relationship" : [ ],
+                           "where" : {
+                              "type" : "And",
+                              "operand" : [ {
+                                 "type" : "Equivalent",
+                                 "operand" : [ {
+                                    "name" : "ToString",
+                                    "libraryName" : "FHIRHelpers",
+                                    "type" : "FunctionRef",
+                                    "operand" : [ {
+                                       "path" : "status",
+                                       "scope" : "P",
+                                       "type" : "Property"
+                                    } ]
+                                 }, {
+                                    "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                                    "value" : "completed",
+                                    "type" : "Literal"
+                                 } ]
+                              }, {
+                                 "type" : "IncludedIn",
+                                 "operand" : [ {
+                                    "name" : "ToInterval",
+                                    "libraryName" : "FHIRHelpers",
+                                    "type" : "FunctionRef",
+                                    "operand" : [ {
+                                       "asType" : "{http://hl7.org/fhir}Period",
+                                       "type" : "As",
+                                       "operand" : {
+                                          "path" : "performed",
+                                          "scope" : "P",
+                                          "type" : "Property"
+                                       }
+                                    } ]
+                                 }, {
+                                    "type" : "Interval",
+                                    "low" : {
+                                       "type" : "ToDateTime",
+                                       "operand" : {
+                                          "path" : "low",
+                                          "type" : "Property",
+                                          "source" : {
+                                             "name" : "Look Back 90 Days",
+                                             "type" : "ExpressionRef"
+                                          }
+                                       }
+                                    },
+                                    "lowClosedExpression" : {
+                                       "path" : "lowClosed",
+                                       "type" : "Property",
+                                       "source" : {
+                                          "name" : "Look Back 90 Days",
+                                          "type" : "ExpressionRef"
+                                       }
+                                    },
+                                    "high" : {
+                                       "type" : "ToDateTime",
+                                       "operand" : {
+                                          "path" : "high",
+                                          "type" : "Property",
+                                          "source" : {
+                                             "name" : "Look Back 90 Days",
+                                             "type" : "ExpressionRef"
+                                          }
+                                       }
+                                    },
+                                    "highClosedExpression" : {
+                                       "path" : "highClosed",
+                                       "type" : "Property",
+                                       "source" : {
+                                          "name" : "Look Back 90 Days",
+                                          "type" : "ExpressionRef"
+                                       }
+                                    }
+                                 } ]
+                              } ]
+                           }
+                        }
+                     }, {
+                        "type" : "Exists",
+                        "operand" : {
+                           "type" : "Query",
+                           "source" : [ {
+                              "alias" : "O",
+                              "expression" : {
+                                 "dataType" : "{http://hl7.org/fhir}Observation",
+                                 "codeProperty" : "code",
+                                 "codeComparator" : "in",
+                                 "type" : "Retrieve",
+                                 "codes" : {
+                                    "name" : "PDMP data reviewed finding",
+                                    "libraryName" : "Common",
+                                    "type" : "ValueSetRef"
+                                 }
+                              }
+                           } ],
+                           "relationship" : [ ],
+                           "where" : {
+                              "type" : "And",
+                              "operand" : [ {
+                                 "type" : "In",
+                                 "operand" : [ {
+                                    "name" : "ToString",
+                                    "libraryName" : "FHIRHelpers",
+                                    "type" : "FunctionRef",
+                                    "operand" : [ {
+                                       "path" : "status",
+                                       "scope" : "O",
+                                       "type" : "Property"
+                                    } ]
+                                 }, {
+                                    "type" : "List",
+                                    "element" : [ {
+                                       "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                                       "value" : "final",
+                                       "type" : "Literal"
+                                    }, {
+                                       "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                                       "value" : "amended",
+                                       "type" : "Literal"
+                                    } ]
+                                 } ]
+                              }, {
+                                 "type" : "If",
+                                 "condition" : {
+                                    "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                                    "type" : "As",
+                                    "operand" : {
+                                       "type" : "Is",
+                                       "operand" : {
+                                          "path" : "effective",
+                                          "scope" : "O",
+                                          "type" : "Property"
+                                       },
+                                       "isTypeSpecifier" : {
+                                          "name" : "{http://hl7.org/fhir}Period",
+                                          "type" : "NamedTypeSpecifier"
+                                       }
+                                    }
+                                 },
+                                 "then" : {
+                                    "precision" : "Day",
+                                    "type" : "IncludedIn",
+                                    "operand" : [ {
+                                       "name" : "ToInterval",
+                                       "libraryName" : "FHIRHelpers",
+                                       "type" : "FunctionRef",
+                                       "operand" : [ {
+                                          "strict" : false,
+                                          "type" : "As",
+                                          "operand" : {
+                                             "path" : "effective",
+                                             "scope" : "O",
+                                             "type" : "Property"
+                                          },
+                                          "asTypeSpecifier" : {
+                                             "name" : "{http://hl7.org/fhir}Period",
+                                             "type" : "NamedTypeSpecifier"
+                                          }
+                                       } ]
+                                    }, {
+                                       "type" : "Interval",
+                                       "low" : {
+                                          "type" : "ToDateTime",
+                                          "operand" : {
+                                             "path" : "low",
+                                             "type" : "Property",
+                                             "source" : {
+                                                "name" : "Look Back 90 Days",
+                                                "type" : "ExpressionRef"
+                                             }
+                                          }
+                                       },
+                                       "lowClosedExpression" : {
+                                          "path" : "lowClosed",
+                                          "type" : "Property",
+                                          "source" : {
+                                             "name" : "Look Back 90 Days",
+                                             "type" : "ExpressionRef"
+                                          }
+                                       },
+                                       "high" : {
+                                          "type" : "ToDateTime",
+                                          "operand" : {
+                                             "path" : "high",
+                                             "type" : "Property",
+                                             "source" : {
+                                                "name" : "Look Back 90 Days",
+                                                "type" : "ExpressionRef"
+                                             }
+                                          }
+                                       },
+                                       "highClosedExpression" : {
+                                          "path" : "highClosed",
+                                          "type" : "Property",
+                                          "source" : {
+                                             "name" : "Look Back 90 Days",
+                                             "type" : "ExpressionRef"
+                                          }
+                                       }
+                                    } ]
+                                 },
+                                 "else" : {
+                                    "type" : "If",
+                                    "condition" : {
+                                       "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                                       "type" : "As",
+                                       "operand" : {
+                                          "type" : "Is",
+                                          "operand" : {
+                                             "path" : "effective",
+                                             "scope" : "O",
+                                             "type" : "Property"
+                                          },
+                                          "isTypeSpecifier" : {
+                                             "name" : "{http://hl7.org/fhir}dateTime",
+                                             "type" : "NamedTypeSpecifier"
+                                          }
+                                       }
+                                    },
+                                    "then" : {
+                                       "precision" : "Day",
+                                       "type" : "In",
+                                       "operand" : [ {
+                                          "type" : "DateFrom",
+                                          "operand" : {
+                                             "type" : "Case",
+                                             "caseItem" : [ {
+                                                "when" : {
+                                                   "isType" : "{http://hl7.org/fhir}dateTime",
+                                                   "type" : "Is",
+                                                   "operand" : {
+                                                      "path" : "effective",
+                                                      "scope" : "O",
+                                                      "type" : "Property"
+                                                   }
+                                                },
+                                                "then" : {
+                                                   "name" : "ToDateTime",
+                                                   "libraryName" : "FHIRHelpers",
+                                                   "type" : "FunctionRef",
+                                                   "operand" : [ {
+                                                      "asType" : "{http://hl7.org/fhir}dateTime",
+                                                      "type" : "As",
+                                                      "operand" : {
+                                                         "path" : "effective",
+                                                         "scope" : "O",
+                                                         "type" : "Property"
+                                                      }
+                                                   } ]
+                                                }
+                                             }, {
+                                                "when" : {
+                                                   "isType" : "{http://hl7.org/fhir}instant",
+                                                   "type" : "Is",
+                                                   "operand" : {
+                                                      "path" : "effective",
+                                                      "scope" : "O",
+                                                      "type" : "Property"
+                                                   }
+                                                },
+                                                "then" : {
+                                                   "name" : "ToDateTime",
+                                                   "libraryName" : "FHIRHelpers",
+                                                   "type" : "FunctionRef",
+                                                   "operand" : [ {
+                                                      "asType" : "{http://hl7.org/fhir}instant",
+                                                      "type" : "As",
+                                                      "operand" : {
+                                                         "path" : "effective",
+                                                         "scope" : "O",
+                                                         "type" : "Property"
+                                                      }
+                                                   } ]
+                                                }
+                                             } ],
+                                             "else" : {
+                                                "resultTypeName" : "{urn:hl7-org:elm-types:r1}DateTime",
+                                                "type" : "Null"
+                                             }
+                                          }
+                                       }, {
+                                          "name" : "Look Back 90 Days",
+                                          "type" : "ExpressionRef"
+                                       } ]
+                                    },
+                                    "else" : {
+                                       "valueType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                                       "value" : "false",
+                                       "type" : "Literal"
+                                    }
+                                 }
+                              } ]
+                           }
+                        }
+                     } ]
+                  }
+               } ]
+            }
+         }, {
+            "name" : "Inclusion Criteria",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "And",
+               "operand" : [ {
+                  "type" : "And",
+                  "operand" : [ {
+                     "name" : "Patient Is Being Prescribed Opioid Analgesic with Ambulatory Misuse Potential",
+                     "type" : "ExpressionRef"
+                  }, {
+                     "name" : "Is Opioid Review Useful?",
+                     "libraryName" : "Routines",
+                     "type" : "ExpressionRef"
+                  } ]
+               }, {
+                  "name" : "PDMP Data Not Reviewed in Past 90 Days",
+                  "type" : "ExpressionRef"
+               } ]
+            }
+         }, {
+            "name" : "Exclusion Criteria",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "valueType" : "{urn:hl7-org:elm-types:r1}Boolean",
+               "value" : "false",
+               "type" : "Literal"
+            }
+         }, {
+            "name" : "Is Recommendation Applicable?",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "And",
+               "operand" : [ {
+                  "name" : "Inclusion Criteria",
+                  "type" : "ExpressionRef"
+               }, {
+                  "type" : "Not",
+                  "operand" : {
+                     "name" : "Exclusion Criteria",
+                     "type" : "ExpressionRef"
+                  }
+               } ]
+            }
+         }, {
+            "name" : "Get Indicator",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "name" : "Is Recommendation Applicable?",
+                     "type" : "ExpressionRef"
+                  }
+               },
+               "then" : {
+                  "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                  "value" : "warning",
+                  "type" : "Literal"
+               },
+               "else" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "Null"
+                  }
+               }
+            }
+         }, {
+            "name" : "Get Summary",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "name" : "Is Recommendation Applicable?",
+                     "type" : "ExpressionRef"
+                  }
+               },
+               "then" : {
+                  "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                  "value" : "Notify: PDMP data for this patient has not been reviewed in the past 90 days.",
+                  "type" : "Literal"
+               },
+               "else" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "Null"
+                  }
+               }
+            }
+         }, {
+            "name" : "Get Detail",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "name" : "Is Recommendation Applicable?",
+                     "type" : "ExpressionRef"
+                  }
+               },
+               "then" : {
+                  "type" : "Concatenate",
+                  "operand" : [ {
+                     "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                     "value" : "Medication requests(s): ",
+                     "type" : "Literal"
+                  }, {
+                     "type" : "Combine",
+                     "source" : {
+                        "type" : "Flatten",
+                        "operand" : {
+                           "name" : "GetMedicationNames",
+                           "libraryName" : "Common",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "name" : "Chronic Pain Opioid Analgesic with Ambulatory Misuse Potential Prescriptions",
+                              "type" : "ExpressionRef"
+                           } ]
+                        }
+                     },
+                     "separator" : {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                        "value" : ", ",
+                        "type" : "Literal"
+                     }
+                  } ]
+               },
+               "else" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "Null"
+                  }
+               }
+            }
+         } ]
+      }
+   }
+}
+

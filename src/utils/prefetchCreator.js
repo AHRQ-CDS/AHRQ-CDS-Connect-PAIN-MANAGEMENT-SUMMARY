@@ -151,7 +151,7 @@ const opioidLibraryNumber = 11;
 
     function getHeader(pt){
         let uuid = uuidv4();
-        let prefetchStr =  '{"hookInstance": "' + uuid + '","fhirServer": "http://localhost:8080/cqf-ruler-dstu3/fhir","hook": "patient-view","applyCql": true,"context": {"userId": "Practitioner/PainManager","patientId": "';
+        let prefetchStr =  '{"hookInstance": "' + uuid + '","fhirServer": "http://cqf-ruler.localhost/cqf-ruler-r4/fhir","hook": "patient-view","applyCql": true,"context": {"userId": "Practitioner/PainManager","patientId": "';
         return prefetchStr + pt.url + '"}, "prefetch": {"item1":' + JSON.stringify(pt.data) + ",";
     }
 
