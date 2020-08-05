@@ -11,6 +11,8 @@ import summaryMap from './summary.json';
 import Header from './Header';
 import Summary from './Summary';
 import Spinner from '../elements/Spinner';
+import executeExternalCDSCall from "../utils/executeExternalCDSHooksCall";
+import executeInternalCDSCall from "../utils/executeInternalCDSHooksCall";
 
 let uuid = 0;
 
@@ -25,7 +27,8 @@ export default class Landing extends Component {
             result: null,
             loading: true,
             collector: [],
-            qrCollector: []
+            qrCollector: [],
+            cdsCollector: []
         };
 
         this.tocInitialized = false;
@@ -37,10 +40,25 @@ export default class Landing extends Component {
             const {sectionFlags, flaggedCount} = this.processSummary(result.Summary);
             this.setState({result, sectionFlags, flaggedCount});
         })
-        .then(result => {
-            collectQuestionnaireResponses(this.state.qrCollector).then((qrResult) => {
-                this.setState({result: qrResult});
-            });
+        .then(()=>{
+            if (process.env.REACT_APP_CDS_MODE && process.env.REACT_APP_CDS_MODE.toLowerCase() === 'external') {
+                executeExternalCDSCall(this.state.collector)
+                    .then((cdsResult) => {
+                        this.setState({cdsCollector: cdsResult});
+                    });
+            } else {
+                executeInternalCDSCall(10, this.state.cdsCollector)
+                    .then((cdsResult) => {
+                        this.setState({cdsCollector: cdsResult});
+                    });
+            }
+
+        })
+        .then(()=>{
+            collectQuestionnaireResponses(this.state.qrCollector)
+                .then((qrResult) => {
+                    this.setState({qrCollector: qrResult});
+                });
         })
         .catch((err) => {
             console.error(err);

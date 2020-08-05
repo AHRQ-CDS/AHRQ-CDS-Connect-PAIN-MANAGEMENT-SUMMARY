@@ -6,36 +6,13 @@ import r4HelpersELM from "../cql/r4/cdc/json/FHIRHelpers.json";
 import omtkdataELM from '../cql/r4/cdc/json/OMTKData2020.json';
 import omtklogicELM from '../cql/r4/cdc/json/OMTKLogicMK2020.json';
 import CDS_Commons from '../cql/r4/cdc/json/OpioidCDSCommon.json';
+import CDS_Commons_Config from '../cql/r4/cdc/json/OpioidCDSCommonConfig.json';
+import CDS_Routines from '../cql/r4/cdc/json/OpioidCDSRoutines.json';
 import rec10PatientView from '../cql/r4/cdc/json/OpioidCDSREC10PatientView.json';
 import rec11PatientView from '../cql/r4/cdc/json/OpioidCDSREC11PatientView.json';
 import cqlfhir from "cql-exec-fhir";
 
-const getDecisionType = 'externalCDS';
-
-function getCDSHooksLibrary(recommendatation){
-    switch(recommendatation) {
-        case 10:
-            return new cql.Library(rec10PatientView, new cql.Repository({
-                    FHIRHelpers: r4HelpersELM,
-                    OMTKData: omtkdataELM,
-                    OMTKLogic: omtklogicELM,
-                    CDS_Commons: CDS_Commons
-                }));
-        case 11:
-            return new cql.Library(rec11PatientView, new cql.Repository({
-                FHIRHelpers: r4HelpersELM,
-                OMTKData: omtkdataELM,
-                OMTKLogic: omtklogicELM,
-                CDS_Commons: CDS_Commons
-            }));
-        default:
-            throw new Error('Only Recommendations 10 and 11 are supported');
-
-    }
-}
-
-export default function executeInternalCDSCall(collector) {
-    let recNumber = 11;
+export default function executeInternalCDSCall(recommendationNumber, collector) {
     let client, release, cdsLibrary;
     return new Promise((resolve) => {
         // First get our authorized client and send the FHIR release to the next step
@@ -46,7 +23,7 @@ export default function executeInternalCDSCall(collector) {
             // then remember the release for later and get the release-specific library
             .then((releaseNum) => {
                 release = releaseNum;
-                cdsLibrary = getCDSHooksLibrary(recNumber);
+                cdsLibrary = getCDSHooksLibrary(recommendationNumber);
             })
             // then query the FHIR server for the patient, sending it to the next step
             .then(() => {
@@ -54,7 +31,7 @@ export default function executeInternalCDSCall(collector) {
             })
             // then gather all the patient's relevant resource instances and send them in a bundle to the next step
             .then((pt) => {
-                collector.push({ data: pt, url: `Patient/${pt.id}`});
+                collector.push({data: pt, url: `Patient/${pt.id}`});
                 const requests = extractResourcesFromELM(cdsLibrary).map((name) => {
                     if (name === 'Patient') {
                         return [pt];
@@ -67,7 +44,7 @@ export default function executeInternalCDSCall(collector) {
                     requestResults.forEach(result => resources.push(...result));
                     return {
                         resourceType: "Bundle",
-                        entry: resources.map(r => ({ resource: r }))
+                        entry: resources.map(r => ({resource: r}))
                     };
                 });
             })
@@ -88,7 +65,7 @@ export default function executeInternalCDSCall(collector) {
 }
 
 function getPatientSource(release) {
-    switch(release) {
+    switch (release) {
         case 4:
             return cqlfhir.PatientSource.FHIRv400();
         default:
@@ -109,7 +86,7 @@ function doSearch(client, release, type, collector) {
         }).then(() => {
             return resources;
         }).catch((error) => {
-            collector.push({ error: error, url: uri, type: type, data: error });
+            collector.push({error: error, url: uri, type: type, data: error});
             // don't return the error as we want partial results if available
             // (and we don't want to halt the Promis.all that wraps this)
             return resources;
@@ -125,7 +102,7 @@ function processPage(uri, collector, resources) {
         if (bundle && bundle.link && bundle.link.some(l => l.relation === 'self' && l.url != null)) {
             url = bundle.link.find(l => l.relation === 'self').url;
         }
-        collector.push({ url: url, data: bundle});
+        collector.push({url: url, data: bundle});
         // Add to the resources
         if (bundle.entry) {
             bundle.entry.forEach(e => resources.push(e.resource));
@@ -186,5 +163,31 @@ function updateSearchParams(params, release, type) {
                 //nothing
             }
         }
+    }
+}
+
+function getCDSHooksLibrary(recommendatation) {
+    switch (recommendatation) {
+        case 10:
+            return new cql.Library(rec10PatientView, new cql.Repository({
+                FHIRHelpers: r4HelpersELM,
+                OMTKData2020: omtkdataELM,
+                OMTKLogicMK2020: omtklogicELM,
+                OpioidCDSCommon: CDS_Commons,
+                OpioidCDSCommonConfig: CDS_Commons_Config,
+                OpioidCDSRoutines: CDS_Routines
+            }));
+        case 11:
+            return new cql.Library(rec11PatientView, new cql.Repository({
+                FHIRHelpers: r4HelpersELM,
+                OMTKData2020: omtkdataELM,
+                OMTKLogicMK2020: omtklogicELM,
+                OpioidCDSCommon: CDS_Commons,
+                OpioidCDSCommonConfig: CDS_Commons_Config,
+                OpioidCDSRoutines: CDS_Routines
+            }));
+        default:
+            throw new Error('Only Recommendations 10 and 11 are supported');
+
     }
 }

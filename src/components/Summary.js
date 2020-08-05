@@ -19,8 +19,6 @@ import InclusionBanner from './InclusionBanner';
 import ExclusionBanner from './ExclusionBanner';
 import InfoModal from './InfoModal';
 import DevTools from './DevTools';
-import executeExternalCDSCall from '../utils/executeExternalCDSHooksCall';
-import executeInternalCDSCall from '../utils/executeInternalCDSHooksCall';
 
 export default class Summary extends Component {
     constructor() {
@@ -37,17 +35,6 @@ export default class Summary extends Component {
     }
 
     componentDidMount() {
-        if (process.env.REACT_APP_CDS_MODE && process.env.REACT_APP_CDS_MODE.toLowerCase() === 'external') {
-            executeExternalCDSCall(this.props.collector)
-                .then((result1) => {
-                    this.setState({result1: result1});
-                });
-        } else {
-            executeInternalCDSCall(this.props.collector)
-                .then((result1) => {
-                    this.setState({result1: result1});
-                });
-        }
     }
 
     handleOpenModal = (modalSubSection, event) => {
@@ -250,6 +237,24 @@ export default class Summary extends Component {
                 </div>
             )
         }
+        if (section === 'CDSHooksAssessment' && this.state.result10) {
+            return (
+                <div>
+                    <blockquote>
+                        {this.state.result10}<br/>
+                    </blockquote>
+                </div>
+            )
+        }
+        if (section === 'CDSHooksAssessment' && this.state.result11) {
+            return (
+                <div>
+                    <blockquote>
+                        {this.state.result11}<br/>
+                    </blockquote>
+                </div>
+            )
+        }
 
         const sectionMap = summaryMap[section];
 
@@ -342,7 +347,7 @@ export default class Summary extends Component {
     };
 
     render() {
-        const {summary, collector, qrCollector, result} = this.props;
+        const {summary, collector, qrCollector, result, cdsCollector} = this.props;
         const meetsInclusionCriteria = summary.Patient.MeetsInclusionCriteria;
         if (!summary) {
             return null;
@@ -385,10 +390,6 @@ export default class Summary extends Component {
                         <Collapsible tabIndex={0} trigger={this.renderSectionHeader("RiskConsiderations")} open={true}>
                             {this.renderSection("RiskConsiderations")}
                         </Collapsible>
-
-                        {/*<Collapsible tabIndex={0} trigger={this.renderSectionHeader("SharedDecisionMaking")} open={true}>*/}
-                        {/*  {this.renderSection("SharedDecisionMaking")}*/}
-                        {/*</Collapsible>*/}
                     </main>
                     }
 
@@ -432,6 +433,7 @@ Summary.propTypes = {
     summary: PropTypes.object.isRequired,
     sectionFlags: PropTypes.object.isRequired,
     collector: PropTypes.array.isRequired,
+    cdsCollector: PropTypes.array.isRequired,
     qrCollector: PropTypes.array.isRequired,
     result: PropTypes.object.isRequired,
     numMedicalHistoryEntries: PropTypes.number.isRequired,
