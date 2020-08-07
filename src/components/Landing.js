@@ -3,7 +3,6 @@ import tocbot from 'tocbot';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 import executeElm from '../utils/executeELM';
-import collectQuestionnaireResponses from "../utils/questionnaireResponseCollector";
 import sumit from '../helpers/sumit';
 import flagit from '../helpers/flagit';
 import summaryMap from './summary.json';
@@ -39,27 +38,32 @@ export default class Landing extends Component {
             this.setState({loading: false});
             const {sectionFlags, flaggedCount} = this.processSummary(result.Summary);
             this.setState({result, sectionFlags, flaggedCount});
+            return this.state.collector;
         })
-        .then(()=>{
+        .then((collector)=>{
             if (process.env.REACT_APP_CDS_MODE && process.env.REACT_APP_CDS_MODE.toLowerCase() === 'external') {
-                executeExternalCDSCall(this.state.collector)
+                executeExternalCDSCall(collector)
                     .then((cdsResult) => {
                         this.setState({cdsCollector: cdsResult});
+                        return cdsResult;
                     });
             } else {
                 executeInternalCDSCall(10, this.state.cdsCollector)
                     .then((cdsResult) => {
                         this.setState({cdsCollector: cdsResult});
+                        return cdsResult;
                     });
             }
-
         })
-        .then(()=>{
-            collectQuestionnaireResponses(this.state.qrCollector)
-                .then((qrResult) => {
-                    this.setState({qrCollector: qrResult});
-                });
-        })
+            // TODO - needs to be handled in cql
+        // .then(()=>{
+        //     collectQuestionnaireResponses(this.state.qrCollector)
+        //         .then((qrResult) => {
+        //             this.setState({qrCollector: qrResult});
+        //             return;
+        //         });
+        //     return;
+        // })
         .catch((err) => {
             console.error(err);
             this.setState({loading: false});

@@ -4,19 +4,28 @@ export default function executeExternalCDSCall(collector) {
     return Promise.all([getCDSValues(collector)])
 }
 
-function getCDSValues(collector) {
+async function getCDSValues(collector) {
     let returnText;
-    getValues(collector, 10)
-        .then((cards10) => {
-            returnText = cards10 + getValues(collector, 11);
-            return returnText;
-        })
+    let cards10 = ' ';
+    let cards11 = ' ';
+    await getValues(collector, 10)
+        .then((response) => {
+        cards10 = response;
+        return response;
+    });
+    await getValues(collector, 11)
+        .then((newResponse)=>{
+            cards11 = newResponse;
+            return newResponse;
+        });
+    returnText = cards10 + ',' + cards11;
+    return returnText;
 }
 
-function getValues(collector, opioidLibraryNumber) {
+async function getValues(collector, opioidLibraryNumber) {
     let url = createURL(opioidLibraryNumber);
     let returnText = '';
-    createPrefetch(collector, opioidLibraryNumber)
+    await createPrefetch(collector, opioidLibraryNumber)
         .then((prefetchData) => {
             return fetch(url, {
                 method: 'POST',     // use GET for cds-services discovery call
@@ -31,13 +40,13 @@ function getValues(collector, opioidLibraryNumber) {
                     return JSON.parse(response);
                 })
                 .then(response => {
-                    if (response.cards.length > 0) {
+                    if (response.cards && response.cards.length > 0) {
                         returnText = response.cards[0].summary;
                         if (response.cards[0].detail) {
                             returnText += '.     ' + response.cards[0].detail;
                         }
                     } else {
-                        returnText = 'No Cards returned';
+                        returnText = response.cards;
                     }
                     return returnText;
                 })
@@ -45,8 +54,8 @@ function getValues(collector, opioidLibraryNumber) {
                     console.log(error);
                     console.log("The call to the ruler failed.");
                 });
-            return returnText;
         });
+    return returnText;
 }
 
 function createURL(opioidLibraryNumber) {

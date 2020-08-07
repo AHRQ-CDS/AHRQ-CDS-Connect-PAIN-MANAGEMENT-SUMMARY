@@ -2,27 +2,33 @@ export default function createPrefetch(collector, opioidLibraryNumber) {
     return Promise.all([getPrefetch(collector, opioidLibraryNumber)]);
 }
 
-function getPrefetch(collector, opioidLibraryNumber) {
+async function getPrefetch(collector, opioidLibraryNumber) {
     let hookid;
+    let newPrefetchStr;
     if(opioidLibraryNumber === 10){
         hookid = 'opioidcds-10-patient-view';
     }else if(opioidLibraryNumber === 11){
         hookid = 'opioidcds-11-patient-view';
 
     }
-    createItemList(collector, hookid)
+    await createItemList(collector, hookid)
         .then((itemsList) => {
-            let prefetchStr = getHeader(collector[0]);
-            let newPrefetchStr = createPrefetchObject(prefetchStr, itemsList);
+            newPrefetchStr = createPrefetchObject(collector, itemsList);
             return newPrefetchStr;
         });
+    return newPrefetchStr;
 }
 
-function createPrefetchObject(prefetchStr, itemsList) {
-    let finalPrefetch = prefetchStr;
+function createPrefetchObject(collector, itemsList) {
+    let finalPrefetch = getHeader(collector[0]);
     if (itemsList){
+        let index = 0;
         for (let [key, value] of Object.entries(itemsList)) {
-            finalPrefetch = prefetchStr + '"' + key + '":{"resourceType":"Bundle","entry":[' + value + ']}';
+            if(index > 0){
+                finalPrefetch = finalPrefetch + ',';
+            }
+            index = index + 1;
+            finalPrefetch = finalPrefetch + '"' + key + '":{"response": {"status": "200 OK"},"resourceType":"Bundle","entry":[' + value + ']}';
         }
     }
     finalPrefetch = finalPrefetch + '}}';
@@ -46,13 +52,13 @@ function createItemList(collector, hookId) {
                 if (service.id === hookId) {
                     let prefetch = service.prefetch;
                     collector.forEach(entry => {
-                        if (!entry.url.includes('Patient') && entry.data.entry) {
-                            let resourceType = entry.url.substring(entry.url.lastIndexOf('/') + 1, entry.url.indexOf('?'));
+                        let resourceType = entry.url.substring(entry.url.lastIndexOf('/') + 1, entry.url.indexOf('?'));
+                        if (!resourceType.includes('Patient') && entry.data.entry) {
                             for (let [key, value] of Object.entries(prefetch)) {
                                 if (key !== 'item1') {                         //handled in header
                                     if (value.includes(resourceType)) {
                                         entry.data.entry.forEach((dataEntry) => {
-                                            if ((dataEntry.resource.code && value.includes(dataEntry.resource.code + ',')) ||
+                                            if ((dataEntry.resource.code && value.includes(dataEntry.resource.code.coding[0].code + ',')) ||
                                                 (dataEntry.resource.medicationCodeableConcept && value.includes(dataEntry.resource.medicationCodeableConcept.coding[0].code + ','))) {
                                                 if (items[key]) {
                                                     items[key] = items[key] + ',' + JSON.stringify(dataEntry.resource);
@@ -74,7 +80,9 @@ function createItemList(collector, hookId) {
 
 function getHeader(pt) {
     let uuid = uuidv4();
-    let prefetchStr = '{"hookInstance": "' + uuid + '","fhirServer": "' + process.env.REACT_APP_CDS_URL +'","hook": "patient-view","applyCql": true,"context": {"userId": "Practitioner/PainManager","patientId": "';
+    let fhirServer = process.env.REACT_APP_CDS_URL
+        .substring(0, process.env.REACT_APP_CDS_URL.lastIndexOf('/')) + '/fhir';
+    let prefetchStr = '{"hookInstance": "' + uuid + '","fhirServer": "' + fhirServer +'","hook": "patient-view","applyCql": true,"context": {"userId": "Practitioner/PainManager","patientId": "';
     return prefetchStr + pt.url + '"}, "prefetch": {"item1":' + JSON.stringify(pt.data) + ",";
 }
 
