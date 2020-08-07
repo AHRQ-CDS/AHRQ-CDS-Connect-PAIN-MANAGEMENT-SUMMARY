@@ -32,7 +32,8 @@ export default function executeInternalCDSCall(recommendationNumber, collector) 
             // then gather all the patient's relevant resource instances and send them in a bundle to the next step
             .then((pt) => {
                 collector.push({data: pt, url: `Patient/${pt.id}`});
-                const requests = extractResourcesFromELM(cdsLibrary).map((name) => {
+                let isFromOpiodRec = true;
+                const requests = extractResourcesFromELM(cdsLibrary, isFromOpiodRec).map((name) => {
                     if (name === 'Patient') {
                         return [pt];
                     }

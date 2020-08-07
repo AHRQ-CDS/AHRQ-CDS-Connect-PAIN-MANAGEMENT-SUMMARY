@@ -35,7 +35,6 @@ export default class Landing extends Component {
 
     componentDidMount() {
         executeElm(this.state.collector).then((result) => {
-            this.setState({loading: false});
             const {sectionFlags, flaggedCount} = this.processSummary(result.Summary);
             this.setState({result, sectionFlags, flaggedCount});
             return this.state.collector;
@@ -44,13 +43,13 @@ export default class Landing extends Component {
             if (process.env.REACT_APP_CDS_MODE && process.env.REACT_APP_CDS_MODE.toLowerCase() === 'external') {
                 executeExternalCDSCall(collector)
                     .then((cdsResult) => {
-                        this.setState({cdsCollector: cdsResult});
+                        this.setState({cdsCollector: cdsResult, loading: false});
                         return cdsResult;
                     });
             } else {
                 executeInternalCDSCall(10, this.state.cdsCollector)
                     .then((cdsResult) => {
-                        this.setState({cdsCollector: cdsResult});
+                        this.setState({cdsCollector: cdsResult, loading: false});
                         return cdsResult;
                     });
             }

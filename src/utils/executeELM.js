@@ -30,7 +30,8 @@ function executeELM(collector) {
     // then gather all the patient's relevant resource instances and send them in a bundle to the next step
     .then((pt) => {
       collector.push({ data: pt, url: `Patient/${pt.id}`});
-      const requests = extractResourcesFromELM(library).map((name) => {
+      let isFromOpiodRec = false;
+      const requests = extractResourcesFromELM(library,isFromOpiodRec).map((name) => {
         if (name === 'Patient') {
           return [pt];
         }
