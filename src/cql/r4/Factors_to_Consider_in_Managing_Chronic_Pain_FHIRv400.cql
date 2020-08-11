@@ -177,6 +177,8 @@ code "Total score [AUDIT-C] code": '75626-2' from "LOINC" display 'Total score [
 code "Total score [DAST-10] code": '82667-7' from "LOINC" display 'Total score [DAST-10]'
 code "Total score ORT code": '91392-1' from "LOINC" display 'Total score ORT'
 code "Pain severity Wong-Baker FACES Scale code": '38221-8' from "LOINC" display 'Pain severity Wong-Baker FACES Scale'
+code "Questionnaire response Document code": '74465-6' from "LOINC" display 'Questionnaire response Document'
+
 
 // The Pain intensity, Enjoyment of life, General activity scale [PEG] now has standardized LOINC codes available.
 // These LOINC codes were not available when the initial version of the Pain Management Summary was developed.
@@ -260,6 +262,8 @@ concept "Single question r/t ETOH use": { "Single question r/t ETOH use code" } 
 concept "Single question r/t drug use": { "Single question r/t drug use code" } display 'Single question r/t drug use'
 concept "Morphine Milligram Equivalent (MME)":
   { "Morphine Milligram Equivalent (MME) code" } display 'Morphine Milligram Equivalent (MME)'
+concept "Questionnaire response Document":
+  {"Questionnaire response Document code" } display 'Questionnaire response Document'
 
 // # Parameters #
 
@@ -1090,6 +1094,10 @@ define ReportRiskScreeningsRelevantToPainManagement:
 // display the data to the user in a friendly manner.  See the Pain Management Summary SMART on FHIR application as
 // an example of how to integrate this summary into an EHR using modern web UI technologies.
 
+
+/**
+    This is a placeholder for CDSHooks responses/cards.  It is NOT correct, just tyring to get a value there
+**/
 define RequestsAndResponses:
     C3F.Confirmed(C3F.ActiveOrRecurring([Condition: "Conditions associated with chronic pain"]))
 
@@ -1103,6 +1111,31 @@ define ReportRequestsAndResponses:
   }
   sort by (Onset as String) desc
 
+//********************  MyPAIN Questionnaire Observations  ********************************
+  define function GetObsValue(Obs Observation):
+    Coalesce(
+      QuantityText(Obs.value as FHIR.Quantity),
+      ToString((Obs.value as FHIR.boolean)),
+      (Obs.value as FHIR.string).value,
+      ConceptText(Obs.value as FHIR.CodeableConcept))
+
+  define function GetLinkId(Obs Observation):
+    if(Obs.extension[0].url = 'http://hl7.org/fhir/uv/sdc/StructureDefinition/derivedFromLinkId')
+      then Obs.extension[0].value
+
+define QuestionnaireObservations:
+  C3F.Verified(C3F.ObservationLookBack([Observation: "Questionnaire response Document"], 1 year))
+
+define ReportQuestionnaireObservations:
+  (QuestionnaireObservations) QO
+  return{
+    Answer: GetObsValue(QO),
+    DateText: ObservationDate(QO),
+    LinkId: GetLinkId(QO),
+    QuestionText: QO.text
+  }
+
+
 define Summary: {
   Patient: {
     Name: Combine(Patient.name.given G return G.value, ' ') + ' ' + Combine(Patient.name.family F return F.value, ' '),
@@ -1112,6 +1145,9 @@ define Summary: {
   },
   CDSHooksAssessment: {
     RequestsAndResponses:ReportRequestsAndResponses
+  },
+  SharedDecisionMaking: {
+    QuestionnaireObservations:ReportQuestionnaireObservations
   },
   PertinentMedicalHistory: {
     ConditionsAssociatedWithChronicPain: ReportConditionsAssociatedWithChronicPain,
