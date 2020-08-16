@@ -366,7 +366,7 @@ define function CalculateMMEs(medications List<Tuple { rxNormCode Code, doseQuan
             ingredientCode: I.ingredientCode,
             strength: I.strength,
             dailyDose: dailyDose,
-            dailyDoseDescription: dailyDoseDescription & (' * factor: ' + factor.toString()),
+            dailyDoseDescription: dailyDoseDescription & (' * factor: ' + ToString(factor)),
             conversionFactor: factor,
             mme: Quantity {
               value: dailyDose.value * factor,
