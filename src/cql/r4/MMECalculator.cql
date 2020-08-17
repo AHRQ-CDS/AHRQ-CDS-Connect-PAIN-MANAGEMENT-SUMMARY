@@ -13,11 +13,20 @@ include OMTKLogic version '3.0.0'
 
 context Patient
 
+define function ToRange(range FHIR.Range):
+  range
+
+define function ToQuantity(quantity FHIR.Quantity):
+  quantity
+
+define function ToCodeableConcept(codeableConcept FHIR.CodeableConcept):
+  codeableConcept
+
 define function Prescriptions(Orders List<MedicationRequest>):
   Orders O
     let
       // NOTE: Assuming medication is specified as a CodeableConcept with a single RxNorm code
-      rxNormCode: FHIRHelpers.ToCode(singleton from (((O.medication as FHIR.CodeableConcept).coding) C where C in OMTKLogic.RXNORM)),
+      rxNormCode: FHIRHelpers.ToCode(singleton from (((ToCodeableConcept(O.medication).coding) C where C in OMTKLogic.RXNORM))),
       medicationName: OMTKLogic.GetMedicationName(rxNormCode),
       // NOTE: Assuming a single dosage instruction element
       dosageInstruction: O.dosageInstruction[0],
@@ -26,14 +35,16 @@ define function Prescriptions(Orders List<MedicationRequest>):
       repeat: dosageInstruction.timing.repeat,
       frequency: Coalesce(repeat.frequencyMax.value, repeat.frequency.value),
       period: OMTKLogic.Quantity(repeat.period.value, repeat.periodUnit.value),
+      doseRange: ToRange(doseAndRate.dose),
+      doseQuantity: ToQuantity(doseAndRate.dose),
       doseDescription:
         Coalesce(
           // There should be a conversion from FHIR.SimpleQuantity to System.Quantity
-          if doseAndRate.dose is FHIR.Range
-            then ToString((doseAndRate.dose as FHIR.Range).low)
-                + '-' + ToString((doseAndRate.dose as FHIR.Range).high)
-                + (doseAndRate.dose as FHIR.Range).high.unit.value
-            else ToString(FHIRHelpers.ToQuantity(doseAndRate.dose as FHIR.Quantity)),
+          if doseRange is not null
+            then ToString(doseRange.low)
+                + '-' + ToString(doseRange.high)
+                + doseRange.high.unit.value
+            else ToString(FHIRHelpers.ToQuantity(doseQuantity)),
             ''
         ),
       frequencyDescription:
@@ -53,9 +64,9 @@ define function Prescriptions(Orders List<MedicationRequest>):
         else
           // TODO: Shouldn't need the .value here on asNeededBoolean
           medicationName + ' ' + doseDescription + ' q' + frequencyDescription + (if dosageInstruction.asNeeded then ' PRN' else ''),
-      dose: if doseAndRate.dose is FHIR.Range
-            then FHIRHelpers.ToQuantity((doseAndRate.dose as FHIR.Range).high)
-            else FHIRHelpers.ToQuantity(doseAndRate.dose as FHIR.Quantity),
+      dose: if doseRange is not null
+            then FHIRHelpers.ToQuantity(doseRange.high)
+            else FHIRHelpers.ToQuantity(doseQuantity),
       dosesPerDay: Coalesce(OMTKLogic.ToDaily(frequency, period), 1.0)
     }
 
