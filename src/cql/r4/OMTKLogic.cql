@@ -287,6 +287,8 @@ define function StripPer(unit String):
 */
 define function GetDailyDose(ingredientCode Code, strength Quantity, doseFormCode Code, doseQuantity Quantity, dosesPerDay Decimal):
   case
+    when dosesPerDay is null or doseQuantity is null or strength is null then
+      null as Quantity
 	  /* if patch --> daily dose = dose value (e.g, number patches with doseQuantity unit = "patch") * per-hour strength */
     when ToInteger(doseFormCode.code) = 316987 then
       /* buprenorphine or fentanyl patch */
