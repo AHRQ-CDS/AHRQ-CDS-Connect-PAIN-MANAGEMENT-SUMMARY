@@ -368,9 +368,15 @@ define function CalculateMMEs(medications List<Tuple { rxNormCode Code, doseQuan
             dailyDose: dailyDose,
             dailyDoseDescription: dailyDoseDescription & (' * factor: ' + ToString(factor)),
             conversionFactor: factor,
-            mme: Quantity {
-              value: dailyDose.value * factor,
-              unit: '{MME}/d'
-            }
+            mme: Quantity(
+              dailyDose.value * factor,
+              '{MME}/d'
+            )
           }
   )
+
+define function Quantity(value Decimal, unit String):
+  if value is not null then
+    Quantity { value: value, unit: unit }
+  else
+    null

@@ -10517,7 +10517,160 @@
                }
             } ]
          }, {
-            "localId" : "947",
+            "localId" : "949",
+            "locator" : "378:1-382:8",
+            "name" : "Quantity",
+            "context" : "Unfiltered",
+            "accessLevel" : "Public",
+            "type" : "FunctionDef",
+            "annotation" : [ {
+               "type" : "Annotation",
+               "s" : {
+                  "r" : "949",
+                  "s" : [ {
+                     "value" : [ "define function ","Quantity","(","value"," " ]
+                  }, {
+                     "r" : "940",
+                     "s" : [ {
+                        "value" : [ "Decimal" ]
+                     } ]
+                  }, {
+                     "value" : [ ", ","unit"," " ]
+                  }, {
+                     "r" : "941",
+                     "s" : [ {
+                        "value" : [ "String" ]
+                     } ]
+                  }, {
+                     "value" : [ "):\r\n  " ]
+                  }, {
+                     "r" : "948",
+                     "s" : [ {
+                        "r" : "948",
+                        "s" : [ {
+                           "value" : [ "if " ]
+                        }, {
+                           "r" : "943",
+                           "s" : [ {
+                              "r" : "942",
+                              "s" : [ {
+                                 "value" : [ "value" ]
+                              } ]
+                           }, {
+                              "value" : [ " is not null" ]
+                           } ]
+                        }, {
+                           "value" : [ " then\r\n    " ]
+                        }, {
+                           "r" : "946",
+                           "s" : [ {
+                              "value" : [ "Quantity"," { " ]
+                           }, {
+                              "s" : [ {
+                                 "value" : [ "value",": " ]
+                              }, {
+                                 "r" : "944",
+                                 "s" : [ {
+                                    "value" : [ "value" ]
+                                 } ]
+                              } ]
+                           }, {
+                              "value" : [ ", " ]
+                           }, {
+                              "s" : [ {
+                                 "value" : [ "unit",": " ]
+                              }, {
+                                 "r" : "945",
+                                 "s" : [ {
+                                    "value" : [ "unit" ]
+                                 } ]
+                              } ]
+                           }, {
+                              "value" : [ " }" ]
+                           } ]
+                        }, {
+                           "r" : "947",
+                           "value" : [ "\r\n  else\r\n    ","null" ]
+                        } ]
+                     } ]
+                  } ]
+               }
+            } ],
+            "expression" : {
+               "localId" : "948",
+               "locator" : "379:3-382:8",
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "localId" : "943",
+                     "locator" : "379:6-379:22",
+                     "type" : "Not",
+                     "operand" : {
+                        "locator" : "379:6-379:22",
+                        "type" : "IsNull",
+                        "operand" : {
+                           "localId" : "942",
+                           "locator" : "379:6-379:10",
+                           "name" : "value",
+                           "type" : "OperandRef"
+                        }
+                     }
+                  }
+               },
+               "then" : {
+                  "localId" : "946",
+                  "locator" : "380:5-380:41",
+                  "classType" : "{urn:hl7-org:elm-types:r1}Quantity",
+                  "type" : "Instance",
+                  "element" : [ {
+                     "name" : "value",
+                     "value" : {
+                        "localId" : "944",
+                        "locator" : "380:23-380:27",
+                        "name" : "value",
+                        "type" : "OperandRef"
+                     }
+                  }, {
+                     "name" : "unit",
+                     "value" : {
+                        "localId" : "945",
+                        "locator" : "380:36-380:39",
+                        "name" : "unit",
+                        "type" : "OperandRef"
+                     }
+                  } ]
+               },
+               "else" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Quantity",
+                  "type" : "As",
+                  "operand" : {
+                     "localId" : "947",
+                     "locator" : "382:5-382:8",
+                     "type" : "Null"
+                  }
+               }
+            },
+            "operand" : [ {
+               "name" : "value",
+               "operandTypeSpecifier" : {
+                  "localId" : "940",
+                  "locator" : "378:32-378:38",
+                  "name" : "{urn:hl7-org:elm-types:r1}Decimal",
+                  "type" : "NamedTypeSpecifier"
+               }
+            }, {
+               "name" : "unit",
+               "operandTypeSpecifier" : {
+                  "localId" : "941",
+                  "locator" : "378:46-378:51",
+                  "name" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "NamedTypeSpecifier"
+               }
+            } ]
+         }, {
+            "localId" : "957",
             "locator" : "350:1-376:3",
             "name" : "CalculateMMEs",
             "context" : "Patient",
@@ -10526,7 +10679,7 @@
             "annotation" : [ {
                "type" : "Annotation",
                "s" : {
-                  "r" : "947",
+                  "r" : "957",
                   "s" : [ {
                      "value" : [ "define function ","CalculateMMEs","(","medications"," " ]
                   }, {
@@ -10580,13 +10733,13 @@
                   }, {
                      "value" : [ "):\r\n  " ]
                   }, {
-                     "r" : "946",
+                     "r" : "956",
                      "s" : [ {
-                        "r" : "946",
+                        "r" : "956",
                         "s" : [ {
                            "value" : [ "Flatten","(\r\n    " ]
                         }, {
-                           "r" : "945",
+                           "r" : "955",
                            "s" : [ {
                               "s" : [ {
                                  "r" : "875",
@@ -10637,11 +10790,11 @@
                            }, {
                               "value" : [ "\r\n      " ]
                            }, {
-                              "r" : "944",
+                              "r" : "954",
                               "s" : [ {
                                  "value" : [ "return\r\n        " ]
                               }, {
-                                 "r" : "943",
+                                 "r" : "953",
                                  "s" : [ {
                                     "s" : [ {
                                        "r" : "881",
@@ -10926,11 +11079,11 @@
                                  }, {
                                     "value" : [ "\r\n          " ]
                                  }, {
-                                    "r" : "942",
+                                    "r" : "952",
                                     "s" : [ {
                                        "value" : [ "return " ]
                                     }, {
-                                       "r" : "941",
+                                       "r" : "951",
                                        "s" : [ {
                                           "value" : [ "{\r\n            " ]
                                        }, {
@@ -11120,51 +11273,43 @@
                                           "s" : [ {
                                              "value" : [ "mme",": " ]
                                           }, {
-                                             "r" : "940",
+                                             "r" : "950",
                                              "s" : [ {
-                                                "value" : [ "Quantity"," {\r\n              " ]
+                                                "value" : [ "Quantity","(\r\n              " ]
                                              }, {
+                                                "r" : "938",
                                                 "s" : [ {
-                                                   "value" : [ "value",": " ]
-                                                }, {
-                                                   "r" : "938",
+                                                   "r" : "936",
                                                    "s" : [ {
+                                                      "r" : "935",
+                                                      "s" : [ {
+                                                         "value" : [ "dailyDose" ]
+                                                      } ]
+                                                   }, {
+                                                      "value" : [ "." ]
+                                                   }, {
                                                       "r" : "936",
                                                       "s" : [ {
-                                                         "r" : "935",
-                                                         "s" : [ {
-                                                            "value" : [ "dailyDose" ]
-                                                         } ]
-                                                      }, {
-                                                         "value" : [ "." ]
-                                                      }, {
-                                                         "r" : "936",
-                                                         "s" : [ {
-                                                            "value" : [ "value" ]
-                                                         } ]
+                                                         "value" : [ "value" ]
                                                       } ]
-                                                   }, {
-                                                      "value" : [ " * " ]
-                                                   }, {
-                                                      "r" : "937",
-                                                      "s" : [ {
-                                                         "value" : [ "factor" ]
-                                                      } ]
+                                                   } ]
+                                                }, {
+                                                   "value" : [ " * " ]
+                                                }, {
+                                                   "r" : "937",
+                                                   "s" : [ {
+                                                      "value" : [ "factor" ]
                                                    } ]
                                                 } ]
                                              }, {
                                                 "value" : [ ",\r\n              " ]
                                              }, {
+                                                "r" : "939",
                                                 "s" : [ {
-                                                   "value" : [ "unit",": " ]
-                                                }, {
-                                                   "r" : "939",
-                                                   "s" : [ {
-                                                      "value" : [ "'{MME}/d'" ]
-                                                   } ]
+                                                   "value" : [ "'{MME}/d'" ]
                                                 } ]
                                              }, {
-                                                "value" : [ "\r\n            }" ]
+                                                "value" : [ "\r\n            )" ]
                                              } ]
                                           } ]
                                        }, {
@@ -11182,11 +11327,11 @@
                }
             } ],
             "expression" : {
-               "localId" : "946",
+               "localId" : "956",
                "locator" : "351:3-376:3",
                "type" : "Flatten",
                "operand" : {
-                  "localId" : "945",
+                  "localId" : "955",
                   "locator" : "352:5-375:11",
                   "type" : "Query",
                   "source" : [ {
@@ -11220,10 +11365,10 @@
                   } ],
                   "relationship" : [ ],
                   "return" : {
-                     "localId" : "944",
+                     "localId" : "954",
                      "locator" : "354:7-375:11",
                      "expression" : {
-                        "localId" : "943",
+                        "localId" : "953",
                         "locator" : "355:9-375:11",
                         "type" : "Query",
                         "source" : [ {
@@ -11370,10 +11515,10 @@
                         } ],
                         "relationship" : [ ],
                         "return" : {
-                           "localId" : "942",
+                           "localId" : "952",
                            "locator" : "361:11-375:11",
                            "expression" : {
-                              "localId" : "941",
+                              "localId" : "951",
                               "locator" : "361:18-375:11",
                               "type" : "Tuple",
                               "element" : [ {
@@ -11496,43 +11641,37 @@
                               }, {
                                  "name" : "mme",
                                  "value" : {
-                                    "localId" : "940",
+                                    "localId" : "950",
                                     "locator" : "371:18-374:13",
-                                    "classType" : "{urn:hl7-org:elm-types:r1}Quantity",
-                                    "type" : "Instance",
-                                    "element" : [ {
-                                       "name" : "value",
-                                       "value" : {
-                                          "localId" : "938",
-                                          "locator" : "372:22-372:45",
-                                          "type" : "Multiply",
-                                          "operand" : [ {
-                                             "localId" : "936",
-                                             "locator" : "372:22-372:36",
-                                             "path" : "value",
-                                             "type" : "Property",
-                                             "source" : {
-                                                "localId" : "935",
-                                                "locator" : "372:22-372:30",
-                                                "name" : "dailyDose",
-                                                "type" : "QueryLetRef"
-                                             }
-                                          }, {
-                                             "localId" : "937",
-                                             "locator" : "372:40-372:45",
-                                             "name" : "factor",
+                                    "name" : "Quantity",
+                                    "type" : "FunctionRef",
+                                    "operand" : [ {
+                                       "localId" : "938",
+                                       "locator" : "372:15-372:38",
+                                       "type" : "Multiply",
+                                       "operand" : [ {
+                                          "localId" : "936",
+                                          "locator" : "372:15-372:29",
+                                          "path" : "value",
+                                          "type" : "Property",
+                                          "source" : {
+                                             "localId" : "935",
+                                             "locator" : "372:15-372:23",
+                                             "name" : "dailyDose",
                                              "type" : "QueryLetRef"
-                                          } ]
-                                       }
+                                          }
+                                       }, {
+                                          "localId" : "937",
+                                          "locator" : "372:33-372:38",
+                                          "name" : "factor",
+                                          "type" : "QueryLetRef"
+                                       } ]
                                     }, {
-                                       "name" : "unit",
-                                       "value" : {
-                                          "localId" : "939",
-                                          "locator" : "373:21-373:29",
-                                          "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                                          "value" : "{MME}/d",
-                                          "type" : "Literal"
-                                       }
+                                       "localId" : "939",
+                                       "locator" : "373:15-373:23",
+                                       "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                                       "value" : "{MME}/d",
+                                       "type" : "Literal"
                                     } ]
                                  }
                               } ]
