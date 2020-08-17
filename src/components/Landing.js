@@ -47,7 +47,7 @@ export default class Landing extends Component {
                         this.setState({cdsCollector: cdsResult});
                         return cdsResult;
                     });
-            } else {
+            } else if(process.env.REACT_APP_CDS_MODE && process.env.REACT_APP_CDS_MODE.toLowerCase() === 'internal'){
                 executeInternalCDSCall(10, this.state.cdsCollector)
                     .then((cdsResult) => {
                         this.setState({cdsCollector: cdsResult});
@@ -55,15 +55,6 @@ export default class Landing extends Component {
                     });
             }
         })
-            // TODO - needs to be handled in cql
-        // .then(()=>{
-        //     collectQuestionnaireResponses(this.state.qrCollector)
-        //         .then((qrResult) => {
-        //             this.setState({qrCollector: qrResult});
-        //             return;
-        //         });
-        //     return;
-        // })
         .catch((err) => {
             console.error(err);
             this.setState({loading: false});
