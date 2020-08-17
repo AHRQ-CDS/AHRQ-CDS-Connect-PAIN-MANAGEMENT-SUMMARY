@@ -25,7 +25,7 @@ define function Prescriptions(Orders List<MedicationRequest>):
       doseAndRate: dosageInstruction.doseAndRate[0],
       repeat: dosageInstruction.timing.repeat,
       frequency: Coalesce(repeat.frequencyMax.value, repeat.frequency.value),
-      period: System.Quantity { value: repeat.period.value, unit: repeat.periodUnit.value },
+      period: OMTKLogic.Quantity(repeat.period.value, repeat.periodUnit.value),
       doseDescription:
         Coalesce(
           // There should be a conversion from FHIR.SimpleQuantity to System.Quantity
@@ -72,7 +72,7 @@ define function MME(prescriptions List<MedicationRequest>):
     }
 
 define function TotalMME(prescriptions List<MedicationRequest>):
-  System.Quantity {
-    value: Sum((MME(prescriptions)) M return M.mme.value),
-    unit: 'mg/d'
-  }
+  OMTKLogic.Quantity(
+    Sum((MME(prescriptions)) M return M.mme.value),
+    'mg/d'
+  )
