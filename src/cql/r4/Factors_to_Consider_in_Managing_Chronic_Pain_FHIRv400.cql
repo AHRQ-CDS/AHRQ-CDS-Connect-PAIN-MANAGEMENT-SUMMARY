@@ -70,6 +70,7 @@ using FHIR version '4.0.0'
 include CDS_Connect_Commons_for_FHIRv400 version '1.0.1' called C3F
 // The FHIRHelpers library provides common functions for simplifying interaction w/ the FHIR R4 data model.
 include FHIRHelpers version '4.0.0' called FHIRHelpers
+include MMECalculator version '3.0.0' called MMECalculator
 
 // # Value sets and codes #
 
@@ -643,6 +644,7 @@ define ReportEncounterRiskFactorsForOpioidRelatedHarms:
 // Shape the pregnancy Observation as a Condition, since this is the backup approach for detecting a pregnancy in case
 // there are no active Conditions found.
 define ReportMostRecentPositivePregnancyObservation:
+{
   if MostRecentPregnancyObservationIsPositive then
     {
       Name: ConceptText(MostRecentPregnancyObservation.code),
@@ -658,9 +660,11 @@ define ReportMostRecentPositivePregnancyObservation:
     }
   else
     null
+}
 
 // Shape the case of being 65 or older as a Condition for the purposes of building the summary.
 define ReportOlderThan65:
+{
   if Is65orOlder then
     {
       Name: '65 years or older',
@@ -672,6 +676,7 @@ define ReportOlderThan65:
     }
   else
     null
+}
 
 define ReportRiskFactorsForOpioidRelatedHarms:
   // If a pregnancy Condition is present, use that.
@@ -953,6 +958,7 @@ define MostRecentMME:
   C3F.MostRecent(C3F.Verified(C3F.ObservationLookBack([Observation: "Morphine Milligram Equivalent (MME)"], 6 months)))
 
 define ReportMostRecentMME:
+{
   if MostRecentMME is null
   then null
   else
@@ -962,6 +968,27 @@ define ReportMostRecentMME:
       Result: QuantityText(M.value as FHIR.Quantity),
       Date:   ObservationDate(M)
     }
+}
+
+// MME Calculation
+define ActiveOpioidMedications:
+  C3F.ActiveMedicationRequest([MedicationRequest: "Opioid Pain Medications"])
+
+define CurrentMME:
+  MMECalculator.TotalMME(ActiveOpioidMedications)
+
+define ReportCurrentMME:
+{
+  if CurrentMME is null then
+    null
+    else
+      (CurrentMME) M
+      return {
+        Name: 'Current Milligram Morphine Equivalent',
+        Result: ToString(M),
+        Date: ToString(Today())
+      }
+}
 
 // Urine drug screen - dates and results (all screens w/ lookback of 1 year)
 
@@ -1165,6 +1192,7 @@ define Summary: {
     StoolSoftenersAndLaxatives: ReportStoolSoftenersAndLaxatives
   },
   RiskConsiderations: {
+    CurrentMME: ReportCurrentMME,
     MostRecentMME: ReportMostRecentMME,
     UrineDrugScreens: ReportUrineDrugScreens,
     BenzodiazepineMedications: ReportBenzodiazepineMedications,
