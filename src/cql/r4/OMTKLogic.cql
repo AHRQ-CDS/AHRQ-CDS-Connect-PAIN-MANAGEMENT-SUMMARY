@@ -195,7 +195,7 @@ define function EnsureMicrogramQuantity(strength Quantity):
   if strength.value < 0.1 and (PositionOf('mg', strength.unit) = 0) then
     Quantity {
       value: strength.value * 1000,
-      unit: 'mcg' & Substring(strength.unit, 2)
+      unit: 'ug' & Substring(strength.unit, 2)
     }
   else
     strength
@@ -237,6 +237,20 @@ define function GetIngredients(rxNormCode Code):
           }
         )
     }
+
+/*
+Returns the display of the given concept, if present, otherwise, looks up medication
+names for any RxNormCodes within the concept using the GetMedicationName function
+*/
+define function GetMedicationConceptName(concept Concept):
+  if concept.display is null then
+    First(
+      (concept.codes) C
+        where C.system = 'http://www.nlm.nih.gov/research/umls/rxnorm'
+        return GetMedicationName(C)
+    )
+  else
+    concept.display
 
 /*
 Returns the display of the given code, if present, otherwise looks it up from the OMTK data
@@ -297,8 +311,8 @@ define function GetDailyDose(ingredientCode Code, strength Quantity, doseFormCod
       else
         Message(null, true, 'OMTKLogic.GetDailyDoseDescription.UnknownPatchIngredient', ErrorLevel, 'Unknown patch ingredient: ' & ingredientCode.code & ':' & ingredientCode.display)
 
-    /* if dose unit in actual mass units (mg or mcg -- when it's a single med) --> daily dose = numTimesPerDay * dose */
-    when doseQuantity.unit in { 'mg', 'mcg' } then
+    /* if dose unit in actual mass units (mg or ug -- when it's a single med) --> daily dose = numTimesPerDay * dose */
+    when doseQuantity.unit in { 'mg', 'ug' } then
       Quantity { value: dosesPerDay * doseQuantity.value, unit: doseQuantity.unit }
 
     /* if doseQuantity is in actual volume units (mL) --> daily dose = numTimesPerDay * dose * strength */
@@ -323,8 +337,8 @@ define function GetDailyDoseDescription(ingredientCode Code, strength Quantity, 
       else
         Message(null, true, 'OMTKLogic.GetDailyDoseDescription.UnknownPatchIngredient', ErrorLevel, 'Unknown patch ingredient: ' & ingredientCode.code & ':' & ingredientCode.display)
 
-    /* if dose unit in actual mass units (mg or mcg -- when it's a single med) */
-    when doseQuantity.unit in { 'mg', 'mcg' } then
+    /* if dose unit in actual mass units (mg or ug -- when it's a single med) */
+    when doseQuantity.unit in { 'mg', 'ug' } then
       GetIngredientName(ingredientCode) + ' ' + GetDoseFormName(doseFormCode) + ': ' + ToString(dosesPerDay) + '/d * ' + ToString(doseQuantity) + ' = ' + ToString(dailyDose)
 
     /* if doseQuantity in actual volume units (mL) or not in actual units (e.g. 1 tab, 1 spray) */
