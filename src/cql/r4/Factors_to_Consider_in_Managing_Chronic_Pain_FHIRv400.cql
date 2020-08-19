@@ -1139,28 +1139,36 @@ define ReportRequestsAndResponses:
   sort by (Onset as String) desc
 
 //********************  MyPAIN Questionnaire Observations  ********************************
-  define function GetObsValue(Obs Observation):
+  define function ObservationValue(Obs FHIR.Observation):{
     Coalesce(
       QuantityText(Obs.value as FHIR.Quantity),
       ToString((Obs.value as FHIR.boolean)),
       (Obs.value as FHIR.string).value,
       ConceptText(Obs.value as FHIR.CodeableConcept))
+    }
 
-  define function GetLinkId(Obs Observation):
-    if(Obs.extension[0].url = 'http://hl7.org/fhir/uv/sdc/StructureDefinition/derivedFromLinkId')
-      then Obs.extension[0].value
-
-define QuestionnaireObservations:
-  C3F.Verified(C3F.ObservationLookBack([Observation: "Questionnaire response Document"], 1 year))
-
-define ReportQuestionnaireObservations:
-  (QuestionnaireObservations) QO
-  return{
-    Answer: GetObsValue(QO),
-    DateText: ObservationDate(QO),
-    LinkId: GetLinkId(QO),
-    QuestionText: QO.text
+  define function GetLinkId(Obs FHIR.Observation):{
+      Obs.extension E
+        where E.url = 'http://hl7.org/fhir/uv/sdc/StructureDefinition/derivedFromLinkId'
+          return{
+            (Obs.value as FHIR.string).value
+          }
   }
+
+define QuestionnaireObservations:{
+  C3F.Verified(C3F.ObservationLookBack([Observation: "Questionnaire response Document"], 1 year))
+}
+
+define ReportQuestionnaireObservations:{
+  (QuestionnaireObservations) qo
+  return{
+    Answer: ObservationValue(qo),
+    DateText: ObservationDate(qo),
+    LinkId: GetLinkId(qo),
+    QuestionText: qo.text
+  }
+  sort by (LinkId as String)
+}
 
 
 define Summary: {
