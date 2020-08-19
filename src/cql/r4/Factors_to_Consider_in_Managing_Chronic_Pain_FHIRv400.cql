@@ -1143,7 +1143,7 @@ define ReportRequestsAndResponses:
     Coalesce(
       QuantityText(Obs.value as FHIR.Quantity),
       ToString((Obs.value as FHIR.boolean)),
-      (Obs.value as FHIR.string).value,
+      (Obs.value as FHIR.string),
       ConceptText(Obs.value as FHIR.CodeableConcept))
     }
 
@@ -1151,7 +1151,7 @@ define ReportRequestsAndResponses:
       Obs.extension E
         where E.url = 'http://hl7.org/fhir/uv/sdc/StructureDefinition/derivedFromLinkId'
           return{
-            (Obs.value as FHIR.string).value
+            (Obs.value as FHIR.string)
           }
   }
 
