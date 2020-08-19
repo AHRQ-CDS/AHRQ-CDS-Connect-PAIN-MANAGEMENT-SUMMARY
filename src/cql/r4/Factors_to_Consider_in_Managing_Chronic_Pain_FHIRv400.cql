@@ -1139,27 +1139,26 @@ define ReportRequestsAndResponses:
   sort by (Onset as String) desc
 
 //********************  MyPAIN Questionnaire Observations  ********************************
-  define function ObservationValue(Obs FHIR.Observation):{
+  define function ObservationValue(Obs FHIR.Observation):
     Coalesce(
       QuantityText(Obs.value as FHIR.Quantity),
       ToString((Obs.value as FHIR.boolean)),
       (Obs.value as FHIR.string),
       ConceptText(Obs.value as FHIR.CodeableConcept))
-    }
 
-  define function GetLinkId(Obs FHIR.Observation):{
+
+  define function GetLinkId(Obs FHIR.Observation):
       Obs.extension E
         where E.url = 'http://hl7.org/fhir/uv/sdc/StructureDefinition/derivedFromLinkId'
           return{
             (Obs.value as FHIR.string)
           }
-  }
 
-define QuestionnaireObservations:{
+define QuestionnaireObservations:
   C3F.Verified(C3F.ObservationLookBack([Observation: "Questionnaire response Document"], 1 year))
-}
 
-define ReportQuestionnaireObservations:{
+
+define ReportQuestionnaireObservations:
   (QuestionnaireObservations) qo
   return{
     Answer: ObservationValue(qo),
@@ -1167,8 +1166,7 @@ define ReportQuestionnaireObservations:{
     LinkId: GetLinkId(qo),
     QuestionText: qo.text
   }
-  sort by (LinkId as String)
-}
+
 
 
 define Summary: {
