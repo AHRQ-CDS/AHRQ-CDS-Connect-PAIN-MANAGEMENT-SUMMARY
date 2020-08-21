@@ -239,6 +239,25 @@ define function GetIngredients(rxNormCode Code):
     }
 
 /*
+Returns the first RxNorm code in the given concept that matches a drug code
+specified in OMTKData.
+*/
+define function GetMedicationCode(concept Concept):
+  First(
+    (concept.codes) C
+      where C.system = 'http://www.nlm.nih.gov/research/umls/rxnorm'
+        return singleton from (
+          OMTKData.DrugIngredients DI
+            where DI.drugCode = ToInteger(C.code)
+            return Code {
+              code: ToString(DI.drugCode),
+              system: 'http://www.nlm.nih.gov/research/umls/rxnorm',
+              display: DI.drugName
+            }
+        )
+  )
+
+/*
 Returns the display of the given concept, if present, otherwise, looks up medication
 names for any RxNormCodes within the concept using the GetMedicationName function
 */
