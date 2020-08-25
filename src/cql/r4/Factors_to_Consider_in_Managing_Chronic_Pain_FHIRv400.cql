@@ -1144,29 +1144,29 @@ define ReportRequestsAndResponses:
       QuantityText(Obs.value as FHIR.Quantity),
       ToString((Obs.value as FHIR.boolean)),
       (Obs.value as FHIR.string),
-      ConceptText(Obs.value as FHIR.CodeableConcept))
-
+      ConceptText(Obs.value as FHIR.CodeableConcept)
+    )
 
   define function GetLinkId(Obs FHIR.Observation):
       Obs.extension E
-        where E.url = 'http://hl7.org/fhir/uv/sdc/StructureDefinition/derivedFromLinkId'
-          return{
-            (Obs.value as FHIR.string)
-          }
+//        where E.url = ('http://hl7.org/fhir/uv/sdc/StructureDefinition/derivedFromLinkId')
+          return E
 
+/*          return E.extension)) ext
+            where ext.url = 'text'
+            return
+                ext.value.value
+*/
 define QuestionnaireObservations:
-  C3F.Verified(C3F.ObservationLookBack([Observation: "Questionnaire response Document"], 1 year))
-
+  C3F.Verified(C3F.ObservationLookBack([Observation: "Questionnaire response Document"], 2 year))
 
 define ReportQuestionnaireObservations:
   (QuestionnaireObservations) qo
   return{
     Answer: ObservationValue(qo),
     DateText: ObservationDate(qo),
-    LinkId: GetLinkId(qo),
-    QuestionText: qo.text
+    LinkId: GetLinkId(qo)
   }
-
 
 
 define Summary: {
