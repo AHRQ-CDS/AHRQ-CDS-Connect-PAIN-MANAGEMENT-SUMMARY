@@ -1,0 +1,3478 @@
+{
+   "library" : {
+      "annotation" : [ {
+         "translatorOptions" : "EnableAnnotations,EnableLocators,DisableListDemotion,DisableListPromotion,DisableMethodInvocation",
+         "type" : "CqlToElmInfo"
+      } ],
+      "identifier" : {
+         "id" : "MMECalculator",
+         "version" : "3.0.0"
+      },
+      "schemaIdentifier" : {
+         "id" : "urn:hl7-org:elm",
+         "version" : "r1"
+      },
+      "usings" : {
+         "def" : [ {
+            "localIdentifier" : "System",
+            "uri" : "urn:hl7-org:elm-types:r1"
+         }, {
+            "localId" : "1",
+            "locator" : "9:1-9:26",
+            "localIdentifier" : "FHIR",
+            "uri" : "http://hl7.org/fhir",
+            "version" : "4.0.0",
+            "annotation" : [ {
+               "type" : "Annotation",
+               "s" : {
+                  "r" : "1",
+                  "s" : [ {
+                     "value" : [ "using ","FHIR"," version ","'4.0.0'" ]
+                  } ]
+               }
+            } ]
+         } ]
+      },
+      "includes" : {
+         "def" : [ {
+            "localId" : "2",
+            "locator" : "11:1-11:35",
+            "localIdentifier" : "FHIRHelpers",
+            "path" : "FHIRHelpers",
+            "version" : "4.0.0",
+            "annotation" : [ {
+               "type" : "Annotation",
+               "s" : {
+                  "r" : "2",
+                  "s" : [ {
+                     "value" : [ "include " ]
+                  }, {
+                     "s" : [ {
+                        "value" : [ "FHIRHelpers" ]
+                     } ]
+                  }, {
+                     "value" : [ " version ","'4.0.0'" ]
+                  } ]
+               }
+            } ]
+         }, {
+            "localId" : "3",
+            "locator" : "12:1-12:33",
+            "localIdentifier" : "OMTKLogic",
+            "path" : "OMTKLogic",
+            "version" : "3.0.0",
+            "annotation" : [ {
+               "type" : "Annotation",
+               "s" : {
+                  "r" : "3",
+                  "s" : [ {
+                     "value" : [ "include " ]
+                  }, {
+                     "s" : [ {
+                        "value" : [ "OMTKLogic" ]
+                     } ]
+                  }, {
+                     "value" : [ " version ","'3.0.0'" ]
+                  } ]
+               }
+            } ]
+         } ]
+      },
+      "parameters" : {
+         "def" : [ {
+            "localId" : "6",
+            "locator" : "14:1-14:45",
+            "name" : "ErrorLevel",
+            "accessLevel" : "Public",
+            "annotation" : [ {
+               "type" : "Annotation",
+               "s" : {
+                  "r" : "6",
+                  "s" : [ {
+                     "value" : [ "parameter ","ErrorLevel"," " ]
+                  }, {
+                     "r" : "5",
+                     "s" : [ {
+                        "value" : [ "String" ]
+                     } ]
+                  }, {
+                     "value" : [ " default " ]
+                  }, {
+                     "r" : "4",
+                     "s" : [ {
+                        "value" : [ "'Warning'" ]
+                     } ]
+                  } ]
+               }
+            } ],
+            "default" : {
+               "localId" : "4",
+               "locator" : "14:37-14:45",
+               "valueType" : "{urn:hl7-org:elm-types:r1}String",
+               "value" : "Warning",
+               "type" : "Literal"
+            },
+            "parameterTypeSpecifier" : {
+               "localId" : "5",
+               "locator" : "14:22-14:27",
+               "name" : "{urn:hl7-org:elm-types:r1}String",
+               "type" : "NamedTypeSpecifier"
+            }
+         } ]
+      },
+      "contexts" : {
+         "def" : [ {
+            "locator" : "16:1-16:15",
+            "name" : "Patient"
+         } ]
+      },
+      "statements" : {
+         "def" : [ {
+            "locator" : "16:1-16:15",
+            "name" : "Patient",
+            "context" : "Patient",
+            "expression" : {
+               "type" : "SingletonFrom",
+               "operand" : {
+                  "locator" : "16:1-16:15",
+                  "dataType" : "{http://hl7.org/fhir}Patient",
+                  "type" : "Retrieve"
+               }
+            }
+         }, {
+            "localId" : "9",
+            "locator" : "23:1-24:7",
+            "name" : "ToFHIRRange",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "type" : "FunctionDef",
+            "annotation" : [ {
+               "type" : "Annotation",
+               "s" : {
+                  "r" : "9",
+                  "s" : [ {
+                     "value" : [ "define function ","ToFHIRRange","(","range"," " ]
+                  }, {
+                     "r" : "7",
+                     "s" : [ {
+                        "value" : [ "FHIR",".","Range" ]
+                     } ]
+                  }, {
+                     "value" : [ "):\r\n  " ]
+                  }, {
+                     "r" : "8",
+                     "s" : [ {
+                        "r" : "8",
+                        "s" : [ {
+                           "value" : [ "range" ]
+                        } ]
+                     } ]
+                  } ]
+               }
+            } ],
+            "expression" : {
+               "localId" : "8",
+               "locator" : "24:3-24:7",
+               "name" : "range",
+               "type" : "OperandRef"
+            },
+            "operand" : [ {
+               "name" : "range",
+               "operandTypeSpecifier" : {
+                  "localId" : "7",
+                  "locator" : "23:35-23:44",
+                  "name" : "{http://hl7.org/fhir}Range",
+                  "type" : "NamedTypeSpecifier"
+               }
+            } ]
+         }, {
+            "localId" : "12",
+            "locator" : "31:1-32:10",
+            "name" : "ToFHIRQuantity",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "type" : "FunctionDef",
+            "annotation" : [ {
+               "type" : "Annotation",
+               "s" : {
+                  "r" : "12",
+                  "s" : [ {
+                     "value" : [ "define function ","ToFHIRQuantity","(","quantity"," " ]
+                  }, {
+                     "r" : "10",
+                     "s" : [ {
+                        "value" : [ "FHIR",".","Quantity" ]
+                     } ]
+                  }, {
+                     "value" : [ "):\r\n  " ]
+                  }, {
+                     "r" : "11",
+                     "s" : [ {
+                        "r" : "11",
+                        "s" : [ {
+                           "value" : [ "quantity" ]
+                        } ]
+                     } ]
+                  } ]
+               }
+            } ],
+            "expression" : {
+               "localId" : "11",
+               "locator" : "32:3-32:10",
+               "name" : "quantity",
+               "type" : "OperandRef"
+            },
+            "operand" : [ {
+               "name" : "quantity",
+               "operandTypeSpecifier" : {
+                  "localId" : "10",
+                  "locator" : "31:41-31:53",
+                  "name" : "{http://hl7.org/fhir}Quantity",
+                  "type" : "NamedTypeSpecifier"
+               }
+            } ]
+         }, {
+            "localId" : "15",
+            "locator" : "39:1-40:17",
+            "name" : "ToFHIRCodeableConcept",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "type" : "FunctionDef",
+            "annotation" : [ {
+               "type" : "Annotation",
+               "s" : {
+                  "r" : "15",
+                  "s" : [ {
+                     "value" : [ "define function ","ToFHIRCodeableConcept","(","codeableConcept"," " ]
+                  }, {
+                     "r" : "13",
+                     "s" : [ {
+                        "value" : [ "FHIR",".","CodeableConcept" ]
+                     } ]
+                  }, {
+                     "value" : [ "):\r\n  " ]
+                  }, {
+                     "r" : "14",
+                     "s" : [ {
+                        "r" : "14",
+                        "s" : [ {
+                           "value" : [ "codeableConcept" ]
+                        } ]
+                     } ]
+                  } ]
+               }
+            } ],
+            "expression" : {
+               "localId" : "14",
+               "locator" : "40:3-40:17",
+               "name" : "codeableConcept",
+               "type" : "OperandRef"
+            },
+            "operand" : [ {
+               "name" : "codeableConcept",
+               "operandTypeSpecifier" : {
+                  "localId" : "13",
+                  "locator" : "39:55-39:74",
+                  "name" : "{http://hl7.org/fhir}CodeableConcept",
+                  "type" : "NamedTypeSpecifier"
+               }
+            } ]
+         }, {
+            "localId" : "53",
+            "locator" : "49:1-60:5",
+            "name" : "ToQuantity",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "type" : "FunctionDef",
+            "annotation" : [ {
+               "type" : "Annotation",
+               "s" : {
+                  "r" : "53",
+                  "s" : [ {
+                     "value" : [ "define function ","ToQuantity","(","quantity"," " ]
+                  }, {
+                     "r" : "16",
+                     "s" : [ {
+                        "value" : [ "FHIR",".","Quantity" ]
+                     } ]
+                  }, {
+                     "value" : [ "):\r\n  " ]
+                  }, {
+                     "r" : "52",
+                     "s" : [ {
+                        "r" : "52",
+                        "s" : [ {
+                           "value" : [ "case\r\n    " ]
+                        }, {
+                           "r" : "20",
+                           "s" : [ {
+                              "value" : [ "when " ]
+                           }, {
+                              "r" : "18",
+                              "s" : [ {
+                                 "r" : "17",
+                                 "s" : [ {
+                                    "value" : [ "quantity" ]
+                                 } ]
+                              }, {
+                                 "value" : [ " is null" ]
+                              } ]
+                           }, {
+                              "r" : "19",
+                              "value" : [ " then ","null" ]
+                           } ]
+                        }, {
+                           "value" : [ "\r\n    " ]
+                        }, {
+                           "r" : "25",
+                           "s" : [ {
+                              "value" : [ "when " ]
+                           }, {
+                              "r" : "23",
+                              "s" : [ {
+                                 "r" : "22",
+                                 "s" : [ {
+                                    "r" : "21",
+                                    "s" : [ {
+                                       "value" : [ "quantity" ]
+                                    } ]
+                                 }, {
+                                    "value" : [ "." ]
+                                 }, {
+                                    "r" : "22",
+                                    "s" : [ {
+                                       "value" : [ "value" ]
+                                    } ]
+                                 } ]
+                              }, {
+                                 "value" : [ " is null" ]
+                              } ]
+                           }, {
+                              "r" : "24",
+                              "value" : [ " then ","null" ]
+                           } ]
+                        }, {
+                           "value" : [ "\r\n    " ]
+                        }, {
+                           "r" : "41",
+                           "s" : [ {
+                              "value" : [ "when " ]
+                           }, {
+                              "r" : "33",
+                              "s" : [ {
+                                 "r" : "28",
+                                 "s" : [ {
+                                    "r" : "27",
+                                    "s" : [ {
+                                       "r" : "26",
+                                       "s" : [ {
+                                          "value" : [ "quantity" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "." ]
+                                    }, {
+                                       "r" : "27",
+                                       "s" : [ {
+                                          "value" : [ "system" ]
+                                       } ]
+                                    } ]
+                                 }, {
+                                    "value" : [ " is null" ]
+                                 } ]
+                              }, {
+                                 "value" : [ " or " ]
+                              }, {
+                                 "r" : "32",
+                                 "s" : [ {
+                                    "r" : "30",
+                                    "s" : [ {
+                                       "r" : "29",
+                                       "s" : [ {
+                                          "value" : [ "quantity" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "." ]
+                                    }, {
+                                       "r" : "30",
+                                       "s" : [ {
+                                          "value" : [ "system" ]
+                                       } ]
+                                    } ]
+                                 }, {
+                                    "value" : [ " ","="," " ]
+                                 }, {
+                                    "r" : "31",
+                                    "s" : [ {
+                                       "value" : [ "'http://unitsofmeasure.org'" ]
+                                    } ]
+                                 } ]
+                              } ]
+                           }, {
+                              "value" : [ " then\r\n      " ]
+                           }, {
+                              "r" : "40",
+                              "s" : [ {
+                                 "value" : [ "System",".","Quantity"," {\r\n        " ]
+                              }, {
+                                 "s" : [ {
+                                    "value" : [ "value",": " ]
+                                 }, {
+                                    "r" : "36",
+                                    "s" : [ {
+                                       "r" : "35",
+                                       "s" : [ {
+                                          "r" : "34",
+                                          "s" : [ {
+                                             "value" : [ "quantity" ]
+                                          } ]
+                                       }, {
+                                          "value" : [ "." ]
+                                       }, {
+                                          "r" : "35",
+                                          "s" : [ {
+                                             "value" : [ "value" ]
+                                          } ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "." ]
+                                    }, {
+                                       "r" : "36",
+                                       "s" : [ {
+                                          "value" : [ "value" ]
+                                       } ]
+                                    } ]
+                                 } ]
+                              }, {
+                                 "value" : [ ",\r\n        " ]
+                              }, {
+                                 "s" : [ {
+                                    "value" : [ "unit",": " ]
+                                 }, {
+                                    "r" : "39",
+                                    "s" : [ {
+                                       "r" : "38",
+                                       "s" : [ {
+                                          "r" : "37",
+                                          "s" : [ {
+                                             "value" : [ "quantity" ]
+                                          } ]
+                                       }, {
+                                          "value" : [ "." ]
+                                       }, {
+                                          "r" : "38",
+                                          "s" : [ {
+                                             "value" : [ "code" ]
+                                          } ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "." ]
+                                    }, {
+                                       "r" : "39",
+                                       "s" : [ {
+                                          "value" : [ "value" ]
+                                       } ]
+                                    } ]
+                                 } ]
+                              }, {
+                                 "value" : [ "\r\n      }" ]
+                              } ]
+                           } ]
+                        }, {
+                           "value" : [ "\r\n    else\r\n      " ]
+                        }, {
+                           "r" : "51",
+                           "s" : [ {
+                              "r" : "42",
+                              "value" : [ "Message","(","null",", ","true",", " ]
+                           }, {
+                              "r" : "44",
+                              "s" : [ {
+                                 "value" : [ "'MMECalculator.ToQuantity.InvalidFHIRQuantity'" ]
+                              } ]
+                           }, {
+                              "value" : [ ", " ]
+                           }, {
+                              "r" : "45",
+                              "s" : [ {
+                                 "value" : [ "ErrorLevel" ]
+                              } ]
+                           }, {
+                              "value" : [ ", " ]
+                           }, {
+                              "r" : "50",
+                              "s" : [ {
+                                 "r" : "46",
+                                 "s" : [ {
+                                    "value" : [ "'Invalid FHIR Quantity code: '" ]
+                                 } ]
+                              }, {
+                                 "value" : [ " & " ]
+                              }, {
+                                 "r" : "49",
+                                 "s" : [ {
+                                    "r" : "48",
+                                    "s" : [ {
+                                       "r" : "47",
+                                       "s" : [ {
+                                          "value" : [ "quantity" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "." ]
+                                    }, {
+                                       "r" : "48",
+                                       "s" : [ {
+                                          "value" : [ "code" ]
+                                       } ]
+                                    } ]
+                                 }, {
+                                    "value" : [ "." ]
+                                 }, {
+                                    "r" : "49",
+                                    "s" : [ {
+                                       "value" : [ "value" ]
+                                    } ]
+                                 } ]
+                              } ]
+                           }, {
+                              "value" : [ ")" ]
+                           } ]
+                        }, {
+                           "value" : [ "\r\n  end" ]
+                        } ]
+                     } ]
+                  } ]
+               }
+            } ],
+            "expression" : {
+               "localId" : "52",
+               "locator" : "50:3-60:5",
+               "type" : "Case",
+               "caseItem" : [ {
+                  "localId" : "20",
+                  "locator" : "51:5-51:35",
+                  "when" : {
+                     "localId" : "18",
+                     "locator" : "51:10-51:25",
+                     "type" : "IsNull",
+                     "operand" : {
+                        "localId" : "17",
+                        "locator" : "51:10-51:17",
+                        "name" : "quantity",
+                        "type" : "OperandRef"
+                     }
+                  },
+                  "then" : {
+                     "asType" : "{urn:hl7-org:elm-types:r1}Quantity",
+                     "type" : "As",
+                     "operand" : {
+                        "localId" : "19",
+                        "locator" : "51:32-51:35",
+                        "type" : "Null"
+                     }
+                  }
+               }, {
+                  "localId" : "25",
+                  "locator" : "52:5-52:41",
+                  "when" : {
+                     "localId" : "23",
+                     "locator" : "52:10-52:31",
+                     "type" : "IsNull",
+                     "operand" : {
+                        "localId" : "22",
+                        "locator" : "52:10-52:23",
+                        "path" : "value",
+                        "type" : "Property",
+                        "source" : {
+                           "localId" : "21",
+                           "locator" : "52:10-52:17",
+                           "name" : "quantity",
+                           "type" : "OperandRef"
+                        }
+                     }
+                  },
+                  "then" : {
+                     "asType" : "{urn:hl7-org:elm-types:r1}Quantity",
+                     "type" : "As",
+                     "operand" : {
+                        "localId" : "24",
+                        "locator" : "52:38-52:41",
+                        "type" : "Null"
+                     }
+                  }
+               }, {
+                  "localId" : "41",
+                  "locator" : "53:5-57:7",
+                  "when" : {
+                     "localId" : "33",
+                     "locator" : "53:10-53:81",
+                     "type" : "Or",
+                     "operand" : [ {
+                        "localId" : "28",
+                        "locator" : "53:10-53:32",
+                        "type" : "IsNull",
+                        "operand" : {
+                           "localId" : "27",
+                           "locator" : "53:10-53:24",
+                           "path" : "system",
+                           "type" : "Property",
+                           "source" : {
+                              "localId" : "26",
+                              "locator" : "53:10-53:17",
+                              "name" : "quantity",
+                              "type" : "OperandRef"
+                           }
+                        }
+                     }, {
+                        "localId" : "32",
+                        "locator" : "53:37-53:81",
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "name" : "ToString",
+                           "libraryName" : "FHIRHelpers",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "localId" : "30",
+                              "locator" : "53:37-53:51",
+                              "path" : "system",
+                              "type" : "Property",
+                              "source" : {
+                                 "localId" : "29",
+                                 "locator" : "53:37-53:44",
+                                 "name" : "quantity",
+                                 "type" : "OperandRef"
+                              }
+                           } ]
+                        }, {
+                           "localId" : "31",
+                           "locator" : "53:55-53:81",
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "http://unitsofmeasure.org",
+                           "type" : "Literal"
+                        } ]
+                     } ]
+                  },
+                  "then" : {
+                     "localId" : "40",
+                     "locator" : "54:7-57:7",
+                     "classType" : "{urn:hl7-org:elm-types:r1}Quantity",
+                     "type" : "Instance",
+                     "element" : [ {
+                        "name" : "value",
+                        "value" : {
+                           "localId" : "36",
+                           "locator" : "55:16-55:35",
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "localId" : "35",
+                              "locator" : "55:16-55:29",
+                              "path" : "value",
+                              "type" : "Property",
+                              "source" : {
+                                 "localId" : "34",
+                                 "locator" : "55:16-55:23",
+                                 "name" : "quantity",
+                                 "type" : "OperandRef"
+                              }
+                           }
+                        }
+                     }, {
+                        "name" : "unit",
+                        "value" : {
+                           "localId" : "39",
+                           "locator" : "56:15-56:33",
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "localId" : "38",
+                              "locator" : "56:15-56:27",
+                              "path" : "code",
+                              "type" : "Property",
+                              "source" : {
+                                 "localId" : "37",
+                                 "locator" : "56:15-56:22",
+                                 "name" : "quantity",
+                                 "type" : "OperandRef"
+                              }
+                           }
+                        }
+                     } ]
+                  }
+               } ],
+               "else" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Quantity",
+                  "type" : "As",
+                  "operand" : {
+                     "localId" : "51",
+                     "locator" : "59:7-59:139",
+                     "type" : "Message",
+                     "source" : {
+                        "localId" : "42",
+                        "locator" : "59:15-59:18",
+                        "type" : "Null"
+                     },
+                     "condition" : {
+                        "localId" : "43",
+                        "locator" : "59:21-59:24",
+                        "valueType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                        "value" : "true",
+                        "type" : "Literal"
+                     },
+                     "code" : {
+                        "localId" : "44",
+                        "locator" : "59:27-59:72",
+                        "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                        "value" : "MMECalculator.ToQuantity.InvalidFHIRQuantity",
+                        "type" : "Literal"
+                     },
+                     "severity" : {
+                        "localId" : "45",
+                        "locator" : "59:75-59:84",
+                        "name" : "ErrorLevel",
+                        "type" : "ParameterRef"
+                     },
+                     "message" : {
+                        "localId" : "50",
+                        "locator" : "59:87-59:138",
+                        "type" : "Concatenate",
+                        "operand" : [ {
+                           "type" : "Coalesce",
+                           "operand" : [ {
+                              "localId" : "46",
+                              "locator" : "59:87-59:116",
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "Invalid FHIR Quantity code: ",
+                              "type" : "Literal"
+                           }, {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "",
+                              "type" : "Literal"
+                           } ]
+                        }, {
+                           "type" : "Coalesce",
+                           "operand" : [ {
+                              "localId" : "49",
+                              "locator" : "59:120-59:138",
+                              "path" : "value",
+                              "type" : "Property",
+                              "source" : {
+                                 "localId" : "48",
+                                 "locator" : "59:120-59:132",
+                                 "path" : "code",
+                                 "type" : "Property",
+                                 "source" : {
+                                    "localId" : "47",
+                                    "locator" : "59:120-59:127",
+                                    "name" : "quantity",
+                                    "type" : "OperandRef"
+                                 }
+                              }
+                           }, {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "",
+                              "type" : "Literal"
+                           } ]
+                        } ]
+                     }
+                  }
+               }
+            },
+            "operand" : [ {
+               "name" : "quantity",
+               "operandTypeSpecifier" : {
+                  "localId" : "16",
+                  "locator" : "49:37-49:49",
+                  "name" : "{http://hl7.org/fhir}Quantity",
+                  "type" : "NamedTypeSpecifier"
+               }
+            } ]
+         }, {
+            "localId" : "198",
+            "locator" : "66:1-112:5",
+            "name" : "Prescriptions",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "type" : "FunctionDef",
+            "annotation" : [ {
+               "type" : "Annotation",
+               "s" : {
+                  "r" : "198",
+                  "s" : [ {
+                     "value" : [ "define function ","Prescriptions","(","Orders"," " ]
+                  }, {
+                     "r" : "55",
+                     "s" : [ {
+                        "value" : [ "List<" ]
+                     }, {
+                        "r" : "54",
+                        "s" : [ {
+                           "value" : [ "MedicationRequest" ]
+                        } ]
+                     }, {
+                        "value" : [ ">" ]
+                     } ]
+                  }, {
+                     "value" : [ "):\r\n  " ]
+                  }, {
+                     "r" : "197",
+                     "s" : [ {
+                        "r" : "197",
+                        "s" : [ {
+                           "s" : [ {
+                              "r" : "57",
+                              "s" : [ {
+                                 "r" : "56",
+                                 "s" : [ {
+                                    "s" : [ {
+                                       "value" : [ "Orders" ]
+                                    } ]
+                                 } ]
+                              }, {
+                                 "value" : [ " ","O" ]
+                              } ]
+                           } ]
+                        }, {
+                           "value" : [ "\r\n    " ]
+                        }, {
+                           "s" : [ {
+                              "value" : [ "let\r\n      // NOTE: Assuming medication is specified as a CodeableConcept with a single RxNorm code\r\n      " ]
+                           }, {
+                              "r" : "62",
+                              "s" : [ {
+                                 "value" : [ "rxNormCode",": " ]
+                              }, {
+                                 "r" : "61",
+                                 "s" : [ {
+                                    "r" : "58",
+                                    "s" : [ {
+                                       "value" : [ "OMTKLogic" ]
+                                    } ]
+                                 }, {
+                                    "value" : [ "." ]
+                                 }, {
+                                    "r" : "61",
+                                    "s" : [ {
+                                       "value" : [ "GetMedicationCode","(" ]
+                                    }, {
+                                       "r" : "60",
+                                       "s" : [ {
+                                          "r" : "59",
+                                          "s" : [ {
+                                             "value" : [ "O" ]
+                                          } ]
+                                       }, {
+                                          "value" : [ "." ]
+                                       }, {
+                                          "r" : "60",
+                                          "s" : [ {
+                                             "value" : [ "medication" ]
+                                          } ]
+                                       } ]
+                                    }, {
+                                       "value" : [ ")" ]
+                                    } ]
+                                 } ]
+                              } ]
+                           }, {
+                              "value" : [ ",\r\n      " ]
+                           }, {
+                              "r" : "66",
+                              "s" : [ {
+                                 "value" : [ "medicationName",": " ]
+                              }, {
+                                 "r" : "65",
+                                 "s" : [ {
+                                    "r" : "63",
+                                    "s" : [ {
+                                       "value" : [ "OMTKLogic" ]
+                                    } ]
+                                 }, {
+                                    "value" : [ "." ]
+                                 }, {
+                                    "r" : "65",
+                                    "s" : [ {
+                                       "value" : [ "GetMedicationName","(" ]
+                                    }, {
+                                       "r" : "64",
+                                       "s" : [ {
+                                          "value" : [ "rxNormCode" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ ")" ]
+                                    } ]
+                                 } ]
+                              } ]
+                           }, {
+                              "value" : [ ",\r\n      // NOTE: Assuming a single dosage instruction element\r\n      " ]
+                           }, {
+                              "r" : "71",
+                              "s" : [ {
+                                 "value" : [ "dosageInstruction",": " ]
+                              }, {
+                                 "r" : "70",
+                                 "s" : [ {
+                                    "r" : "68",
+                                    "s" : [ {
+                                       "r" : "67",
+                                       "s" : [ {
+                                          "value" : [ "O" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "." ]
+                                    }, {
+                                       "r" : "68",
+                                       "s" : [ {
+                                          "value" : [ "dosageInstruction" ]
+                                       } ]
+                                    } ]
+                                 }, {
+                                    "r" : "69",
+                                    "value" : [ "[","0","]" ]
+                                 } ]
+                              } ]
+                           }, {
+                              "value" : [ ",\r\n      // NOTE: Assuming a single dose and rate element\r\n      " ]
+                           }, {
+                              "r" : "76",
+                              "s" : [ {
+                                 "value" : [ "doseAndRate",": " ]
+                              }, {
+                                 "r" : "75",
+                                 "s" : [ {
+                                    "r" : "73",
+                                    "s" : [ {
+                                       "r" : "72",
+                                       "s" : [ {
+                                          "value" : [ "dosageInstruction" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "." ]
+                                    }, {
+                                       "r" : "73",
+                                       "s" : [ {
+                                          "value" : [ "doseAndRate" ]
+                                       } ]
+                                    } ]
+                                 }, {
+                                    "r" : "74",
+                                    "value" : [ "[","0","]" ]
+                                 } ]
+                              } ]
+                           }, {
+                              "value" : [ ",\r\n      " ]
+                           }, {
+                              "r" : "80",
+                              "s" : [ {
+                                 "value" : [ "repeat",": " ]
+                              }, {
+                                 "r" : "79",
+                                 "s" : [ {
+                                    "r" : "78",
+                                    "s" : [ {
+                                       "r" : "77",
+                                       "s" : [ {
+                                          "value" : [ "dosageInstruction" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "." ]
+                                    }, {
+                                       "r" : "78",
+                                       "s" : [ {
+                                          "value" : [ "timing" ]
+                                       } ]
+                                    } ]
+                                 }, {
+                                    "value" : [ "." ]
+                                 }, {
+                                    "r" : "79",
+                                    "s" : [ {
+                                       "value" : [ "repeat" ]
+                                    } ]
+                                 } ]
+                              } ]
+                           }, {
+                              "value" : [ ",\r\n      " ]
+                           }, {
+                              "r" : "88",
+                              "s" : [ {
+                                 "value" : [ "frequency",": " ]
+                              }, {
+                                 "r" : "87",
+                                 "s" : [ {
+                                    "value" : [ "Coalesce","(" ]
+                                 }, {
+                                    "r" : "83",
+                                    "s" : [ {
+                                       "r" : "82",
+                                       "s" : [ {
+                                          "r" : "81",
+                                          "s" : [ {
+                                             "value" : [ "repeat" ]
+                                          } ]
+                                       }, {
+                                          "value" : [ "." ]
+                                       }, {
+                                          "r" : "82",
+                                          "s" : [ {
+                                             "value" : [ "frequencyMax" ]
+                                          } ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "." ]
+                                    }, {
+                                       "r" : "83",
+                                       "s" : [ {
+                                          "value" : [ "value" ]
+                                       } ]
+                                    } ]
+                                 }, {
+                                    "value" : [ ", " ]
+                                 }, {
+                                    "r" : "86",
+                                    "s" : [ {
+                                       "r" : "85",
+                                       "s" : [ {
+                                          "r" : "84",
+                                          "s" : [ {
+                                             "value" : [ "repeat" ]
+                                          } ]
+                                       }, {
+                                          "value" : [ "." ]
+                                       }, {
+                                          "r" : "85",
+                                          "s" : [ {
+                                             "value" : [ "frequency" ]
+                                          } ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "." ]
+                                    }, {
+                                       "r" : "86",
+                                       "s" : [ {
+                                          "value" : [ "value" ]
+                                       } ]
+                                    } ]
+                                 }, {
+                                    "value" : [ ")" ]
+                                 } ]
+                              } ]
+                           }, {
+                              "value" : [ ",\r\n      " ]
+                           }, {
+                              "r" : "97",
+                              "s" : [ {
+                                 "value" : [ "period",": " ]
+                              }, {
+                                 "r" : "96",
+                                 "s" : [ {
+                                    "r" : "89",
+                                    "s" : [ {
+                                       "value" : [ "OMTKLogic" ]
+                                    } ]
+                                 }, {
+                                    "value" : [ "." ]
+                                 }, {
+                                    "r" : "96",
+                                    "s" : [ {
+                                       "value" : [ "Quantity","(" ]
+                                    }, {
+                                       "r" : "92",
+                                       "s" : [ {
+                                          "r" : "91",
+                                          "s" : [ {
+                                             "r" : "90",
+                                             "s" : [ {
+                                                "value" : [ "repeat" ]
+                                             } ]
+                                          }, {
+                                             "value" : [ "." ]
+                                          }, {
+                                             "r" : "91",
+                                             "s" : [ {
+                                                "value" : [ "period" ]
+                                             } ]
+                                          } ]
+                                       }, {
+                                          "value" : [ "." ]
+                                       }, {
+                                          "r" : "92",
+                                          "s" : [ {
+                                             "value" : [ "value" ]
+                                          } ]
+                                       } ]
+                                    }, {
+                                       "value" : [ ", " ]
+                                    }, {
+                                       "r" : "95",
+                                       "s" : [ {
+                                          "r" : "94",
+                                          "s" : [ {
+                                             "r" : "93",
+                                             "s" : [ {
+                                                "value" : [ "repeat" ]
+                                             } ]
+                                          }, {
+                                             "value" : [ "." ]
+                                          }, {
+                                             "r" : "94",
+                                             "s" : [ {
+                                                "value" : [ "periodUnit" ]
+                                             } ]
+                                          } ]
+                                       }, {
+                                          "value" : [ "." ]
+                                       }, {
+                                          "r" : "95",
+                                          "s" : [ {
+                                             "value" : [ "value" ]
+                                          } ]
+                                       } ]
+                                    }, {
+                                       "value" : [ ")" ]
+                                    } ]
+                                 } ]
+                              } ]
+                           }, {
+                              "value" : [ ",\r\n      " ]
+                           }, {
+                              "r" : "101",
+                              "s" : [ {
+                                 "value" : [ "doseRange",": " ]
+                              }, {
+                                 "r" : "100",
+                                 "s" : [ {
+                                    "value" : [ "ToFHIRRange","(" ]
+                                 }, {
+                                    "r" : "99",
+                                    "s" : [ {
+                                       "r" : "98",
+                                       "s" : [ {
+                                          "value" : [ "doseAndRate" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "." ]
+                                    }, {
+                                       "r" : "99",
+                                       "s" : [ {
+                                          "value" : [ "dose" ]
+                                       } ]
+                                    } ]
+                                 }, {
+                                    "value" : [ ")" ]
+                                 } ]
+                              } ]
+                           }, {
+                              "value" : [ ",\r\n      " ]
+                           }, {
+                              "r" : "105",
+                              "s" : [ {
+                                 "value" : [ "doseQuantity",": " ]
+                              }, {
+                                 "r" : "104",
+                                 "s" : [ {
+                                    "value" : [ "ToFHIRQuantity","(" ]
+                                 }, {
+                                    "r" : "103",
+                                    "s" : [ {
+                                       "r" : "102",
+                                       "s" : [ {
+                                          "value" : [ "doseAndRate" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "." ]
+                                    }, {
+                                       "r" : "103",
+                                       "s" : [ {
+                                          "value" : [ "dose" ]
+                                       } ]
+                                    } ]
+                                 }, {
+                                    "value" : [ ")" ]
+                                 } ]
+                              } ]
+                           }, {
+                              "value" : [ ",\r\n      " ]
+                           }, {
+                              "r" : "128",
+                              "s" : [ {
+                                 "value" : [ "doseDescription",":\r\n        " ]
+                              }, {
+                                 "r" : "127",
+                                 "s" : [ {
+                                    "value" : [ "Coalesce","(\r\n          // There should be a conversion from FHIR.SimpleQuantity to System.Quantity\r\n          " ]
+                                 }, {
+                                    "r" : "125",
+                                    "s" : [ {
+                                       "value" : [ "if " ]
+                                    }, {
+                                       "r" : "107",
+                                       "s" : [ {
+                                          "r" : "106",
+                                          "s" : [ {
+                                             "value" : [ "doseRange" ]
+                                          } ]
+                                       }, {
+                                          "value" : [ " is not null" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "\r\n            then " ]
+                                    }, {
+                                       "r" : "121",
+                                       "s" : [ {
+                                          "r" : "116",
+                                          "s" : [ {
+                                             "r" : "112",
+                                             "s" : [ {
+                                                "r" : "110",
+                                                "s" : [ {
+                                                   "value" : [ "ToString","(" ]
+                                                }, {
+                                                   "r" : "109",
+                                                   "s" : [ {
+                                                      "r" : "108",
+                                                      "s" : [ {
+                                                         "value" : [ "doseRange" ]
+                                                      } ]
+                                                   }, {
+                                                      "value" : [ "." ]
+                                                   }, {
+                                                      "r" : "109",
+                                                      "s" : [ {
+                                                         "value" : [ "low" ]
+                                                      } ]
+                                                   } ]
+                                                }, {
+                                                   "value" : [ ")" ]
+                                                } ]
+                                             }, {
+                                                "value" : [ "\r\n                + " ]
+                                             }, {
+                                                "r" : "111",
+                                                "s" : [ {
+                                                   "value" : [ "'-'" ]
+                                                } ]
+                                             } ]
+                                          }, {
+                                             "value" : [ " + " ]
+                                          }, {
+                                             "r" : "115",
+                                             "s" : [ {
+                                                "value" : [ "ToString","(" ]
+                                             }, {
+                                                "r" : "114",
+                                                "s" : [ {
+                                                   "r" : "113",
+                                                   "s" : [ {
+                                                      "value" : [ "doseRange" ]
+                                                   } ]
+                                                }, {
+                                                   "value" : [ "." ]
+                                                }, {
+                                                   "r" : "114",
+                                                   "s" : [ {
+                                                      "value" : [ "high" ]
+                                                   } ]
+                                                } ]
+                                             }, {
+                                                "value" : [ ")" ]
+                                             } ]
+                                          } ]
+                                       }, {
+                                          "value" : [ "\r\n                + " ]
+                                       }, {
+                                          "r" : "120",
+                                          "s" : [ {
+                                             "r" : "119",
+                                             "s" : [ {
+                                                "r" : "118",
+                                                "s" : [ {
+                                                   "r" : "117",
+                                                   "s" : [ {
+                                                      "value" : [ "doseRange" ]
+                                                   } ]
+                                                }, {
+                                                   "value" : [ "." ]
+                                                }, {
+                                                   "r" : "118",
+                                                   "s" : [ {
+                                                      "value" : [ "high" ]
+                                                   } ]
+                                                } ]
+                                             }, {
+                                                "value" : [ "." ]
+                                             }, {
+                                                "r" : "119",
+                                                "s" : [ {
+                                                   "value" : [ "unit" ]
+                                                } ]
+                                             } ]
+                                          }, {
+                                             "value" : [ "." ]
+                                          }, {
+                                             "r" : "120",
+                                             "s" : [ {
+                                                "value" : [ "value" ]
+                                             } ]
+                                          } ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "\r\n            else " ]
+                                    }, {
+                                       "r" : "124",
+                                       "s" : [ {
+                                          "value" : [ "ToString","(" ]
+                                       }, {
+                                          "r" : "123",
+                                          "s" : [ {
+                                             "value" : [ "ToQuantity","(" ]
+                                          }, {
+                                             "r" : "122",
+                                             "s" : [ {
+                                                "value" : [ "doseQuantity" ]
+                                             } ]
+                                          }, {
+                                             "value" : [ ")" ]
+                                          } ]
+                                       }, {
+                                          "value" : [ ")" ]
+                                       } ]
+                                    } ]
+                                 }, {
+                                    "value" : [ ",\r\n            " ]
+                                 }, {
+                                    "r" : "126",
+                                    "s" : [ {
+                                       "value" : [ "''" ]
+                                    } ]
+                                 }, {
+                                    "value" : [ "\r\n        )" ]
+                                 } ]
+                              } ]
+                           }, {
+                              "value" : [ ",\r\n      " ]
+                           }, {
+                              "r" : "146",
+                              "s" : [ {
+                                 "value" : [ "frequencyDescription",":\r\n        " ]
+                              }, {
+                                 "r" : "145",
+                                 "s" : [ {
+                                    "r" : "134",
+                                    "s" : [ {
+                                       "value" : [ "ToString","(" ]
+                                    }, {
+                                       "r" : "133",
+                                       "s" : [ {
+                                          "r" : "132",
+                                          "s" : [ {
+                                             "r" : "131",
+                                             "s" : [ {
+                                                "r" : "130",
+                                                "s" : [ {
+                                                   "r" : "129",
+                                                   "s" : [ {
+                                                      "value" : [ "dosageInstruction" ]
+                                                   } ]
+                                                }, {
+                                                   "value" : [ "." ]
+                                                }, {
+                                                   "r" : "130",
+                                                   "s" : [ {
+                                                      "value" : [ "timing" ]
+                                                   } ]
+                                                } ]
+                                             }, {
+                                                "value" : [ "." ]
+                                             }, {
+                                                "r" : "131",
+                                                "s" : [ {
+                                                   "value" : [ "repeat" ]
+                                                } ]
+                                             } ]
+                                          }, {
+                                             "value" : [ "." ]
+                                          }, {
+                                             "r" : "132",
+                                             "s" : [ {
+                                                "value" : [ "frequency" ]
+                                             } ]
+                                          } ]
+                                       }, {
+                                          "value" : [ "." ]
+                                       }, {
+                                          "r" : "133",
+                                          "s" : [ {
+                                             "value" : [ "value" ]
+                                          } ]
+                                       } ]
+                                    }, {
+                                       "value" : [ ")" ]
+                                    } ]
+                                 }, {
+                                    "value" : [ " +\r\n          " ]
+                                 }, {
+                                    "r" : "144",
+                                    "s" : [ {
+                                       "value" : [ "Coalesce","(\r\n            " ]
+                                    }, {
+                                       "r" : "142",
+                                       "s" : [ {
+                                          "r" : "135",
+                                          "s" : [ {
+                                             "value" : [ "'-'" ]
+                                          } ]
+                                       }, {
+                                          "value" : [ " + " ]
+                                       }, {
+                                          "r" : "141",
+                                          "s" : [ {
+                                             "value" : [ "ToString","(" ]
+                                          }, {
+                                             "r" : "140",
+                                             "s" : [ {
+                                                "r" : "139",
+                                                "s" : [ {
+                                                   "r" : "138",
+                                                   "s" : [ {
+                                                      "r" : "137",
+                                                      "s" : [ {
+                                                         "r" : "136",
+                                                         "s" : [ {
+                                                            "value" : [ "dosageInstruction" ]
+                                                         } ]
+                                                      }, {
+                                                         "value" : [ "." ]
+                                                      }, {
+                                                         "r" : "137",
+                                                         "s" : [ {
+                                                            "value" : [ "timing" ]
+                                                         } ]
+                                                      } ]
+                                                   }, {
+                                                      "value" : [ "." ]
+                                                   }, {
+                                                      "r" : "138",
+                                                      "s" : [ {
+                                                         "value" : [ "repeat" ]
+                                                      } ]
+                                                   } ]
+                                                }, {
+                                                   "value" : [ "." ]
+                                                }, {
+                                                   "r" : "139",
+                                                   "s" : [ {
+                                                      "value" : [ "frequencyMax" ]
+                                                   } ]
+                                                } ]
+                                             }, {
+                                                "value" : [ "." ]
+                                             }, {
+                                                "r" : "140",
+                                                "s" : [ {
+                                                   "value" : [ "value" ]
+                                                } ]
+                                             } ]
+                                          }, {
+                                             "value" : [ ")" ]
+                                          } ]
+                                       } ]
+                                    }, {
+                                       "value" : [ ",\r\n            " ]
+                                    }, {
+                                       "r" : "143",
+                                       "s" : [ {
+                                          "value" : [ "''" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "\r\n          )" ]
+                                    } ]
+                                 } ]
+                              } ]
+                           } ]
+                        }, {
+                           "value" : [ "\r\n    " ]
+                        }, {
+                           "r" : "196",
+                           "s" : [ {
+                              "value" : [ "return " ]
+                           }, {
+                              "r" : "195",
+                              "s" : [ {
+                                 "value" : [ "{\r\n      " ]
+                              }, {
+                                 "s" : [ {
+                                    "value" : [ "rxNormCode",": " ]
+                                 }, {
+                                    "r" : "147",
+                                    "s" : [ {
+                                       "value" : [ "rxNormCode" ]
+                                    } ]
+                                 } ]
+                              }, {
+                                 "value" : [ ",\r\n      " ]
+                              }, {
+                                 "s" : [ {
+                                    "value" : [ "isDraft",": " ]
+                                 }, {
+                                    "r" : "152",
+                                    "s" : [ {
+                                       "r" : "150",
+                                       "s" : [ {
+                                          "r" : "149",
+                                          "s" : [ {
+                                             "r" : "148",
+                                             "s" : [ {
+                                                "value" : [ "O" ]
+                                             } ]
+                                          }, {
+                                             "value" : [ "." ]
+                                          }, {
+                                             "r" : "149",
+                                             "s" : [ {
+                                                "value" : [ "status" ]
+                                             } ]
+                                          } ]
+                                       }, {
+                                          "value" : [ "." ]
+                                       }, {
+                                          "r" : "150",
+                                          "s" : [ {
+                                             "value" : [ "value" ]
+                                          } ]
+                                       } ]
+                                    }, {
+                                       "value" : [ " ","="," " ]
+                                    }, {
+                                       "r" : "151",
+                                       "s" : [ {
+                                          "value" : [ "'draft'" ]
+                                       } ]
+                                    } ]
+                                 } ]
+                              }, {
+                                 "value" : [ ",\r\n      // NOTE: Assuming asNeeded is expressed as a boolean\r\n      " ]
+                              }, {
+                                 "s" : [ {
+                                    "value" : [ "isPRN",": " ]
+                                 }, {
+                                    "r" : "154",
+                                    "s" : [ {
+                                       "r" : "153",
+                                       "s" : [ {
+                                          "value" : [ "dosageInstruction" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "." ]
+                                    }, {
+                                       "r" : "154",
+                                       "s" : [ {
+                                          "value" : [ "asNeeded" ]
+                                       } ]
+                                    } ]
+                                 } ]
+                              }, {
+                                 "value" : [ ",\r\n      " ]
+                              }, {
+                                 "s" : [ {
+                                    "value" : [ "prescription",":\r\n        " ]
+                                 }, {
+                                    "r" : "180",
+                                    "s" : [ {
+                                       "value" : [ "if " ]
+                                    }, {
+                                       "r" : "157",
+                                       "s" : [ {
+                                          "r" : "156",
+                                          "s" : [ {
+                                             "r" : "155",
+                                             "s" : [ {
+                                                "value" : [ "dosageInstruction" ]
+                                             } ]
+                                          }, {
+                                             "value" : [ "." ]
+                                          }, {
+                                             "r" : "156",
+                                             "s" : [ {
+                                                "value" : [ "text" ]
+                                             } ]
+                                          } ]
+                                       }, {
+                                          "value" : [ " is not null" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ " then\r\n          " ]
+                                    }, {
+                                       "r" : "164",
+                                       "s" : [ {
+                                          "r" : "160",
+                                          "s" : [ {
+                                             "r" : "158",
+                                             "s" : [ {
+                                                "value" : [ "medicationName" ]
+                                             } ]
+                                          }, {
+                                             "value" : [ " + " ]
+                                          }, {
+                                             "r" : "159",
+                                             "s" : [ {
+                                                "value" : [ "' '" ]
+                                             } ]
+                                          } ]
+                                       }, {
+                                          "value" : [ " + " ]
+                                       }, {
+                                          "r" : "163",
+                                          "s" : [ {
+                                             "r" : "162",
+                                             "s" : [ {
+                                                "r" : "161",
+                                                "s" : [ {
+                                                   "value" : [ "dosageInstruction" ]
+                                                } ]
+                                             }, {
+                                                "value" : [ "." ]
+                                             }, {
+                                                "r" : "162",
+                                                "s" : [ {
+                                                   "value" : [ "text" ]
+                                                } ]
+                                             } ]
+                                          }, {
+                                             "value" : [ "." ]
+                                          }, {
+                                             "r" : "163",
+                                             "s" : [ {
+                                                "value" : [ "value" ]
+                                             } ]
+                                          } ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "\r\n        else\r\n          // TODO: Shouldn't need the .value here on asNeededBoolean\r\n          " ]
+                                    }, {
+                                       "r" : "179",
+                                       "s" : [ {
+                                          "r" : "173",
+                                          "s" : [ {
+                                             "r" : "171",
+                                             "s" : [ {
+                                                "r" : "169",
+                                                "s" : [ {
+                                                   "r" : "167",
+                                                   "s" : [ {
+                                                      "r" : "165",
+                                                      "s" : [ {
+                                                         "value" : [ "medicationName" ]
+                                                      } ]
+                                                   }, {
+                                                      "value" : [ " + " ]
+                                                   }, {
+                                                      "r" : "166",
+                                                      "s" : [ {
+                                                         "value" : [ "' '" ]
+                                                      } ]
+                                                   } ]
+                                                }, {
+                                                   "value" : [ " + " ]
+                                                }, {
+                                                   "r" : "168",
+                                                   "s" : [ {
+                                                      "value" : [ "doseDescription" ]
+                                                   } ]
+                                                } ]
+                                             }, {
+                                                "value" : [ " + " ]
+                                             }, {
+                                                "r" : "170",
+                                                "s" : [ {
+                                                   "value" : [ "' q'" ]
+                                                } ]
+                                             } ]
+                                          }, {
+                                             "value" : [ " + " ]
+                                          }, {
+                                             "r" : "172",
+                                             "s" : [ {
+                                                "value" : [ "frequencyDescription" ]
+                                             } ]
+                                          } ]
+                                       }, {
+                                          "value" : [ " + " ]
+                                       }, {
+                                          "r" : "178",
+                                          "s" : [ {
+                                             "value" : [ "(" ]
+                                          }, {
+                                             "r" : "178",
+                                             "s" : [ {
+                                                "value" : [ "if " ]
+                                             }, {
+                                                "r" : "175",
+                                                "s" : [ {
+                                                   "r" : "174",
+                                                   "s" : [ {
+                                                      "value" : [ "dosageInstruction" ]
+                                                   } ]
+                                                }, {
+                                                   "value" : [ "." ]
+                                                }, {
+                                                   "r" : "175",
+                                                   "s" : [ {
+                                                      "value" : [ "asNeeded" ]
+                                                   } ]
+                                                } ]
+                                             }, {
+                                                "value" : [ " then " ]
+                                             }, {
+                                                "r" : "176",
+                                                "s" : [ {
+                                                   "value" : [ "' PRN'" ]
+                                                } ]
+                                             }, {
+                                                "value" : [ " else " ]
+                                             }, {
+                                                "r" : "177",
+                                                "s" : [ {
+                                                   "value" : [ "''" ]
+                                                } ]
+                                             } ]
+                                          }, {
+                                             "value" : [ ")" ]
+                                          } ]
+                                       } ]
+                                    } ]
+                                 } ]
+                              }, {
+                                 "value" : [ ",\r\n      " ]
+                              }, {
+                                 "s" : [ {
+                                    "value" : [ "dose",": " ]
+                                 }, {
+                                    "r" : "188",
+                                    "s" : [ {
+                                       "value" : [ "if " ]
+                                    }, {
+                                       "r" : "182",
+                                       "s" : [ {
+                                          "r" : "181",
+                                          "s" : [ {
+                                             "value" : [ "doseRange" ]
+                                          } ]
+                                       }, {
+                                          "value" : [ " is not null" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "\r\n            then " ]
+                                    }, {
+                                       "r" : "185",
+                                       "s" : [ {
+                                          "value" : [ "ToQuantity","(" ]
+                                       }, {
+                                          "r" : "184",
+                                          "s" : [ {
+                                             "r" : "183",
+                                             "s" : [ {
+                                                "value" : [ "doseRange" ]
+                                             } ]
+                                          }, {
+                                             "value" : [ "." ]
+                                          }, {
+                                             "r" : "184",
+                                             "s" : [ {
+                                                "value" : [ "high" ]
+                                             } ]
+                                          } ]
+                                       }, {
+                                          "value" : [ ")" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "\r\n            else " ]
+                                    }, {
+                                       "r" : "187",
+                                       "s" : [ {
+                                          "value" : [ "ToQuantity","(" ]
+                                       }, {
+                                          "r" : "186",
+                                          "s" : [ {
+                                             "value" : [ "doseQuantity" ]
+                                          } ]
+                                       }, {
+                                          "value" : [ ")" ]
+                                       } ]
+                                    } ]
+                                 } ]
+                              }, {
+                                 "value" : [ ",\r\n      " ]
+                              }, {
+                                 "s" : [ {
+                                    "value" : [ "dosesPerDay",": " ]
+                                 }, {
+                                    "r" : "194",
+                                    "s" : [ {
+                                       "value" : [ "Coalesce","(" ]
+                                    }, {
+                                       "r" : "192",
+                                       "s" : [ {
+                                          "r" : "189",
+                                          "s" : [ {
+                                             "value" : [ "OMTKLogic" ]
+                                          } ]
+                                       }, {
+                                          "value" : [ "." ]
+                                       }, {
+                                          "r" : "192",
+                                          "s" : [ {
+                                             "value" : [ "ToDaily","(" ]
+                                          }, {
+                                             "r" : "190",
+                                             "s" : [ {
+                                                "value" : [ "frequency" ]
+                                             } ]
+                                          }, {
+                                             "value" : [ ", " ]
+                                          }, {
+                                             "r" : "191",
+                                             "s" : [ {
+                                                "value" : [ "period" ]
+                                             } ]
+                                          }, {
+                                             "value" : [ ")" ]
+                                          } ]
+                                       } ]
+                                    }, {
+                                       "r" : "193",
+                                       "value" : [ ", ","1.0",")" ]
+                                    } ]
+                                 } ]
+                              }, {
+                                 "value" : [ "\r\n    }" ]
+                              } ]
+                           } ]
+                        } ]
+                     } ]
+                  } ]
+               }
+            } ],
+            "expression" : {
+               "localId" : "197",
+               "locator" : "67:3-112:5",
+               "type" : "Query",
+               "source" : [ {
+                  "localId" : "57",
+                  "locator" : "67:3-67:10",
+                  "alias" : "O",
+                  "expression" : {
+                     "localId" : "56",
+                     "locator" : "67:3-67:8",
+                     "name" : "Orders",
+                     "type" : "OperandRef"
+                  }
+               } ],
+               "let" : [ {
+                  "localId" : "62",
+                  "locator" : "70:7-70:59",
+                  "identifier" : "rxNormCode",
+                  "expression" : {
+                     "localId" : "61",
+                     "locator" : "70:19-70:59",
+                     "name" : "GetMedicationCode",
+                     "libraryName" : "OMTKLogic",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "name" : "ToConcept",
+                        "libraryName" : "FHIRHelpers",
+                        "type" : "FunctionRef",
+                        "operand" : [ {
+                           "asType" : "{http://hl7.org/fhir}CodeableConcept",
+                           "type" : "As",
+                           "operand" : {
+                              "localId" : "60",
+                              "locator" : "70:47-70:58",
+                              "path" : "medication",
+                              "scope" : "O",
+                              "type" : "Property"
+                           }
+                        } ]
+                     } ]
+                  }
+               }, {
+                  "localId" : "66",
+                  "locator" : "71:7-71:61",
+                  "identifier" : "medicationName",
+                  "expression" : {
+                     "localId" : "65",
+                     "locator" : "71:23-71:61",
+                     "name" : "GetMedicationName",
+                     "libraryName" : "OMTKLogic",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "localId" : "64",
+                        "locator" : "71:51-71:60",
+                        "name" : "rxNormCode",
+                        "type" : "QueryLetRef"
+                     } ]
+                  }
+               }, {
+                  "localId" : "71",
+                  "locator" : "73:7-73:47",
+                  "identifier" : "dosageInstruction",
+                  "expression" : {
+                     "localId" : "70",
+                     "locator" : "73:26-73:47",
+                     "type" : "Indexer",
+                     "operand" : [ {
+                        "localId" : "68",
+                        "locator" : "73:26-73:44",
+                        "path" : "dosageInstruction",
+                        "scope" : "O",
+                        "type" : "Property"
+                     }, {
+                        "localId" : "69",
+                        "locator" : "73:46",
+                        "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                        "value" : "0",
+                        "type" : "Literal"
+                     } ]
+                  }
+               }, {
+                  "localId" : "76",
+                  "locator" : "75:7-75:51",
+                  "identifier" : "doseAndRate",
+                  "expression" : {
+                     "localId" : "75",
+                     "locator" : "75:20-75:51",
+                     "type" : "Indexer",
+                     "operand" : [ {
+                        "localId" : "73",
+                        "locator" : "75:20-75:48",
+                        "path" : "doseAndRate",
+                        "type" : "Property",
+                        "source" : {
+                           "localId" : "72",
+                           "locator" : "75:20-75:36",
+                           "name" : "dosageInstruction",
+                           "type" : "QueryLetRef"
+                        }
+                     }, {
+                        "localId" : "74",
+                        "locator" : "75:50",
+                        "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                        "value" : "0",
+                        "type" : "Literal"
+                     } ]
+                  }
+               }, {
+                  "localId" : "80",
+                  "locator" : "76:7-76:45",
+                  "identifier" : "repeat",
+                  "expression" : {
+                     "localId" : "79",
+                     "locator" : "76:15-76:45",
+                     "path" : "repeat",
+                     "type" : "Property",
+                     "source" : {
+                        "localId" : "78",
+                        "locator" : "76:15-76:38",
+                        "path" : "timing",
+                        "type" : "Property",
+                        "source" : {
+                           "localId" : "77",
+                           "locator" : "76:15-76:31",
+                           "name" : "dosageInstruction",
+                           "type" : "QueryLetRef"
+                        }
+                     }
+                  }
+               }, {
+                  "localId" : "88",
+                  "locator" : "77:7-77:76",
+                  "identifier" : "frequency",
+                  "expression" : {
+                     "localId" : "87",
+                     "locator" : "77:18-77:76",
+                     "type" : "Coalesce",
+                     "operand" : [ {
+                        "localId" : "83",
+                        "locator" : "77:27-77:51",
+                        "path" : "value",
+                        "type" : "Property",
+                        "source" : {
+                           "localId" : "82",
+                           "locator" : "77:27-77:45",
+                           "path" : "frequencyMax",
+                           "type" : "Property",
+                           "source" : {
+                              "localId" : "81",
+                              "locator" : "77:27-77:32",
+                              "name" : "repeat",
+                              "type" : "QueryLetRef"
+                           }
+                        }
+                     }, {
+                        "localId" : "86",
+                        "locator" : "77:54-77:75",
+                        "path" : "value",
+                        "type" : "Property",
+                        "source" : {
+                           "localId" : "85",
+                           "locator" : "77:54-77:69",
+                           "path" : "frequency",
+                           "type" : "Property",
+                           "source" : {
+                              "localId" : "84",
+                              "locator" : "77:54-77:59",
+                              "name" : "repeat",
+                              "type" : "QueryLetRef"
+                           }
+                        }
+                     } ]
+                  }
+               }, {
+                  "localId" : "97",
+                  "locator" : "78:7-78:78",
+                  "identifier" : "period",
+                  "expression" : {
+                     "localId" : "96",
+                     "locator" : "78:15-78:78",
+                     "name" : "Quantity",
+                     "libraryName" : "OMTKLogic",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "localId" : "92",
+                        "locator" : "78:34-78:52",
+                        "path" : "value",
+                        "type" : "Property",
+                        "source" : {
+                           "localId" : "91",
+                           "locator" : "78:34-78:46",
+                           "path" : "period",
+                           "type" : "Property",
+                           "source" : {
+                              "localId" : "90",
+                              "locator" : "78:34-78:39",
+                              "name" : "repeat",
+                              "type" : "QueryLetRef"
+                           }
+                        }
+                     }, {
+                        "localId" : "95",
+                        "locator" : "78:55-78:77",
+                        "path" : "value",
+                        "type" : "Property",
+                        "source" : {
+                           "localId" : "94",
+                           "locator" : "78:55-78:71",
+                           "path" : "periodUnit",
+                           "type" : "Property",
+                           "source" : {
+                              "localId" : "93",
+                              "locator" : "78:55-78:60",
+                              "name" : "repeat",
+                              "type" : "QueryLetRef"
+                           }
+                        }
+                     } ]
+                  }
+               }, {
+                  "localId" : "101",
+                  "locator" : "79:7-79:46",
+                  "identifier" : "doseRange",
+                  "expression" : {
+                     "localId" : "100",
+                     "locator" : "79:18-79:46",
+                     "name" : "ToFHIRRange",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "asType" : "{http://hl7.org/fhir}Range",
+                        "type" : "As",
+                        "operand" : {
+                           "localId" : "99",
+                           "locator" : "79:30-79:45",
+                           "path" : "dose",
+                           "type" : "Property",
+                           "source" : {
+                              "localId" : "98",
+                              "locator" : "79:30-79:40",
+                              "name" : "doseAndRate",
+                              "type" : "QueryLetRef"
+                           }
+                        }
+                     } ]
+                  }
+               }, {
+                  "localId" : "105",
+                  "locator" : "80:7-80:52",
+                  "identifier" : "doseQuantity",
+                  "expression" : {
+                     "localId" : "104",
+                     "locator" : "80:21-80:52",
+                     "name" : "ToFHIRQuantity",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "asType" : "{http://hl7.org/fhir}Quantity",
+                        "type" : "As",
+                        "operand" : {
+                           "localId" : "103",
+                           "locator" : "80:36-80:51",
+                           "path" : "dose",
+                           "type" : "Property",
+                           "source" : {
+                              "localId" : "102",
+                              "locator" : "80:36-80:46",
+                              "name" : "doseAndRate",
+                              "type" : "QueryLetRef"
+                           }
+                        }
+                     } ]
+                  }
+               }, {
+                  "localId" : "128",
+                  "locator" : "81:7-90:9",
+                  "identifier" : "doseDescription",
+                  "expression" : {
+                     "localId" : "127",
+                     "locator" : "82:9-90:9",
+                     "type" : "Coalesce",
+                     "operand" : [ {
+                        "localId" : "125",
+                        "locator" : "84:11-88:51",
+                        "type" : "If",
+                        "condition" : {
+                           "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                           "type" : "As",
+                           "operand" : {
+                              "localId" : "107",
+                              "locator" : "84:14-84:34",
+                              "type" : "Not",
+                              "operand" : {
+                                 "locator" : "84:14-84:34",
+                                 "type" : "IsNull",
+                                 "operand" : {
+                                    "localId" : "106",
+                                    "locator" : "84:14-84:22",
+                                    "name" : "doseRange",
+                                    "type" : "QueryLetRef"
+                                 }
+                              }
+                           }
+                        },
+                        "then" : {
+                           "localId" : "121",
+                           "locator" : "85:18-87:43",
+                           "type" : "Concatenate",
+                           "operand" : [ {
+                              "localId" : "116",
+                              "locator" : "85:18-86:48",
+                              "type" : "Concatenate",
+                              "operand" : [ {
+                                 "localId" : "112",
+                                 "locator" : "85:18-86:21",
+                                 "type" : "Concatenate",
+                                 "operand" : [ {
+                                    "localId" : "110",
+                                    "locator" : "85:18-85:40",
+                                    "type" : "ToString",
+                                    "operand" : {
+                                       "name" : "ToQuantity",
+                                       "libraryName" : "FHIRHelpers",
+                                       "type" : "FunctionRef",
+                                       "operand" : [ {
+                                          "localId" : "109",
+                                          "locator" : "85:27-85:39",
+                                          "path" : "low",
+                                          "type" : "Property",
+                                          "source" : {
+                                             "localId" : "108",
+                                             "locator" : "85:27-85:35",
+                                             "name" : "doseRange",
+                                             "type" : "QueryLetRef"
+                                          }
+                                       } ]
+                                    }
+                                 }, {
+                                    "localId" : "111",
+                                    "locator" : "86:19-86:21",
+                                    "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                                    "value" : "-",
+                                    "type" : "Literal"
+                                 } ]
+                              }, {
+                                 "localId" : "115",
+                                 "locator" : "86:25-86:48",
+                                 "type" : "ToString",
+                                 "operand" : {
+                                    "name" : "ToQuantity",
+                                    "libraryName" : "FHIRHelpers",
+                                    "type" : "FunctionRef",
+                                    "operand" : [ {
+                                       "localId" : "114",
+                                       "locator" : "86:34-86:47",
+                                       "path" : "high",
+                                       "type" : "Property",
+                                       "source" : {
+                                          "localId" : "113",
+                                          "locator" : "86:34-86:42",
+                                          "name" : "doseRange",
+                                          "type" : "QueryLetRef"
+                                       }
+                                    } ]
+                                 }
+                              } ]
+                           }, {
+                              "localId" : "120",
+                              "locator" : "87:19-87:43",
+                              "path" : "value",
+                              "type" : "Property",
+                              "source" : {
+                                 "localId" : "119",
+                                 "locator" : "87:19-87:37",
+                                 "path" : "unit",
+                                 "type" : "Property",
+                                 "source" : {
+                                    "localId" : "118",
+                                    "locator" : "87:19-87:32",
+                                    "path" : "high",
+                                    "type" : "Property",
+                                    "source" : {
+                                       "localId" : "117",
+                                       "locator" : "87:19-87:27",
+                                       "name" : "doseRange",
+                                       "type" : "QueryLetRef"
+                                    }
+                                 }
+                              }
+                           } ]
+                        },
+                        "else" : {
+                           "localId" : "124",
+                           "locator" : "88:18-88:51",
+                           "type" : "ToString",
+                           "operand" : {
+                              "localId" : "123",
+                              "locator" : "88:27-88:50",
+                              "name" : "ToQuantity",
+                              "type" : "FunctionRef",
+                              "operand" : [ {
+                                 "localId" : "122",
+                                 "locator" : "88:38-88:49",
+                                 "name" : "doseQuantity",
+                                 "type" : "QueryLetRef"
+                              } ]
+                           }
+                        }
+                     }, {
+                        "localId" : "126",
+                        "locator" : "89:13-89:14",
+                        "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                        "value" : "",
+                        "type" : "Literal"
+                     } ]
+                  }
+               }, {
+                  "localId" : "146",
+                  "locator" : "91:7-96:11",
+                  "identifier" : "frequencyDescription",
+                  "expression" : {
+                     "localId" : "145",
+                     "locator" : "92:9-96:11",
+                     "type" : "Concatenate",
+                     "operand" : [ {
+                        "localId" : "134",
+                        "locator" : "92:9-92:65",
+                        "type" : "ToString",
+                        "operand" : {
+                           "localId" : "133",
+                           "locator" : "92:18-92:64",
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "localId" : "132",
+                              "locator" : "92:18-92:58",
+                              "path" : "frequency",
+                              "type" : "Property",
+                              "source" : {
+                                 "localId" : "131",
+                                 "locator" : "92:18-92:48",
+                                 "path" : "repeat",
+                                 "type" : "Property",
+                                 "source" : {
+                                    "localId" : "130",
+                                    "locator" : "92:18-92:41",
+                                    "path" : "timing",
+                                    "type" : "Property",
+                                    "source" : {
+                                       "localId" : "129",
+                                       "locator" : "92:18-92:34",
+                                       "name" : "dosageInstruction",
+                                       "type" : "QueryLetRef"
+                                    }
+                                 }
+                              }
+                           }
+                        }
+                     }, {
+                        "localId" : "144",
+                        "locator" : "93:11-96:11",
+                        "type" : "Coalesce",
+                        "operand" : [ {
+                           "localId" : "142",
+                           "locator" : "94:13-94:78",
+                           "type" : "Concatenate",
+                           "operand" : [ {
+                              "localId" : "135",
+                              "locator" : "94:13-94:15",
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "-",
+                              "type" : "Literal"
+                           }, {
+                              "localId" : "141",
+                              "locator" : "94:19-94:78",
+                              "type" : "ToString",
+                              "operand" : {
+                                 "localId" : "140",
+                                 "locator" : "94:28-94:77",
+                                 "path" : "value",
+                                 "type" : "Property",
+                                 "source" : {
+                                    "localId" : "139",
+                                    "locator" : "94:28-94:71",
+                                    "path" : "frequencyMax",
+                                    "type" : "Property",
+                                    "source" : {
+                                       "localId" : "138",
+                                       "locator" : "94:28-94:58",
+                                       "path" : "repeat",
+                                       "type" : "Property",
+                                       "source" : {
+                                          "localId" : "137",
+                                          "locator" : "94:28-94:51",
+                                          "path" : "timing",
+                                          "type" : "Property",
+                                          "source" : {
+                                             "localId" : "136",
+                                             "locator" : "94:28-94:44",
+                                             "name" : "dosageInstruction",
+                                             "type" : "QueryLetRef"
+                                          }
+                                       }
+                                    }
+                                 }
+                              }
+                           } ]
+                        }, {
+                           "localId" : "143",
+                           "locator" : "95:13-95:14",
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "",
+                           "type" : "Literal"
+                        } ]
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "localId" : "196",
+                  "locator" : "97:5-112:5",
+                  "expression" : {
+                     "localId" : "195",
+                     "locator" : "97:12-112:5",
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "rxNormCode",
+                        "value" : {
+                           "localId" : "147",
+                           "locator" : "98:19-98:28",
+                           "name" : "rxNormCode",
+                           "type" : "QueryLetRef"
+                        }
+                     }, {
+                        "name" : "isDraft",
+                        "value" : {
+                           "localId" : "152",
+                           "locator" : "99:16-99:39",
+                           "type" : "Equal",
+                           "operand" : [ {
+                              "localId" : "150",
+                              "locator" : "99:16-99:29",
+                              "path" : "value",
+                              "type" : "Property",
+                              "source" : {
+                                 "localId" : "149",
+                                 "locator" : "99:16-99:23",
+                                 "path" : "status",
+                                 "scope" : "O",
+                                 "type" : "Property"
+                              }
+                           }, {
+                              "localId" : "151",
+                              "locator" : "99:33-99:39",
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "draft",
+                              "type" : "Literal"
+                           } ]
+                        }
+                     }, {
+                        "name" : "isPRN",
+                        "value" : {
+                           "localId" : "154",
+                           "locator" : "101:14-101:39",
+                           "path" : "asNeeded",
+                           "type" : "Property",
+                           "source" : {
+                              "localId" : "153",
+                              "locator" : "101:14-101:30",
+                              "name" : "dosageInstruction",
+                              "type" : "QueryLetRef"
+                           }
+                        }
+                     }, {
+                        "name" : "prescription",
+                        "value" : {
+                           "localId" : "180",
+                           "locator" : "103:9-107:132",
+                           "type" : "If",
+                           "condition" : {
+                              "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                              "type" : "As",
+                              "operand" : {
+                                 "localId" : "157",
+                                 "locator" : "103:12-103:45",
+                                 "type" : "Not",
+                                 "operand" : {
+                                    "locator" : "103:12-103:45",
+                                    "type" : "IsNull",
+                                    "operand" : {
+                                       "localId" : "156",
+                                       "locator" : "103:12-103:33",
+                                       "path" : "text",
+                                       "type" : "Property",
+                                       "source" : {
+                                          "localId" : "155",
+                                          "locator" : "103:12-103:28",
+                                          "name" : "dosageInstruction",
+                                          "type" : "QueryLetRef"
+                                       }
+                                    }
+                                 }
+                              }
+                           },
+                           "then" : {
+                              "localId" : "164",
+                              "locator" : "104:11-104:61",
+                              "type" : "Concatenate",
+                              "operand" : [ {
+                                 "localId" : "160",
+                                 "locator" : "104:11-104:30",
+                                 "type" : "Concatenate",
+                                 "operand" : [ {
+                                    "localId" : "158",
+                                    "locator" : "104:11-104:24",
+                                    "name" : "medicationName",
+                                    "type" : "QueryLetRef"
+                                 }, {
+                                    "localId" : "159",
+                                    "locator" : "104:28-104:30",
+                                    "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                                    "value" : " ",
+                                    "type" : "Literal"
+                                 } ]
+                              }, {
+                                 "localId" : "163",
+                                 "locator" : "104:34-104:61",
+                                 "path" : "value",
+                                 "type" : "Property",
+                                 "source" : {
+                                    "localId" : "162",
+                                    "locator" : "104:34-104:55",
+                                    "path" : "text",
+                                    "type" : "Property",
+                                    "source" : {
+                                       "localId" : "161",
+                                       "locator" : "104:34-104:50",
+                                       "name" : "dosageInstruction",
+                                       "type" : "QueryLetRef"
+                                    }
+                                 }
+                              } ]
+                           },
+                           "else" : {
+                              "localId" : "179",
+                              "locator" : "107:11-107:132",
+                              "type" : "Concatenate",
+                              "operand" : [ {
+                                 "localId" : "173",
+                                 "locator" : "107:11-107:78",
+                                 "type" : "Concatenate",
+                                 "operand" : [ {
+                                    "localId" : "171",
+                                    "locator" : "107:11-107:55",
+                                    "type" : "Concatenate",
+                                    "operand" : [ {
+                                       "localId" : "169",
+                                       "locator" : "107:11-107:48",
+                                       "type" : "Concatenate",
+                                       "operand" : [ {
+                                          "localId" : "167",
+                                          "locator" : "107:11-107:30",
+                                          "type" : "Concatenate",
+                                          "operand" : [ {
+                                             "localId" : "165",
+                                             "locator" : "107:11-107:24",
+                                             "name" : "medicationName",
+                                             "type" : "QueryLetRef"
+                                          }, {
+                                             "localId" : "166",
+                                             "locator" : "107:28-107:30",
+                                             "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                                             "value" : " ",
+                                             "type" : "Literal"
+                                          } ]
+                                       }, {
+                                          "localId" : "168",
+                                          "locator" : "107:34-107:48",
+                                          "name" : "doseDescription",
+                                          "type" : "QueryLetRef"
+                                       } ]
+                                    }, {
+                                       "localId" : "170",
+                                       "locator" : "107:52-107:55",
+                                       "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                                       "value" : " q",
+                                       "type" : "Literal"
+                                    } ]
+                                 }, {
+                                    "localId" : "172",
+                                    "locator" : "107:59-107:78",
+                                    "name" : "frequencyDescription",
+                                    "type" : "QueryLetRef"
+                                 } ]
+                              }, {
+                                 "localId" : "178",
+                                 "locator" : "107:82-107:132",
+                                 "type" : "If",
+                                 "condition" : {
+                                    "name" : "ToBoolean",
+                                    "libraryName" : "FHIRHelpers",
+                                    "type" : "FunctionRef",
+                                    "operand" : [ {
+                                       "asType" : "{http://hl7.org/fhir}boolean",
+                                       "type" : "As",
+                                       "operand" : {
+                                          "localId" : "175",
+                                          "locator" : "107:86-107:111",
+                                          "path" : "asNeeded",
+                                          "type" : "Property",
+                                          "source" : {
+                                             "localId" : "174",
+                                             "locator" : "107:86-107:102",
+                                             "name" : "dosageInstruction",
+                                             "type" : "QueryLetRef"
+                                          }
+                                       }
+                                    } ]
+                                 },
+                                 "then" : {
+                                    "localId" : "176",
+                                    "locator" : "107:118-107:123",
+                                    "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                                    "value" : " PRN",
+                                    "type" : "Literal"
+                                 },
+                                 "else" : {
+                                    "localId" : "177",
+                                    "locator" : "107:130-107:131",
+                                    "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                                    "value" : "",
+                                    "type" : "Literal"
+                                 }
+                              } ]
+                           }
+                        }
+                     }, {
+                        "name" : "dose",
+                        "value" : {
+                           "localId" : "188",
+                           "locator" : "108:13-110:41",
+                           "type" : "If",
+                           "condition" : {
+                              "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                              "type" : "As",
+                              "operand" : {
+                                 "localId" : "182",
+                                 "locator" : "108:16-108:36",
+                                 "type" : "Not",
+                                 "operand" : {
+                                    "locator" : "108:16-108:36",
+                                    "type" : "IsNull",
+                                    "operand" : {
+                                       "localId" : "181",
+                                       "locator" : "108:16-108:24",
+                                       "name" : "doseRange",
+                                       "type" : "QueryLetRef"
+                                    }
+                                 }
+                              }
+                           },
+                           "then" : {
+                              "localId" : "185",
+                              "locator" : "109:18-109:43",
+                              "name" : "ToQuantity",
+                              "type" : "FunctionRef",
+                              "operand" : [ {
+                                 "localId" : "184",
+                                 "locator" : "109:29-109:42",
+                                 "path" : "high",
+                                 "type" : "Property",
+                                 "source" : {
+                                    "localId" : "183",
+                                    "locator" : "109:29-109:37",
+                                    "name" : "doseRange",
+                                    "type" : "QueryLetRef"
+                                 }
+                              } ]
+                           },
+                           "else" : {
+                              "localId" : "187",
+                              "locator" : "110:18-110:41",
+                              "name" : "ToQuantity",
+                              "type" : "FunctionRef",
+                              "operand" : [ {
+                                 "localId" : "186",
+                                 "locator" : "110:29-110:40",
+                                 "name" : "doseQuantity",
+                                 "type" : "QueryLetRef"
+                              } ]
+                           }
+                        }
+                     }, {
+                        "name" : "dosesPerDay",
+                        "value" : {
+                           "localId" : "194",
+                           "locator" : "111:20-111:70",
+                           "type" : "Coalesce",
+                           "operand" : [ {
+                              "localId" : "192",
+                              "locator" : "111:29-111:64",
+                              "name" : "ToDaily",
+                              "libraryName" : "OMTKLogic",
+                              "type" : "FunctionRef",
+                              "operand" : [ {
+                                 "localId" : "190",
+                                 "locator" : "111:47-111:55",
+                                 "name" : "frequency",
+                                 "type" : "QueryLetRef"
+                              }, {
+                                 "localId" : "191",
+                                 "locator" : "111:58-111:63",
+                                 "name" : "period",
+                                 "type" : "QueryLetRef"
+                              } ]
+                           }, {
+                              "localId" : "193",
+                              "locator" : "111:67-111:69",
+                              "valueType" : "{urn:hl7-org:elm-types:r1}Decimal",
+                              "value" : "1.0",
+                              "type" : "Literal"
+                           } ]
+                        }
+                     } ]
+                  }
+               }
+            },
+            "operand" : [ {
+               "name" : "Orders",
+               "operandTypeSpecifier" : {
+                  "localId" : "55",
+                  "locator" : "66:38-66:60",
+                  "type" : "ListTypeSpecifier",
+                  "elementType" : {
+                     "localId" : "54",
+                     "locator" : "66:43-66:59",
+                     "name" : "{http://hl7.org/fhir}MedicationRequest",
+                     "type" : "NamedTypeSpecifier"
+                  }
+               }
+            } ]
+         }, {
+            "localId" : "241",
+            "locator" : "119:1-129:5",
+            "name" : "MME",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "type" : "FunctionDef",
+            "annotation" : [ {
+               "type" : "Annotation",
+               "s" : {
+                  "r" : "241",
+                  "s" : [ {
+                     "value" : [ "define function ","MME","(","prescriptions"," " ]
+                  }, {
+                     "r" : "200",
+                     "s" : [ {
+                        "value" : [ "List<" ]
+                     }, {
+                        "r" : "199",
+                        "s" : [ {
+                           "value" : [ "MedicationRequest" ]
+                        } ]
+                     }, {
+                        "value" : [ ">" ]
+                     } ]
+                  }, {
+                     "value" : [ "):\r\n  " ]
+                  }, {
+                     "r" : "240",
+                     "s" : [ {
+                        "r" : "240",
+                        "s" : [ {
+                           "s" : [ {
+                              "r" : "203",
+                              "s" : [ {
+                                 "r" : "202",
+                                 "s" : [ {
+                                    "value" : [ "(" ]
+                                 }, {
+                                    "r" : "202",
+                                    "s" : [ {
+                                       "value" : [ "Prescriptions","(" ]
+                                    }, {
+                                       "r" : "201",
+                                       "s" : [ {
+                                          "value" : [ "prescriptions" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ ")" ]
+                                    } ]
+                                 }, {
+                                    "value" : [ ")" ]
+                                 } ]
+                              }, {
+                                 "value" : [ " ","P" ]
+                              } ]
+                           } ]
+                        }, {
+                           "value" : [ "\r\n    " ]
+                        }, {
+                           "s" : [ {
+                              "value" : [ "let " ]
+                           }, {
+                              "r" : "214",
+                              "s" : [ {
+                                 "value" : [ "mmePerIngredient",": " ]
+                              }, {
+                                 "r" : "213",
+                                 "s" : [ {
+                                    "r" : "204",
+                                    "s" : [ {
+                                       "value" : [ "OMTKLogic" ]
+                                    } ]
+                                 }, {
+                                    "value" : [ "." ]
+                                 }, {
+                                    "r" : "213",
+                                    "s" : [ {
+                                       "value" : [ "CalculateMMEs","(" ]
+                                    }, {
+                                       "r" : "212",
+                                       "s" : [ {
+                                          "value" : [ "{ " ]
+                                       }, {
+                                          "r" : "211",
+                                          "s" : [ {
+                                             "value" : [ "{ " ]
+                                          }, {
+                                             "s" : [ {
+                                                "value" : [ "rxNormCode",": " ]
+                                             }, {
+                                                "r" : "206",
+                                                "s" : [ {
+                                                   "r" : "205",
+                                                   "s" : [ {
+                                                      "value" : [ "P" ]
+                                                   } ]
+                                                }, {
+                                                   "value" : [ "." ]
+                                                }, {
+                                                   "r" : "206",
+                                                   "s" : [ {
+                                                      "value" : [ "rxNormCode" ]
+                                                   } ]
+                                                } ]
+                                             } ]
+                                          }, {
+                                             "value" : [ ", " ]
+                                          }, {
+                                             "s" : [ {
+                                                "value" : [ "doseQuantity",": " ]
+                                             }, {
+                                                "r" : "208",
+                                                "s" : [ {
+                                                   "r" : "207",
+                                                   "s" : [ {
+                                                      "value" : [ "P" ]
+                                                   } ]
+                                                }, {
+                                                   "value" : [ "." ]
+                                                }, {
+                                                   "r" : "208",
+                                                   "s" : [ {
+                                                      "value" : [ "dose" ]
+                                                   } ]
+                                                } ]
+                                             } ]
+                                          }, {
+                                             "value" : [ ", " ]
+                                          }, {
+                                             "s" : [ {
+                                                "value" : [ "dosesPerDay",": " ]
+                                             }, {
+                                                "r" : "210",
+                                                "s" : [ {
+                                                   "r" : "209",
+                                                   "s" : [ {
+                                                      "value" : [ "P" ]
+                                                   } ]
+                                                }, {
+                                                   "value" : [ "." ]
+                                                }, {
+                                                   "r" : "210",
+                                                   "s" : [ {
+                                                      "value" : [ "dosesPerDay" ]
+                                                   } ]
+                                                } ]
+                                             } ]
+                                          }, {
+                                             "value" : [ " }" ]
+                                          } ]
+                                       }, {
+                                          "value" : [ " }" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ ")" ]
+                                    } ]
+                                 } ]
+                              } ]
+                           } ]
+                        }, {
+                           "value" : [ "\r\n    " ]
+                        }, {
+                           "r" : "239",
+                           "s" : [ {
+                              "value" : [ "return " ]
+                           }, {
+                              "r" : "238",
+                              "s" : [ {
+                                 "value" : [ "{\r\n      " ]
+                              }, {
+                                 "s" : [ {
+                                    "value" : [ "rxNormCode",": " ]
+                                 }, {
+                                    "r" : "216",
+                                    "s" : [ {
+                                       "r" : "215",
+                                       "s" : [ {
+                                          "value" : [ "P" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "." ]
+                                    }, {
+                                       "r" : "216",
+                                       "s" : [ {
+                                          "value" : [ "rxNormCode" ]
+                                       } ]
+                                    } ]
+                                 } ]
+                              }, {
+                                 "value" : [ ",\r\n      " ]
+                              }, {
+                                 "s" : [ {
+                                    "value" : [ "isDraft",": " ]
+                                 }, {
+                                    "r" : "218",
+                                    "s" : [ {
+                                       "r" : "217",
+                                       "s" : [ {
+                                          "value" : [ "P" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "." ]
+                                    }, {
+                                       "r" : "218",
+                                       "s" : [ {
+                                          "value" : [ "isDraft" ]
+                                       } ]
+                                    } ]
+                                 } ]
+                              }, {
+                                 "value" : [ ",\r\n      " ]
+                              }, {
+                                 "s" : [ {
+                                    "value" : [ "isPRN",": " ]
+                                 }, {
+                                    "r" : "220",
+                                    "s" : [ {
+                                       "r" : "219",
+                                       "s" : [ {
+                                          "value" : [ "P" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "." ]
+                                    }, {
+                                       "r" : "220",
+                                       "s" : [ {
+                                          "value" : [ "isPRN" ]
+                                       } ]
+                                    } ]
+                                 } ]
+                              }, {
+                                 "value" : [ ",\r\n      " ]
+                              }, {
+                                 "s" : [ {
+                                    "value" : [ "prescription",": " ]
+                                 }, {
+                                    "r" : "222",
+                                    "s" : [ {
+                                       "r" : "221",
+                                       "s" : [ {
+                                          "value" : [ "P" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ "." ]
+                                    }, {
+                                       "r" : "222",
+                                       "s" : [ {
+                                          "value" : [ "prescription" ]
+                                       } ]
+                                    } ]
+                                 } ]
+                              }, {
+                                 "value" : [ ",\r\n      " ]
+                              }, {
+                                 "s" : [ {
+                                    "value" : [ "dailyDose",": " ]
+                                 }, {
+                                    "r" : "230",
+                                    "s" : [ {
+                                       "value" : [ "Combine","(" ]
+                                    }, {
+                                       "r" : "228",
+                                       "s" : [ {
+                                          "s" : [ {
+                                             "r" : "224",
+                                             "s" : [ {
+                                                "r" : "223",
+                                                "s" : [ {
+                                                   "s" : [ {
+                                                      "value" : [ "mmePerIngredient" ]
+                                                   } ]
+                                                } ]
+                                             }, {
+                                                "value" : [ " ","X" ]
+                                             } ]
+                                          } ]
+                                       }, {
+                                          "value" : [ " " ]
+                                       }, {
+                                          "r" : "227",
+                                          "s" : [ {
+                                             "value" : [ "return " ]
+                                          }, {
+                                             "r" : "226",
+                                             "s" : [ {
+                                                "r" : "225",
+                                                "s" : [ {
+                                                   "value" : [ "X" ]
+                                                } ]
+                                             }, {
+                                                "value" : [ "." ]
+                                             }, {
+                                                "r" : "226",
+                                                "s" : [ {
+                                                   "value" : [ "dailyDoseDescription" ]
+                                                } ]
+                                             } ]
+                                          } ]
+                                       } ]
+                                    }, {
+                                       "value" : [ ", " ]
+                                    }, {
+                                       "r" : "229",
+                                       "s" : [ {
+                                          "value" : [ "'\\r\\n'" ]
+                                       } ]
+                                    }, {
+                                       "value" : [ ")" ]
+                                    } ]
+                                 } ]
+                              }, {
+                                 "value" : [ ",\r\n      " ]
+                              }, {
+                                 "s" : [ {
+                                    "value" : [ "mme",": " ]
+                                 }, {
+                                    "r" : "237",
+                                    "s" : [ {
+                                       "value" : [ "Sum","(" ]
+                                    }, {
+                                       "r" : "236",
+                                       "s" : [ {
+                                          "s" : [ {
+                                             "r" : "232",
+                                             "s" : [ {
+                                                "r" : "231",
+                                                "s" : [ {
+                                                   "s" : [ {
+                                                      "value" : [ "mmePerIngredient" ]
+                                                   } ]
+                                                } ]
+                                             }, {
+                                                "value" : [ " ","X" ]
+                                             } ]
+                                          } ]
+                                       }, {
+                                          "value" : [ " " ]
+                                       }, {
+                                          "r" : "235",
+                                          "s" : [ {
+                                             "value" : [ "return " ]
+                                          }, {
+                                             "r" : "234",
+                                             "s" : [ {
+                                                "r" : "233",
+                                                "s" : [ {
+                                                   "value" : [ "X" ]
+                                                } ]
+                                             }, {
+                                                "value" : [ "." ]
+                                             }, {
+                                                "r" : "234",
+                                                "s" : [ {
+                                                   "value" : [ "mme" ]
+                                                } ]
+                                             } ]
+                                          } ]
+                                       } ]
+                                    }, {
+                                       "value" : [ ")" ]
+                                    } ]
+                                 } ]
+                              }, {
+                                 "value" : [ "\r\n    }" ]
+                              } ]
+                           } ]
+                        } ]
+                     } ]
+                  } ]
+               }
+            } ],
+            "expression" : {
+               "localId" : "240",
+               "locator" : "120:3-129:5",
+               "type" : "Query",
+               "source" : [ {
+                  "localId" : "203",
+                  "locator" : "120:3-120:34",
+                  "alias" : "P",
+                  "expression" : {
+                     "localId" : "202",
+                     "locator" : "120:3-120:32",
+                     "name" : "Prescriptions",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "localId" : "201",
+                        "locator" : "120:18-120:30",
+                        "name" : "prescriptions",
+                        "type" : "OperandRef"
+                     } ]
+                  }
+               } ],
+               "let" : [ {
+                  "localId" : "214",
+                  "locator" : "121:9-121:133",
+                  "identifier" : "mmePerIngredient",
+                  "expression" : {
+                     "localId" : "213",
+                     "locator" : "121:27-121:133",
+                     "name" : "CalculateMMEs",
+                     "libraryName" : "OMTKLogic",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "localId" : "212",
+                        "locator" : "121:51-121:132",
+                        "type" : "List",
+                        "element" : [ {
+                           "localId" : "211",
+                           "locator" : "121:53-121:130",
+                           "type" : "Tuple",
+                           "element" : [ {
+                              "name" : "rxNormCode",
+                              "value" : {
+                                 "localId" : "206",
+                                 "locator" : "121:67-121:78",
+                                 "path" : "rxNormCode",
+                                 "scope" : "P",
+                                 "type" : "Property"
+                              }
+                           }, {
+                              "name" : "doseQuantity",
+                              "value" : {
+                                 "localId" : "208",
+                                 "locator" : "121:95-121:100",
+                                 "path" : "dose",
+                                 "scope" : "P",
+                                 "type" : "Property"
+                              }
+                           }, {
+                              "name" : "dosesPerDay",
+                              "value" : {
+                                 "localId" : "210",
+                                 "locator" : "121:116-121:128",
+                                 "path" : "dosesPerDay",
+                                 "scope" : "P",
+                                 "type" : "Property"
+                              }
+                           } ]
+                        } ]
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "localId" : "239",
+                  "locator" : "122:5-129:5",
+                  "expression" : {
+                     "localId" : "238",
+                     "locator" : "122:12-129:5",
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "rxNormCode",
+                        "value" : {
+                           "localId" : "216",
+                           "locator" : "123:19-123:30",
+                           "path" : "rxNormCode",
+                           "scope" : "P",
+                           "type" : "Property"
+                        }
+                     }, {
+                        "name" : "isDraft",
+                        "value" : {
+                           "localId" : "218",
+                           "locator" : "124:16-124:24",
+                           "path" : "isDraft",
+                           "scope" : "P",
+                           "type" : "Property"
+                        }
+                     }, {
+                        "name" : "isPRN",
+                        "value" : {
+                           "localId" : "220",
+                           "locator" : "125:14-125:20",
+                           "path" : "isPRN",
+                           "scope" : "P",
+                           "type" : "Property"
+                        }
+                     }, {
+                        "name" : "prescription",
+                        "value" : {
+                           "localId" : "222",
+                           "locator" : "126:21-126:34",
+                           "path" : "prescription",
+                           "scope" : "P",
+                           "type" : "Property"
+                        }
+                     }, {
+                        "name" : "dailyDose",
+                        "value" : {
+                           "localId" : "230",
+                           "locator" : "127:18-127:82",
+                           "type" : "Combine",
+                           "source" : {
+                              "localId" : "228",
+                              "locator" : "127:26-127:73",
+                              "type" : "Query",
+                              "source" : [ {
+                                 "localId" : "224",
+                                 "locator" : "127:26-127:43",
+                                 "alias" : "X",
+                                 "expression" : {
+                                    "localId" : "223",
+                                    "locator" : "127:26-127:41",
+                                    "name" : "mmePerIngredient",
+                                    "type" : "QueryLetRef"
+                                 }
+                              } ],
+                              "relationship" : [ ],
+                              "return" : {
+                                 "localId" : "227",
+                                 "locator" : "127:45-127:73",
+                                 "expression" : {
+                                    "localId" : "226",
+                                    "locator" : "127:52-127:73",
+                                    "path" : "dailyDoseDescription",
+                                    "scope" : "X",
+                                    "type" : "Property"
+                                 }
+                              }
+                           },
+                           "separator" : {
+                              "localId" : "229",
+                              "locator" : "127:76-127:81",
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "\r\n",
+                              "type" : "Literal"
+                           }
+                        }
+                     }, {
+                        "name" : "mme",
+                        "value" : {
+                           "localId" : "237",
+                           "locator" : "128:12-128:47",
+                           "type" : "Sum",
+                           "source" : {
+                              "localId" : "236",
+                              "locator" : "128:16-128:46",
+                              "type" : "Query",
+                              "source" : [ {
+                                 "localId" : "232",
+                                 "locator" : "128:16-128:33",
+                                 "alias" : "X",
+                                 "expression" : {
+                                    "localId" : "231",
+                                    "locator" : "128:16-128:31",
+                                    "name" : "mmePerIngredient",
+                                    "type" : "QueryLetRef"
+                                 }
+                              } ],
+                              "relationship" : [ ],
+                              "return" : {
+                                 "localId" : "235",
+                                 "locator" : "128:35-128:46",
+                                 "expression" : {
+                                    "localId" : "234",
+                                    "locator" : "128:42-128:46",
+                                    "path" : "mme",
+                                    "scope" : "X",
+                                    "type" : "Property"
+                                 }
+                              }
+                           }
+                        }
+                     } ]
+                  }
+               }
+            },
+            "operand" : [ {
+               "name" : "prescriptions",
+               "operandTypeSpecifier" : {
+                  "localId" : "200",
+                  "locator" : "119:35-119:57",
+                  "type" : "ListTypeSpecifier",
+                  "elementType" : {
+                     "localId" : "199",
+                     "locator" : "119:40-119:56",
+                     "name" : "{http://hl7.org/fhir}MedicationRequest",
+                     "type" : "NamedTypeSpecifier"
+                  }
+               }
+            } ]
+         }, {
+            "localId" : "256",
+            "locator" : "136:1-140:3",
+            "name" : "TotalMME",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "type" : "FunctionDef",
+            "annotation" : [ {
+               "type" : "Annotation",
+               "s" : {
+                  "r" : "256",
+                  "s" : [ {
+                     "value" : [ "define function ","TotalMME","(","prescriptions"," " ]
+                  }, {
+                     "r" : "243",
+                     "s" : [ {
+                        "value" : [ "List<" ]
+                     }, {
+                        "r" : "242",
+                        "s" : [ {
+                           "value" : [ "MedicationRequest" ]
+                        } ]
+                     }, {
+                        "value" : [ ">" ]
+                     } ]
+                  }, {
+                     "value" : [ "):\r\n  " ]
+                  }, {
+                     "r" : "255",
+                     "s" : [ {
+                        "r" : "255",
+                        "s" : [ {
+                           "r" : "244",
+                           "s" : [ {
+                              "value" : [ "OMTKLogic" ]
+                           } ]
+                        }, {
+                           "value" : [ "." ]
+                        }, {
+                           "r" : "255",
+                           "s" : [ {
+                              "value" : [ "Quantity","(\r\n    " ]
+                           }, {
+                              "r" : "253",
+                              "s" : [ {
+                                 "value" : [ "Sum","(" ]
+                              }, {
+                                 "r" : "252",
+                                 "s" : [ {
+                                    "s" : [ {
+                                       "r" : "247",
+                                       "s" : [ {
+                                          "r" : "246",
+                                          "s" : [ {
+                                             "value" : [ "(" ]
+                                          }, {
+                                             "r" : "246",
+                                             "s" : [ {
+                                                "value" : [ "MME","(" ]
+                                             }, {
+                                                "r" : "245",
+                                                "s" : [ {
+                                                   "value" : [ "prescriptions" ]
+                                                } ]
+                                             }, {
+                                                "value" : [ ")" ]
+                                             } ]
+                                          }, {
+                                             "value" : [ ")" ]
+                                          } ]
+                                       }, {
+                                          "value" : [ " ","M" ]
+                                       } ]
+                                    } ]
+                                 }, {
+                                    "value" : [ " " ]
+                                 }, {
+                                    "r" : "251",
+                                    "s" : [ {
+                                       "value" : [ "return " ]
+                                    }, {
+                                       "r" : "250",
+                                       "s" : [ {
+                                          "r" : "249",
+                                          "s" : [ {
+                                             "r" : "248",
+                                             "s" : [ {
+                                                "value" : [ "M" ]
+                                             } ]
+                                          }, {
+                                             "value" : [ "." ]
+                                          }, {
+                                             "r" : "249",
+                                             "s" : [ {
+                                                "value" : [ "mme" ]
+                                             } ]
+                                          } ]
+                                       }, {
+                                          "value" : [ "." ]
+                                       }, {
+                                          "r" : "250",
+                                          "s" : [ {
+                                             "value" : [ "value" ]
+                                          } ]
+                                       } ]
+                                    } ]
+                                 } ]
+                              }, {
+                                 "value" : [ ")" ]
+                              } ]
+                           }, {
+                              "value" : [ ",\r\n    " ]
+                           }, {
+                              "r" : "254",
+                              "s" : [ {
+                                 "value" : [ "'mg/d'" ]
+                              } ]
+                           }, {
+                              "value" : [ "\r\n  )" ]
+                           } ]
+                        } ]
+                     } ]
+                  } ]
+               }
+            } ],
+            "expression" : {
+               "localId" : "255",
+               "locator" : "137:3-140:3",
+               "name" : "Quantity",
+               "libraryName" : "OMTKLogic",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "localId" : "253",
+                  "locator" : "138:5-138:50",
+                  "type" : "Sum",
+                  "source" : {
+                     "localId" : "252",
+                     "locator" : "138:9-138:49",
+                     "type" : "Query",
+                     "source" : [ {
+                        "localId" : "247",
+                        "locator" : "138:9-138:30",
+                        "alias" : "M",
+                        "expression" : {
+                           "localId" : "246",
+                           "locator" : "138:9-138:28",
+                           "name" : "MME",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "localId" : "245",
+                              "locator" : "138:14-138:26",
+                              "name" : "prescriptions",
+                              "type" : "OperandRef"
+                           } ]
+                        }
+                     } ],
+                     "relationship" : [ ],
+                     "return" : {
+                        "localId" : "251",
+                        "locator" : "138:32-138:49",
+                        "expression" : {
+                           "localId" : "250",
+                           "locator" : "138:39-138:49",
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "localId" : "249",
+                              "locator" : "138:39-138:43",
+                              "path" : "mme",
+                              "scope" : "M",
+                              "type" : "Property"
+                           }
+                        }
+                     }
+                  }
+               }, {
+                  "localId" : "254",
+                  "locator" : "139:5-139:10",
+                  "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                  "value" : "mg/d",
+                  "type" : "Literal"
+               } ]
+            },
+            "operand" : [ {
+               "name" : "prescriptions",
+               "operandTypeSpecifier" : {
+                  "localId" : "243",
+                  "locator" : "136:40-136:62",
+                  "type" : "ListTypeSpecifier",
+                  "elementType" : {
+                     "localId" : "242",
+                     "locator" : "136:45-136:61",
+                     "name" : "{http://hl7.org/fhir}MedicationRequest",
+                     "type" : "NamedTypeSpecifier"
+                  }
+               }
+            } ]
+         } ]
+      }
+   }
+}
+

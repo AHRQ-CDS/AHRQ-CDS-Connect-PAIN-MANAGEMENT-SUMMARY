@@ -1,0 +1,361 @@
+{
+   "library" : {
+      "annotation" : [ {
+         "translatorOptions" : "",
+         "type" : "CqlToElmInfo"
+      } ],
+      "identifier" : {
+         "id" : "OpioidCDSREC05",
+         "version" : "2.0.0"
+      },
+      "schemaIdentifier" : {
+         "id" : "urn:hl7-org:elm",
+         "version" : "r1"
+      },
+      "usings" : {
+         "def" : [ {
+            "localIdentifier" : "System",
+            "uri" : "urn:hl7-org:elm-types:r1"
+         }, {
+            "localIdentifier" : "FHIR",
+            "uri" : "http://hl7.org/fhir",
+            "version" : "4.0.0"
+         } ]
+      },
+      "includes" : {
+         "def" : [ {
+            "localIdentifier" : "Common",
+            "path" : "OpioidCDSCommon",
+            "version" : "2.0.0"
+         }, {
+            "localIdentifier" : "Routines",
+            "path" : "OpioidCDSRoutines",
+            "version" : "2.0.0"
+         } ]
+      },
+      "parameters" : {
+         "def" : [ {
+            "name" : "ContextPrescriptions",
+            "accessLevel" : "Public",
+            "parameterTypeSpecifier" : {
+               "type" : "ListTypeSpecifier",
+               "elementType" : {
+                  "name" : "{http://hl7.org/fhir}MedicationRequest",
+                  "type" : "NamedTypeSpecifier"
+               }
+            }
+         } ]
+      },
+      "contexts" : {
+         "def" : [ {
+            "name" : "Patient"
+         } ]
+      },
+      "statements" : {
+         "def" : [ {
+            "name" : "Patient",
+            "context" : "Patient",
+            "expression" : {
+               "type" : "SingletonFrom",
+               "operand" : {
+                  "dataType" : "{http://hl7.org/fhir}Patient",
+                  "type" : "Retrieve"
+               }
+            }
+         }, {
+            "name" : "Chronic Pain Opioid Analgesic with Ambulatory Misuse Potential Prescriptions",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "AmbulatoryOpioidPrescription",
+                  "expression" : {
+                     "name" : "Is Opioid Analgesic with Ambulatory Misuse Potential?",
+                     "libraryName" : "Common",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "name" : "ContextPrescriptions",
+                        "type" : "ParameterRef"
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "where" : {
+                  "name" : "Is Chronic Pain Prescription?",
+                  "libraryName" : "Routines",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "name" : "AmbulatoryOpioidPrescription",
+                     "type" : "AliasRef"
+                  } ]
+               }
+            }
+         }, {
+            "name" : "Patient Is Being Prescribed Opioid Analgesic with Ambulatory Misuse Potential",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Exists",
+               "operand" : {
+                  "name" : "Chronic Pain Opioid Analgesic with Ambulatory Misuse Potential Prescriptions",
+                  "type" : "ExpressionRef"
+               }
+            }
+         }, {
+            "name" : "Total MME",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "name" : "TotalMME",
+               "libraryName" : "Common",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "type" : "Query",
+                  "source" : [ {
+                     "alias" : "AmbulatoryOpioidPrescription",
+                     "expression" : {
+                        "type" : "Union",
+                        "operand" : [ {
+                           "name" : "Chronic Pain Opioid Analgesic with Ambulatory Misuse Potential Prescriptions",
+                           "type" : "ExpressionRef"
+                        }, {
+                           "name" : "Active Ambulatory Opioid Rx",
+                           "libraryName" : "Common",
+                           "type" : "ExpressionRef"
+                        } ]
+                     }
+                  } ],
+                  "relationship" : [ ],
+                  "where" : {
+                     "name" : "Is Chronic Pain Prescription?",
+                     "libraryName" : "Routines",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "name" : "AmbulatoryOpioidPrescription",
+                        "type" : "AliasRef"
+                     } ]
+                  }
+               } ]
+            }
+         }, {
+            "name" : "Inclusion Criteria",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "And",
+               "operand" : [ {
+                  "type" : "And",
+                  "operand" : [ {
+                     "name" : "Patient Is Being Prescribed Opioid Analgesic with Ambulatory Misuse Potential",
+                     "type" : "ExpressionRef"
+                  }, {
+                     "name" : "Is Opioid Review Useful?",
+                     "libraryName" : "Routines",
+                     "type" : "ExpressionRef"
+                  } ]
+               }, {
+                  "type" : "GreaterOrEqual",
+                  "operand" : [ {
+                     "name" : "Total MME",
+                     "type" : "ExpressionRef"
+                  }, {
+                     "value" : 50,
+                     "unit" : "mg/d",
+                     "type" : "Quantity"
+                  } ]
+               } ]
+            }
+         }, {
+            "name" : "Exclusion Criteria",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "name" : "End of Life Assessment",
+               "libraryName" : "Common",
+               "type" : "ExpressionRef"
+            }
+         }, {
+            "name" : "Is Recommendation Applicable?",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "And",
+               "operand" : [ {
+                  "name" : "Inclusion Criteria",
+                  "type" : "ExpressionRef"
+               }, {
+                  "type" : "Not",
+                  "operand" : {
+                     "name" : "Exclusion Criteria",
+                     "type" : "ExpressionRef"
+                  }
+               } ]
+            }
+         }, {
+            "name" : "Taper Now",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "GreaterOrEqual",
+               "operand" : [ {
+                  "path" : "value",
+                  "type" : "Property",
+                  "source" : {
+                     "name" : "Total MME",
+                     "type" : "ExpressionRef"
+                  }
+               }, {
+                  "type" : "ToDecimal",
+                  "operand" : {
+                     "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                     "value" : "90",
+                     "type" : "Literal"
+                  }
+               } ]
+            }
+         }, {
+            "name" : "Consider Tapering",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Less",
+               "operand" : [ {
+                  "path" : "value",
+                  "type" : "Property",
+                  "source" : {
+                     "name" : "Total MME",
+                     "type" : "ExpressionRef"
+                  }
+               }, {
+                  "type" : "ToDecimal",
+                  "operand" : {
+                     "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                     "value" : "90",
+                     "type" : "Literal"
+                  }
+               } ]
+            }
+         }, {
+            "name" : "Get Indicator",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "name" : "Is Recommendation Applicable?",
+                     "type" : "ExpressionRef"
+                  }
+               },
+               "then" : {
+                  "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                  "value" : "warning",
+                  "type" : "Literal"
+               },
+               "else" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "Null"
+                  }
+               }
+            }
+         }, {
+            "name" : "Get Summary",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "name" : "Is Recommendation Applicable?",
+                     "type" : "ExpressionRef"
+                  }
+               },
+               "then" : {
+                  "type" : "Concatenate",
+                  "operand" : [ {
+                     "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                     "value" : "High risk for opioid overdose - ",
+                     "type" : "Literal"
+                  }, {
+                     "type" : "Case",
+                     "caseItem" : [ {
+                        "when" : {
+                           "name" : "Taper Now",
+                           "type" : "ExpressionRef"
+                        },
+                        "then" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "taper now",
+                           "type" : "Literal"
+                        }
+                     } ],
+                     "else" : {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                        "value" : "consider tapering",
+                        "type" : "Literal"
+                     }
+                  } ]
+               },
+               "else" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "Null"
+                  }
+               }
+            }
+         }, {
+            "name" : "Get Detail",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "name" : "Is Recommendation Applicable?",
+                     "type" : "ExpressionRef"
+                  }
+               },
+               "then" : {
+                  "type" : "Concatenate",
+                  "operand" : [ {
+                     "type" : "Concatenate",
+                     "operand" : [ {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                        "value" : "Total morphine milligram equivalent (MME) is ",
+                        "type" : "Literal"
+                     }, {
+                        "type" : "ToString",
+                        "operand" : {
+                           "name" : "Total MME",
+                           "type" : "ExpressionRef"
+                        }
+                     } ]
+                  }, {
+                     "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                     "value" : ". Taper to less than 50.",
+                     "type" : "Literal"
+                  } ]
+               },
+               "else" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "Null"
+                  }
+               }
+            }
+         } ]
+      }
+   }
+}
+

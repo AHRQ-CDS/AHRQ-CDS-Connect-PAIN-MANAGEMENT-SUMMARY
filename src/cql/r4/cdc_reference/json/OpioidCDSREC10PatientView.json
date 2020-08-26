@@ -1,0 +1,756 @@
+{
+   "library" : {
+      "annotation" : [ {
+         "translatorOptions" : "",
+         "type" : "CqlToElmInfo"
+      } ],
+      "identifier" : {
+         "id" : "OpioidCDSREC10PatientView",
+         "version" : "2.0.0"
+      },
+      "schemaIdentifier" : {
+         "id" : "urn:hl7-org:elm",
+         "version" : "r1"
+      },
+      "usings" : {
+         "def" : [ {
+            "localIdentifier" : "System",
+            "uri" : "urn:hl7-org:elm-types:r1"
+         }, {
+            "localIdentifier" : "FHIR",
+            "uri" : "http://hl7.org/fhir",
+            "version" : "4.0.0"
+         } ]
+      },
+      "includes" : {
+         "def" : [ {
+            "localIdentifier" : "FHIRHelpers",
+            "path" : "FHIRHelpers",
+            "version" : "4.0.0"
+         }, {
+            "localIdentifier" : "Common",
+            "path" : "OpioidCDSCommon",
+            "version" : "2.0.0"
+         }, {
+            "localIdentifier" : "Routines",
+            "path" : "OpioidCDSRoutines",
+            "version" : "2.0.0"
+         } ]
+      },
+      "codes" : {
+         "def" : [ {
+            "name" : "Urine Drug Screening",
+            "id" : "310627008",
+            "display" : "Urine drug screening (procedure)",
+            "accessLevel" : "Public",
+            "codeSystem" : {
+               "name" : "SNOMED",
+               "libraryName" : "Common"
+            }
+         } ]
+      },
+      "contexts" : {
+         "def" : [ {
+            "name" : "Patient"
+         } ]
+      },
+      "statements" : {
+         "def" : [ {
+            "name" : "Patient",
+            "context" : "Patient",
+            "expression" : {
+               "type" : "SingletonFrom",
+               "operand" : {
+                  "dataType" : "{http://hl7.org/fhir}Patient",
+                  "type" : "Retrieve"
+               }
+            }
+         }, {
+            "name" : "Lookback Year",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "lowClosed" : true,
+               "highClosed" : true,
+               "type" : "Interval",
+               "low" : {
+                  "type" : "Subtract",
+                  "operand" : [ {
+                     "type" : "Subtract",
+                     "operand" : [ {
+                        "type" : "Today"
+                     }, {
+                        "value" : 12,
+                        "unit" : "months",
+                        "type" : "Quantity"
+                     } ]
+                  }, {
+                     "value" : 1,
+                     "unit" : "days",
+                     "type" : "Quantity"
+                  } ]
+               },
+               "high" : {
+                  "type" : "Subtract",
+                  "operand" : [ {
+                     "type" : "Today"
+                  }, {
+                     "value" : 1,
+                     "unit" : "day",
+                     "type" : "Quantity"
+                  } ]
+               }
+            }
+         }, {
+            "name" : "Patient Is Being Prescribed Opioid Analgesic with Ambulatory Misuse Potential",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Exists",
+               "operand" : {
+                  "type" : "Query",
+                  "source" : [ {
+                     "alias" : "AmbulatoryOpioidPrescription",
+                     "expression" : {
+                        "name" : "Active Ambulatory Opioid Rx",
+                        "libraryName" : "Common",
+                        "type" : "ExpressionRef"
+                     }
+                  } ],
+                  "relationship" : [ ],
+                  "where" : {
+                     "name" : "Is Chronic Pain Prescription?",
+                     "libraryName" : "Routines",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "name" : "AmbulatoryOpioidPrescription",
+                        "type" : "AliasRef"
+                     } ]
+                  }
+               }
+            }
+         }, {
+            "name" : "Urine Screenings during the Last 12 Months",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Union",
+               "operand" : [ {
+                  "type" : "Query",
+                  "source" : [ {
+                     "alias" : "IllicitDrugScreen",
+                     "expression" : {
+                        "dataType" : "{http://hl7.org/fhir}Observation",
+                        "codeProperty" : "code",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Non-opioid drug urine screening",
+                           "libraryName" : "Common",
+                           "type" : "ValueSetRef"
+                        }
+                     }
+                  } ],
+                  "relationship" : [ ],
+                  "where" : {
+                     "precision" : "Day",
+                     "type" : "In",
+                     "operand" : [ {
+                        "type" : "DateFrom",
+                        "operand" : {
+                           "type" : "Case",
+                           "caseItem" : [ {
+                              "when" : {
+                                 "isType" : "{http://hl7.org/fhir}dateTime",
+                                 "type" : "Is",
+                                 "operand" : {
+                                    "path" : "effective",
+                                    "scope" : "IllicitDrugScreen",
+                                    "type" : "Property"
+                                 }
+                              },
+                              "then" : {
+                                 "name" : "ToDateTime",
+                                 "libraryName" : "FHIRHelpers",
+                                 "type" : "FunctionRef",
+                                 "operand" : [ {
+                                    "asType" : "{http://hl7.org/fhir}dateTime",
+                                    "type" : "As",
+                                    "operand" : {
+                                       "path" : "effective",
+                                       "scope" : "IllicitDrugScreen",
+                                       "type" : "Property"
+                                    }
+                                 } ]
+                              }
+                           }, {
+                              "when" : {
+                                 "isType" : "{http://hl7.org/fhir}instant",
+                                 "type" : "Is",
+                                 "operand" : {
+                                    "path" : "effective",
+                                    "scope" : "IllicitDrugScreen",
+                                    "type" : "Property"
+                                 }
+                              },
+                              "then" : {
+                                 "name" : "ToDateTime",
+                                 "libraryName" : "FHIRHelpers",
+                                 "type" : "FunctionRef",
+                                 "operand" : [ {
+                                    "asType" : "{http://hl7.org/fhir}instant",
+                                    "type" : "As",
+                                    "operand" : {
+                                       "path" : "effective",
+                                       "scope" : "IllicitDrugScreen",
+                                       "type" : "Property"
+                                    }
+                                 } ]
+                              }
+                           } ],
+                           "else" : {
+                              "resultTypeName" : "{urn:hl7-org:elm-types:r1}DateTime",
+                              "type" : "Null"
+                           }
+                        }
+                     }, {
+                        "name" : "Lookback Year",
+                        "type" : "ExpressionRef"
+                     } ]
+                  }
+               }, {
+                  "type" : "Query",
+                  "source" : [ {
+                     "alias" : "OpioidDrugScreen",
+                     "expression" : {
+                        "dataType" : "{http://hl7.org/fhir}Observation",
+                        "codeProperty" : "code",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Opioid drug urine screening",
+                           "libraryName" : "Common",
+                           "type" : "ValueSetRef"
+                        }
+                     }
+                  } ],
+                  "relationship" : [ ],
+                  "where" : {
+                     "precision" : "Day",
+                     "type" : "In",
+                     "operand" : [ {
+                        "type" : "DateFrom",
+                        "operand" : {
+                           "type" : "Case",
+                           "caseItem" : [ {
+                              "when" : {
+                                 "isType" : "{http://hl7.org/fhir}dateTime",
+                                 "type" : "Is",
+                                 "operand" : {
+                                    "path" : "effective",
+                                    "scope" : "OpioidDrugScreen",
+                                    "type" : "Property"
+                                 }
+                              },
+                              "then" : {
+                                 "name" : "ToDateTime",
+                                 "libraryName" : "FHIRHelpers",
+                                 "type" : "FunctionRef",
+                                 "operand" : [ {
+                                    "asType" : "{http://hl7.org/fhir}dateTime",
+                                    "type" : "As",
+                                    "operand" : {
+                                       "path" : "effective",
+                                       "scope" : "OpioidDrugScreen",
+                                       "type" : "Property"
+                                    }
+                                 } ]
+                              }
+                           }, {
+                              "when" : {
+                                 "isType" : "{http://hl7.org/fhir}instant",
+                                 "type" : "Is",
+                                 "operand" : {
+                                    "path" : "effective",
+                                    "scope" : "OpioidDrugScreen",
+                                    "type" : "Property"
+                                 }
+                              },
+                              "then" : {
+                                 "name" : "ToDateTime",
+                                 "libraryName" : "FHIRHelpers",
+                                 "type" : "FunctionRef",
+                                 "operand" : [ {
+                                    "asType" : "{http://hl7.org/fhir}instant",
+                                    "type" : "As",
+                                    "operand" : {
+                                       "path" : "effective",
+                                       "scope" : "OpioidDrugScreen",
+                                       "type" : "Property"
+                                    }
+                                 } ]
+                              }
+                           } ],
+                           "else" : {
+                              "resultTypeName" : "{urn:hl7-org:elm-types:r1}DateTime",
+                              "type" : "Null"
+                           }
+                        }
+                     }, {
+                        "name" : "Lookback Year",
+                        "type" : "ExpressionRef"
+                     } ]
+                  }
+               } ]
+            }
+         }, {
+            "name" : "Patient had Urine Screening in Last 12 Months",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Exists",
+               "operand" : {
+                  "name" : "Urine Screenings during the Last 12 Months",
+                  "type" : "ExpressionRef"
+               }
+            }
+         }, {
+            "name" : "Inclusion Criteria",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "And",
+               "operand" : [ {
+                  "type" : "And",
+                  "operand" : [ {
+                     "name" : "Patient Is Being Prescribed Opioid Analgesic with Ambulatory Misuse Potential",
+                     "type" : "ExpressionRef"
+                  }, {
+                     "name" : "Is Opioid Review Useful?",
+                     "libraryName" : "Routines",
+                     "type" : "ExpressionRef"
+                  } ]
+               }, {
+                  "type" : "Not",
+                  "operand" : {
+                     "name" : "Patient had Urine Screening in Last 12 Months",
+                     "type" : "ExpressionRef"
+                  }
+               } ]
+            }
+         }, {
+            "name" : "Exclusion Criteria",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "name" : "End of Life Assessment",
+               "libraryName" : "Common",
+               "type" : "ExpressionRef"
+            }
+         }, {
+            "name" : "Is Recommendation Applicable?",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "And",
+               "operand" : [ {
+                  "name" : "Inclusion Criteria",
+                  "type" : "ExpressionRef"
+               }, {
+                  "type" : "Not",
+                  "operand" : {
+                     "name" : "Exclusion Criteria",
+                     "type" : "ExpressionRef"
+                  }
+               } ]
+            }
+         }, {
+            "name" : "No Screening In Last 12 Months Indicator",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "name" : "Is Recommendation Applicable?",
+                     "type" : "ExpressionRef"
+                  }
+               },
+               "then" : {
+                  "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                  "value" : "warning",
+                  "type" : "Literal"
+               },
+               "else" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "Null"
+                  }
+               }
+            }
+         }, {
+            "name" : "No Screening In Last 12 Months Summary",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "name" : "Is Recommendation Applicable?",
+                     "type" : "ExpressionRef"
+                  }
+               },
+               "then" : {
+                  "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                  "value" : "Annual Urine Screening Check",
+                  "type" : "Literal"
+               },
+               "else" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "Null"
+                  }
+               }
+            }
+         }, {
+            "name" : "No Screening In Last 12 Months Detail",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "name" : "Is Recommendation Applicable?",
+                     "type" : "ExpressionRef"
+                  }
+               },
+               "then" : {
+                  "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                  "value" : "Patients on opioid therapy should have a urine drug test performed every 12 months.",
+                  "type" : "Literal"
+               },
+               "else" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "Null"
+                  }
+               }
+            }
+         }, {
+            "name" : "ToCoding",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "type" : "FunctionDef",
+            "expression" : {
+               "classType" : "{http://hl7.org/fhir}Coding",
+               "type" : "Instance",
+               "element" : [ {
+                  "name" : "code",
+                  "value" : {
+                     "classType" : "{http://hl7.org/fhir}code",
+                     "type" : "Instance",
+                     "element" : [ {
+                        "name" : "value",
+                        "value" : {
+                           "path" : "code",
+                           "type" : "Property",
+                           "source" : {
+                              "name" : "code",
+                              "type" : "OperandRef"
+                           }
+                        }
+                     } ]
+                  }
+               }, {
+                  "name" : "system",
+                  "value" : {
+                     "classType" : "{http://hl7.org/fhir}uri",
+                     "type" : "Instance",
+                     "element" : [ {
+                        "name" : "value",
+                        "value" : {
+                           "path" : "system",
+                           "type" : "Property",
+                           "source" : {
+                              "name" : "code",
+                              "type" : "OperandRef"
+                           }
+                        }
+                     } ]
+                  }
+               }, {
+                  "name" : "version",
+                  "value" : {
+                     "classType" : "{http://hl7.org/fhir}string",
+                     "type" : "Instance",
+                     "element" : [ {
+                        "name" : "value",
+                        "value" : {
+                           "path" : "version",
+                           "type" : "Property",
+                           "source" : {
+                              "name" : "code",
+                              "type" : "OperandRef"
+                           }
+                        }
+                     } ]
+                  }
+               }, {
+                  "name" : "display",
+                  "value" : {
+                     "classType" : "{http://hl7.org/fhir}string",
+                     "type" : "Instance",
+                     "element" : [ {
+                        "name" : "value",
+                        "value" : {
+                           "path" : "display",
+                           "type" : "Property",
+                           "source" : {
+                              "name" : "code",
+                              "type" : "OperandRef"
+                           }
+                        }
+                     } ]
+                  }
+               } ]
+            },
+            "operand" : [ {
+               "name" : "code",
+               "operandTypeSpecifier" : {
+                  "name" : "{urn:hl7-org:elm-types:r1}Code",
+                  "type" : "NamedTypeSpecifier"
+               }
+            } ]
+         }, {
+            "name" : "Urine Drug Screening Request",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "classType" : "{http://hl7.org/fhir}ServiceRequest",
+               "type" : "Instance",
+               "element" : [ {
+                  "name" : "instantiatesCanonical",
+                  "value" : {
+                     "type" : "List",
+                     "element" : [ {
+                        "classType" : "{http://hl7.org/fhir}canonical",
+                        "type" : "Instance",
+                        "element" : [ {
+                           "name" : "value",
+                           "value" : {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "http://fhir.org/guides/cdc/activitydefinition/urine-screening-request",
+                              "type" : "Literal"
+                           }
+                        } ]
+                     } ]
+                  }
+               }, {
+                  "name" : "status",
+                  "value" : {
+                     "classType" : "{http://hl7.org/fhir}RequestStatus",
+                     "type" : "Instance",
+                     "element" : [ {
+                        "name" : "value",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "draft",
+                           "type" : "Literal"
+                        }
+                     } ]
+                  }
+               }, {
+                  "name" : "intent",
+                  "value" : {
+                     "classType" : "{http://hl7.org/fhir}RequestIntent",
+                     "type" : "Instance",
+                     "element" : [ {
+                        "name" : "value",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "proposal",
+                           "type" : "Literal"
+                        }
+                     } ]
+                  }
+               }, {
+                  "name" : "priority",
+                  "value" : {
+                     "classType" : "{http://hl7.org/fhir}RequestPriority",
+                     "type" : "Instance",
+                     "element" : [ {
+                        "name" : "value",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "routine",
+                           "type" : "Literal"
+                        }
+                     } ]
+                  }
+               }, {
+                  "name" : "code",
+                  "value" : {
+                     "classType" : "{http://hl7.org/fhir}CodeableConcept",
+                     "type" : "Instance",
+                     "element" : [ {
+                        "name" : "coding",
+                        "value" : {
+                           "type" : "List",
+                           "element" : [ {
+                              "name" : "ToCoding",
+                              "type" : "FunctionRef",
+                              "operand" : [ {
+                                 "name" : "Urine Drug Screening",
+                                 "type" : "CodeRef"
+                              } ]
+                           } ]
+                        }
+                     } ]
+                  }
+               }, {
+                  "name" : "subject",
+                  "value" : {
+                     "classType" : "{http://hl7.org/fhir}Reference",
+                     "type" : "Instance",
+                     "element" : [ {
+                        "name" : "reference",
+                        "value" : {
+                           "classType" : "{http://hl7.org/fhir}string",
+                           "type" : "Instance",
+                           "element" : [ {
+                              "name" : "value",
+                              "value" : {
+                                 "type" : "Concatenate",
+                                 "operand" : [ {
+                                    "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                                    "value" : "Patient/",
+                                    "type" : "Literal"
+                                 }, {
+                                    "name" : "ToString",
+                                    "libraryName" : "FHIRHelpers",
+                                    "type" : "FunctionRef",
+                                    "operand" : [ {
+                                       "path" : "id",
+                                       "type" : "Property",
+                                       "source" : {
+                                          "name" : "Patient",
+                                          "type" : "ExpressionRef"
+                                       }
+                                    } ]
+                                 } ]
+                              }
+                           } ]
+                        }
+                     } ]
+                  }
+               }, {
+                  "name" : "occurrence",
+                  "value" : {
+                     "type" : "As",
+                     "operand" : {
+                        "classType" : "{http://hl7.org/fhir}Period",
+                        "type" : "Instance",
+                        "element" : [ {
+                           "name" : "start",
+                           "value" : {
+                              "classType" : "{http://hl7.org/fhir}dateTime",
+                              "type" : "Instance",
+                              "element" : [ {
+                                 "name" : "value",
+                                 "value" : {
+                                    "type" : "ToDateTime",
+                                    "operand" : {
+                                       "type" : "Today"
+                                    }
+                                 }
+                              } ]
+                           }
+                        }, {
+                           "name" : "end",
+                           "value" : {
+                              "classType" : "{http://hl7.org/fhir}dateTime",
+                              "type" : "Instance",
+                              "element" : [ {
+                                 "name" : "value",
+                                 "value" : {
+                                    "type" : "ToDateTime",
+                                    "operand" : {
+                                       "type" : "Add",
+                                       "operand" : [ {
+                                          "type" : "Today"
+                                       }, {
+                                          "value" : 7,
+                                          "unit" : "days",
+                                          "type" : "Quantity"
+                                       } ]
+                                    }
+                                 }
+                              } ]
+                           }
+                        } ]
+                     },
+                     "asTypeSpecifier" : {
+                        "type" : "ChoiceTypeSpecifier",
+                        "choice" : [ {
+                           "name" : "{http://hl7.org/fhir}dateTime",
+                           "type" : "NamedTypeSpecifier"
+                        }, {
+                           "name" : "{http://hl7.org/fhir}Period",
+                           "type" : "NamedTypeSpecifier"
+                        }, {
+                           "name" : "{http://hl7.org/fhir}Timing",
+                           "type" : "NamedTypeSpecifier"
+                        } ]
+                     }
+                  }
+               }, {
+                  "name" : "authoredOn",
+                  "value" : {
+                     "classType" : "{http://hl7.org/fhir}dateTime",
+                     "type" : "Instance",
+                     "element" : [ {
+                        "name" : "value",
+                        "value" : {
+                           "type" : "Now"
+                        }
+                     } ]
+                  }
+               }, {
+                  "name" : "reasonCode",
+                  "value" : {
+                     "type" : "List",
+                     "element" : [ {
+                        "classType" : "{http://hl7.org/fhir}CodeableConcept",
+                        "type" : "Instance",
+                        "element" : [ {
+                           "name" : "text",
+                           "value" : {
+                              "classType" : "{http://hl7.org/fhir}string",
+                              "type" : "Instance",
+                              "element" : [ {
+                                 "name" : "value",
+                                 "value" : {
+                                    "name" : "No Screening In Last 12 Months Detail",
+                                    "type" : "ExpressionRef"
+                                 }
+                              } ]
+                           }
+                        } ]
+                     } ]
+                  }
+               } ]
+            }
+         } ]
+      }
+   }
+}
+

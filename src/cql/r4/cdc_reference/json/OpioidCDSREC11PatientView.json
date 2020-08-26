@@ -1,0 +1,473 @@
+{
+  "library": {
+    "annotation": [
+      {
+        "translatorOptions": "",
+        "type": "CqlToElmInfo"
+      }
+    ],
+    "identifier": {
+      "id": "OpioidCDSREC11PatientView",
+      "version": "2.0.0"
+    },
+    "schemaIdentifier": {
+      "id": "urn:hl7-org:elm",
+      "version": "r1"
+    },
+    "usings": {
+      "def": [
+        {
+          "localIdentifier": "System",
+          "uri": "urn:hl7-org:elm-types:r1"
+        },
+        {
+          "localIdentifier": "FHIR",
+          "uri": "http://hl7.org/fhir",
+          "version": "4.0.0"
+        }
+      ]
+    },
+    "includes": {
+      "def": [
+        {
+          "localIdentifier": "FHIRHelpers",
+          "path": "FHIRHelpers",
+          "version": "4.0.0"
+        },
+        {
+          "localIdentifier": "Common",
+          "path": "OpioidCDSCommon",
+          "version": "2.0.0"
+        },
+        {
+          "localIdentifier": "Routines",
+          "path": "OpioidCDSRoutines",
+          "version": "2.0.0"
+        }
+      ]
+    },
+    "contexts": {
+      "def": [
+        {
+          "name": "Patient"
+        }
+      ]
+    },
+    "statements": {
+      "def": [
+        {
+          "name": "Patient",
+          "context": "Patient",
+          "expression": {
+            "type": "SingletonFrom",
+            "operand": {
+              "dataType": "{http://hl7.org/fhir}Patient",
+              "type": "Retrieve"
+            }
+          }
+        },
+        {
+          "name": "Inclusion Criteria",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "And",
+            "operand": [
+              {
+                "type": "And",
+                "operand": [
+                  {
+                    "type": "Exists",
+                    "operand": {
+                      "name": "Active Ambulatory Benzodiazepine Rx",
+                      "libraryName": "Common",
+                      "type": "ExpressionRef"
+                    }
+                  },
+                  {
+                    "type": "Exists",
+                    "operand": {
+                      "name": "Active Ambulatory Opioid Rx",
+                      "libraryName": "Common",
+                      "type": "ExpressionRef"
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "Is Opioid Review Useful?",
+                "libraryName": "Routines",
+                "type": "ExpressionRef"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Exclusion Criteria",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "name": "End of Life Assessment",
+            "libraryName": "Common",
+            "type": "ExpressionRef"
+          }
+        },
+        {
+          "name": "Is Recommendation Applicable?",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "And",
+            "operand": [
+              {
+                "name": "Inclusion Criteria",
+                "type": "ExpressionRef"
+              },
+              {
+                "type": "Not",
+                "operand": {
+                  "name": "Exclusion Criteria",
+                  "type": "ExpressionRef"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "name": "Get Indicator",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "If",
+            "condition": {
+              "asType": "{urn:hl7-org:elm-types:r1}Boolean",
+              "type": "As",
+              "operand": {
+                "name": "Is Recommendation Applicable?",
+                "type": "ExpressionRef"
+              }
+            },
+            "then": {
+              "valueType": "{urn:hl7-org:elm-types:r1}String",
+              "value": "warning",
+              "type": "Literal"
+            },
+            "else": {
+              "asType": "{urn:hl7-org:elm-types:r1}String",
+              "type": "As",
+              "operand": {
+                "type": "Null"
+              }
+            }
+          }
+        },
+        {
+          "name": "Get Summary",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "If",
+            "condition": {
+              "asType": "{urn:hl7-org:elm-types:r1}Boolean",
+              "type": "As",
+              "operand": {
+                "name": "Is Recommendation Applicable?",
+                "type": "ExpressionRef"
+              }
+            },
+            "then": {
+              "valueType": "{urn:hl7-org:elm-types:r1}String",
+              "value": "Patient has active prescriptions for opioid pain medication and benzodiazepines",
+              "type": "Literal"
+            },
+            "else": {
+              "asType": "{urn:hl7-org:elm-types:r1}String",
+              "type": "As",
+              "operand": {
+                "type": "Null"
+              }
+            }
+          }
+        },
+        {
+          "name": "Get Detail",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "type": "If",
+            "condition": {
+              "asType": "{urn:hl7-org:elm-types:r1}Boolean",
+              "type": "As",
+              "operand": {
+                "name": "Is Recommendation Applicable?",
+                "type": "ExpressionRef"
+              }
+            },
+            "then": {
+              "valueType": "{urn:hl7-org:elm-types:r1}String",
+              "value": "Avoid prescribing opioid pain medication and benzodiazepines concurrently whenever possible",
+              "type": "Literal"
+            },
+            "else": {
+              "asType": "{urn:hl7-org:elm-types:r1}String",
+              "type": "As",
+              "operand": {
+                "type": "Null"
+              }
+            }
+          }
+        },
+        {
+          "name": "Concurrent Benzodiazepine Prescription Issue",
+          "context": "Patient",
+          "accessLevel": "Public",
+          "expression": {
+            "classType": "{http://hl7.org/fhir}DetectedIssue",
+            "type": "Instance",
+            "element": [
+              {
+                "name": "status",
+                "value": {
+                  "classType": "{http://hl7.org/fhir}ObservationStatus",
+                  "type": "Instance",
+                  "element": [
+                    {
+                      "name": "value",
+                      "value": {
+                        "valueType": "{urn:hl7-org:elm-types:r1}String",
+                        "value": "preliminary",
+                        "type": "Literal"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "code",
+                "value": {
+                  "classType": "{http://hl7.org/fhir}CodeableConcept",
+                  "type": "Instance",
+                  "element": [
+                    {
+                      "name": "text",
+                      "value": {
+                        "classType": "{http://hl7.org/fhir}string",
+                        "type": "Instance",
+                        "element": [
+                          {
+                            "name": "value",
+                            "value": {
+                              "name": "Get Summary",
+                              "type": "ExpressionRef"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "severity",
+                "value": {
+                  "classType": "{http://hl7.org/fhir}DetectedIssueSeverity",
+                  "type": "Instance",
+                  "element": [
+                    {
+                      "name": "value",
+                      "value": {
+                        "valueType": "{urn:hl7-org:elm-types:r1}String",
+                        "value": "moderate",
+                        "type": "Literal"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "patient",
+                "value": {
+                  "classType": "{http://hl7.org/fhir}Reference",
+                  "type": "Instance",
+                  "element": [
+                    {
+                      "name": "reference",
+                      "value": {
+                        "classType": "{http://hl7.org/fhir}string",
+                        "type": "Instance",
+                        "element": [
+                          {
+                            "name": "value",
+                            "value": {
+                              "type": "Concatenate",
+                              "operand": [
+                                {
+                                  "valueType": "{urn:hl7-org:elm-types:r1}String",
+                                  "value": "Patient/",
+                                  "type": "Literal"
+                                },
+                                {
+                                  "name": "ToString",
+                                  "libraryName": "FHIRHelpers",
+                                  "type": "FunctionRef",
+                                  "operand": [
+                                    {
+                                      "path": "id",
+                                      "type": "Property",
+                                      "source": {
+                                        "name": "Patient",
+                                        "type": "ExpressionRef"
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "identified",
+                "value": {
+                  "type": "As",
+                  "operand": {
+                    "classType": "{http://hl7.org/fhir}dateTime",
+                    "type": "Instance",
+                    "element": [
+                      {
+                        "name": "value",
+                        "value": {
+                          "type": "Now"
+                        }
+                      }
+                    ]
+                  },
+                  "asTypeSpecifier": {
+                    "type": "ChoiceTypeSpecifier",
+                    "choice": [
+                      {
+                        "name": "{http://hl7.org/fhir}dateTime",
+                        "type": "NamedTypeSpecifier"
+                      },
+                      {
+                        "name": "{http://hl7.org/fhir}Period",
+                        "type": "NamedTypeSpecifier"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "implicated",
+                "value": {
+                  "type": "Query",
+                  "source": [
+                    {
+                      "alias": "M",
+                      "expression": {
+                        "type": "Union",
+                        "operand": [
+                          {
+                            "name": "Active Ambulatory Benzodiazepine Rx",
+                            "libraryName": "Common",
+                            "type": "ExpressionRef"
+                          },
+                          {
+                            "name": "Active Ambulatory Opioid Rx",
+                            "libraryName": "Common",
+                            "type": "ExpressionRef"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "relationship": [],
+                  "return": {
+                    "expression": {
+                      "classType": "{http://hl7.org/fhir}Reference",
+                      "type": "Instance",
+                      "element": [
+                        {
+                          "name": "reference",
+                          "value": {
+                            "classType": "{http://hl7.org/fhir}string",
+                            "type": "Instance",
+                            "element": [
+                              {
+                                "name": "value",
+                                "value": {
+                                  "type": "Concatenate",
+                                  "operand": [
+                                    {
+                                      "valueType": "{urn:hl7-org:elm-types:r1}String",
+                                      "value": "MedicationRequest/",
+                                      "type": "Literal"
+                                    },
+                                    {
+                                      "name": "ToString",
+                                      "libraryName": "FHIRHelpers",
+                                      "type": "FunctionRef",
+                                      "operand": [
+                                        {
+                                          "path": "id",
+                                          "scope": "M",
+                                          "type": "Property"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "name": "detail",
+                "value": {
+                  "classType": "{http://hl7.org/fhir}string",
+                  "type": "Instance",
+                  "element": [
+                    {
+                      "name": "value",
+                      "value": {
+                        "name": "Get Detail",
+                        "type": "ExpressionRef"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "reference",
+                "value": {
+                  "classType": "{http://hl7.org/fhir}uri",
+                  "type": "Instance",
+                  "element": [
+                    {
+                      "name": "value",
+                      "value": {
+                        "valueType": "{urn:hl7-org:elm-types:r1}String",
+                        "value": "http://fhir.org/guides/cdc/opioid-cds/PlanDefinition/opioidcds-11-patient-view",
+                        "type": "Literal"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+

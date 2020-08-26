@@ -1,0 +1,241 @@
+{
+  "resourceType": "Bundle",
+  "id": "robert_henry",
+  "type": "transaction",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "5c41cecf-cf81-434f-9da7-e24e5a874954",
+        "name": [
+          {
+            "given": [
+              "Robert"
+            ],
+            "family": "Henry"
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1956-10-17"
+      },
+      "request": {
+        "method": "PUT",
+        "url":"Patient/5c41cecf-cf81-434f-9da7-e24e5a874954"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "5c41cecf-cf81-434f-9da7-e24e5a874955",
+        "status": "active",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "outpatient"
+              }
+            ]
+          }
+        ],
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "1049502",
+              "display": "12 HR Oxycodone Hydrochloride 10 MG Extended Release Oral Tablet"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/5c41cecf-cf81-434f-9da7-e24e5a874954"
+        },
+        "authoredOn":"2020-05-28T16:02:00.000Z",
+        "_authoredOn": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+              "valueExpression": {
+                "language": "text/cql",
+                "expression": "Today() - 90 days"
+              }
+            }
+          ]
+        },
+        "dosageInstruction": [
+          {
+            "timing": {
+              "repeat": {
+                "frequency": 3,
+                "period": 1.0,
+                "periodUnit": "d"
+              }
+            },
+            "asNeededBoolean": false,
+            "doseAndRate": [
+              {
+                "doseQuantity": {
+                  "value": 1.0,
+                  "unit": "tablet"
+                }
+              }
+            ]
+          }
+        ],
+        "dispenseRequest": {
+          "_validityPeriod": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                "valueExpression": {
+                  "language": "text/cql",
+                  "expression": "FHIR.Period { start: FHIR.dateTime { value: Today() - 90 days }, end: FHIR.dateTime { value: Today() } }"
+                }
+              }
+            ]
+          },
+          "numberOfRepeatsAllowed": 3,
+          "expectedSupplyDuration": {
+            "value": 30.0,
+            "unit": "d"
+          }
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url":"MedicationRequest/5c41cecf-cf81-434f-9da7-e24e5a874955"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "5c41cecf-cf81-434f-9da7-e24e5a874959",
+        "status": "active",
+        "intent": "order",
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+                "code": "outpatient"
+              }
+            ]
+          }
+        ],
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "197696",
+              "display": "72 HR Fentanyl 0.075 MG/HR Transdermal System"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/5c41cecf-cf81-434f-9da7-e24e5a874954"
+        },
+        "encounter": {
+          "reference": "Encounter/5c41cecf-cf81-434f-9da7-e24e5a874954"
+        },
+        "authoredOn": "2020-08-06T16:02:00.000Z",
+        "_authoredOn": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+              "valueExpression": {
+                "language": "text/cql",
+                "expression": "Today()"
+              }
+            }
+          ]
+        },
+        "dosageInstruction": [
+          {
+            "timing": {
+              "repeat": {
+                "frequency": 1,
+                "period": 12.0,
+                "periodUnit": "d"
+              }
+            },
+            "asNeededBoolean": false,
+            "doseAndRate": [
+              {
+                "doseQuantity": {
+                  "value": 1.0,
+                  "unit": "patch"
+                }
+              }
+            ]
+          }
+        ],
+        "dispenseRequest": {
+          "_validityPeriod": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                "valueExpression": {
+                  "language": "text/cql",
+                  "expression": "FHIR.Period { start: FHIR.dateTime { value: Today() }, end: FHIR.dateTime { value: Today() + 3 months } }"
+                }
+              }
+            ]
+          },
+          "numberOfRepeatsAllowed": 3,
+          "expectedSupplyDuration": {
+            "value": 30.0,
+            "unit": "d"
+          }
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/5c41cecf-cf81-434f-9da7-e24e5a874959"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "5c41cecf-cf81-434f-9da7-e24e5a874956",
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "3426-4",
+              "display": "Tetrahydrocannabinol [Presence] in Urine"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/5c41cecf-cf81-434f-9da7-e24e5a874954"
+        },
+        "effectiveDateTime":"2020-07-05T16:02:00.000Z",
+        "_effectiveDateTime": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+              "valueExpression": {
+                "language": "text/cql",
+                "expression": "Today() - 28 days"
+              }
+            }
+          ]
+        },
+        "interpretation": {
+          "coding": [
+            {
+              "system": "http://hl7.org/fhir/v2/0078",
+              "code": "POS"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url":"Observation/5c41cecf-cf81-434f-9da7-e24e5a874956"
+      }
+    }
+  ]
+}

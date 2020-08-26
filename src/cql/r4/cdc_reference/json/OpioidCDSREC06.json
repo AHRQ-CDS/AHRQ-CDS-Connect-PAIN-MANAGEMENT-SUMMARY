@@ -1,0 +1,333 @@
+{
+   "library" : {
+      "annotation" : [ {
+         "translatorOptions" : "",
+         "type" : "CqlToElmInfo"
+      } ],
+      "identifier" : {
+         "id" : "OpioidCDSREC06",
+         "version" : "2.0.0"
+      },
+      "schemaIdentifier" : {
+         "id" : "urn:hl7-org:elm",
+         "version" : "r1"
+      },
+      "usings" : {
+         "def" : [ {
+            "localIdentifier" : "System",
+            "uri" : "urn:hl7-org:elm-types:r1"
+         }, {
+            "localIdentifier" : "FHIR",
+            "uri" : "http://hl7.org/fhir",
+            "version" : "4.0.0"
+         } ]
+      },
+      "includes" : {
+         "def" : [ {
+            "localIdentifier" : "FHIRHelpers",
+            "path" : "FHIRHelpers",
+            "version" : "4.0.0"
+         }, {
+            "localIdentifier" : "Common",
+            "path" : "OpioidCDSCommon",
+            "version" : "2.0.0"
+         }, {
+            "localIdentifier" : "Config",
+            "path" : "OpioidCDSCommonConfig",
+            "version" : "2.0.0"
+         }, {
+            "localIdentifier" : "Routines",
+            "path" : "OpioidCDSRoutines",
+            "version" : "2.0.0"
+         } ]
+      },
+      "parameters" : {
+         "def" : [ {
+            "name" : "ContextPrescriptions",
+            "accessLevel" : "Public",
+            "parameterTypeSpecifier" : {
+               "type" : "ListTypeSpecifier",
+               "elementType" : {
+                  "name" : "{http://hl7.org/fhir}MedicationRequest",
+                  "type" : "NamedTypeSpecifier"
+               }
+            }
+         } ]
+      },
+      "contexts" : {
+         "def" : [ {
+            "name" : "Patient"
+         } ]
+      },
+      "statements" : {
+         "def" : [ {
+            "name" : "Patient",
+            "context" : "Patient",
+            "expression" : {
+               "type" : "SingletonFrom",
+               "operand" : {
+                  "dataType" : "{http://hl7.org/fhir}Patient",
+                  "type" : "Retrieve"
+               }
+            }
+         }, {
+            "name" : "Acute Pain Opioid Analgesic with Ambulatory Misuse Potential Prescriptions",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "AmbulatoryOpioidPrescription",
+                  "expression" : {
+                     "name" : "Is Opioid Analgesic with Ambulatory Misuse Potential?",
+                     "libraryName" : "Common",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "name" : "ContextPrescriptions",
+                        "type" : "ParameterRef"
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "where" : {
+                  "name" : "Is Acute Pain Prescription?",
+                  "libraryName" : "Routines",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "name" : "AmbulatoryOpioidPrescription",
+                     "type" : "AliasRef"
+                  } ]
+               }
+            }
+         }, {
+            "name" : "Patient Is Being Prescribed Opioid Analgesic with Ambulatory Misuse Potential for Acute Pain",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Exists",
+               "operand" : {
+                  "name" : "Acute Pain Opioid Analgesic with Ambulatory Misuse Potential Prescriptions",
+                  "type" : "ExpressionRef"
+               }
+            }
+         }, {
+            "name" : "Order is for Long-Acting Opioid",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Exists",
+               "operand" : {
+                  "type" : "Query",
+                  "source" : [ {
+                     "alias" : "AmbulatoryOpioidPrescription",
+                     "expression" : {
+                        "name" : "Acute Pain Opioid Analgesic with Ambulatory Misuse Potential Prescriptions",
+                        "type" : "ExpressionRef"
+                     }
+                  } ],
+                  "relationship" : [ ],
+                  "where" : {
+                     "type" : "Or",
+                     "operand" : [ {
+                        "type" : "InValueSet",
+                        "code" : {
+                           "name" : "ToConcept",
+                           "libraryName" : "FHIRHelpers",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "asType" : "{http://hl7.org/fhir}CodeableConcept",
+                              "type" : "As",
+                              "operand" : {
+                                 "path" : "medication",
+                                 "scope" : "AmbulatoryOpioidPrescription",
+                                 "type" : "Property"
+                              }
+                           } ]
+                        },
+                        "valueset" : {
+                           "name" : "Extended release opioid with ambulatory misuse potential",
+                           "libraryName" : "Common",
+                           "type" : "ValueSetRef"
+                        }
+                     }, {
+                        "type" : "Greater",
+                        "operand" : [ {
+                           "name" : "GetDurationInDays",
+                           "libraryName" : "Common",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "expectedSupplyDuration",
+                              "type" : "Property",
+                              "source" : {
+                                 "path" : "dispenseRequest",
+                                 "scope" : "AmbulatoryOpioidPrescription",
+                                 "type" : "Property"
+                              }
+                           } ]
+                        }, {
+                           "type" : "ToDecimal",
+                           "operand" : {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "value" : "7",
+                              "type" : "Literal"
+                           }
+                        } ]
+                     } ]
+                  }
+               }
+            }
+         }, {
+            "name" : "Inclusion Criteria",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "And",
+               "operand" : [ {
+                  "type" : "And",
+                  "operand" : [ {
+                     "name" : "Patient Is Being Prescribed Opioid Analgesic with Ambulatory Misuse Potential for Acute Pain",
+                     "type" : "ExpressionRef"
+                  }, {
+                     "name" : "Is Opioid Review Useful?",
+                     "libraryName" : "Routines",
+                     "type" : "ExpressionRef"
+                  } ]
+               }, {
+                  "name" : "Order is for Long-Acting Opioid",
+                  "type" : "ExpressionRef"
+               } ]
+            }
+         }, {
+            "name" : "Exclusion Criteria",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "valueType" : "{urn:hl7-org:elm-types:r1}Boolean",
+               "value" : "false",
+               "type" : "Literal"
+            }
+         }, {
+            "name" : "Is Recommendation Applicable?",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "And",
+               "operand" : [ {
+                  "name" : "Inclusion Criteria",
+                  "type" : "ExpressionRef"
+               }, {
+                  "type" : "Not",
+                  "operand" : {
+                     "name" : "Exclusion Criteria",
+                     "type" : "ExpressionRef"
+                  }
+               } ]
+            }
+         }, {
+            "name" : "Get Indicator",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "name" : "Is Recommendation Applicable?",
+                     "type" : "ExpressionRef"
+                  }
+               },
+               "then" : {
+                  "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                  "value" : "warning",
+                  "type" : "Literal"
+               },
+               "else" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "Null"
+                  }
+               }
+            }
+         }, {
+            "name" : "Get Summary",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "name" : "Is Recommendation Applicable?",
+                     "type" : "ExpressionRef"
+                  }
+               },
+               "then" : {
+                  "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                  "value" : "Recommend limit therapy to <= 3 days to maximum of <= 7 days and to limit to immediate release opioids",
+                  "type" : "Literal"
+               },
+               "else" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "Null"
+                  }
+               }
+            }
+         }, {
+            "name" : "Get Detail",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "name" : "Is Recommendation Applicable?",
+                     "type" : "ExpressionRef"
+                  }
+               },
+               "then" : {
+                  "type" : "Concatenate",
+                  "operand" : [ {
+                     "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                     "value" : "Medication requests(s): ",
+                     "type" : "Literal"
+                  }, {
+                     "type" : "Combine",
+                     "source" : {
+                        "type" : "Flatten",
+                        "operand" : {
+                           "name" : "GetMedicationNames",
+                           "libraryName" : "Common",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "name" : "Acute Pain Opioid Analgesic with Ambulatory Misuse Potential Prescriptions",
+                              "type" : "ExpressionRef"
+                           } ]
+                        }
+                     },
+                     "separator" : {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                        "value" : ", ",
+                        "type" : "Literal"
+                     }
+                  } ]
+               },
+               "else" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "Null"
+                  }
+               }
+            }
+         } ]
+      }
+   }
+}
+

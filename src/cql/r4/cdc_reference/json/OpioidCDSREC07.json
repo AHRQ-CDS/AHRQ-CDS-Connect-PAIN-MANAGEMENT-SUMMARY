@@ -1,0 +1,547 @@
+{
+   "library" : {
+      "annotation" : [ {
+         "translatorOptions" : "",
+         "type" : "CqlToElmInfo"
+      } ],
+      "identifier" : {
+         "id" : "OpioidCDSREC07",
+         "version" : "2.0.0"
+      },
+      "schemaIdentifier" : {
+         "id" : "urn:hl7-org:elm",
+         "version" : "r1"
+      },
+      "usings" : {
+         "def" : [ {
+            "localIdentifier" : "System",
+            "uri" : "urn:hl7-org:elm-types:r1"
+         }, {
+            "localIdentifier" : "FHIR",
+            "uri" : "http://hl7.org/fhir",
+            "version" : "4.0.0"
+         } ]
+      },
+      "includes" : {
+         "def" : [ {
+            "localIdentifier" : "FHIRHelpers",
+            "path" : "FHIRHelpers",
+            "version" : "4.0.0"
+         }, {
+            "localIdentifier" : "Common",
+            "path" : "OpioidCDSCommon",
+            "version" : "2.0.0"
+         }, {
+            "localIdentifier" : "Routines",
+            "path" : "OpioidCDSRoutines",
+            "version" : "2.0.0"
+         } ]
+      },
+      "parameters" : {
+         "def" : [ {
+            "name" : "ContextPrescriptions",
+            "accessLevel" : "Public",
+            "parameterTypeSpecifier" : {
+               "type" : "ListTypeSpecifier",
+               "elementType" : {
+                  "name" : "{http://hl7.org/fhir}MedicationRequest",
+                  "type" : "NamedTypeSpecifier"
+               }
+            }
+         } ]
+      },
+      "contexts" : {
+         "def" : [ {
+            "name" : "Patient"
+         } ]
+      },
+      "statements" : {
+         "def" : [ {
+            "name" : "Patient",
+            "context" : "Patient",
+            "expression" : {
+               "type" : "SingletonFrom",
+               "operand" : {
+                  "dataType" : "{http://hl7.org/fhir}Patient",
+                  "type" : "Retrieve"
+               }
+            }
+         }, {
+            "name" : "Risk Assessment Interval",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "lowClosed" : true,
+               "highClosed" : true,
+               "type" : "Interval",
+               "low" : {
+                  "type" : "Subtract",
+                  "operand" : [ {
+                     "type" : "Today"
+                  }, {
+                     "value" : 91,
+                     "unit" : "days",
+                     "type" : "Quantity"
+                  } ]
+               },
+               "high" : {
+                  "type" : "Subtract",
+                  "operand" : [ {
+                     "type" : "Today"
+                  }, {
+                     "value" : 1,
+                     "unit" : "day",
+                     "type" : "Quantity"
+                  } ]
+               }
+            }
+         }, {
+            "name" : "Previous 10 Days Interval",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "lowClosed" : true,
+               "highClosed" : true,
+               "type" : "Interval",
+               "low" : {
+                  "type" : "Subtract",
+                  "operand" : [ {
+                     "type" : "Today"
+                  }, {
+                     "value" : 10,
+                     "unit" : "days",
+                     "type" : "Quantity"
+                  } ]
+               },
+               "high" : {
+                  "type" : "Today"
+               }
+            }
+         }, {
+            "name" : "Encounter Interval",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "lowClosed" : true,
+               "highClosed" : true,
+               "type" : "Interval",
+               "low" : {
+                  "type" : "Subtract",
+                  "operand" : [ {
+                     "type" : "Subtract",
+                     "operand" : [ {
+                        "type" : "Today"
+                     }, {
+                        "value" : 12,
+                        "unit" : "months",
+                        "type" : "Quantity"
+                     } ]
+                  }, {
+                     "value" : 1,
+                     "unit" : "days",
+                     "type" : "Quantity"
+                  } ]
+               },
+               "high" : {
+                  "type" : "Subtract",
+                  "operand" : [ {
+                     "type" : "Today"
+                  }, {
+                     "value" : 1,
+                     "unit" : "day",
+                     "type" : "Quantity"
+                  } ]
+               }
+            }
+         }, {
+            "name" : "Chronic Pain Opioid Analgesic with Ambulatory Misuse Potential Prescriptions",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "AmbulatoryOpioidPrescription",
+                  "expression" : {
+                     "name" : "Is Opioid Analgesic with Ambulatory Misuse Potential?",
+                     "libraryName" : "Common",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "name" : "ContextPrescriptions",
+                        "type" : "ParameterRef"
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "where" : {
+                  "name" : "Is Chronic Pain Prescription?",
+                  "libraryName" : "Routines",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "name" : "AmbulatoryOpioidPrescription",
+                     "type" : "AliasRef"
+                  } ]
+               }
+            }
+         }, {
+            "name" : "Patient Is Being Prescribed Opioid Analgesic with Ambulatory Misuse Potential",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Exists",
+               "operand" : {
+                  "name" : "Chronic Pain Opioid Analgesic with Ambulatory Misuse Potential Prescriptions",
+                  "type" : "ExpressionRef"
+               }
+            }
+         }, {
+            "name" : "Opioid Risk Assessment in Past 90 Days",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "riskAssessment",
+                  "expression" : {
+                     "dataType" : "{http://hl7.org/fhir}Procedure",
+                     "codeProperty" : "code",
+                     "codeComparator" : "in",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "name" : "Opioid misuse assessment procedure",
+                        "libraryName" : "Common",
+                        "type" : "ValueSetRef"
+                     }
+                  }
+               } ],
+               "relationship" : [ ],
+               "where" : {
+                  "precision" : "Day",
+                  "type" : "In",
+                  "operand" : [ {
+                     "type" : "Start",
+                     "operand" : {
+                        "name" : "ToInterval",
+                        "libraryName" : "FHIRHelpers",
+                        "type" : "FunctionRef",
+                        "operand" : [ {
+                           "strict" : false,
+                           "type" : "As",
+                           "operand" : {
+                              "path" : "performed",
+                              "scope" : "riskAssessment",
+                              "type" : "Property"
+                           },
+                           "asTypeSpecifier" : {
+                              "name" : "{http://hl7.org/fhir}Period",
+                              "type" : "NamedTypeSpecifier"
+                           }
+                        } ]
+                     }
+                  }, {
+                     "type" : "Interval",
+                     "low" : {
+                        "type" : "ToDateTime",
+                        "operand" : {
+                           "path" : "low",
+                           "type" : "Property",
+                           "source" : {
+                              "name" : "Risk Assessment Interval",
+                              "type" : "ExpressionRef"
+                           }
+                        }
+                     },
+                     "lowClosedExpression" : {
+                        "path" : "lowClosed",
+                        "type" : "Property",
+                        "source" : {
+                           "name" : "Risk Assessment Interval",
+                           "type" : "ExpressionRef"
+                        }
+                     },
+                     "high" : {
+                        "type" : "ToDateTime",
+                        "operand" : {
+                           "path" : "high",
+                           "type" : "Property",
+                           "source" : {
+                              "name" : "Risk Assessment Interval",
+                              "type" : "ExpressionRef"
+                           }
+                        }
+                     },
+                     "highClosedExpression" : {
+                        "path" : "highClosed",
+                        "type" : "Property",
+                        "source" : {
+                           "name" : "Risk Assessment Interval",
+                           "type" : "ExpressionRef"
+                        }
+                     }
+                  } ]
+               }
+            }
+         }, {
+            "name" : "Prescribed Opioids for 7 of Past 10 Days with an Encounter",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "And",
+               "operand" : [ {
+                  "type" : "GreaterOrEqual",
+                  "operand" : [ {
+                     "name" : "Days on Opioids during Period",
+                     "libraryName" : "Routines",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "name" : "Previous 10 Days Interval",
+                        "type" : "ExpressionRef"
+                     } ]
+                  }, {
+                     "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                     "value" : "7",
+                     "type" : "Literal"
+                  } ]
+               }, {
+                  "type" : "Exists",
+                  "operand" : {
+                     "type" : "Query",
+                     "source" : [ {
+                        "alias" : "AmbulatoryEncounter",
+                        "expression" : {
+                           "dataType" : "{http://hl7.org/fhir}Encounter",
+                           "codeProperty" : "type",
+                           "codeComparator" : "in",
+                           "type" : "Retrieve",
+                           "codes" : {
+                              "name" : "Office Visit",
+                              "libraryName" : "Common",
+                              "type" : "ValueSetRef"
+                           }
+                        }
+                     } ],
+                     "relationship" : [ ],
+                     "where" : {
+                        "type" : "IncludedIn",
+                        "operand" : [ {
+                           "name" : "ToInterval",
+                           "libraryName" : "FHIRHelpers",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "period",
+                              "scope" : "AmbulatoryEncounter",
+                              "type" : "Property"
+                           } ]
+                        }, {
+                           "type" : "Interval",
+                           "low" : {
+                              "type" : "ToDateTime",
+                              "operand" : {
+                                 "path" : "low",
+                                 "type" : "Property",
+                                 "source" : {
+                                    "name" : "Encounter Interval",
+                                    "type" : "ExpressionRef"
+                                 }
+                              }
+                           },
+                           "lowClosedExpression" : {
+                              "path" : "lowClosed",
+                              "type" : "Property",
+                              "source" : {
+                                 "name" : "Encounter Interval",
+                                 "type" : "ExpressionRef"
+                              }
+                           },
+                           "high" : {
+                              "type" : "ToDateTime",
+                              "operand" : {
+                                 "path" : "high",
+                                 "type" : "Property",
+                                 "source" : {
+                                    "name" : "Encounter Interval",
+                                    "type" : "ExpressionRef"
+                                 }
+                              }
+                           },
+                           "highClosedExpression" : {
+                              "path" : "highClosed",
+                              "type" : "Property",
+                              "source" : {
+                                 "name" : "Encounter Interval",
+                                 "type" : "ExpressionRef"
+                              }
+                           }
+                        } ]
+                     }
+                  }
+               } ]
+            }
+         }, {
+            "name" : "Inclusion Criteria",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "And",
+               "operand" : [ {
+                  "type" : "And",
+                  "operand" : [ {
+                     "type" : "And",
+                     "operand" : [ {
+                        "name" : "Patient Is Being Prescribed Opioid Analgesic with Ambulatory Misuse Potential",
+                        "type" : "ExpressionRef"
+                     }, {
+                        "name" : "Is Opioid Review Useful?",
+                        "libraryName" : "Routines",
+                        "type" : "ExpressionRef"
+                     } ]
+                  }, {
+                     "type" : "Not",
+                     "operand" : {
+                        "type" : "Exists",
+                        "operand" : {
+                           "name" : "Opioid Risk Assessment in Past 90 Days",
+                           "type" : "ExpressionRef"
+                        }
+                     }
+                  } ]
+               }, {
+                  "type" : "Or",
+                  "operand" : [ {
+                     "name" : "Prescribed Opioids for 7 of Past 10 Days with an Encounter",
+                     "type" : "ExpressionRef"
+                  }, {
+                     "name" : "Prescribed Opioids for 21 or more of 30 Days for each of the past 3 Months",
+                     "libraryName" : "Routines",
+                     "type" : "ExpressionRef"
+                  } ]
+               } ]
+            }
+         }, {
+            "name" : "Exclusion Criteria",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "name" : "End of Life Assessment",
+               "libraryName" : "Common",
+               "type" : "ExpressionRef"
+            }
+         }, {
+            "name" : "Is Recommendation Applicable?",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "And",
+               "operand" : [ {
+                  "name" : "Inclusion Criteria",
+                  "type" : "ExpressionRef"
+               }, {
+                  "type" : "Not",
+                  "operand" : {
+                     "name" : "Exclusion Criteria",
+                     "type" : "ExpressionRef"
+                  }
+               } ]
+            }
+         }, {
+            "name" : "Get Indicator",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "name" : "Is Recommendation Applicable?",
+                     "type" : "ExpressionRef"
+                  }
+               },
+               "then" : {
+                  "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                  "value" : "warning",
+                  "type" : "Literal"
+               },
+               "else" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "Null"
+                  }
+               }
+            }
+         }, {
+            "name" : "Get Summary",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "name" : "Is Recommendation Applicable?",
+                     "type" : "ExpressionRef"
+                  }
+               },
+               "then" : {
+                  "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                  "value" : "Patients on opioid therapy should be evaluated for benefits and harms within 1 to 4 weeks of starting opioid therapy and every 3 months or more subsequently.",
+                  "type" : "Literal"
+               },
+               "else" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "Null"
+                  }
+               }
+            }
+         }, {
+            "name" : "Get Detail",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "name" : "Is Recommendation Applicable?",
+                     "type" : "ExpressionRef"
+                  }
+               },
+               "then" : {
+                  "type" : "If",
+                  "condition" : {
+                     "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                     "type" : "As",
+                     "operand" : {
+                        "name" : "Prescribed Opioids for 21 or more of 30 Days for each of the past 3 Months",
+                        "libraryName" : "Routines",
+                        "type" : "ExpressionRef"
+                     }
+                  },
+                  "then" : {
+                     "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                     "value" : "No evaluation for benefits and harms associated with opioid therapy has been performed for the patient in the past 3 months",
+                     "type" : "Literal"
+                  },
+                  "else" : {
+                     "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                     "value" : "No evaluation for benefits and harms has been performed for the patient starting opioid therapy",
+                     "type" : "Literal"
+                  }
+               },
+               "else" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "Null"
+                  }
+               }
+            }
+         } ]
+      }
+   }
+}
+

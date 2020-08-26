@@ -70,6 +70,7 @@ using FHIR version '4.0.0'
 include CDS_Connect_Commons_for_FHIRv400 version '1.0.1' called C3F
 // The FHIRHelpers library provides common functions for simplifying interaction w/ the FHIR R4 data model.
 include FHIRHelpers version '4.0.0' called FHIRHelpers
+include MMECalculator version '3.0.0' called MMECalculator
 
 // # Value sets and codes #
 
@@ -177,6 +178,8 @@ code "Total score [AUDIT-C] code": '75626-2' from "LOINC" display 'Total score [
 code "Total score [DAST-10] code": '82667-7' from "LOINC" display 'Total score [DAST-10]'
 code "Total score ORT code": '91392-1' from "LOINC" display 'Total score ORT'
 code "Pain severity Wong-Baker FACES Scale code": '38221-8' from "LOINC" display 'Pain severity Wong-Baker FACES Scale'
+code "Questionnaire response Document code": '74465-6' from "LOINC" display 'Questionnaire response Document'
+
 
 // The Pain intensity, Enjoyment of life, General activity scale [PEG] now has standardized LOINC codes available.
 // These LOINC codes were not available when the initial version of the Pain Management Summary was developed.
@@ -260,6 +263,8 @@ concept "Single question r/t ETOH use": { "Single question r/t ETOH use code" } 
 concept "Single question r/t drug use": { "Single question r/t drug use code" } display 'Single question r/t drug use'
 concept "Morphine Milligram Equivalent (MME)":
   { "Morphine Milligram Equivalent (MME) code" } display 'Morphine Milligram Equivalent (MME)'
+concept "Questionnaire response Document":
+  {"Questionnaire response Document code" } display 'Questionnaire response Document'
 
 // # Parameters #
 
@@ -639,6 +644,7 @@ define ReportEncounterRiskFactorsForOpioidRelatedHarms:
 // Shape the pregnancy Observation as a Condition, since this is the backup approach for detecting a pregnancy in case
 // there are no active Conditions found.
 define ReportMostRecentPositivePregnancyObservation:
+{
   if MostRecentPregnancyObservationIsPositive then
     {
       Name: ConceptText(MostRecentPregnancyObservation.code),
@@ -654,9 +660,11 @@ define ReportMostRecentPositivePregnancyObservation:
     }
   else
     null
+}
 
 // Shape the case of being 65 or older as a Condition for the purposes of building the summary.
 define ReportOlderThan65:
+{
   if Is65orOlder then
     {
       Name: '65 years or older',
@@ -668,6 +676,7 @@ define ReportOlderThan65:
     }
   else
     null
+}
 
 define ReportRiskFactorsForOpioidRelatedHarms:
   // If a pregnancy Condition is present, use that.
@@ -949,6 +958,7 @@ define MostRecentMME:
   C3F.MostRecent(C3F.Verified(C3F.ObservationLookBack([Observation: "Morphine Milligram Equivalent (MME)"], 6 months)))
 
 define ReportMostRecentMME:
+{
   if MostRecentMME is null
   then null
   else
@@ -958,6 +968,27 @@ define ReportMostRecentMME:
       Result: QuantityText(M.value as FHIR.Quantity),
       Date:   ObservationDate(M)
     }
+}
+
+// MME Calculation
+define ActiveOpioidMedications:
+  C3F.ActiveMedicationRequest([MedicationRequest: "Opioid Pain Medications"])
+
+define CurrentMME:
+  MMECalculator.TotalMME(ActiveOpioidMedications)
+
+define ReportCurrentMME:
+{
+  if CurrentMME is null then
+    null
+    else
+      (CurrentMME) M
+      return {
+        Name: 'Current Milligram Morphine Equivalent',
+        Result: ToString(M),
+        Date: ToString(Today())
+      }
+}
 
 // Urine drug screen - dates and results (all screens w/ lookback of 1 year)
 
@@ -1090,6 +1121,10 @@ define ReportRiskScreeningsRelevantToPainManagement:
 // display the data to the user in a friendly manner.  See the Pain Management Summary SMART on FHIR application as
 // an example of how to integrate this summary into an EHR using modern web UI technologies.
 
+
+/**
+    This is a placeholder for CDSHooks responses/cards.  It is NOT correct, just tyring to get a value there
+**/
 define RequestsAndResponses:
     C3F.Confirmed(C3F.ActiveOrRecurring([Condition: "Conditions associated with chronic pain"]))
 
@@ -1103,6 +1138,57 @@ define ReportRequestsAndResponses:
   }
   sort by (Onset as String) desc
 
+//********************  MyPAIN Questionnaire Observations  ********************************
+define function ConceptTextOrCode(c FHIR.CodeableConcept):
+  Coalesce(
+    Coalesce((c.coding) c2 return c2.code.value),
+    c.text.value)
+
+  define function ObservationValue(Obs FHIR.Observation):
+    Coalesce(
+      QuantityText(Obs.value as FHIR.Quantity),
+      ToString((Obs.value as FHIR.boolean)),
+      (Obs.value as FHIR.string),
+      ConceptTextOrCode(Obs.value as FHIR.CodeableConcept)
+//      ConceptText(Obs.value as FHIR.CodeableConcept)c FHIR.CodeableConcept  // for just the text, regardless
+    )
+
+  define function GetLinkId(Obs FHIR.Observation):
+//    Obs.extension
+//    Obs.extension E
+//      return E.extension
+
+
+//  (flatten (
+  if Obs is null then 'Obs is null'
+  else if Obs.extension[0] is null then 'Obs.extension is null'
+  else if Obs.extension[0].url is null then 'Obs.extension.url is null'
+  else if Obs.extension[0].extension is null then 'Obs.extension.extension is null'
+  else Obs.extension[0].extension[0].value.value
+//    return
+//    Obs.extension E
+//      if e.url is not null
+//        where E.url = ('http://hl7.org/fhir/uv/sdc/StructureDefinition/derivedFromLinkId')
+
+//          return 'no more data'//E.extension)) //ext
+//          where ext.url = 'text'
+//            return
+//              'supposed value'
+//                ext.value
+
+
+define QuestionnaireObservations:
+  C3F.Verified(C3F.ObservationLookBack([Observation: "Questionnaire response Document"], 2 year))
+
+define ReportQuestionnaireObservations:
+  (QuestionnaireObservations) qo
+  return{
+    Answer: ObservationValue(qo),
+    DateText: ObservationDate(qo),
+    LinkId: qo.extension[0].extension[0].value.value
+  }
+
+
 define Summary: {
   Patient: {
     Name: Combine(Patient.name.given G return G.value, ' ') + ' ' + Combine(Patient.name.family F return F.value, ' '),
@@ -1112,6 +1198,9 @@ define Summary: {
   },
   CDSHooksAssessment: {
     RequestsAndResponses:ReportRequestsAndResponses
+  },
+  SharedDecisionMaking: {
+    QuestionnaireObservations:ReportQuestionnaireObservations
   },
   PertinentMedicalHistory: {
     ConditionsAssociatedWithChronicPain: ReportConditionsAssociatedWithChronicPain,
@@ -1129,6 +1218,7 @@ define Summary: {
     StoolSoftenersAndLaxatives: ReportStoolSoftenersAndLaxatives
   },
   RiskConsiderations: {
+    CurrentMME: ReportCurrentMME,
     MostRecentMME: ReportMostRecentMME,
     UrineDrugScreens: ReportUrineDrugScreens,
     BenzodiazepineMedications: ReportBenzodiazepineMedications,

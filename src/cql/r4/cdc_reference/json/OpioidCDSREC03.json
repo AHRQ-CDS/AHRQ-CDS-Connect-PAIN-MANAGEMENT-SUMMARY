@@ -1,0 +1,487 @@
+{
+   "library" : {
+      "annotation" : [ {
+         "translatorOptions" : "",
+         "type" : "CqlToElmInfo"
+      } ],
+      "identifier" : {
+         "id" : "OpioidCDSREC03",
+         "version" : "2.0.0"
+      },
+      "schemaIdentifier" : {
+         "id" : "urn:hl7-org:elm",
+         "version" : "r1"
+      },
+      "usings" : {
+         "def" : [ {
+            "localIdentifier" : "System",
+            "uri" : "urn:hl7-org:elm-types:r1"
+         }, {
+            "localIdentifier" : "FHIR",
+            "uri" : "http://hl7.org/fhir",
+            "version" : "4.0.0"
+         } ]
+      },
+      "includes" : {
+         "def" : [ {
+            "localIdentifier" : "FHIRHelpers",
+            "path" : "FHIRHelpers",
+            "version" : "4.0.0"
+         }, {
+            "localIdentifier" : "Common",
+            "path" : "OpioidCDSCommon",
+            "version" : "2.0.0"
+         }, {
+            "localIdentifier" : "Config",
+            "path" : "OpioidCDSCommonConfig",
+            "version" : "2.0.0"
+         }, {
+            "localIdentifier" : "Routines",
+            "path" : "OpioidCDSRoutines",
+            "version" : "2.0.0"
+         } ]
+      },
+      "parameters" : {
+         "def" : [ {
+            "name" : "ContextPrescriptions",
+            "accessLevel" : "Public",
+            "parameterTypeSpecifier" : {
+               "type" : "ListTypeSpecifier",
+               "elementType" : {
+                  "name" : "{http://hl7.org/fhir}MedicationRequest",
+                  "type" : "NamedTypeSpecifier"
+               }
+            }
+         } ]
+      },
+      "contexts" : {
+         "def" : [ {
+            "name" : "Patient"
+         } ]
+      },
+      "statements" : {
+         "def" : [ {
+            "name" : "Patient",
+            "context" : "Patient",
+            "expression" : {
+               "type" : "SingletonFrom",
+               "operand" : {
+                  "dataType" : "{http://hl7.org/fhir}Patient",
+                  "type" : "Retrieve"
+               }
+            }
+         }, {
+            "name" : "Opioid Harms & Risks Counseling Lookback Period",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "lowClosed" : true,
+               "highClosed" : true,
+               "type" : "Interval",
+               "low" : {
+                  "type" : "Subtract",
+                  "operand" : [ {
+                     "type" : "Today"
+                  }, {
+                     "value" : 90,
+                     "unit" : "days",
+                     "type" : "Quantity"
+                  } ]
+               },
+               "high" : {
+                  "type" : "Subtract",
+                  "operand" : [ {
+                     "type" : "Today"
+                  }, {
+                     "value" : 1,
+                     "unit" : "days",
+                     "type" : "Quantity"
+                  } ]
+               }
+            }
+         }, {
+            "name" : "Chronic Pain Opioid Analgesic with Ambulatory Misuse Potential Prescriptions",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "AmbulatoryOpioidPrescription",
+                  "expression" : {
+                     "name" : "Is Opioid Analgesic with Ambulatory Misuse Potential?",
+                     "libraryName" : "Common",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "name" : "ContextPrescriptions",
+                        "type" : "ParameterRef"
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "where" : {
+                  "name" : "Is Chronic Pain Prescription?",
+                  "libraryName" : "Routines",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "name" : "AmbulatoryOpioidPrescription",
+                     "type" : "AliasRef"
+                  } ]
+               }
+            }
+         }, {
+            "name" : "Patient Is Being Prescribed Opioid Analgesic with Ambulatory Misuse Potential",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Exists",
+               "operand" : {
+                  "name" : "Chronic Pain Opioid Analgesic with Ambulatory Misuse Potential Prescriptions",
+                  "type" : "ExpressionRef"
+               }
+            }
+         }, {
+            "name" : "Documented Discussions of Opioid Harms and Risks in Past 90 Days Excluding Today",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "P",
+                  "expression" : {
+                     "dataType" : "{http://hl7.org/fhir}Procedure",
+                     "codeProperty" : "code",
+                     "codeComparator" : "in",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "name" : "Opioid counseling procedure",
+                        "libraryName" : "Common",
+                        "type" : "ValueSetRef"
+                     }
+                  }
+               } ],
+               "relationship" : [ ],
+               "where" : {
+                  "type" : "And",
+                  "operand" : [ {
+                     "precision" : "Day",
+                     "type" : "IncludedIn",
+                     "operand" : [ {
+                        "name" : "ToInterval",
+                        "libraryName" : "FHIRHelpers",
+                        "type" : "FunctionRef",
+                        "operand" : [ {
+                           "asType" : "{http://hl7.org/fhir}Period",
+                           "type" : "As",
+                           "operand" : {
+                              "path" : "performed",
+                              "scope" : "P",
+                              "type" : "Property"
+                           }
+                        } ]
+                     }, {
+                        "type" : "Interval",
+                        "low" : {
+                           "type" : "ToDateTime",
+                           "operand" : {
+                              "path" : "low",
+                              "type" : "Property",
+                              "source" : {
+                                 "name" : "Opioid Harms & Risks Counseling Lookback Period",
+                                 "type" : "ExpressionRef"
+                              }
+                           }
+                        },
+                        "lowClosedExpression" : {
+                           "path" : "lowClosed",
+                           "type" : "Property",
+                           "source" : {
+                              "name" : "Opioid Harms & Risks Counseling Lookback Period",
+                              "type" : "ExpressionRef"
+                           }
+                        },
+                        "high" : {
+                           "type" : "ToDateTime",
+                           "operand" : {
+                              "path" : "high",
+                              "type" : "Property",
+                              "source" : {
+                                 "name" : "Opioid Harms & Risks Counseling Lookback Period",
+                                 "type" : "ExpressionRef"
+                              }
+                           }
+                        },
+                        "highClosedExpression" : {
+                           "path" : "highClosed",
+                           "type" : "Property",
+                           "source" : {
+                              "name" : "Opioid Harms & Risks Counseling Lookback Period",
+                              "type" : "ExpressionRef"
+                           }
+                        }
+                     } ]
+                  }, {
+                     "type" : "Equivalent",
+                     "operand" : [ {
+                        "name" : "ToString",
+                        "libraryName" : "FHIRHelpers",
+                        "type" : "FunctionRef",
+                        "operand" : [ {
+                           "path" : "status",
+                           "scope" : "P",
+                           "type" : "Property"
+                        } ]
+                     }, {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                        "value" : "completed",
+                        "type" : "Literal"
+                     } ]
+                  } ]
+               }
+            }
+         }, {
+            "name" : "Ordered Discussions of Opioid Harms and Risks in Past 90 Days Excluding Today",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "SR",
+                  "expression" : {
+                     "dataType" : "{http://hl7.org/fhir}ServiceRequest",
+                     "codeProperty" : "code",
+                     "codeComparator" : "in",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "name" : "Opioid counseling procedure",
+                        "libraryName" : "Common",
+                        "type" : "ValueSetRef"
+                     }
+                  }
+               } ],
+               "relationship" : [ ],
+               "where" : {
+                  "precision" : "Day",
+                  "type" : "IncludedIn",
+                  "operand" : [ {
+                     "name" : "ToInterval",
+                     "libraryName" : "FHIRHelpers",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "asType" : "{http://hl7.org/fhir}Period",
+                        "type" : "As",
+                        "operand" : {
+                           "path" : "occurrence",
+                           "scope" : "SR",
+                           "type" : "Property"
+                        }
+                     } ]
+                  }, {
+                     "type" : "Interval",
+                     "low" : {
+                        "type" : "ToDateTime",
+                        "operand" : {
+                           "path" : "low",
+                           "type" : "Property",
+                           "source" : {
+                              "name" : "Opioid Harms & Risks Counseling Lookback Period",
+                              "type" : "ExpressionRef"
+                           }
+                        }
+                     },
+                     "lowClosedExpression" : {
+                        "path" : "lowClosed",
+                        "type" : "Property",
+                        "source" : {
+                           "name" : "Opioid Harms & Risks Counseling Lookback Period",
+                           "type" : "ExpressionRef"
+                        }
+                     },
+                     "high" : {
+                        "type" : "ToDateTime",
+                        "operand" : {
+                           "path" : "high",
+                           "type" : "Property",
+                           "source" : {
+                              "name" : "Opioid Harms & Risks Counseling Lookback Period",
+                              "type" : "ExpressionRef"
+                           }
+                        }
+                     },
+                     "highClosedExpression" : {
+                        "path" : "highClosed",
+                        "type" : "Property",
+                        "source" : {
+                           "name" : "Opioid Harms & Risks Counseling Lookback Period",
+                           "type" : "ExpressionRef"
+                        }
+                     }
+                  } ]
+               }
+            }
+         }, {
+            "name" : "No Documented Discussions of Opioid Harms and Risks",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "And",
+               "operand" : [ {
+                  "name" : "Opioid Harms & Risks Discussion in Past 90 Days Criteria Enabled",
+                  "libraryName" : "Config",
+                  "type" : "ExpressionRef"
+               }, {
+                  "type" : "Not",
+                  "operand" : {
+                     "type" : "Or",
+                     "operand" : [ {
+                        "type" : "Exists",
+                        "operand" : {
+                           "name" : "Documented Discussions of Opioid Harms and Risks in Past 90 Days Excluding Today",
+                           "type" : "ExpressionRef"
+                        }
+                     }, {
+                        "type" : "Exists",
+                        "operand" : {
+                           "name" : "Ordered Discussions of Opioid Harms and Risks in Past 90 Days Excluding Today",
+                           "type" : "ExpressionRef"
+                        }
+                     } ]
+                  }
+               } ]
+            }
+         }, {
+            "name" : "Inclusion Criteria",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "And",
+               "operand" : [ {
+                  "type" : "And",
+                  "operand" : [ {
+                     "name" : "Patient Is Being Prescribed Opioid Analgesic with Ambulatory Misuse Potential",
+                     "type" : "ExpressionRef"
+                  }, {
+                     "name" : "Is Opioid Review Useful?",
+                     "libraryName" : "Routines",
+                     "type" : "ExpressionRef"
+                  } ]
+               }, {
+                  "name" : "No Documented Discussions of Opioid Harms and Risks",
+                  "type" : "ExpressionRef"
+               } ]
+            }
+         }, {
+            "name" : "Is Recommendation Applicable?",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "name" : "Inclusion Criteria",
+               "type" : "ExpressionRef"
+            }
+         }, {
+            "name" : "Get Indicator",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "name" : "Is Recommendation Applicable?",
+                     "type" : "ExpressionRef"
+                  }
+               },
+               "then" : {
+                  "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                  "value" : "warning",
+                  "type" : "Literal"
+               },
+               "else" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "Null"
+                  }
+               }
+            }
+         }, {
+            "name" : "Get Summary",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "name" : "Is Recommendation Applicable?",
+                     "type" : "ExpressionRef"
+                  }
+               },
+               "then" : {
+                  "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                  "value" : "Recommend counseling regarding potential opioid harms and risks",
+                  "type" : "Literal"
+               },
+               "else" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "Null"
+                  }
+               }
+            }
+         }, {
+            "name" : "Get Detail",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                  "type" : "As",
+                  "operand" : {
+                     "name" : "Is Recommendation Applicable?",
+                     "type" : "ExpressionRef"
+                  }
+               },
+               "then" : {
+                  "type" : "Concatenate",
+                  "operand" : [ {
+                     "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                     "value" : "Medication requests(s): ",
+                     "type" : "Literal"
+                  }, {
+                     "type" : "Combine",
+                     "source" : {
+                        "type" : "Flatten",
+                        "operand" : {
+                           "name" : "GetMedicationNames",
+                           "libraryName" : "Common",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "name" : "Chronic Pain Opioid Analgesic with Ambulatory Misuse Potential Prescriptions",
+                              "type" : "ExpressionRef"
+                           } ]
+                        }
+                     },
+                     "separator" : {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                        "value" : ", ",
+                        "type" : "Literal"
+                     }
+                  } ]
+               },
+               "else" : {
+                  "asType" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "Null"
+                  }
+               }
+            }
+         } ]
+      }
+   }
+}
+
