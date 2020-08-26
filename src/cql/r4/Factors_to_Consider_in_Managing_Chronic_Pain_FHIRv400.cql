@@ -1139,24 +1139,44 @@ define ReportRequestsAndResponses:
   sort by (Onset as String) desc
 
 //********************  MyPAIN Questionnaire Observations  ********************************
+define function ConceptTextOrCode(c FHIR.CodeableConcept):
+  Coalesce(
+    Coalesce((c.coding) c2 return c2.code.value),
+    c.text.value)
+
   define function ObservationValue(Obs FHIR.Observation):
     Coalesce(
       QuantityText(Obs.value as FHIR.Quantity),
       ToString((Obs.value as FHIR.boolean)),
       (Obs.value as FHIR.string),
-      ConceptText(Obs.value as FHIR.CodeableConcept)
+      ConceptTextOrCode(Obs.value as FHIR.CodeableConcept)
+//      ConceptText(Obs.value as FHIR.CodeableConcept)c FHIR.CodeableConcept  // for just the text, regardless
     )
 
   define function GetLinkId(Obs FHIR.Observation):
-      Obs.extension E
-//        where E.url = ('http://hl7.org/fhir/uv/sdc/StructureDefinition/derivedFromLinkId')
-          return E
+//    Obs.extension
+//    Obs.extension E
+//      return E.extension
 
-/*          return E.extension)) ext
-            where ext.url = 'text'
-            return
-                ext.value.value
-*/
+
+//  (flatten (
+  if Obs is null then 'Obs is null'
+  else if Obs.extension[0] is null then 'Obs.extension is null'
+  else if Obs.extension[0].url is null then 'Obs.extension.url is null'
+  else if Obs.extension[0].extension is null then 'Obs.extension.extension is null'
+  else Obs.extension[0].extension[0].value.value
+//    return
+//    Obs.extension E
+//      if e.url is not null
+//        where E.url = ('http://hl7.org/fhir/uv/sdc/StructureDefinition/derivedFromLinkId')
+
+//          return 'no more data'//E.extension)) //ext
+//          where ext.url = 'text'
+//            return
+//              'supposed value'
+//                ext.value
+
+
 define QuestionnaireObservations:
   C3F.Verified(C3F.ObservationLookBack([Observation: "Questionnaire response Document"], 2 year))
 
@@ -1165,7 +1185,7 @@ define ReportQuestionnaireObservations:
   return{
     Answer: ObservationValue(qo),
     DateText: ObservationDate(qo),
-    LinkId: GetLinkId(qo)
+    LinkId: qo.extension[0].extension[0].value.value
   }
 
 
