@@ -2,14 +2,14 @@ import FHIR from "fhirclient";
 import extractResourcesFromELM from "./extractResourcesFromELM";
 import cql from "cql-execution";
 import valueSetDB from "../cql/valueset-db.json";
-import r4HelpersELM from "../cql/r4/cdc/json/FHIRHelpers.json";
-import omtkdataELM from '../cql/r4/cdc/json/OMTKData2020.json';
-import omtklogicELM from '../cql/r4/cdc/json/OMTKLogicMK2020.json';
-import CDS_Commons from '../cql/r4/cdc/json/OpioidCDSCommon.json';
-import CDS_Commons_Config from '../cql/r4/cdc/json/OpioidCDSCommonConfig.json';
-import CDS_Routines from '../cql/r4/cdc/json/OpioidCDSRoutines.json';
-import rec10PatientView from '../cql/r4/cdc/json/OpioidCDSREC10PatientView.json';
-import rec11PatientView from '../cql/r4/cdc/json/OpioidCDSREC11PatientView.json';
+import r4HelpersELM from "../cql/r4/cdc_reference/json/FHIRHelpers.json";
+import omtkdataELM from '../cql/r4/cdc_reference/json/OMTKData2020.json';
+import omtklogicELM from '../cql/r4/cdc_reference/json/OMTKLogicMK2020.json';
+import CDS_Commons from '../cql/r4/cdc_reference/json/OpioidCDSCommon.json';
+import CDS_Commons_Config from '../cql/r4/cdc_reference/json/OpioidCDSCommonConfig.json';
+import CDS_Routines from '../cql/r4/cdc_reference/json/OpioidCDSRoutines.json';
+import rec10PatientView from '../cql/r4/cdc_reference/json/OpioidCDSREC10PatientView.json';
+import rec11PatientView from '../cql/r4/cdc_reference/json/OpioidCDSREC11PatientView.json';
 import cqlfhir from "cql-exec-fhir";
 
 export default function executeInternalCDSCall(recommendationNumber, collector) {
