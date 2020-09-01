@@ -99,7 +99,10 @@ function doSearch(client, release, type, collector) {
   updateSearchParams(params, release, type);
 
   const resources = [];
-  const uri = `${type}?${params}`;
+  let uri = `${type}?${params}`;
+  if(type === 'MedicationRequest'){
+    uri = `${type}?_include=MedicationRequest:medication`;
+  }
   return new Promise((resolve) => {
     const results = client.patient.request(uri, {
       pageLimit: 0, // unlimited pages
@@ -122,6 +125,23 @@ function processPage(uri, collector, resources) {
     let url = uri;
     if (bundle && bundle.link && bundle.link.some(l => l.relation === 'self' && l.url != null)) {
       url = bundle.link.find(l => l.relation === 'self').url;
+    }
+    if(uri.startsWith('MedicationRequest')){
+      bundle.entry.forEach((medReqEntry) =>{
+        if(medReqEntry.resource.resourceType === 'MedicationRequest'
+            && medReqEntry.resource.medicationReference !== null
+            && medReqEntry.resource.medicationReference !== undefined){
+          let reference = medReqEntry.resource.medicationReference.reference;
+          for(let medRefEntry of bundle.entry){
+            //bundle.entry.forEach((medRefEntry) => {
+            if (medRefEntry.resource.resourceType === 'Medication'
+                  && reference === 'Medication/' + medRefEntry.resource.id) {
+              medReqEntry.resource.medicationCodeableConcept = medRefEntry.resource.code;
+//              medReqEntry.resource.removeChild(medReqEntry.resource.medicationReference);
+            }
+          }
+        }
+      });
     }
     collector.push({ url: url, data: bundle});
     // Add to the resources

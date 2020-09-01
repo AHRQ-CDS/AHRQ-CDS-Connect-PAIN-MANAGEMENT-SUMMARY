@@ -1,3 +1,4 @@
+import FHIR from 'fhirclient';
 import React, {Component} from 'react';
 import tocbot from 'tocbot';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -55,6 +56,15 @@ export default class Landing extends Component {
                     });
             }
         })
+            .then(()=>{
+                FHIR.oauth2.ready()
+                    .then(client => client.request("Questionnaire/mypain-questionnaire"))
+                    .then((questionnaire)=>{
+                        console.log(questionnaire);
+                        // TODO - loop through questionnaire and put linkIds and question text in map to use in display
+                    })
+                    .catch(console.error);
+            })
         .catch((err) => {
             console.error(err);
             this.setState({loading: false});
