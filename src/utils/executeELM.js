@@ -133,11 +133,9 @@ function processPage(uri, collector, resources) {
             && medReqEntry.resource.medicationReference !== undefined){
           let reference = medReqEntry.resource.medicationReference.reference;
           for(let medRefEntry of bundle.entry){
-            //bundle.entry.forEach((medRefEntry) => {
             if (medRefEntry.resource.resourceType === 'Medication'
                   && reference === 'Medication/' + medRefEntry.resource.id) {
               medReqEntry.resource.medicationCodeableConcept = medRefEntry.resource.code;
-//              medReqEntry.resource.removeChild(medReqEntry.resource.medicationReference);
             }
           }
         }
