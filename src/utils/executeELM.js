@@ -12,6 +12,7 @@ import r4MMECalculatorELM from '../cql/r4/MMECalculator.json';
 import r4OMTKDataELM from '../cql/r4/OMTKData.json';
 import r4OMTKLogicELM from '../cql/r4/OMTKLogic.json';
 import valueSetDB from '../cql/valueset-db.json';
+import medicationReferenceSolver from "./medicationReferenceSolver";
 
 function executeELM(collector) {
   let client, release, library;
@@ -132,11 +133,20 @@ function processPage(uri, collector, resources) {
             && medReqEntry.resource.medicationReference !== null
             && medReqEntry.resource.medicationReference !== undefined){
           let reference = medReqEntry.resource.medicationReference.reference;
+          let referenceFound = false;
           for(let medRefEntry of bundle.entry){
             if (medRefEntry.resource.resourceType === 'Medication'
                   && reference === 'Medication/' + medRefEntry.resource.id) {
               medReqEntry.resource.medicationCodeableConcept = medRefEntry.resource.code;
+              referenceFound = true;
             }
+          }
+          if(!referenceFound) {
+            medicationReferenceSolver(medReqEntry.resource.medicationReference.reference)
+                .then((response)=>{
+                  console.log(response);
+                  medReqEntry.resource.medicationCodeableConcept = response;
+                });
           }
         }
       });
