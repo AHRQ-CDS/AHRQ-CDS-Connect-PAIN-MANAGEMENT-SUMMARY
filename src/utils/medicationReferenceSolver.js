@@ -3,12 +3,8 @@ export default function medicationReferenceSolver(referenceURL) {
 }
 
 async function getMedicationCode(orgReferenceURL) {
-    let referenceURL;
-    if(orgReferenceURL.indexOf('http') < 0){
-//        referenceURL = 'http://cqf-ruler.localhost/cqf-ruler-r4/fhir/' + orgReferenceURL;
-        return  null;
-    }
-    return fetch(referenceURL, {
+
+    return fetch(orgReferenceURL, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
