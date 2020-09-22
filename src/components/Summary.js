@@ -347,7 +347,7 @@ export default class Summary extends Component {
     };
 
     render() {
-        const {summary, collector, qrCollector, result, cdsCollector} = this.props;
+        const {summary, collector, qrCollector, result} = this.props;
         const meetsInclusionCriteria = summary.Patient.MeetsInclusionCriteria;
         if (!summary) {
             return null;
