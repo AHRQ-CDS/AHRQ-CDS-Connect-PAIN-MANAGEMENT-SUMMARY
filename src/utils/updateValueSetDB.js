@@ -1,6 +1,6 @@
 // This script updates the valueset-db.json file with any changes from the CQL
 // library and/or changes in the value set definitions in VSAC.  It should be
-// called with the UMLS Username and Password as arguments.
+// called with the UMLS API Key as the argument.
 const fs = require('fs');
 const path = require('path');
 const temp = require('temp');
@@ -13,10 +13,15 @@ const r4FactorsELM = require('../cql/r4/Factors_to_Consider_in_Managing_Chronic_
 const r4CommonsELM = require('../cql/r4/CDS_Connect_Commons_for_FHIRv400.json');
 const r4HelpersELM = require('../cql/r4/FHIRHelpers.json');
 
-// First ensure a username and password are provided
-const [user, password] = process.argv.slice(2);
-if (user == null || password == null) {
-  console.error('The UMLS username and password must be passed in as arguments');
+// First ensure an API key is provided
+let apiKey;
+if (process.argv.length === 3) {
+  apiKey = process.argv[2];
+} else if (process.argv.length === 4) {
+  console.error('UMLS username and password is no longer supported. Please pass in a UMLS API key instead.');
+  process.exit(1);
+} else {
+  console.error('The UMLS API key must be passed in as an argument');
   process.exit(1);
 }
 
@@ -46,9 +51,10 @@ const r4Lib = new Library(r4FactorsELM, new Repository({
 // their data in the temporary folder.  The second argument (true)
 // indicates to also look at dependency libraries.  This has no affect
 // for the current CQL, but may be helpful for people who extend it.
-console.log(`Loading value sets from VSAC using account: ${user}`);
-codeService.ensureValueSetsInLibrary(dstu2Lib, true, user, password)
-  .then(() => codeService.ensureValueSetsInLibrary(r4Lib, true, user, password))
+const maskedKey = apiKey.slice(0, 2) + apiKey.slice(2, -2).replace(/[^-]/g, '*') + apiKey.slice(-2);
+console.log(`Loading value sets from VSAC using API key: ${maskedKey}`);
+codeService.ensureValueSetsInLibraryWithAPIKey(dstu2Lib, true, apiKey)
+  .then(() => codeService.ensureValueSetsInLibraryWithAPIKey(r4Lib, true, apiKey))
   .then(() => {
     // The valueset-db.json that the codeService produces isn't exactly the
     // format that the Pain Management Summary wants, so now we must reformat
@@ -79,7 +85,7 @@ codeService.ensureValueSetsInLibrary(dstu2Lib, true, user, password)
     let message = error.message;
     if (error.statusCode === 401) {
       // The default 401 message isn't helpful at all
-      message = 'invalid password or unauthorized access'
+      message = 'invalid API key or unauthorized access'
     }
     console.error('Error updating valueset-db.json:', message);
     process.exit(1);
