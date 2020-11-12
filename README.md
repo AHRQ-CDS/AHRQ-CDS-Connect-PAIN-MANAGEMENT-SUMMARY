@@ -72,7 +72,18 @@ The value set content used by the CQL is cached in a file named `valueset-db.jso
 
 To update the `valueset-db.json` file:
 
-1. Run `node src/utils/updateValueSetDB.js UMLS_USER_NAME UMLS_PASSWORD` _(replacing UMLS\_USER\_NAME and UMLS\_PASSWORD with your username and password)_
+1. Run `node src/utils/updateValueSetDB.js UMLS_API_KEY` _(replacing UMLS\_API\_KEY with your actual UMLS API key)_
+
+To get you UMLS API Key:
+
+1. Sign into your UMLS account at [https://uts.nlm.nih.gov/uts.html](https://uts.nlm.nih.gov/uts.html)
+2. Click 'My Profile' in the orange banner at the top of the screen
+3. Your API key should be listed below your username in the table
+4. If no API key is listed:
+   1. Click ‘Edit Profile’
+   2. Select the ‘Generate new API Key’ checkbox
+   3. Click ‘Save Profile’
+   4. Your new API key should now be listed.
 
 ### To run the unit tests
 
