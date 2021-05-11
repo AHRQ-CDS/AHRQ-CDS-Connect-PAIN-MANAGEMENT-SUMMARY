@@ -97,7 +97,7 @@ Run the app via one of the options above, then:
 
 1. Browse to http://launch.smarthealthit.org/
 2. Select `R2 (DSTU2)` or `R4` from the FHIR Version dropdown
-3. In the _App Launch URL_ box at the bottom of the page, enter: `http://localhost:8000/launch.html`
+3. In the _App Launch URL_ box at the bottom of the page, enter: `http://localhost:8000/AHRQ-CDS-Connect-PAIN-MANAGEMENT-SUMMARY/launch.html`
 4. Click _Launch App!_
 5. Select a patient
 
@@ -127,7 +127,7 @@ The SMART launcher has a bug that doesn't allow IE 11 to enter the launch URL.  
 5. In _Launch Type_, choose **Provider Standalone Launch**
 6. Copy the FHIR URL in the _FHIR Server URL_ box at the bottom of the page (e.g., `http://launch.smarthealthit.org/v/r2/sim/eyJoIjoiMSIsImkiOiIxIiwiaiI6IjEifQ/fhir`)
 7. Paste it into `/public/launch-context.json` file where `url-goes-here` is
-8. Browse to http://localhost:8000/launch.html
+8. Browse to http://localhost:8000/AHRQ-CDS-Connect-PAIN-MANAGEMENT-SUMMARY/launch.html
 
 _NOTE: Do *not* check in the modified launch-context.json!_
 
@@ -139,8 +139,8 @@ Run the app via one of the options above, then:
 
 1. Browse to https://open.epic.com/Launchpad/Oauth2Sso
 2. Select a patient from the dropdown
-3. In the _YOUR APP'S LAUNCH URL_ box, enter: `http://localhost:8000/launch.html`
-4. In the _YOUR APP'S OAUTH2 REDIRECT URL_ box, enter: `http://localhost:8000/`
+3. In the _YOUR APP'S LAUNCH URL_ box, enter: `http://localhost:8000/AHRQ-CDS-Connect-PAIN-MANAGEMENT-SUMMARY/launch.html`
+4. In the _YOUR APP'S OAUTH2 REDIRECT URL_ box, enter: `http://localhost:8000/AHRQ-CDS-Connect-PAIN-MANAGEMENT-SUMMARY/`
 5. Click _Launch App_
 
 ## Advanced: To post application analytics
