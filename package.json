@@ -1,6 +1,6 @@
 {
   "name": "pain-management-factors",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "description": "Pain Management Factors SMART-on-FHIR App",
   "homepage": "https://ahrq-cds.github.io/AHRQ-CDS-Connect-PAIN-MANAGEMENT-SUMMARY",
   "license": "Apache-2.0",
