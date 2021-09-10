@@ -9,8 +9,8 @@ const { CodeService } = require('cql-exec-vsac');
 const dstu2FactorsELM = require('../cql/dstu2/Factors_to_Consider_in_Managing_Chronic_Pain.json');
 const dstu2CommonsELM = require('../cql/dstu2/CDS_Connect_Commons_for_FHIRv102.json');
 const dstu2HelpersELM = require('../cql/dstu2/FHIRHelpers.json');
-const r4FactorsELM = require('../cql/r4/Factors_to_Consider_in_Managing_Chronic_Pain_FHIRv400.json');
-const r4CommonsELM = require('../cql/r4/CDS_Connect_Commons_for_FHIRv400.json');
+const r4FactorsELM = require('../cql/r4/Factors_to_Consider_in_Managing_Chronic_Pain_FHIRv401.json');
+const r4CommonsELM = require('../cql/r4/CDS_Connect_Commons_for_FHIRv401.json');
 const r4HelpersELM = require('../cql/r4/FHIRHelpers.json');
 
 // First ensure an API key is provided
@@ -42,7 +42,7 @@ const dstu2Lib = new Library(dstu2FactorsELM, new Repository({
   FHIRHelpers: dstu2HelpersELM
 }));
 const r4Lib = new Library(r4FactorsELM, new Repository({
-  CDS_Connect_Commons_for_FHIRv400: r4CommonsELM,
+  CDS_Connect_Commons_for_FHIRv401: r4CommonsELM,
   FHIRHelpers: r4HelpersELM
 }));
 

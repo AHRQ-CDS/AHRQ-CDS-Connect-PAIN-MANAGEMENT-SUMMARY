@@ -101,6 +101,14 @@ Run the app via one of the options above, then:
 4. Click _Launch App!_
 5. Select a patient
 
+### To update the test patients' date-based fields
+
+Testing this SMART App is more meaningful when we can supply test patients that exercise various aspects of the application.  Test patients are represented as FHIR bundles at `src/utils/dstu2_test_patients` and `r4_test_patients`.  Since the CDS uses lookbacks (for example, only show MME in the last 6 months), the patient data occasionally needs to be updated to fit within the lookback windows. To automatically update the data to fit within the lookback windows as of today's date:
+
+1. Run `yarn update-test-patients`
+
+This will update all of the entries in the patient bundles to be appropriate relative to today's date. In addition, it sets each bundle's `meta.lastUpdated` to the current date. This is essential for ensuring that future updates work correctly since it uses the `meta.lastUpdated` date to determine how far back each other date should be relative to today.
+
 ### To upload test patients to the public SMART sandbox
 
 Testing this SMART App is more meaningful when we can supply test patients that exercise various aspects of the application.  Test patients are represented as FHIR bundles at `src/utils/dstu2_test_patients` and `r4_test_patients`.  To upload the test patients to the public SMART sandbox:

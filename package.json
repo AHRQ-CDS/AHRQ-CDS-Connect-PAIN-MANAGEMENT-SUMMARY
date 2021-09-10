@@ -13,8 +13,8 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "core-js": "^3.12.1",
-    "cql-exec-fhir": "^1.3.1",
-    "cql-execution": "^1.3.7",
+    "cql-exec-fhir": "^2.0.0",
+    "cql-execution": "^2.3.1",
     "fhirclient": "^2.3.0",
     "moment": "^2.24.0",
     "node-sass": "^4.13.1",
@@ -31,7 +31,7 @@
     "@rescripts/cli": "^0.0.13",
     "@rescripts/utilities": "^0.0.6",
     "cors": "^2.8.5",
-    "cql-exec-vsac": "^1.2.0",
+    "cql-exec-vsac": "^1.2.1",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "express": "^4.17.1",
@@ -45,8 +45,7 @@
   },
   "resolutions": {
     "immer": "^9.0.2",
-    "ssri": "^8.0.1",
-    "ucum": "cmoesel/ucum.js#es5-friendly"
+    "ssri": "^8.0.1"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -72,6 +71,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "upload-test-patients": "node ./src/utils/uploadTestPatients",
+    "update-test-patients": "node ./src/utils/updateTestPatients",
     "lint": "eslint ."
   }
 }

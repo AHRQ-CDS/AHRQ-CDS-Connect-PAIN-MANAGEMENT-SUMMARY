@@ -1,6 +1,9 @@
 {
   "resourceType": "Bundle",
   "id": "frankie_jackson",
+  "meta": {
+    "lastUpdated": "2021-09-10T01:45:16.421Z"
+  },
   "type": "collection",
   "entry": [
     {
@@ -18,7 +21,7 @@
           }
         ],
         "gender": "male",
-        "birthDate": "2010-03-17T00:00:00.000Z"
+        "birthDate": "2013-07-13T01:45:16.421Z"
       }
     },
     {
@@ -40,8 +43,8 @@
         },
         "clinicalStatus": "active",
         "verificationStatus": "confirmed",
-        "onsetDateTime": "2012-04-05T00:00:00.000Z",
-        "dateRecorded": "2012-04-05T00:00:00.000Z"
+        "onsetDateTime": "2015-08-02T01:45:16.421Z",
+        "dateRecorded": "2015-08-02T01:45:16.421Z"
       }
     },
     {
@@ -63,8 +66,8 @@
         },
         "clinicalStatus": "active",
         "verificationStatus": "confirmed",
-        "onsetDateTime": "2014-09-01T00:00:00.000Z",
-        "dateRecorded": "2015-02-12T00:00:00.000Z"
+        "onsetDateTime": "2017-12-28T01:45:16.421Z",
+        "dateRecorded": "2018-06-10T01:45:16.421Z"
       }
     },
     {
@@ -88,7 +91,7 @@
           }
         ],
         "period": {
-          "start": "2015-02-01T00:00:00.000Z"
+          "start": "2018-05-30T01:45:16.421Z"
         }
       }
     },
@@ -96,7 +99,7 @@
       "resource": {
         "resourceType": "MedicationOrder",
         "id": "5be5d8a7-e41e-4fc8-80a2-20631d3e7526",
-        "dateWritten": "2018-02-10T00:00:00.000Z",
+        "dateWritten": "2021-06-08T01:45:16.421Z",
         "status": "active",
         "patient": {
           "reference": "Patient/2e4cec53-7d30-4933-868d-21493a51f572"
@@ -117,7 +120,7 @@
       "resource": {
         "resourceType": "MedicationOrder",
         "id": "629a6f51-c10a-4c8b-80f8-1bb456deb165",
-        "dateWritten": "2018-01-06T00:00:00.000Z",
+        "dateWritten": "2021-05-04T01:45:16.421Z",
         "status": "active",
         "patient": {
           "reference": "Patient/2e4cec53-7d30-4933-868d-21493a51f572"
@@ -138,7 +141,7 @@
       "resource": {
         "resourceType": "MedicationOrder",
         "id": "56da3758-f757-4682-b4d6-88797e7628d1",
-        "dateWritten": "2018-03-05T00:00:00.000Z",
+        "dateWritten": "2021-07-01T01:45:16.421Z",
         "status": "active",
         "patient": {
           "reference": "Patient/2e4cec53-7d30-4933-868d-21493a51f572"
@@ -159,7 +162,7 @@
       "resource": {
         "resourceType": "MedicationOrder",
         "id": "2b169f4b-e5bf-4311-ad25-499017263877",
-        "dateWritten": "2018-03-05T00:00:00.000Z",
+        "dateWritten": "2021-07-01T01:45:16.421Z",
         "status": "active",
         "patient": {
           "reference": "Patient/2e4cec53-7d30-4933-868d-21493a51f572"
@@ -180,7 +183,7 @@
       "resource": {
         "resourceType": "MedicationOrder",
         "id": "32790a3c-1b04-452c-a507-a48f432aa96d",
-        "dateWritten": "2018-04-20T00:00:00.000Z",
+        "dateWritten": "2021-08-16T01:45:16.421Z",
         "status": "active",
         "patient": {
           "reference": "Patient/2e4cec53-7d30-4933-868d-21493a51f572"
@@ -206,7 +209,7 @@
         },
         "status": "active",
         "wasNotTaken": false,
-        "effectiveDateTime": "2018-03-15T00:00:00.000Z",
+        "effectiveDateTime": "2021-07-11T01:45:16.421Z",
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -228,7 +231,7 @@
         },
         "status": "active",
         "wasNotTaken": false,
-        "effectiveDateTime": "2017-11-12T00:00:00.000Z",
+        "effectiveDateTime": "2021-03-10T01:45:16.421Z",
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -250,7 +253,7 @@
         },
         "status": "active",
         "wasNotTaken": false,
-        "effectiveDateTime": "2018-04-05T00:00:00.000Z",
+        "effectiveDateTime": "2021-08-01T01:45:16.421Z",
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -272,7 +275,7 @@
         },
         "status": "active",
         "wasNotTaken": false,
-        "effectiveDateTime": "2018-04-30T00:00:00.000Z",
+        "effectiveDateTime": "2021-08-26T01:45:16.421Z",
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -294,7 +297,7 @@
         },
         "status": "active",
         "wasNotTaken": false,
-        "effectiveDateTime": "2018-04-10T00:00:00.000Z",
+        "effectiveDateTime": "2021-08-06T01:45:16.421Z",
         "medicationCodeableConcept": {
           "coding": [
             {
@@ -333,7 +336,7 @@
         "subject": {
           "reference": "Patient/2e4cec53-7d30-4933-868d-21493a51f572"
         },
-        "issued": "2017-10-20T00:00:00.000Z",
+        "issued": "2021-02-15T01:45:16.421Z",
         "valueQuantity": {
           "value": 2300,
           "unit": "ng/mL"
@@ -376,7 +379,7 @@
         "subject": {
           "reference": "Patient/2e4cec53-7d30-4933-868d-21493a51f572"
         },
-        "issued": "2018-04-30T00:00:00.000Z",
+        "issued": "2021-08-26T01:45:16.421Z",
         "valueQuantity": {
           "value": 20,
           "unit": "{MME}/d"
@@ -409,7 +412,7 @@
         "subject": {
           "reference": "Patient/2e4cec53-7d30-4933-868d-21493a51f572"
         },
-        "issued": "2018-02-10T00:00:00.000Z",
+        "issued": "2021-06-08T01:45:16.421Z",
         "valueQuantity": {
           "value": 8
         },
@@ -444,7 +447,7 @@
         "subject": {
           "reference": "Patient/2e4cec53-7d30-4933-868d-21493a51f572"
         },
-        "issued": "2017-10-20T00:00:00.000Z",
+        "issued": "2021-02-15T01:45:16.421Z",
         "valueQuantity": {
           "value": 7
         },
@@ -479,7 +482,7 @@
         "subject": {
           "reference": "Patient/2e4cec53-7d30-4933-868d-21493a51f572"
         },
-        "issued": "2018-02-10T00:00:00.000Z",
+        "issued": "2021-06-08T01:45:16.421Z",
         "valueQuantity": {
           "value": 5
         },
@@ -558,7 +561,7 @@
         "subject": {
           "reference": "Patient/2e4cec53-7d30-4933-868d-21493a51f572"
         },
-        "issued": "2018-02-10T00:00:00.000Z",
+        "issued": "2021-06-08T01:45:16.421Z",
         "valueQuantity": {
           "value": 4
         },
@@ -586,7 +589,7 @@
           "text": "Chiropraxy (regime/therapy)"
         },
         "notPerformed": false,
-        "performedDateTime": "2018-04-05T00:00:00.000Z"
+        "performedDateTime": "2021-08-01T01:45:16.421Z"
       }
     }
   ]

@@ -1,8 +1,12 @@
 {
    "library" : {
+      "annotation" : [ {
+         "translatorOptions" : "",
+         "type" : "CqlToElmInfo"
+      } ],
       "identifier" : {
-         "id" : "CDS_Connect_Commons_for_FHIRv400",
-         "version" : "1.0.1"
+         "id" : "CDS_Connect_Commons_for_FHIRv401",
+         "version" : "1.0.0"
       },
       "schemaIdentifier" : {
          "id" : "urn:hl7-org:elm",
@@ -15,14 +19,14 @@
          }, {
             "localIdentifier" : "FHIR",
             "uri" : "http://hl7.org/fhir",
-            "version" : "4.0.0"
+            "version" : "4.0.1"
          } ]
       },
       "includes" : {
          "def" : [ {
             "localIdentifier" : "FHIRHelpers",
             "path" : "FHIRHelpers",
-            "version" : "4.0.0"
+            "version" : "4.0.1"
          } ]
       },
       "codeSystems" : {
@@ -149,14 +153,10 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
-                  "type" : "As",
+                  "type" : "IsNull",
                   "operand" : {
-                     "type" : "IsNull",
-                     "operand" : {
-                        "name" : "period",
-                        "type" : "OperandRef"
-                     }
+                     "name" : "period",
+                     "type" : "OperandRef"
                   }
                },
                "then" : {
@@ -217,14 +217,10 @@
             "expression" : {
                "type" : "If",
                "condition" : {
-                  "asType" : "{urn:hl7-org:elm-types:r1}Boolean",
-                  "type" : "As",
+                  "type" : "IsNull",
                   "operand" : {
-                     "type" : "IsNull",
-                     "operand" : {
-                        "name" : "range",
-                        "type" : "OperandRef"
-                     }
+                     "name" : "range",
+                     "type" : "OperandRef"
                   }
                },
                "then" : {
@@ -276,45 +272,6 @@
                "name" : "range",
                "operandTypeSpecifier" : {
                   "name" : "{http://hl7.org/fhir}Range",
-                  "type" : "NamedTypeSpecifier"
-               }
-            } ]
-         }, {
-            "name" : "ObservationsByConcept",
-            "context" : "Patient",
-            "accessLevel" : "Public",
-            "type" : "FunctionDef",
-            "expression" : {
-               "type" : "Query",
-               "source" : [ {
-                  "alias" : "O",
-                  "expression" : {
-                     "dataType" : "{http://hl7.org/fhir}Observation",
-                     "type" : "Retrieve"
-                  }
-               } ],
-               "relationship" : [ ],
-               "where" : {
-                  "type" : "Equivalent",
-                  "operand" : [ {
-                     "name" : "ToConcept",
-                     "libraryName" : "FHIRHelpers",
-                     "type" : "FunctionRef",
-                     "operand" : [ {
-                        "path" : "code",
-                        "scope" : "O",
-                        "type" : "Property"
-                     } ]
-                  }, {
-                     "name" : "Koncept",
-                     "type" : "OperandRef"
-                  } ]
-               }
-            },
-            "operand" : [ {
-               "name" : "Koncept",
-               "operandTypeSpecifier" : {
-                  "name" : "{urn:hl7-org:elm-types:r1}Concept",
                   "type" : "NamedTypeSpecifier"
                }
             } ]
@@ -942,45 +899,6 @@
                }
             } ]
          }, {
-            "name" : "ConditionsByConcept",
-            "context" : "Patient",
-            "accessLevel" : "Public",
-            "type" : "FunctionDef",
-            "expression" : {
-               "type" : "Query",
-               "source" : [ {
-                  "alias" : "C",
-                  "expression" : {
-                     "dataType" : "{http://hl7.org/fhir}Condition",
-                     "type" : "Retrieve"
-                  }
-               } ],
-               "relationship" : [ ],
-               "where" : {
-                  "type" : "Equivalent",
-                  "operand" : [ {
-                     "name" : "ToConcept",
-                     "libraryName" : "FHIRHelpers",
-                     "type" : "FunctionRef",
-                     "operand" : [ {
-                        "path" : "code",
-                        "scope" : "C",
-                        "type" : "Property"
-                     } ]
-                  }, {
-                     "name" : "Koncept",
-                     "type" : "OperandRef"
-                  } ]
-               }
-            },
-            "operand" : [ {
-               "name" : "Koncept",
-               "operandTypeSpecifier" : {
-                  "name" : "{urn:hl7-org:elm-types:r1}Concept",
-                  "type" : "NamedTypeSpecifier"
-               }
-            } ]
-         }, {
             "name" : "Confirmed",
             "context" : "Patient",
             "accessLevel" : "Public",
@@ -1366,45 +1284,6 @@
                      "name" : "{http://hl7.org/fhir}Condition",
                      "type" : "NamedTypeSpecifier"
                   }
-               }
-            } ]
-         }, {
-            "name" : "ProceduresByConcept",
-            "context" : "Patient",
-            "accessLevel" : "Public",
-            "type" : "FunctionDef",
-            "expression" : {
-               "type" : "Query",
-               "source" : [ {
-                  "alias" : "P",
-                  "expression" : {
-                     "dataType" : "{http://hl7.org/fhir}Procedure",
-                     "type" : "Retrieve"
-                  }
-               } ],
-               "relationship" : [ ],
-               "where" : {
-                  "type" : "Equivalent",
-                  "operand" : [ {
-                     "name" : "ToConcept",
-                     "libraryName" : "FHIRHelpers",
-                     "type" : "FunctionRef",
-                     "operand" : [ {
-                        "path" : "code",
-                        "scope" : "P",
-                        "type" : "Property"
-                     } ]
-                  }, {
-                     "name" : "Koncept",
-                     "type" : "OperandRef"
-                  } ]
-               }
-            },
-            "operand" : [ {
-               "name" : "Koncept",
-               "operandTypeSpecifier" : {
-                  "name" : "{urn:hl7-org:elm-types:r1}Concept",
-                  "type" : "NamedTypeSpecifier"
                }
             } ]
          }, {
@@ -1849,100 +1728,6 @@
                "name" : "LookBack",
                "operandTypeSpecifier" : {
                   "name" : "{urn:hl7-org:elm-types:r1}Quantity",
-                  "type" : "NamedTypeSpecifier"
-               }
-            } ]
-         }, {
-            "name" : "MedicationStatementsByConcept",
-            "context" : "Patient",
-            "accessLevel" : "Public",
-            "type" : "FunctionDef",
-            "expression" : {
-               "type" : "Query",
-               "source" : [ {
-                  "alias" : "M",
-                  "expression" : {
-                     "dataType" : "{http://hl7.org/fhir}MedicationStatement",
-                     "type" : "Retrieve"
-                  }
-               } ],
-               "relationship" : [ ],
-               "where" : {
-                  "type" : "Equivalent",
-                  "operand" : [ {
-                     "name" : "ToConcept",
-                     "libraryName" : "FHIRHelpers",
-                     "type" : "FunctionRef",
-                     "operand" : [ {
-                        "strict" : false,
-                        "type" : "As",
-                        "operand" : {
-                           "path" : "medication",
-                           "scope" : "M",
-                           "type" : "Property"
-                        },
-                        "asTypeSpecifier" : {
-                           "name" : "{http://hl7.org/fhir}CodeableConcept",
-                           "type" : "NamedTypeSpecifier"
-                        }
-                     } ]
-                  }, {
-                     "name" : "Koncept",
-                     "type" : "OperandRef"
-                  } ]
-               }
-            },
-            "operand" : [ {
-               "name" : "Koncept",
-               "operandTypeSpecifier" : {
-                  "name" : "{urn:hl7-org:elm-types:r1}Concept",
-                  "type" : "NamedTypeSpecifier"
-               }
-            } ]
-         }, {
-            "name" : "MedicationRequestsByConcept",
-            "context" : "Patient",
-            "accessLevel" : "Public",
-            "type" : "FunctionDef",
-            "expression" : {
-               "type" : "Query",
-               "source" : [ {
-                  "alias" : "M",
-                  "expression" : {
-                     "dataType" : "{http://hl7.org/fhir}MedicationRequest",
-                     "type" : "Retrieve"
-                  }
-               } ],
-               "relationship" : [ ],
-               "where" : {
-                  "type" : "Equivalent",
-                  "operand" : [ {
-                     "name" : "ToConcept",
-                     "libraryName" : "FHIRHelpers",
-                     "type" : "FunctionRef",
-                     "operand" : [ {
-                        "strict" : false,
-                        "type" : "As",
-                        "operand" : {
-                           "path" : "medication",
-                           "scope" : "M",
-                           "type" : "Property"
-                        },
-                        "asTypeSpecifier" : {
-                           "name" : "{http://hl7.org/fhir}CodeableConcept",
-                           "type" : "NamedTypeSpecifier"
-                        }
-                     } ]
-                  }, {
-                     "name" : "Koncept",
-                     "type" : "OperandRef"
-                  } ]
-               }
-            },
-            "operand" : [ {
-               "name" : "Koncept",
-               "operandTypeSpecifier" : {
-                  "name" : "{urn:hl7-org:elm-types:r1}Concept",
                   "type" : "NamedTypeSpecifier"
                }
             } ]
@@ -2442,55 +2227,86 @@
                }
             } ]
          }, {
-            "name" : "EncountersByConcept",
+            "name" : "MedicationDispenseLookBack",
             "context" : "Patient",
             "accessLevel" : "Public",
             "type" : "FunctionDef",
             "expression" : {
                "type" : "Query",
                "source" : [ {
-                  "alias" : "E",
+                  "alias" : "M",
                   "expression" : {
-                     "dataType" : "{http://hl7.org/fhir}Encounter",
-                     "type" : "Retrieve"
+                     "name" : "MedList",
+                     "type" : "OperandRef"
+                  }
+               } ],
+               "let" : [ {
+                  "identifier" : "LookBackInterval",
+                  "expression" : {
+                     "lowClosed" : true,
+                     "highClosed" : true,
+                     "type" : "Interval",
+                     "low" : {
+                        "type" : "Subtract",
+                        "operand" : [ {
+                           "type" : "Now"
+                        }, {
+                           "name" : "LookBack",
+                           "type" : "OperandRef"
+                        } ]
+                     },
+                     "high" : {
+                        "type" : "Now"
+                     }
                   }
                } ],
                "relationship" : [ ],
                "where" : {
-                  "type" : "Exists",
-                  "operand" : {
-                     "type" : "Query",
-                     "source" : [ {
-                        "alias" : "ET",
-                        "expression" : {
-                           "path" : "type",
-                           "scope" : "E",
+                  "type" : "Or",
+                  "operand" : [ {
+                     "type" : "In",
+                     "operand" : [ {
+                        "path" : "value",
+                        "type" : "Property",
+                        "source" : {
+                           "path" : "whenHandedOver",
+                           "scope" : "M",
                            "type" : "Property"
                         }
-                     } ],
-                     "relationship" : [ ],
-                     "where" : {
-                        "type" : "Equivalent",
-                        "operand" : [ {
-                           "name" : "ToConcept",
-                           "libraryName" : "FHIRHelpers",
-                           "type" : "FunctionRef",
-                           "operand" : [ {
-                              "name" : "ET",
-                              "type" : "AliasRef"
-                           } ]
-                        }, {
-                           "name" : "Koncept",
-                           "type" : "OperandRef"
-                        } ]
-                     }
-                  }
+                     }, {
+                        "name" : "LookBackInterval",
+                        "type" : "QueryLetRef"
+                     } ]
+                  }, {
+                     "type" : "In",
+                     "operand" : [ {
+                        "path" : "value",
+                        "type" : "Property",
+                        "source" : {
+                           "path" : "whenPrepared",
+                           "scope" : "M",
+                           "type" : "Property"
+                        }
+                     }, {
+                        "name" : "LookBackInterval",
+                        "type" : "QueryLetRef"
+                     } ]
+                  } ]
                }
             },
             "operand" : [ {
-               "name" : "Koncept",
+               "name" : "MedList",
                "operandTypeSpecifier" : {
-                  "name" : "{urn:hl7-org:elm-types:r1}Concept",
+                  "type" : "ListTypeSpecifier",
+                  "elementType" : {
+                     "name" : "{http://hl7.org/fhir}MedicationDispense",
+                     "type" : "NamedTypeSpecifier"
+                  }
+               }
+            }, {
+               "name" : "LookBack",
+               "operandTypeSpecifier" : {
+                  "name" : "{urn:hl7-org:elm-types:r1}Quantity",
                   "type" : "NamedTypeSpecifier"
                }
             } ]
@@ -2537,41 +2353,70 @@
                }
             } ]
          }, {
-            "name" : "AllergyIntolerancesByConcept",
+            "name" : "EncounterLookBack",
             "context" : "Patient",
             "accessLevel" : "Public",
             "type" : "FunctionDef",
             "expression" : {
                "type" : "Query",
                "source" : [ {
-                  "alias" : "A",
+                  "alias" : "E",
                   "expression" : {
-                     "dataType" : "{http://hl7.org/fhir}AllergyIntolerance",
-                     "type" : "Retrieve"
+                     "name" : "EncList",
+                     "type" : "OperandRef"
+                  }
+               } ],
+               "let" : [ {
+                  "identifier" : "LookBackInterval",
+                  "expression" : {
+                     "lowClosed" : true,
+                     "highClosed" : true,
+                     "type" : "Interval",
+                     "low" : {
+                        "type" : "Subtract",
+                        "operand" : [ {
+                           "type" : "Now"
+                        }, {
+                           "name" : "LookBack",
+                           "type" : "OperandRef"
+                        } ]
+                     },
+                     "high" : {
+                        "type" : "Now"
+                     }
                   }
                } ],
                "relationship" : [ ],
                "where" : {
-                  "type" : "Equivalent",
+                  "type" : "Overlaps",
                   "operand" : [ {
-                     "name" : "ToConcept",
+                     "name" : "ToInterval",
                      "libraryName" : "FHIRHelpers",
                      "type" : "FunctionRef",
                      "operand" : [ {
-                        "path" : "code",
-                        "scope" : "A",
+                        "path" : "period",
+                        "scope" : "E",
                         "type" : "Property"
                      } ]
                   }, {
-                     "name" : "Koncept",
-                     "type" : "OperandRef"
+                     "name" : "LookBackInterval",
+                     "type" : "QueryLetRef"
                   } ]
                }
             },
             "operand" : [ {
-               "name" : "Koncept",
+               "name" : "EncList",
                "operandTypeSpecifier" : {
-                  "name" : "{urn:hl7-org:elm-types:r1}Concept",
+                  "type" : "ListTypeSpecifier",
+                  "elementType" : {
+                     "name" : "{http://hl7.org/fhir}Encounter",
+                     "type" : "NamedTypeSpecifier"
+                  }
+               }
+            }, {
+               "name" : "LookBack",
+               "operandTypeSpecifier" : {
+                  "name" : "{urn:hl7-org:elm-types:r1}Quantity",
                   "type" : "NamedTypeSpecifier"
                }
             } ]

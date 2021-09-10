@@ -55,21 +55,27 @@
 // - Due to changes in the CQL model representation of FHIR, choices are now accessed via CQL casts rather than
 //   explicit properties
 //
+// The initial R4 port of this artifact used the FHIR 4.0.0 model and CQL 1.3. This version uses the FHIR 4.0.1 model and
+// CQL 1.5 (although it is expected to be backward compatible to CQL 1.4 and CQL 1.3). For this most recent update to FHIR
+// 4.0.1, the following additional changes were made based on new capabilities in later versions of the CQL spec and tooling:
+// - URL-based value set identifiers are used rather than plain OIDs
+// - code/concept pairs are no longer needed; code definitions are sufficient, so concept definitions have been removed
+//
 // ##Source guideline: [CDC Guideline for Opioid Prescribing for Chronic Pain](https://www.cdc.gov/drugoverdose/prescribing/guideline.html)
 
-library Factors_to_Consider_in_Managing_Chronic_Pain_FHIRv400 version '1.0.0'
+library Factors_to_Consider_in_Managing_Chronic_Pain_FHIRv401 version '1.0.0'
 
 // # Data model #
 
 // The FHIR R4 model is used for testing purposes only.  It has not been piloted.
-using FHIR version '4.0.0'
+using FHIR version '4.0.1'
 
 // # Referenced libraries #
 
-// The CDS Connect Commons for FHIRv400 library provides functions representing commonly used CDS logic and patterns.
-include CDS_Connect_Commons_for_FHIRv400 version '1.0.1' called C3F
+// The CDS Connect Commons for FHIRv401 library provides functions representing commonly used CDS logic and patterns.
+include CDS_Connect_Commons_for_FHIRv401 version '1.0.0' called C3F
 // The FHIRHelpers library provides common functions for simplifying interaction w/ the FHIR R4 data model.
-include FHIRHelpers version '4.0.0' called FHIRHelpers
+include FHIRHelpers version '4.0.1' called FHIRHelpers
 
 // # Value sets and codes #
 
@@ -90,73 +96,73 @@ codesystem "LOCAL": 'http://cds.ahrq.gov/cdsconnect/pms'
 // expansion of each value set available.
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.37/expansion)
-valueset "Conditions associated with chronic pain": '2.16.840.1.113762.1.4.1032.37'
+valueset "Conditions associated with chronic pain": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.37'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.34/expansion)
-valueset "Opioid Pain Medications": '2.16.840.1.113762.1.4.1032.34'
+valueset "Opioid Pain Medications": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.34'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.54/expansion)
-valueset "Adjuvant Analgesic Medications": '2.16.840.1.113762.1.4.1032.54'
+valueset "Adjuvant Analgesic Medications": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.54'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113883.3.464.1003.105.12.1007/expansion)
-valueset "Major Depression": '2.16.840.1.113883.3.464.1003.105.12.1007'
+valueset "Major Depression": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.464.1003.105.12.1007'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113883.3.600.143/expansion)
-valueset "Depression Diagnosis ICD9": '2.16.840.1.113883.3.600.143'
+valueset "Depression Diagnosis ICD9": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.600.143'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.52/expansion)
-valueset "Anxiety": '2.16.840.1.113762.1.4.1032.52'
+valueset "Anxiety": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.52'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113883.3.1240.2017.3.2.1015/expansion)
-valueset "Anxiety Disorders ICD9": '2.16.840.1.113883.3.1240.2017.3.2.1015'
+valueset "Anxiety Disorders ICD9": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.1240.2017.3.2.1015'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113883.3.464.1003.106.12.1004/expansion)
-valueset "Substance use disorder": '2.16.840.1.113883.3.464.1003.106.12.1004'
+valueset "Substance use disorder": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.464.1003.106.12.1004'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113883.3.464.1003.106.11.1010/expansion)
-valueset "Substance Abuse": '2.16.840.1.113883.3.464.1003.106.11.1010'
+valueset "Substance Abuse": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.464.1003.106.11.1010'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.102/expansion)
-valueset "Suicide Attempt": '2.16.840.1.113762.1.4.1032.102'
+valueset "Suicide Attempt": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.102'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.53/expansion)
-valueset "Sleep-disordered breathing": '2.16.840.1.113762.1.4.1032.53'
+valueset "Sleep-disordered breathing": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.53'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113883.3.464.1003.109.12.1028/expansion)
-valueset "Kidney Failure": '2.16.840.1.113883.3.464.1003.109.12.1028'
+valueset "Kidney Failure": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.464.1003.109.12.1028'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113883.3.464.1003.199.12.1035/expansion)
-valueset "Chronic Liver Disease": '2.16.840.1.113883.3.464.1003.199.12.1035'
+valueset "Chronic Liver Disease": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.464.1003.199.12.1035'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1047.42/expansion)
-valueset "Liver Disease": '2.16.840.1.113762.1.4.1047.42'
+valueset "Liver Disease": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1047.42'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113883.3.526.3.378/expansion)
-valueset "Pregnancy": '2.16.840.1.113883.3.526.3.378'
+valueset "Pregnancy": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.526.3.378'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.80/expansion)
-valueset "Pregnancy (New ICD10 codes published in 2018 and 2019)": '2.16.840.1.113762.1.4.1032.80'
+valueset "Pregnancy (New ICD10 codes published in 2018 and 2019)": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.80'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.26/expansion)
-valueset "Non opiod pain medications": '2.16.840.1.113762.1.4.1032.26'
+valueset "Non opiod pain medications": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.26'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.36/expansion)
-valueset "Non pharmacologic treatments for chronic pain": '2.16.840.1.113762.1.4.1032.36'
+valueset "Non pharmacologic treatments for chronic pain": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.36'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.55/expansion)
-valueset "Risk assessments relevant to pain management": '2.16.840.1.113762.1.4.1032.55'
+valueset "Risk assessments relevant to pain management": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.55'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.43/expansion)
-valueset "Benzodiazepine medications": '2.16.840.1.113762.1.4.1032.43'
+valueset "Benzodiazepine medications": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.43'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.42/expansion)
-valueset "Naloxone medications": '2.16.840.1.113762.1.4.1032.42'
+valueset "Naloxone medications": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.42'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.28/expansion)
-valueset "Urine drug screen for pain management": '2.16.840.1.113762.1.4.1032.28'
+valueset "Urine drug screen for pain management": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.28'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.44/expansion)
-valueset "Stool softeners and laxatives": '2.16.840.1.113762.1.4.1032.44'
+valueset "Stool softeners and laxatives": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.44'
 
 // ## Individual codes ##
 
@@ -164,19 +170,19 @@ valueset "Stool softeners and laxatives": '2.16.840.1.113762.1.4.1032.44'
 // a single code from a particular vocabulary standard used to represent a clinical concept. It is considered
 // best-practice not to create value sets containing a single code.
 
-code "Pregnancy status code": '82810-3' from "LOINC" display 'Pregnancy status'
-code "Pregnant code": '77386006' from "SNOMED-CT" display 'Patient currently pregnant (finding)'
-code "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported] code":
+code "Pregnancy status": '82810-3' from "LOINC" display 'Pregnancy status'
+code "Pregnant": '77386006' from "SNOMED-CT" display 'Patient currently pregnant (finding)'
+code "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]":
   '55758-7' from "LOINC" display 'Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]'
-code "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported] code":
+code "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]":
   '44261-6' from "LOINC" display 'Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]'
-code "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ] code":
+code "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]":
   '70274-6' from "LOINC" display 'Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]'
-code "Total score [AUDIT] code": '75624-7' from "LOINC" display 'Total score [AUDIT]'
-code "Total score [AUDIT-C] code": '75626-2' from "LOINC" display 'Total score [AUDIT-C]'
-code "Total score [DAST-10] code": '82667-7' from "LOINC" display 'Total score [DAST-10]'
-code "Total score ORT code": '91392-1' from "LOINC" display 'Total score ORT'
-code "Pain severity Wong-Baker FACES Scale code": '38221-8' from "LOINC" display 'Pain severity Wong-Baker FACES Scale'
+code "Total score [AUDIT]": '75624-7' from "LOINC" display 'Total score [AUDIT]'
+code "Total score [AUDIT-C]": '75626-2' from "LOINC" display 'Total score [AUDIT-C]'
+code "Total score [DAST-10]": '82667-7' from "LOINC" display 'Total score [DAST-10]'
+code "Total score ORT": '91392-1' from "LOINC" display 'Total score ORT'
+code "Pain severity Wong-Baker FACES Scale": '38221-8' from "LOINC" display 'Pain severity Wong-Baker FACES Scale'
 
 // The Pain intensity, Enjoyment of life, General activity scale [PEG] now has standardized LOINC codes available.
 // These LOINC codes were not available when the initial version of the Pain Management Summary was developed.
@@ -184,22 +190,22 @@ code "Pain severity Wong-Baker FACES Scale code": '38221-8' from "LOINC" display
 // are also retained in order to allow existing systems to continue to function. Existing systems, however, are
 // strongly encouraged to adopt the standardized LOINC codes.
 
-code "Mean score [PEG] code": '91147-9' from "LOINC" display 'Mean score [PEG]'
-code "Pain severity in the past week - 0-10 numeric rating [Reported] code":
+code "Mean score [PEG]": '91147-9' from "LOINC" display 'Mean score [PEG]'
+code "Pain severity in the past week - 0-10 numeric rating [Reported]":
   '75893-8' from "LOINC" display 'Pain severity in the past week - 0-10 numeric rating [Reported]'
-code "What number best describes how pain has interfered with your enjoyment of life during the past week code":
+code "What number best describes how pain has interfered with your enjoyment of life during the past week":
   '91145-3' from "LOINC" display 'What number best describes how pain has interfered with your enjoyment of life during the past week'
-code "What number best describes how pain has interfered with your general activity during the past week code":
+code "What number best describes how pain has interfered with your general activity during the past week":
   '91146-1' from "LOINC" display 'What number best describes how pain has interfered with your general activity during the past week'
 
 // Legacy local codes for the Pain intensity, Enjoyment of life, General activity scale [PEG].
 // New systems should use the LOINC codes above instead.
 
-code "Pain Enjoyment General Activity (PEG) Assessment LEGACY code":
+code "Pain Enjoyment General Activity (PEG) Assessment LEGACY":
   'PEGASSESSMENT' from "LOCAL" display 'Pain Enjoyment General Activity (PEG) Assessment'
-code "Pain LEGACY code": 'PEGPAIN' from "LOCAL" display 'Pain'
-code "Enjoyment of life LEGACY code": 'PEGENJOYMENT' from "LOCAL" display 'Enjoyment of life'
-code "General activity LEGACY code": 'PEGGENERALACTIVITY' from "LOCAL" display 'General activity'
+code "Pain LEGACY": 'PEGPAIN' from "LOCAL" display 'Pain'
+code "Enjoyment of life LEGACY": 'PEGENJOYMENT' from "LOCAL" display 'Enjoyment of life'
+code "General activity LEGACY": 'PEGGENERALACTIVITY' from "LOCAL" display 'General activity'
 
 // The STarT Back Screening Tool now has a standardized LOINC code available. This LOINC code was not available
 // when the initial version of the Pain Management Summary was developed. New systems implementing the Pain Management
@@ -207,59 +213,18 @@ code "General activity LEGACY code": 'PEGGENERALACTIVITY' from "LOCAL" display '
 // systems to continue to function. Existing systems, however, are strongly encouraged to adopt the standardized LOINC
 // code.
 
-code "Total score [STarT Back] code": '91351-7' from "LOINC" display 'Total score [STarT Back]'
+code "Total score [STarT Back]": '91351-7' from "LOINC" display 'Total score [STarT Back]'
 
 // Legacy local code for the STarT Back Screening Tool. New systems should use the LOINC codes above instead.
 
-code "STarT Back Screening Tool LEGACY code": 'STARTBACK' from "LOCAL" display 'STarT Back Screening Tool'
+code "STarT Back Screening Tool LEGACY": 'STARTBACK' from "LOCAL" display 'STarT Back Screening Tool'
 
 // The following codes do not yet have standardized codes associated with them so are expressed as LOCAL codes.
 // As standardized codes become available, this CDS will be updated to use standard codes rather than LOCAL codes.
 
-code "Single question r/t ETOH use code": 'SQETOHUSE' from "LOCAL" display 'Single question r/t ETOH use'
-code "Single question r/t drug use code": 'SQDRUGUSE' from "LOCAL" display 'Single question r/t drug use'
-code "Morphine Milligram Equivalent (MME) code": 'MME' from "LOCAL" display 'Morphine Milligram Equivalent (MME)'
-
-// CQL currently requires concept declarations to contain references to code declarations.
-
-concept "Pregnancy status": { "Pregnancy status code" } display 'Pregnancy status'
-concept "Pregnant": { "Pregnant code" } display 'Patient currently pregnant (finding)'
-concept "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]":
-  { "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported] code" }
-  display 'Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]'
-concept "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]":
-  { "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported] code" }
-  display 'Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]'
-concept "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]":
-  { "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ] code" }
-  display 'Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]'
-concept "Total score [AUDIT]": { "Total score [AUDIT] code" } display 'Total score [AUDIT]'
-concept "Total score [AUDIT-C]": { "Total score [AUDIT-C] code" } display 'Total score [AUDIT-C]'
-concept "Total score [DAST-10]": { "Total score [DAST-10] code" } display 'Total score [DAST-10]'
-concept "Total score ORT": { "Total score ORT code" } display 'Total score ORT'
-concept "Pain severity Wong-Baker FACES Scale":
-  { "Pain severity Wong-Baker FACES Scale code" } display 'Pain severity Wong-Baker FACES Scale'
-concept "Pain severity in the past week - 0-10 numeric rating [Reported]":
-  { "Pain severity in the past week - 0-10 numeric rating [Reported] code" }
-  display 'Pain severity in the past week - 0-10 numeric rating [Reported]'
-concept "What number best describes how pain has interfered with your enjoyment of life during the past week":
-  { "What number best describes how pain has interfered with your enjoyment of life during the past week code" }
-  display 'What number best describes how pain has interfered with your enjoyment of life during the past week'
-concept "What number best describes how pain has interfered with your general activity during the past week":
-  { "What number best describes how pain has interfered with your general activity during the past week code" }
-  display 'What number best describes how pain has interfered with your general activity during the past week'
-concept "Mean score [PEG]": { "Mean score [PEG] code" } display 'Mean score [PEG]'
-concept "Pain Enjoyment General Activity (PEG) Assessment LEGACY":
-  { "Pain Enjoyment General Activity (PEG) Assessment LEGACY code" } display 'Pain Enjoyment General Activity (PEG) Assessment'
-concept "Pain LEGACY": { "Pain LEGACY code" } display 'Pain'
-concept "Enjoyment of life LEGACY": { "Enjoyment of life LEGACY code" } display 'Enjoyment of life'
-concept "General activity LEGACY": { "General activity LEGACY code" } display 'General activity'
-concept "Total score [STarT Back]": { "Total score [STarT Back] code" } display 'Total score [STarT Back]'
-concept "STarT Back Screening Tool LEGACY": { "STarT Back Screening Tool LEGACY code" } display 'STarT Back Screening Tool'
-concept "Single question r/t ETOH use": { "Single question r/t ETOH use code" } display 'Single question r/t ETOH use'
-concept "Single question r/t drug use": { "Single question r/t drug use code" } display 'Single question r/t drug use'
-concept "Morphine Milligram Equivalent (MME)":
-  { "Morphine Milligram Equivalent (MME) code" } display 'Morphine Milligram Equivalent (MME)'
+code "Single question r/t ETOH use": 'SQETOHUSE' from "LOCAL" display 'Single question r/t ETOH use'
+code "Single question r/t drug use": 'SQDRUGUSE' from "LOCAL" display 'Single question r/t drug use'
+code "Morphine Milligram Equivalent (MME)": 'MME' from "LOCAL" display 'Morphine Milligram Equivalent (MME)'
 
 // # Parameters #
 
