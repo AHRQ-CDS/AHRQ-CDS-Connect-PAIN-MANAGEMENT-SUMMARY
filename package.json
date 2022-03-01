@@ -16,6 +16,7 @@
     "cql-exec-fhir": "^2.0.1",
     "cql-execution": "^2.3.3",
     "fhirclient": "^2.3.0",
+    "immer": "^9.0.2",
     "moment": "^2.24.0",
     "node-sass": "^4.13.1",
     "react": "^16.12.0",
@@ -28,24 +29,24 @@
     "tocbot": "^4.10.0"
   },
   "devDependencies": {
-    "@rescripts/cli": "^0.0.13",
-    "@rescripts/utilities": "^0.0.6",
+    "@rescripts/cli": "^0.0.16",
+    "@rescripts/utilities": "^0.0.8",
     "cors": "^2.8.5",
     "cql-exec-vsac": "^1.2.1",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "express": "^4.17.1",
-    "gh-pages": "^2.2.0",
+    "gh-pages": "^3.2.3",
     "jest-enzyme": "^7.1.2",
     "mock-local-storage": "^1.1.11",
     "react-router-test-context": "^0.1.0",
     "react-scripts": "3.4.4",
-    "temp": "^0.9.1",
-    "typescript": "^3.7.5"
+    "temp": "^0.9.1"
   },
   "resolutions": {
     "immer": "^9.0.2",
-    "ssri": "^8.0.1"
+    "ssri": "^8.0.1",
+    "ansi-regex": "^5.0.1"
   },
   "eslintConfig": {
     "extends": "react-app"
