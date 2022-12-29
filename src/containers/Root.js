@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Routes, Route } from "react-router-dom";
 
 import App from './App';
 import Landing from '../components/Landing';
@@ -7,9 +7,9 @@ import Landing from '../components/Landing';
 const Root = (props) => {
   return (
     <App>
-      <Switch>
-        <Route exact path="/" component={Landing} />
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+      </Routes>
     </App>
   );
 }

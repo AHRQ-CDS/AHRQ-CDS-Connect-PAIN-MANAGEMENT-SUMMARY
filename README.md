@@ -38,33 +38,31 @@ Systems integrating the Pain Management Summary will need to expose the correspo
 
 ### To build and run in development:
 
-1. Install [Node.js](https://nodejs.org/en/download/) (LTS edition, currently 12.x)
-2. Install [Yarn](https://yarnpkg.com/en/docs/install) (1.3.x or above)
-3. Install dependencies by executing `yarn` from the project's root directory
-4. If you have a SMART-on-FHIR client ID, edit `public/launch-context.json` to specify it
-5. NOTE: The launch context contains `"completeInTarget": true`. This is needed if you are running in an environment that initializes the app in a separate window (such as the public SMART sandbox).  It can be safely removed in other cases.
-6. If you'll be launching the app from an Epic EHR, modify `.env` to set `REACT_APP_EPIC_SUPPORTED_QUERIES` to `true`
-7. Serve the code by executing `yarn start` (runs on port 8000)
+1. Install [Node.js](https://nodejs.org/en/download/) (LTS edition, currently 16.x)
+2. Install dependencies by executing `npm install` from the project's root directory
+3. If you have a SMART-on-FHIR client ID, edit `public/launch-context.json` to specify it
+4. NOTE: The launch context contains `"completeInTarget": true`. This is needed if you are running in an environment that initializes the app in a separate window (such as the public SMART sandbox).  It can be safely removed in other cases.
+5. If you'll be launching the app from an Epic EHR, modify `.env` to set `REACT_APP_EPIC_SUPPORTED_QUERIES` to `true`
+6. Serve the code by executing `npm start` (runs on port 8000)
 
 ## To build and deploy using a standard web server (static HTML and JS)
 
 The Pain Management Summary can be deployed as static web resources on any HTTP server.  There are several customizations, however, that need to be made based on the site where it is deployed.
 
-1. Install [Node.js](https://nodejs.org/en/download/) (LTS edition, currently 12.x)
-2. Install [Yarn](https://yarnpkg.com/en/docs/install) (1.3.x or above)
-3. Install dependencies by executing `yarn` from the project's root directory
-4. Modify the `homepage` value in `package.json` to reflect the path (after the hostname) at which it will be deployed
+1. Install [Node.js](https://nodejs.org/en/download/) (LTS edition, currently 16.x)
+2. Install dependencies by executing `npm install` from the project's root directory
+3. Modify the `homepage` value in `package.json` to reflect the path (after the hostname) at which it will be deployed
    a. For example, if deploying to https://my-server/pain-mgmt-summary/, the `homepage` value should be `"http://localhost:8000/pain-mgmt-summary"` (note that the hostname need not match)
    b. If deploying to the root of the domain, you can leave `homepage` as `"."`
-5. Modify the `clientId` in `public/launch-context.json` to match the unique client ID you registered with the EHR from which this app will be launched
-6. NOTE: The launch context contains `"completeInTarget": true`. This is needed if you are running in an environment that initializes the app in a separate window (such as the public SMART sandbox).  It can be safely removed in other cases.
-7. If you've set up an analytics endpoint (see below), set the `analytics_endpoint` and `x_api_key` in `public/config.json`
-8. If you'll be launching the app from an Epic EHR, modify `.env` to set `REACT_APP_EPIC_SUPPORTED_QUERIES` to `true`
+4. Modify the `clientId` in `public/launch-context.json` to match the unique client ID you registered with the EHR from which this app will be launched
+5. NOTE: The launch context contains `"completeInTarget": true`. This is needed if you are running in an environment that initializes the app in a separate window (such as the public SMART sandbox).  It can be safely removed in other cases.
+6. If you've set up an analytics endpoint (see below), set the `analytics_endpoint` and `x_api_key` in `public/config.json`
+7. If you'll be launching the app from an Epic EHR, modify `.env` to set `REACT_APP_EPIC_SUPPORTED_QUERIES` to `true`
    a. This modifies some queries based on Epic-specific requirements
-9. Run `yarn build` to compile the code to static files in the `build` folder
-10. Deploy the output from the `build` folder to a standard web server
+8. Run `npm run build` to compile the code to static files in the `build` folder
+8. Deploy the output from the `build` folder to a standard web server
 
-Optionally to step 9, you can run the static build contents in a simple Node http-server via the command: `yarn start-static`.
+Optionally to step 9, you can run the static build contents in a simple Node http-server via the command: `npm run start-static`.
 
 ### To update the valueset-db.json file
 
@@ -89,7 +87,7 @@ To get you UMLS API Key:
 
 To execute the unit tests:
 
-1. Run `yarn test`
+1. Run `npm test`
 
 ## To test the app using the public SMART sandbox
 
@@ -105,7 +103,7 @@ Run the app via one of the options above, then:
 
 Testing this SMART App is more meaningful when we can supply test patients that exercise various aspects of the application.  Test patients are represented as FHIR bundles at `src/utils/dstu2_test_patients` and `r4_test_patients`.  Since the CDS uses lookbacks (for example, only show MME in the last 6 months), the patient data occasionally needs to be updated to fit within the lookback windows. To automatically update the data to fit within the lookback windows as of today's date:
 
-1. Run `yarn update-test-patients`
+1. Run `npm run update-test-patients`
 
 This will update all of the entries in the patient bundles to be appropriate relative to today's date. In addition, it sets each bundle's `meta.lastUpdated` to the current date. This is essential for ensuring that future updates work correctly since it uses the `meta.lastUpdated` date to determine how far back each other date should be relative to today.
 
@@ -113,13 +111,13 @@ This will update all of the entries in the patient bundles to be appropriate rel
 
 Testing this SMART App is more meaningful when we can supply test patients that exercise various aspects of the application.  Test patients are represented as FHIR bundles at `src/utils/dstu2_test_patients` and `r4_test_patients`.  To upload the test patients to the public SMART sandbox:
 
-1. Run `yarn upload-test-patients`
+1. Run `npm run upload-test-patients`
 
 This adds a number of patients, mostly with the last name "Jackson" (for example, "Fuller Jackson" has entries in every section of the app).  The SMART sandbox may be reset at any time, so you may need to run this command again if the database has been reset.
 
 ### To test the app in standalone mode using the public SMART sandbox
 
-The SMART launcher has a bug that doesn't allow IE 11 to enter the launch URL.  This makes testing in IE 11 very difficult.  To overcome this, you can reconfigure the app as a standalone app.  To do so, follow these steps:
+To enable launching the app via a direct URL (without the SMART Launcher page), you can reconfigure the app as a standalone app.  To do so, follow these steps:
 
 1. Overwrite the `/public/launch-context.json` file with these contents:
    ```json

@@ -1,18 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactTable from 'react-table';
 
-export default class InfoModal extends Component {
+function InfoModal({ subSection, closeModal }) {
+  const elementsTableProps = { id: 'react__elements__table'};
+  const referencesTableProps = { id: 'react__references__table'};
 
-  constructor () {
-    super(...arguments);
-
-    this.elementsTableProps = { id: 'react__elements__table'};
-    this.referencesTableProps = { id: 'react__references__table'};
-  }
-
-  renderElements = (elements) => {
+  function renderElements(elements) {
     const tableElements = elements.elements;
     const columns = [{
       Header: () => <span className="col-header">Name</span>,
@@ -27,7 +22,7 @@ export default class InfoModal extends Component {
     }];
     return (
       <div className="element" role="table"
-           aria-label={elements.description} aria-describedby={this.elementsTableProps.id}>
+           aria-label={elements.description} aria-describedby={elementsTableProps.id}>
         <h4>{elements.description}</h4>
         <ReactTable
           className="elements__table"
@@ -36,13 +31,13 @@ export default class InfoModal extends Component {
           minRows={1}
           showPagination={false}
           resizable={false}
-          getProps={() => this.elementsTableProps}
+          getProps={() => elementsTableProps}
         />
       </div>
     );
   }
 
-  renderReferences = (references) => {
+  function renderReferences(references) {
     const columns = [{
       Header:  () => <span className="col-header">Link</span>,
       accessor: 'urlLink',
@@ -66,7 +61,7 @@ export default class InfoModal extends Component {
 
     return (
       <div className="reference" role="table"
-           aria-label="References" aria-describedby={this.referencesTableProps.id}>
+           aria-label="References" aria-describedby={referencesTableProps.id}>
         <ReactTable
           className="elements__table"
           columns={columns}
@@ -74,44 +69,43 @@ export default class InfoModal extends Component {
           minRows={1}
           showPagination={false}
           resizable={false}
-          getProps={() => this.referencesTableProps}
+          getProps={() => referencesTableProps}
         />
       </div>
     );
   }
 
-  render() {
-    const { subSection, closeModal } = this.props;
-    const elements = subSection.info.find((el) => el.type === "elements");
-    const references = subSection.info.filter((el) => el.type === "reference");
+  const elements = subSection.info.find((el) => el.type === "elements");
+  const references = subSection.info.filter((el) => el.type === "reference");
 
-    return (
-      <div className="info-modal">
-        <div className="info-modal__header">
-          More Information for {subSection.name}
-          <FontAwesomeIcon icon="times" title="close" className="close-icon" onClick={closeModal}/>
-        </div>
-
-        <div className="info-modal__body">
-          {elements != null &&
-            <div className="elements">
-              {this.renderElements(elements)}
-            </div>
-          }
-
-          {references.length > 0 &&
-            <div className="references">
-              <h4>References:</h4>
-              {this.renderReferences(references)}
-            </div>
-          }
-        </div>
+  return (
+    <div className="info-modal">
+      <div className="info-modal__header">
+        More Information for {subSection.name}
+        <FontAwesomeIcon icon="times" title="close" className="close-icon" onClick={closeModal}/>
       </div>
-    );
-  }
+
+      <div className="info-modal__body">
+        {elements != null &&
+          <div className="elements">
+            {renderElements(elements)}
+          </div>
+        }
+
+        {references.length > 0 &&
+          <div className="references">
+            <h4>References:</h4>
+            {renderReferences(references)}
+          </div>
+        }
+      </div>
+    </div>
+  );
 }
 
 InfoModal.propTypes = {
   subSection: PropTypes.object,
   closeModal: PropTypes.func.isRequired
 };
+
+export default InfoModal;

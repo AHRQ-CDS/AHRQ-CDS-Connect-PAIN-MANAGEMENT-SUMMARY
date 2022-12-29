@@ -1,3 +1,4 @@
+import { TextDecoder, TextEncoder } from 'util';
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import localStorage from 'mock-local-storage'; // eslint-disable-line no-unused-vars
@@ -15,3 +16,7 @@ Object.defineProperty(window, 'localStorage', {
   enumerable:true,
   writable:true
 });
+
+// Add TextEncoder and TextDecoder
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;

@@ -1,3 +1,4 @@
+import 'react-app-polyfill/stable';
 import FHIR from 'fhirclient';
 
 fetch(`${process.env.PUBLIC_URL}/launch-context.json`)

@@ -5,48 +5,55 @@
   "homepage": "https://ahrq-cds.github.io/AHRQ-CDS-Connect-PAIN-MANAGEMENT-SUMMARY",
   "license": "Apache-2.0",
   "dependencies": {
-    "@babel/polyfill": "^7.12.1",
-    "@fortawesome/fontawesome-svg-core": "^1.2.26",
-    "@fortawesome/free-solid-svg-icons": "^5.12.0",
-    "@fortawesome/react-fontawesome": "^0.1.8",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "core-js": "^3.12.1",
-    "cql-exec-fhir": "^2.0.1",
-    "cql-execution": "^2.3.3",
-    "fhirclient": "^2.3.0",
-    "immer": "^9.0.2",
-    "moment": "^2.24.0",
-    "node-sass": "^4.13.1",
-    "react": "^16.12.0",
-    "react-collapsible": "^2.6.2",
-    "react-dom": "^16.12.0",
-    "react-modal": "^3.11.1",
-    "react-router-dom": "^5.1.2",
+    "@fortawesome/fontawesome-svg-core": "^6.2.1",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^14.4.3",
+    "core-js": "^3.27.1",
+    "cql-exec-fhir": "^2.1.3",
+    "cql-execution": "^2.4.3",
+    "fhirclient": "^2.5.2",
+    "immer": "^9.0.16",
+    "moment": "^2.29.4",
+    "react": "^16.14.0",
+    "react-app-polyfill": "^3.0.0",
+    "react-collapsible": "^2.10.0",
+    "react-dom": "^16.14.0",
+    "react-modal": "^3.16.1",
+    "react-router-dom": "^6.6.1",
     "react-table": "^6.11.4",
-    "react-tooltip": "^3.11.6",
-    "tocbot": "^4.10.0"
+    "react-tooltip": "^4.5.1",
+    "tocbot": "^4.19.0"
   },
   "devDependencies": {
-    "@rescripts/cli": "^0.0.16",
-    "@rescripts/utilities": "^0.0.8",
+    "@craco/craco": "^7.0.0",
     "cors": "^2.8.5",
-    "cql-exec-vsac": "^1.2.1",
+    "cql-exec-vsac": "^2.0.0",
     "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.2",
-    "express": "^4.17.1",
-    "gh-pages": "^3.2.3",
+    "enzyme-adapter-react-16": "^1.15.7",
+    "express": "^4.18.2",
+    "gh-pages": "^4.0.0",
     "jest-enzyme": "^7.1.2",
-    "mock-local-storage": "^1.1.11",
+    "mock-local-storage": "^1.1.23",
     "react-router-test-context": "^0.1.0",
-    "react-scripts": "3.4.4",
+    "react-scripts": "^5.0.1",
+    "request-promise-native": "^1.0.9",
+    "sass": "^1.57.1",
     "temp": "^0.9.1"
   },
-  "resolutions": {
-    "immer": "^9.0.2",
-    "ssri": "^8.0.1",
-    "ansi-regex": "^5.0.1"
+  "overrides": {
+    "@expo/dev-server": {
+      "body-parser": "^1.20.1"
+    },
+    "jest-environment-enzyme": {
+      "jest-environment-jsdom": "^29.3.1"
+    },
+    "css-select": {
+      "nth-check": "^2.0.1"
+    },
+    "json5": "^2.2.2"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -64,11 +71,10 @@
     ]
   },
   "scripts": {
-    "start": "rescripts start",
+    "start": "craco start",
     "start-static": "node scripts/serve-build.js",
-    "build": "rescripts build",
-    "test": "rescripts test",
-    "eject": "rescripts eject",
+    "build": "craco build",
+    "test": "craco test",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "upload-test-patients": "node ./src/utils/uploadTestPatients",

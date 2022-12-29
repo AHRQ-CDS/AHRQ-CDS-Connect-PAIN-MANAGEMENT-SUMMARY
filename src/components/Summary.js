@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Collapsible from 'react-collapsible';
@@ -20,37 +20,38 @@ import ExclusionBanner from './ExclusionBanner';
 import InfoModal from './InfoModal';
 import DevTools from './DevTools';
 
-export default class Summary extends Component {
-  constructor () {
-    super(...arguments);
+function Summary({
+  summary,
+  sectionFlags,
+  collector,
+  result,
+  numMedicalHistoryEntries,
+  numPainEntries,
+  numTreatmentsEntries,
+  numRiskEntries
+}) {
+  const [showModal, setShowModal] = useState(false);
+  const [modalSubSection, setModalSubSectionl] = useState(null);
 
-    this.state = {
-      showModal: false,
-      modalSubSection: null
-    };
+  ReactModal.setAppElement('body');
 
-    this.subsectionTableProps = { id: 'react_sub-section__table'};
-
-    ReactModal.setAppElement('body');
-  }
-
-  handleOpenModal = (modalSubSection,event) => {
+  function handleOpenModal(subSection,event) {
     //only open modal   on 'enter' or click
     if(event.keyCode === 13 || event.type === "click") {
-        this.setState({showModal: true, modalSubSection});
+      setShowModal(true);
+      setModalSubSectionl(subSection);
     }
   }
 
-  handleCloseModal = () => {
-    this.setState({ showModal: false });
+  function handleCloseModal() {
+    setShowModal(false);
   }
 
-  isSectionFlagged(section) {
-    const { sectionFlags } = this.props;
+  function isSectionFlagged(section) {
     const subSections = Object.keys(sectionFlags[section]);
 
     for (let i = 0; i < subSections.length; ++i) {
-      if (this.isSubsectionFlagged(section, subSections[i])) {
+      if (isSubsectionFlagged(section, subSections[i])) {
         return true;
       }
     }
@@ -58,8 +59,7 @@ export default class Summary extends Component {
     return false;
   }
 
-  isSubsectionFlagged(section, subSection) {
-    const { sectionFlags } = this.props;
+  function isSubsectionFlagged(section, subSection) {
     if (sectionFlags[section][subSection] === true) {
       return true;
     } else if (sectionFlags[section][subSection] === false) {
@@ -70,9 +70,7 @@ export default class Summary extends Component {
   }
 
   // if flagged, returns flag text, else returns false
-  isEntryFlagged(section, subSection, entry) {
-    const { sectionFlags } = this.props;
-
+  function isEntryFlagged(section, subSection, entry) {
     let flagged = false;
     sectionFlags[section][subSection].forEach((flag) => {
       if (flag.entryId === entry._id) {
@@ -83,10 +81,10 @@ export default class Summary extends Component {
     return flagged;
   }
 
-  renderNoEntries(section, subSection) {
-    const flagged = this.isSubsectionFlagged(section, subSection.dataKey);
+  function renderNoEntries(section, subSection) {
+    const flagged = isSubsectionFlagged(section, subSection.dataKey);
     const flaggedClass = flagged ? 'flagged' : '';
-    const flagText = this.props.sectionFlags[section][subSection.dataKey];
+    const flagText = sectionFlags[section][subSection.dataKey];
     const tooltip = flagged ? flagText : '';
 
     return (
@@ -106,7 +104,7 @@ export default class Summary extends Component {
     );
   }
 
-  renderTable(table, entries, section, subSection, index) {
+  function renderTable(table, entries, section, subSection, index) {
     // If a filter is provided, only render those things that have the filter field (or don't have it when it's negated)
     let filteredEntries = entries;
     if (table.filter && table.filter.length > 0) {
@@ -123,7 +121,7 @@ export default class Summary extends Component {
       {
         id: 'flagged',
         Header: <span aria-label="flag"></span>,
-        accessor: (entry) => this.isEntryFlagged(section, subSection.dataKey, entry),
+        accessor: (entry) => isEntryFlagged(section, subSection.dataKey, entry),
         Cell: (props) =>
           <FontAwesomeIcon
             className={`flag flag-entry ${props.value ? 'flagged' : ''}`}
@@ -148,7 +146,6 @@ export default class Summary extends Component {
         accessor: (entry) => {
           let value = entry[headerKey];
           if (headerKey.formatter) {
-            const { result } = this.props;
             let formatterArguments = headerKey.formatterArguments || [];
             value = formatit[headerKey.formatter](result, entry[headerKey.key], ...formatterArguments);
           }
@@ -222,15 +219,15 @@ export default class Summary extends Component {
     );
   }
 
-  renderSection(section) {
+  function renderSection(section) {
     const sectionMap = summaryMap[section];
 
     return sectionMap.map((subSection) => {
-      const data = this.props.summary[subSection.dataKeySource][subSection.dataKey];
+      const data = summary[subSection.dataKeySource][subSection.dataKey];
       const entries = (Array.isArray(data) ? data : [data]).filter(r => r != null);
       const hasEntries = entries.length !== 0;
 
-      const flagged = this.isSubsectionFlagged(section, subSection.dataKey);
+      const flagged = isSubsectionFlagged(section, subSection.dataKey);
       const flaggedClass = flagged ? 'flagged' : '';
 
       return (
@@ -245,8 +242,8 @@ export default class Summary extends Component {
             {subSection.name}
             {subSection.info &&
               <div
-                onClick={(event) => this.handleOpenModal(subSection,event)}
-                onKeyDown={(event) => this.handleOpenModal(subSection,event)}
+                onClick={(event) => handleOpenModal(subSection,event)}
+                onKeyDown={(event) => handleOpenModal(subSection,event)}
                 role="button"
                 tabIndex={0}
                 aria-label={subSection.name}>
@@ -262,19 +259,18 @@ export default class Summary extends Component {
             }
           </h3>
 
-          {!hasEntries && this.renderNoEntries(section, subSection)}
+          {!hasEntries && renderNoEntries(section, subSection)}
           {hasEntries && subSection.tables.map((table, index) =>
-            this.renderTable(table, entries, section, subSection, index))
+            renderTable(table, entries, section, subSection, index))
           }
          </div>
       );
     });
   }
 
-  renderSectionHeader(section) {
-    const flagged = this.isSectionFlagged(section);
+  function renderSectionHeader(section) {
+    const flagged = isSectionFlagged(section);
     const flaggedClass = flagged ? 'flagged' : '';
-    const { numMedicalHistoryEntries, numPainEntries, numTreatmentsEntries, numRiskEntries } = this.props;
 
     let icon = '';
     let title = '';
@@ -308,77 +304,74 @@ export default class Summary extends Component {
     );
   };
 
-  render() {
-    const { summary, collector, result } = this.props;
-    const meetsInclusionCriteria = summary.Patient.MeetsInclusionCriteria;
-    if (!summary) { return null; }
+  const meetsInclusionCriteria = summary.Patient.MeetsInclusionCriteria;
+  if (!summary) { return null; }
 
-    return (
-      <div className="summary">
-        <div className="summary__nav-wrapper"><nav className="summary__nav"></nav></div>
+  return (
+    <div className="summary">
+      <div className="summary__nav-wrapper"><nav className="summary__nav"></nav></div>
 
-        <div className="summary__display" id="maincontent">
-          <div className="summary__display-title">
-            Factors to Consider in Managing Chronic Pain
-          </div>
-
-          {meetsInclusionCriteria && <ExclusionBanner />}
-
-          {!meetsInclusionCriteria && <InclusionBanner dismissible={meetsInclusionCriteria} />}
-
-          {meetsInclusionCriteria &&
-            <main className="sections">
-              <Collapsible tabIndex={0} trigger={this.renderSectionHeader("PertinentMedicalHistory")} open={true}>
-                {this.renderSection("PertinentMedicalHistory")}
-              </Collapsible>
-
-              <Collapsible tabIndex={0} trigger={this.renderSectionHeader("PainAssessments")} open={true}>
-                {this.renderSection("PainAssessments")}
-              </Collapsible>
-
-              <Collapsible tabIndex={0} trigger={this.renderSectionHeader("HistoricalTreatments")} open={true}>
-                {this.renderSection("HistoricalTreatments")}
-              </Collapsible>
-
-              <Collapsible tabIndex={0} trigger={this.renderSectionHeader("RiskConsiderations")} open={true}>
-                {this.renderSection("RiskConsiderations")}
-              </Collapsible>
-            </main>
-          }
-
-          <div className="cdc-disclaimer">
-            Please see the
-            <a
-              href="https://www.cdc.gov/mmwr/volumes/65/rr/rr6501e1.htm"
-              alt="CDC Guideline for Prescribing Opioids for Chronic Pain"
-              target="_blank"
-              rel="noopener noreferrer">
-              CDC Guideline for Prescribing Opioids for Chronic Pain
-            </a>
-            for additional information and prescribing guidance.
-          </div>
-
-          <DevTools
-            collector={collector}
-            result={result}
-          />
-
-          <ReactTooltip className="summary-tooltip" />
-
-          <ReactModal
-            className="modal"
-            overlayClassName="overlay"
-            isOpen={this.state.showModal}
-            onRequestClose={this.handleCloseModal}
-            contentLabel="More Info">
-            <InfoModal
-              closeModal={this.handleCloseModal}
-              subSection={this.state.modalSubSection} />
-          </ReactModal>
+      <div className="summary__display" id="maincontent">
+        <div className="summary__display-title">
+          Factors to Consider in Managing Chronic Pain
         </div>
+
+        {meetsInclusionCriteria && <ExclusionBanner />}
+
+        {!meetsInclusionCriteria && <InclusionBanner dismissible={meetsInclusionCriteria} />}
+
+        {meetsInclusionCriteria &&
+          <main className="sections">
+            <Collapsible tabIndex={0} trigger={renderSectionHeader("PertinentMedicalHistory")} open={true}>
+              {renderSection("PertinentMedicalHistory")}
+            </Collapsible>
+
+            <Collapsible tabIndex={0} trigger={renderSectionHeader("PainAssessments")} open={true}>
+              {renderSection("PainAssessments")}
+            </Collapsible>
+
+            <Collapsible tabIndex={0} trigger={renderSectionHeader("HistoricalTreatments")} open={true}>
+              {renderSection("HistoricalTreatments")}
+            </Collapsible>
+
+            <Collapsible tabIndex={0} trigger={renderSectionHeader("RiskConsiderations")} open={true}>
+              {renderSection("RiskConsiderations")}
+            </Collapsible>
+          </main>
+        }
+
+        <div className="cdc-disclaimer">
+          Please see the
+          <a
+            href="https://www.cdc.gov/mmwr/volumes/65/rr/rr6501e1.htm"
+            alt="CDC Guideline for Prescribing Opioids for Chronic Pain"
+            target="_blank"
+            rel="noopener noreferrer">
+            CDC Guideline for Prescribing Opioids for Chronic Pain
+          </a>
+          for additional information and prescribing guidance.
+        </div>
+
+        <DevTools
+          collector={collector}
+          result={result}
+        />
+
+        <ReactTooltip className="summary-tooltip" />
+
+        <ReactModal
+          className="modal"
+          overlayClassName="overlay"
+          isOpen={showModal}
+          onRequestClose={handleCloseModal}
+          contentLabel="More Info">
+          <InfoModal
+            closeModal={handleCloseModal}
+            subSection={modalSubSection} />
+        </ReactModal>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 Summary.propTypes = {
@@ -391,3 +384,5 @@ Summary.propTypes = {
   numTreatmentsEntries: PropTypes.number.isRequired,
   numRiskEntries: PropTypes.number.isRequired
 };
+
+export default Summary;

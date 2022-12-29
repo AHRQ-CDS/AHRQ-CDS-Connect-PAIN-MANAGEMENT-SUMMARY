@@ -1,34 +1,29 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import FhirQuery from './FhirQuery';
 
-export default class DevTools extends Component {
-  constructor() {
-    super(...arguments);
-    this.state = {
-      displayDevTools: false,
-      displayFhirQueries: false,
-      displayCQLResults: false
-    };
-  }
+function DevTools({ collector, result }) {
+  const [displayDevTools, setDisplayDevTools] = useState(false);
+  const [displayFhirQueries, setDisplayFhirQueries] = useState(false);
+  const [displayCQLResults, setDisplayCQLResults] = useState(false);
 
-  toggleDevTools = (event) => {
+  function toggleDevTools(event) {
     event.preventDefault();
-    this.setState({ displayDevTools: !this.state.displayDevTools });
+    setDisplayDevTools(!displayDevTools);
   }
 
-  toggleFhirQueries = (event) => {
+  function toggleFhirQueries(event) {
     event.preventDefault();
-    this.setState({ displayFhirQueries: !this.state.displayFhirQueries });
+    setDisplayFhirQueries(!displayFhirQueries);
   }
 
-  toggleCQLResults = (event) => {
+  function toggleCQLResults(event) {
     event.preventDefault();
-    this.setState({ displayCQLResults: !this.state.displayCQLResults });
+    setDisplayCQLResults(!displayCQLResults);
   }
 
-  errorMessage(er, i) {
+  function errorMessage(er, i) {
     return (
       <tr key={i}>
         <td>{er.type}</td>
@@ -37,8 +32,8 @@ export default class DevTools extends Component {
     );
   }
 
-  renderErrors() {
-    const errResponses = this.props.collector.filter(i => i.error);
+  function renderErrors() {
+    const errResponses = collector.filter(i => i.error);
 
     if (errResponses.length) {
       return (
@@ -54,7 +49,7 @@ export default class DevTools extends Component {
             </thead>
 
             <tbody>
-              {errResponses.map((er, i) => this.errorMessage(er, i))}
+              {errResponses.map((er, i) => errorMessage(er, i))}
             </tbody>
           </table>
         </div>
@@ -64,12 +59,12 @@ export default class DevTools extends Component {
     return <div></div>;
   }
 
-  renderFHIRQueries() {
+  function renderFHIRQueries() {
     return (
       <div className="fhir-queries">
-        <h4>FHIR Queries <button onClick={this.toggleFhirQueries}>[show/hide]</button></h4>
-        <div style={{ display: this.state.displayFhirQueries ? 'block' : 'none' }}>
-          {this.props.collector.map((item, i) => {
+        <h4>FHIR Queries <button onClick={toggleFhirQueries}>[show/hide]</button></h4>
+        <div style={{ display: displayFhirQueries ? 'block' : 'none' }}>
+          {collector.map((item, i) => {
             const url = i === 0 ? item.url : item.url.slice(item.url.lastIndexOf('/') + 1);
             return (
               <FhirQuery key={i} url={url} data={item.data} />
@@ -80,40 +75,41 @@ export default class DevTools extends Component {
     );
   }
 
-  renderCQLResults() {
+  function renderCQLResults() {
     return (
       <div className="cql-results">
-        <h4>CQL Results <button onClick={this.toggleCQLResults}>[show/hide]</button></h4>
+        <h4>CQL Results <button onClick={toggleCQLResults}>[show/hide]</button></h4>
 
-        <div style={{ display: this.state.displayCQLResults ? 'block' : 'none' }}>
-          <pre>{JSON.stringify(this.props.result, null, 2)}</pre>
+        <div style={{ display: displayCQLResults ? 'block' : 'none' }}>
+          <pre>{JSON.stringify(result, null, 2)}</pre>
         </div>
       </div>
     );
   }
 
-  render() {
-    if (!this.props.collector) { return null; }
+  
+  if (!collector) { return null; }
 
-    return (
-      <div className="dev-tools">
-        <h4>Development Tools <button onClick={this.toggleDevTools}>[show/hide]</button></h4>
+  return (
+    <div className="dev-tools">
+      <h4>Development Tools <button onClick={toggleDevTools}>[show/hide]</button></h4>
 
-        <div className="dev-tools__disclaimer">
-          These development tools are for troubleshooting issues and intended to be used by technical support.
-        </div>
-
-        <div style={{ display: this.state.displayDevTools ? 'block' : 'none' }}>
-          {this.renderErrors()}
-          {this.renderFHIRQueries()}
-          {this.renderCQLResults()}
-        </div>
+      <div className="dev-tools__disclaimer">
+        These development tools are for troubleshooting issues and intended to be used by technical support.
       </div>
-    );
-  }
+
+      <div style={{ display: displayDevTools ? 'block' : 'none' }}>
+        {renderErrors()}
+        {renderFHIRQueries()}
+        {renderCQLResults()}
+      </div>
+    </div>
+  );
 }
 
 DevTools.propTypes = {
   collector: PropTypes.array.isRequired,
   result: PropTypes.object.isRequired
 };
+
+export default DevTools;

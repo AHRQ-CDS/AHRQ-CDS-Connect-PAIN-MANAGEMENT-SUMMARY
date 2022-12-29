@@ -1,7 +1,7 @@
-import '@babel/polyfill';
+import 'react-app-polyfill/stable';
 import React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 
 import './utils/fontawesomeLibrary';
@@ -11,9 +11,9 @@ import Root from './containers/Root';
 import './styles/App.scss';
 
 render(
-  <Router basename={process.env.PUBLIC_URL}>
+  <BrowserRouter basename={process.env.PUBLIC_URL}>
     <Root />
-  </Router>,
+  </BrowserRouter>,
   document.getElementById('root')
 );
 

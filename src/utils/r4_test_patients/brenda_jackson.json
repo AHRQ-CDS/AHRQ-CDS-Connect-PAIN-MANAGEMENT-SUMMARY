@@ -2,7 +2,7 @@
   "resourceType": "Bundle",
   "id": "brenda_jackson",
   "meta": {
-    "lastUpdated": "2022-02-18T16:25:45.381Z"
+    "lastUpdated": "2022-12-01T19:51:44.689Z"
   },
   "type": "collection",
   "entry": [
@@ -19,7 +19,7 @@
           }
         ],
         "gender": "female",
-        "birthDate": "1959-06-03"
+        "birthDate": "1960-03-15"
       }
     },
     {
@@ -59,8 +59,8 @@
           ],
           "text": "Fibromyalgia (disorder)"
         },
-        "onsetDateTime": "2015-11-25T08:25:45.381Z",
-        "recordedDate": "2015-11-24T16:25:45.381Z"
+        "onsetDateTime": "2016-09-06T11:51:44.689Z",
+        "recordedDate": "2016-09-05T19:51:44.689Z"
       }
     },
     {
@@ -100,8 +100,8 @@
           ],
           "text": "Low back pain"
         },
-        "onsetDateTime": "2011-07-04T08:25:45.381Z",
-        "recordedDate": "2011-07-03T16:25:45.381Z"
+        "onsetDateTime": "2012-04-15T11:51:44.689Z",
+        "recordedDate": "2012-04-14T19:51:44.689Z"
       }
     },
     {
@@ -141,8 +141,8 @@
           ],
           "text": "Lumbar post-laminectomy syndrome (disorder)"
         },
-        "onsetDateTime": "2014-09-22T08:25:45.381Z",
-        "recordedDate": "2014-10-06T16:25:45.381Z"
+        "onsetDateTime": "2015-07-05T11:51:44.689Z",
+        "recordedDate": "2015-07-19T19:51:44.689Z"
       }
     },
     {
@@ -182,7 +182,7 @@
           ],
           "text": "Moderate major depression (disorder)"
         },
-        "onsetDateTime": "2019-07-24T08:25:45.381Z"
+        "onsetDateTime": "2020-05-05T11:51:44.689Z"
       }
     },
     {
@@ -221,7 +221,7 @@
             "text": "Hurts Worst"
           }
         ],
-        "issued": "2022-02-03T08:25:45.381Z"
+        "issued": "2022-11-16T11:51:44.689Z"
       }
     },
     {
@@ -260,7 +260,7 @@
             "text": "Hurts Even More"
           }
         ],
-        "issued": "2021-05-30T08:25:45.381Z"
+        "issued": "2022-03-12T11:51:44.689Z"
       }
     },
     {
@@ -299,7 +299,7 @@
             "text": "Hurts Even More"
           }
         ],
-        "issued": "2020-07-06T08:25:45.381Z"
+        "issued": "2021-04-18T11:51:44.689Z"
       }
     },
     {
@@ -338,7 +338,7 @@
             "text": "Hurts Even More"
           }
         ],
-        "issued": "2019-07-24T08:25:45.381Z"
+        "issued": "2020-05-05T11:51:44.689Z"
       }
     },
     {
@@ -372,7 +372,7 @@
         "valueQuantity": {
           "value": 5
         },
-        "issued": "2021-05-30T08:25:45.381Z",
+        "issued": "2022-03-12T11:51:44.689Z",
         "component": [
           {
             "code": {
@@ -453,7 +453,7 @@
         "valueQuantity": {
           "value": 7
         },
-        "issued": "2020-07-06T08:25:45.381Z",
+        "issued": "2021-04-18T11:51:44.689Z",
         "component": [
           {
             "code": {
@@ -534,7 +534,7 @@
         "valueQuantity": {
           "value": 8
         },
-        "issued": "2019-07-24T08:25:45.381Z",
+        "issued": "2020-05-05T11:51:44.689Z",
         "component": [
           {
             "code": {
@@ -620,7 +620,7 @@
             "text": "Medium risk"
           }
         ],
-        "issued": "2021-07-06T08:25:45.381Z"
+        "issued": "2022-04-18T11:51:44.689Z"
       }
     },
     {
@@ -659,7 +659,7 @@
             "text": "Low risk"
           }
         ],
-        "issued": "2020-07-06T08:25:45.381Z"
+        "issued": "2021-04-18T11:51:44.689Z"
       }
     },
     {
@@ -698,7 +698,7 @@
             "text": "High risk"
           }
         ],
-        "issued": "2019-07-24T08:25:45.381Z"
+        "issued": "2020-05-05T11:51:44.689Z"
       }
     },
     {
@@ -721,7 +721,7 @@
           ],
           "text": "12 HR Oxycodone Hydrochloride 60 MG Extended Release Oral Tablet"
         },
-        "authoredOn": "2021-12-04T08:27:45.381Z"
+        "authoredOn": "2022-09-16T11:53:44.689Z"
       }
     },
     {
@@ -744,7 +744,7 @@
           ],
           "text": "12 HR Oxycodone Hydrochloride 60 MG Extended Release Oral Tablet"
         },
-        "authoredOn": "2021-09-05T08:27:45.381Z"
+        "authoredOn": "2022-06-18T11:53:44.689Z"
       }
     },
     {
@@ -767,7 +767,7 @@
           ],
           "text": "12 HR Oxycodone Hydrochloride 60 MG Extended Release Oral Tablet"
         },
-        "authoredOn": "2021-06-05T08:27:45.381Z"
+        "authoredOn": "2022-03-18T11:53:44.689Z"
       }
     },
     {
@@ -790,7 +790,7 @@
           ],
           "text": "12 HR Oxycodone Hydrochloride 60 MG Extended Release Oral Tablet"
         },
-        "authoredOn": "2021-03-05T08:27:45.381Z"
+        "authoredOn": "2021-12-16T11:53:44.689Z"
       }
     },
     {
@@ -813,7 +813,7 @@
           ],
           "text": "12 HR Oxycodone Hydrochloride 60 MG Extended Release Oral Tablet"
         },
-        "authoredOn": "2020-12-04T08:27:45.381Z"
+        "authoredOn": "2021-09-16T11:53:44.689Z"
       }
     },
     {
@@ -836,7 +836,7 @@
           ],
           "text": "12 HR Oxycodone Hydrochloride 60 MG Extended Release Oral Tablet"
         },
-        "authoredOn": "2020-09-05T08:27:45.381Z"
+        "authoredOn": "2021-06-18T11:53:44.689Z"
       }
     },
     {
@@ -859,7 +859,7 @@
           ],
           "text": "12 HR Oxycodone Hydrochloride 60 MG Extended Release Oral Tablet"
         },
-        "authoredOn": "2020-06-05T08:27:45.381Z"
+        "authoredOn": "2021-03-18T11:53:44.689Z"
       }
     },
     {
@@ -882,7 +882,7 @@
           ],
           "text": "12 HR Oxycodone Hydrochloride 60 MG Extended Release Oral Tablet"
         },
-        "authoredOn": "2020-03-05T08:27:45.381Z"
+        "authoredOn": "2020-12-16T11:53:44.689Z"
       }
     },
     {
@@ -905,7 +905,7 @@
           ],
           "text": "12 HR Oxycodone Hydrochloride 60 MG Extended Release Oral Tablet"
         },
-        "authoredOn": "2019-12-05T08:27:45.381Z"
+        "authoredOn": "2020-09-16T11:53:44.689Z"
       }
     },
     {
@@ -928,7 +928,7 @@
           ],
           "text": "12 HR Oxycodone Hydrochloride 60 MG Extended Release Oral Tablet"
         },
-        "authoredOn": "2019-09-06T08:27:45.381Z"
+        "authoredOn": "2020-06-18T11:53:44.689Z"
       }
     },
     {
@@ -951,7 +951,7 @@
           ],
           "text": "12 HR Oxycodone Hydrochloride 60 MG Extended Release Oral Tablet"
         },
-        "authoredOn": "2019-06-06T08:27:45.381Z"
+        "authoredOn": "2020-03-18T11:53:44.689Z"
       }
     },
     {
@@ -974,7 +974,7 @@
           ],
           "text": "Oxycodone Hydrochloride 10 MG Oral Capsule"
         },
-        "authoredOn": "2021-12-04T08:26:45.381Z"
+        "authoredOn": "2022-09-16T11:52:44.689Z"
       }
     },
     {
@@ -997,7 +997,7 @@
           ],
           "text": "Oxycodone Hydrochloride 10 MG Oral Capsule"
         },
-        "authoredOn": "2021-09-05T08:26:45.381Z"
+        "authoredOn": "2022-06-18T11:52:44.689Z"
       }
     },
     {
@@ -1020,7 +1020,7 @@
           ],
           "text": "Oxycodone Hydrochloride 10 MG Oral Capsule"
         },
-        "authoredOn": "2021-06-05T08:26:45.381Z"
+        "authoredOn": "2022-03-18T11:52:44.689Z"
       }
     },
     {
@@ -1043,7 +1043,7 @@
           ],
           "text": "Oxycodone Hydrochloride 10 MG Oral Capsule"
         },
-        "authoredOn": "2021-03-05T08:26:45.381Z"
+        "authoredOn": "2021-12-16T11:52:44.689Z"
       }
     },
     {
@@ -1066,7 +1066,7 @@
           ],
           "text": "Oxycodone Hydrochloride 10 MG Oral Capsule"
         },
-        "authoredOn": "2020-12-04T08:26:45.381Z"
+        "authoredOn": "2021-09-16T11:52:44.689Z"
       }
     },
     {
@@ -1089,7 +1089,7 @@
           ],
           "text": "Oxycodone Hydrochloride 10 MG Oral Capsule"
         },
-        "authoredOn": "2020-09-05T08:26:45.381Z"
+        "authoredOn": "2021-06-18T11:52:44.689Z"
       }
     },
     {
@@ -1112,7 +1112,7 @@
           ],
           "text": "Oxycodone Hydrochloride 10 MG Oral Capsule"
         },
-        "authoredOn": "2020-06-05T08:26:45.381Z"
+        "authoredOn": "2021-03-18T11:52:44.689Z"
       }
     },
     {
@@ -1135,7 +1135,7 @@
           ],
           "text": "Oxycodone Hydrochloride 10 MG Oral Capsule"
         },
-        "authoredOn": "2020-03-05T08:26:45.381Z"
+        "authoredOn": "2020-12-16T11:52:44.689Z"
       }
     },
     {
@@ -1158,7 +1158,7 @@
           ],
           "text": "Oxycodone Hydrochloride 10 MG Oral Capsule"
         },
-        "authoredOn": "2019-12-05T08:26:45.381Z"
+        "authoredOn": "2020-09-16T11:52:44.689Z"
       }
     },
     {
@@ -1181,7 +1181,7 @@
           ],
           "text": "Oxycodone Hydrochloride 10 MG Oral Capsule"
         },
-        "authoredOn": "2019-09-06T08:26:45.381Z"
+        "authoredOn": "2020-06-18T11:52:44.689Z"
       }
     },
     {
@@ -1204,7 +1204,7 @@
           ],
           "text": "Oxycodone Hydrochloride 10 MG Oral Capsule"
         },
-        "authoredOn": "2019-06-06T08:26:45.381Z"
+        "authoredOn": "2020-03-18T11:52:44.689Z"
       }
     },
     {
@@ -1227,7 +1227,7 @@
           ],
           "text": "Ibuprofen 600 MG Oral Tablet"
         },
-        "authoredOn": "2019-07-24T08:25:45.381Z"
+        "authoredOn": "2020-05-05T11:51:44.689Z"
       }
     },
     {
@@ -1250,7 +1250,7 @@
           ],
           "text": "Acetaminophen 500 MG Oral Tablet"
         },
-        "authoredOn": "2019-07-24T08:25:45.381Z"
+        "authoredOn": "2020-05-05T11:51:44.689Z"
       }
     },
     {
@@ -1273,7 +1273,7 @@
           ],
           "text": "Ibuprofen 600 MG Oral Tablet"
         },
-        "authoredOn": "2020-07-06T08:25:45.381Z"
+        "authoredOn": "2021-04-18T11:51:44.689Z"
       }
     },
     {
@@ -1296,7 +1296,7 @@
           ],
           "text": "Acetaminophen 500 MG Oral Tablet"
         },
-        "authoredOn": "2020-07-06T08:25:45.381Z"
+        "authoredOn": "2021-04-18T11:51:44.689Z"
       }
     },
     {
@@ -1317,7 +1317,7 @@
           ],
           "text": "Referral to chiropractor (procedure)"
         },
-        "performedDateTime": "2019-07-24T08:25:45.381Z"
+        "performedDateTime": "2020-05-05T11:51:44.689Z"
       }
     },
     {
@@ -1338,7 +1338,7 @@
           ],
           "text": "Referral for physical therapy (procedure)"
         },
-        "performedDateTime": "2019-07-24T08:25:45.381Z"
+        "performedDateTime": "2020-05-05T11:51:44.689Z"
       }
     },
     {
@@ -1359,7 +1359,7 @@
           ],
           "text": "Patient referral for psychotherapy (procedure)"
         },
-        "performedDateTime": "2020-07-06T08:25:45.381Z"
+        "performedDateTime": "2021-04-18T11:51:44.689Z"
       }
     },
     {
@@ -1380,7 +1380,7 @@
           ],
           "text": "Referral to chiropractor (procedure)"
         },
-        "performedDateTime": "2021-06-05T08:25:45.381Z"
+        "performedDateTime": "2022-03-18T11:51:44.689Z"
       }
     },
     {
@@ -1401,7 +1401,7 @@
           ],
           "text": "Referral for physical therapy (procedure)"
         },
-        "performedDateTime": "2021-06-05T08:25:45.381Z"
+        "performedDateTime": "2022-03-18T11:51:44.689Z"
       }
     },
     {
@@ -1424,7 +1424,7 @@
           ],
           "text": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution"
         },
-        "authoredOn": "2020-01-04T08:25:45.381Z"
+        "authoredOn": "2020-10-16T11:51:44.689Z"
       }
     },
     {
@@ -1447,7 +1447,7 @@
           ],
           "text": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution"
         },
-        "authoredOn": "2020-07-06T08:25:45.381Z"
+        "authoredOn": "2021-04-18T11:51:44.689Z"
       }
     },
     {
@@ -1470,7 +1470,7 @@
           ],
           "text": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution"
         },
-        "authoredOn": "2021-01-03T08:25:45.381Z"
+        "authoredOn": "2021-10-16T11:51:44.689Z"
       }
     },
     {
@@ -1493,7 +1493,7 @@
           ],
           "text": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution"
         },
-        "authoredOn": "2021-09-05T08:25:45.381Z"
+        "authoredOn": "2022-06-18T11:51:44.689Z"
       }
     },
     {
@@ -1516,7 +1516,7 @@
           ],
           "text": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution"
         },
-        "authoredOn": "2021-12-04T08:25:45.381Z"
+        "authoredOn": "2022-09-16T11:51:44.689Z"
       }
     },
     {
@@ -1553,7 +1553,7 @@
           "system": "http://unitsofmeasure.org",
           "code": "{MME}/d"
         },
-        "issued": "2021-12-04T08:25:45.381Z"
+        "issued": "2022-09-16T11:51:44.689Z"
       }
     },
     {
@@ -1590,7 +1590,7 @@
           "system": "http://unitsofmeasure.org",
           "code": "{MME}/d"
         },
-        "issued": "2021-09-05T08:25:45.381Z"
+        "issued": "2022-06-18T11:51:44.689Z"
       }
     },
     {
@@ -1627,7 +1627,7 @@
           "system": "http://unitsofmeasure.org",
           "code": "{MME}/d"
         },
-        "issued": "2021-05-30T08:25:45.381Z"
+        "issued": "2022-03-12T11:51:44.689Z"
       }
     },
     {
@@ -1664,7 +1664,7 @@
           "system": "http://unitsofmeasure.org",
           "code": "{MME}/d"
         },
-        "issued": "2020-07-06T08:25:45.381Z"
+        "issued": "2021-04-18T11:51:44.689Z"
       }
     },
     {
@@ -1701,7 +1701,7 @@
           "system": "http://unitsofmeasure.org",
           "code": "{MME}/d"
         },
-        "issued": "2019-07-24T08:25:45.381Z"
+        "issued": "2020-05-05T11:51:44.689Z"
       }
     },
     {
@@ -1740,7 +1740,7 @@
             "text": "Positive"
           }
         ],
-        "issued": "2021-06-05T08:25:45.381Z"
+        "issued": "2022-03-18T11:51:44.689Z"
       }
     },
     {
@@ -1779,7 +1779,7 @@
             "text": "Positive"
           }
         ],
-        "issued": "2020-07-07T08:25:45.381Z"
+        "issued": "2021-04-19T11:51:44.689Z"
       }
     },
     {
@@ -1818,7 +1818,7 @@
             "text": "Positive"
           }
         ],
-        "issued": "2019-07-25T08:25:45.381Z"
+        "issued": "2020-05-06T11:51:44.689Z"
       }
     },
     {
@@ -1841,7 +1841,7 @@
           ],
           "text": "Chlordiazepoxide Hydrochloride 25 MG Oral Tablet"
         },
-        "authoredOn": "2015-11-25T08:25:45.381Z"
+        "authoredOn": "2016-09-06T11:51:44.689Z"
       }
     },
     {
@@ -1880,7 +1880,7 @@
             "text": "Mild depression"
           }
         ],
-        "issued": "2021-05-06T08:25:45.381Z"
+        "issued": "2022-02-16T11:51:44.689Z"
       }
     },
     {
@@ -1919,7 +1919,7 @@
             "text": "Moderately severe depression"
           }
         ],
-        "issued": "2020-07-06T08:25:45.381Z"
+        "issued": "2021-04-18T11:51:44.689Z"
       }
     },
     {
@@ -1958,7 +1958,7 @@
             "text": "Moderately severe depression"
           }
         ],
-        "issued": "2019-07-24T08:25:45.381Z"
+        "issued": "2020-05-05T11:51:44.689Z"
       }
     }
   ]
