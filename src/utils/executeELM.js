@@ -2,11 +2,11 @@ import FHIR from 'fhirclient';
 import cql from 'cql-execution';
 import cqlfhir from 'cql-exec-fhir';
 import extractResourcesFromELM from './extractResourcesFromELM';
-import dstu2FactorsELM from '../cql/dstu2/Factors_to_Consider_in_Managing_Chronic_Pain.json'
-import dstu2CommonsELM from '../cql/dstu2/CDS_Connect_Commons_for_FHIRv102.json';
+import dstu2FactorsELM from '../cql/dstu2/FactorsToConsiderInManagingChronicPainFHIRv102.json'
+import dstu2CommonsELM from '../cql/dstu2/CDSConnectCommonsForFHIRv102.json';
 import dstu2HelpersELM from '../cql/dstu2/FHIRHelpers.json';
-import r4FactorsELM from '../cql/r4/Factors_to_Consider_in_Managing_Chronic_Pain_FHIRv401.json';
-import r4CommonsELM from '../cql/r4/CDS_Connect_Commons_for_FHIRv401.json';
+import r4FactorsELM from '../cql/r4/FactorsToConsiderInManagingChronicPainFHIRv401.json';
+import r4CommonsELM from '../cql/r4/CDSConnectCommonsForFHIRv401.json';
 import r4HelpersELM from '../cql/r4/FHIRHelpers.json';
 import valueSetDB from '../cql/valueset-db.json';
 
@@ -99,12 +99,12 @@ function getLibrary(release) {
   switch(release) {
     case 2:
       return new cql.Library(dstu2FactorsELM, new cql.Repository({
-        CDS_Connect_Commons_for_FHIRv102: dstu2CommonsELM,
+        CDSConnectCommonsForFHIRv102: dstu2CommonsELM,
         FHIRHelpers: dstu2HelpersELM
       }));
     case 4:
       return new cql.Library(r4FactorsELM, new cql.Repository({
-        CDS_Connect_Commons_for_FHIRv401: r4CommonsELM,
+        CDSConnectCommonsForFHIRv401: r4CommonsELM,
         FHIRHelpers: r4HelpersELM
       }));
     default:
