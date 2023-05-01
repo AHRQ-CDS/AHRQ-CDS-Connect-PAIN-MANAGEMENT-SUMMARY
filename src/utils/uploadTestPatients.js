@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const rpn = require('request-promise-native');
+const axios = require('axios');
 const mkdirp = require('mkdirp');
 
 const DUMP_TEST_PATIENT_JSON = true;
@@ -26,11 +26,16 @@ function convertToTx(bundle, baseURL) {
   return tx;
 }
 
-function stringResult(name, response) {
-  const status = `${response.statusCode} ${response.statusMessage}`;
+function stringResult(name, responseOrError) {
+  let response = responseOrError;
+  if (responseOrError.status == null && responseOrError.response != null && responseOrError.response.status != null) {
+    response = responseOrError.response;
+  }
+
+  const status = `${response.status} ${response.statusText}`;
   const statusMap = {};
-  if (response.body && response.body.entry) {
-    response.body.entry.forEach(entry => {
+  if (response.data && response.data.entry) {
+    response.data.entry.forEach(entry => {
       const entryStatus = entry.response && entry.response.status ? entry.response.status : 'unknown';
       if (!statusMap[entryStatus]) {
         statusMap[entryStatus] = 1;
@@ -84,35 +89,38 @@ function upload(release, baseURL, patientPath) {
     }
 
     const ptOptions = {
-      method: 'PUT',
-      uri: `${baseURL}/Patient/${patientJSON.id}`,
-      body: patientJSON,
-      resolveWithFullResponse: true,
-      json: true
-    }
-    const request = rpn(ptOptions).then(
-      (success) => {
-        console.log(stringResult(`${json.id}_patient`, success));
-        const entOptions = {
-          method: 'POST',
-          uri: baseURL,
-          body: convertToTx(entriesJSON, baseURL),
-          resolveWithFullResponse: true,
-          json: true
-        }
-        return rpn(entOptions).then(
-          (success) => {
-            console.log(stringResult(entriesJSON.id, success));
-          },
-          (error) => {
-            console.error(stringResult(entriesJSON.id, error));
-          }
-        );
+      method: 'put',
+      url: `${baseURL}/Patient/${patientJSON.id}`,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       },
-      (error) => {
+      data: patientJSON
+    }
+    const request = axios(ptOptions)
+      .then((response) => {
+        console.log(stringResult(`${json.id}_patient`, response));
+        const entOptions = {
+          method: 'post',
+          url: baseURL,
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          data: convertToTx(entriesJSON, baseURL)
+        }
+        return axios(entOptions)
+          .then((response) => {
+            console.log(stringResult(entriesJSON.id, response));
+          })
+          .catch((error) => {
+            console.error(stringResult(entriesJSON.id, error));
+          });
+      })
+      .catch((error) => {
         console.error(stringResult(patientJSON.id, error));
-      }
-    );
+      });
+
     requests.push(request);
   }
   return Promise.all(requests);
