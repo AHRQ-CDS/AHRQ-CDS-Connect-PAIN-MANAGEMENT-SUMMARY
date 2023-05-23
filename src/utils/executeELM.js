@@ -50,48 +50,48 @@ class VSACAwareCodeService extends cql.CodeService {
 
 function executeELM(collector) {
   let client, release, library;
-  return new Promise((resolve) => {
-    // First get our authorized client and send the FHIR release to the next step
-    const results = FHIR.oauth2.ready().then((clientArg) => {
-      client = clientArg;
-      return client.getFhirRelease();
-    })
-    // then remember the release for later and get the release-specific library
-    .then((releaseNum) => {
-      release = releaseNum;
-      library = getLibrary(release);
-    })
-    // then query the FHIR server for the patient, sending it to the next step
-    .then(() => client.patient.read())
-    // then gather all the patient's relevant resource instances and send them in a bundle to the next step
-    .then((pt) => {
-      collector.push({ data: pt, url: `Patient/${pt.id}`});
-      const requests = extractResourcesFromELM(library).map((name) => {
-        if (name === 'Patient') {
-          return [pt];
-        }
-        return doSearch(client, release, name, collector);
-      });
-      // Don't return until all the requests have been resolved
-      return Promise.all(requests).then((requestResults) => {
-        const resources = [];
-        requestResults.forEach(result => resources.push(...result));
-        return {
-          resourceType: "Bundle",
-          entry: resources.map(r => ({ resource: r }))
-        };;
-      });
-    })
-    // then execute the library and return the results (wrapped in a Promise)
-    .then((bundle) => {
-      const patientSource = getPatientSource(release);
-      const codeService = new VSACAwareCodeService(valueSetDB);
-      const executor = new cql.Executor(library, codeService);
-      patientSource.loadBundles([bundle]);
-      const results = executor.exec(patientSource);
-      return results.patientResults[Object.keys(results.patientResults)[0]];
+  // First get our authorized client and send the FHIR release to the next step
+  return FHIR.oauth2.ready().then((clientArg) => {
+    client = clientArg;
+    return client.getFhirRelease();
+  })
+  // then remember the release for later and get the release-specific library
+  .then((releaseNum) => {
+    release = releaseNum;
+    library = getLibrary(release);
+  })
+  // then query the FHIR server for the patient, sending it to the next step
+  .then(() => client.patient.read())
+  // then gather all the patient's relevant resource instances and send them in a bundle to the next step
+  .then((pt) => {
+    collector.push({ data: pt, url: `Patient/${pt.id}`});
+    const requests = extractResourcesFromELM(library).map((name) => {
+      if (name === 'Patient') {
+        return [pt];
+      }
+      return doSearch(client, release, name, collector);
     });
-    resolve(results);
+    // Don't return until all the requests have been resolved
+    return Promise.all(requests).then((requestResults) => {
+      const resources = [];
+      requestResults.forEach(result => resources.push(...result));
+      return {
+        resourceType: "Bundle",
+        entry: resources.map(r => ({ resource: r }))
+      };;
+    });
+  })
+  // then execute the library
+  .then((bundle) => {
+    const patientSource = getPatientSource(release);
+    const codeService = new VSACAwareCodeService(valueSetDB);
+    const executor = new cql.Executor(library, codeService);
+    patientSource.loadBundles([bundle]);
+    return executor.exec(patientSource);
+  })
+  // Then return the results
+  .then((results) => {
+    return results.patientResults[Object.keys(results.patientResults)[0]];
   });
 }
 
