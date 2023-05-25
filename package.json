@@ -13,7 +13,7 @@
     "@testing-library/user-event": "^14.4.3",
     "core-js": "^3.30.1",
     "cql-exec-fhir": "^2.1.5",
-    "cql-execution": "^2.4.6",
+    "cql-execution": "^3.0.0",
     "fhirclient": "^2.5.2",
     "immer": "^10.0.1",
     "moment": "^2.29.4",
