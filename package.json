@@ -1,6 +1,6 @@
 {
   "name": "pain-management-factors",
-  "version": "0.4.0",
+  "version": "0.6.0",
   "description": "Pain Management Factors SMART-on-FHIR App",
   "homepage": "https://ahrq-cds.github.io/AHRQ-CDS-Connect-PAIN-MANAGEMENT-SUMMARY",
   "license": "Apache-2.0",
@@ -77,7 +77,7 @@
     "build": "craco build",
     "test": "craco test",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -r https://github.com/AHRQ-CDS/AHRQ-CDS-Connect-PAIN-MANAGEMENT-SUMMARY.git -d build",
     "upload-test-patients": "node ./src/utils/uploadTestPatients",
     "update-test-patients": "node ./src/utils/updateTestPatients",
     "lint": "eslint ."

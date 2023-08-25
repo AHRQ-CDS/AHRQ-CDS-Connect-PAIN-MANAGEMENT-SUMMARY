@@ -1,12 +1,12 @@
 {
   "name": "pain-management-factors",
-  "version": "0.4.0",
+  "version": "0.6.0",
   "lockfileVersion": 2,
   "requires": true,
   "packages": {
     "": {
       "name": "pain-management-factors",
-      "version": "0.4.0",
+      "version": "0.6.0",
       "license": "Apache-2.0",
       "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^6.4.0",
