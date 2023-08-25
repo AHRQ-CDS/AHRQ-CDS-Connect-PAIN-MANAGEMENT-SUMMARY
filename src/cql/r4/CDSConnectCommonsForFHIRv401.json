@@ -1,12 +1,13 @@
 {
    "library" : {
       "annotation" : [ {
+         "translatorVersion" : "2.9.0",
          "translatorOptions" : "",
          "type" : "CqlToElmInfo"
       } ],
       "identifier" : {
          "id" : "CDSConnectCommonsForFHIRv401",
-         "version" : "2.0.0"
+         "version" : "2.1.0"
       },
       "schemaIdentifier" : {
          "id" : "urn:hl7-org:elm",
@@ -2829,6 +2830,48 @@
                   }, {
                      "valueType" : "{urn:hl7-org:elm-types:r1}String",
                      "value" : "in-progress",
+                     "type" : "Literal"
+                  } ]
+               }
+            },
+            "operand" : [ {
+               "name" : "Encounters",
+               "operandTypeSpecifier" : {
+                  "type" : "ListTypeSpecifier",
+                  "elementType" : {
+                     "name" : "{http://hl7.org/fhir}Encounter",
+                     "type" : "NamedTypeSpecifier"
+                  }
+               }
+            } ]
+         }, {
+            "name" : "Finished",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "type" : "FunctionDef",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "Encounter",
+                  "expression" : {
+                     "name" : "Encounters",
+                     "type" : "OperandRef"
+                  }
+               } ],
+               "relationship" : [ ],
+               "where" : {
+                  "type" : "Equal",
+                  "operand" : [ {
+                     "path" : "value",
+                     "type" : "Property",
+                     "source" : {
+                        "path" : "status",
+                        "scope" : "Encounter",
+                        "type" : "Property"
+                     }
+                  }, {
+                     "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                     "value" : "finished",
                      "type" : "Literal"
                   } ]
                }

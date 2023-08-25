@@ -1,12 +1,13 @@
 {
    "library" : {
       "annotation" : [ {
+         "translatorVersion" : "2.9.0",
          "translatorOptions" : "",
          "type" : "CqlToElmInfo"
       } ],
       "identifier" : {
          "id" : "FactorsToConsiderInManagingChronicPainFHIRv401",
-         "version" : "2.0.0"
+         "version" : "3.0.0"
       },
       "schemaIdentifier" : {
          "id" : "urn:hl7-org:elm",
@@ -26,7 +27,7 @@
          "def" : [ {
             "localIdentifier" : "C3F",
             "path" : "CDSConnectCommonsForFHIRv401",
-            "version" : "2.0.0"
+            "version" : "2.1.0"
          }, {
             "localIdentifier" : "FHIRHelpers",
             "path" : "FHIRHelpers",
@@ -65,11 +66,11 @@
             "id" : "https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1021.95",
             "accessLevel" : "Public"
          }, {
-            "name" : "Opioid Pain Medications",
+            "name" : "Opioid pain medications",
             "id" : "https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.34",
             "accessLevel" : "Public"
          }, {
-            "name" : "Adjuvant Analgesic Medications",
+            "name" : "Adjuvant pain medications",
             "id" : "https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.54",
             "accessLevel" : "Public"
          }, {
@@ -121,7 +122,7 @@
             "id" : "https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.264",
             "accessLevel" : "Public"
          }, {
-            "name" : "Non opiod pain medications",
+            "name" : "Nonopioid pain medications",
             "id" : "https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.26",
             "accessLevel" : "Public"
          }, {
@@ -163,6 +164,14 @@
             "name" : "Pregnant",
             "id" : "77386006",
             "display" : "Patient currently pregnant (finding)",
+            "accessLevel" : "Public",
+            "codeSystem" : {
+               "name" : "SNOMED-CT"
+            }
+         }, {
+            "name" : "Management of opioid dosage tapering (procedure)",
+            "id" : "874903005",
+            "display" : "Management of opioid dosage tapering (procedure)",
             "accessLevel" : "Public",
             "codeSystem" : {
                "name" : "SNOMED-CT"
@@ -1849,6 +1858,7 @@
                      "type" : "Retrieve",
                      "codes" : {
                         "name" : "Conditions associated with chronic pain",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   } ]
@@ -1882,15 +1892,30 @@
                         "libraryName" : "C3F",
                         "type" : "FunctionRef",
                         "operand" : [ {
-                           "dataType" : "{http://hl7.org/fhir}MedicationRequest",
-                           "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
-                           "codeProperty" : "medication",
-                           "codeComparator" : "in",
-                           "type" : "Retrieve",
-                           "codes" : {
-                              "name" : "Opioid Pain Medications",
-                              "type" : "ValueSetRef"
-                           }
+                           "type" : "Union",
+                           "operand" : [ {
+                              "dataType" : "{http://hl7.org/fhir}MedicationRequest",
+                              "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
+                              "codeProperty" : "medication",
+                              "codeComparator" : "in",
+                              "type" : "Retrieve",
+                              "codes" : {
+                                 "name" : "Opioid pain medications",
+                                 "preserve" : true,
+                                 "type" : "ValueSetRef"
+                              }
+                           }, {
+                              "dataType" : "{http://hl7.org/fhir}MedicationRequest",
+                              "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
+                              "codeProperty" : "medication",
+                              "codeComparator" : "in",
+                              "type" : "Retrieve",
+                              "codes" : {
+                                 "name" : "Opioid pain medications",
+                                 "preserve" : true,
+                                 "type" : "ValueSetRef"
+                              }
+                           } ]
                         }, {
                            "name" : "InclusionMedicationsLookbackPeriod",
                            "type" : "ParameterRef"
@@ -1908,15 +1933,30 @@
                         "libraryName" : "C3F",
                         "type" : "FunctionRef",
                         "operand" : [ {
-                           "dataType" : "{http://hl7.org/fhir}MedicationStatement",
-                           "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
-                           "codeProperty" : "medication",
-                           "codeComparator" : "in",
-                           "type" : "Retrieve",
-                           "codes" : {
-                              "name" : "Opioid Pain Medications",
-                              "type" : "ValueSetRef"
-                           }
+                           "type" : "Union",
+                           "operand" : [ {
+                              "dataType" : "{http://hl7.org/fhir}MedicationStatement",
+                              "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
+                              "codeProperty" : "medication",
+                              "codeComparator" : "in",
+                              "type" : "Retrieve",
+                              "codes" : {
+                                 "name" : "Opioid pain medications",
+                                 "preserve" : true,
+                                 "type" : "ValueSetRef"
+                              }
+                           }, {
+                              "dataType" : "{http://hl7.org/fhir}MedicationStatement",
+                              "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
+                              "codeProperty" : "medication",
+                              "codeComparator" : "in",
+                              "type" : "Retrieve",
+                              "codes" : {
+                                 "name" : "Opioid pain medications",
+                                 "preserve" : true,
+                                 "type" : "ValueSetRef"
+                              }
+                           } ]
                         }, {
                            "name" : "InclusionMedicationsLookbackPeriod",
                            "type" : "ParameterRef"
@@ -1926,7 +1966,7 @@
                } ]
             }
          }, {
-            "name" : "HasRecentAdjuvantAnalgesicMedication",
+            "name" : "HasRecentNonOpioidPainMedication",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -1942,15 +1982,30 @@
                         "libraryName" : "C3F",
                         "type" : "FunctionRef",
                         "operand" : [ {
-                           "dataType" : "{http://hl7.org/fhir}MedicationRequest",
-                           "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
-                           "codeProperty" : "medication",
-                           "codeComparator" : "in",
-                           "type" : "Retrieve",
-                           "codes" : {
-                              "name" : "Adjuvant Analgesic Medications",
-                              "type" : "ValueSetRef"
-                           }
+                           "type" : "Union",
+                           "operand" : [ {
+                              "dataType" : "{http://hl7.org/fhir}MedicationRequest",
+                              "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
+                              "codeProperty" : "medication",
+                              "codeComparator" : "in",
+                              "type" : "Retrieve",
+                              "codes" : {
+                                 "name" : "Nonopioid pain medications",
+                                 "preserve" : true,
+                                 "type" : "ValueSetRef"
+                              }
+                           }, {
+                              "dataType" : "{http://hl7.org/fhir}MedicationRequest",
+                              "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
+                              "codeProperty" : "medication",
+                              "codeComparator" : "in",
+                              "type" : "Retrieve",
+                              "codes" : {
+                                 "name" : "Nonopioid pain medications",
+                                 "preserve" : true,
+                                 "type" : "ValueSetRef"
+                              }
+                           } ]
                         }, {
                            "name" : "InclusionMedicationsLookbackPeriod",
                            "type" : "ParameterRef"
@@ -1968,15 +2023,30 @@
                         "libraryName" : "C3F",
                         "type" : "FunctionRef",
                         "operand" : [ {
-                           "dataType" : "{http://hl7.org/fhir}MedicationStatement",
-                           "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
-                           "codeProperty" : "medication",
-                           "codeComparator" : "in",
-                           "type" : "Retrieve",
-                           "codes" : {
-                              "name" : "Adjuvant Analgesic Medications",
-                              "type" : "ValueSetRef"
-                           }
+                           "type" : "Union",
+                           "operand" : [ {
+                              "dataType" : "{http://hl7.org/fhir}MedicationStatement",
+                              "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
+                              "codeProperty" : "medication",
+                              "codeComparator" : "in",
+                              "type" : "Retrieve",
+                              "codes" : {
+                                 "name" : "Nonopioid pain medications",
+                                 "preserve" : true,
+                                 "type" : "ValueSetRef"
+                              }
+                           }, {
+                              "dataType" : "{http://hl7.org/fhir}MedicationStatement",
+                              "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
+                              "codeProperty" : "medication",
+                              "codeComparator" : "in",
+                              "type" : "Retrieve",
+                              "codes" : {
+                                 "name" : "Nonopioid pain medications",
+                                 "preserve" : true,
+                                 "type" : "ValueSetRef"
+                              }
+                           } ]
                         }, {
                            "name" : "InclusionMedicationsLookbackPeriod",
                            "type" : "ParameterRef"
@@ -2006,7 +2076,7 @@
                         "type" : "ExpressionRef"
                      } ]
                   }, {
-                     "name" : "HasRecentAdjuvantAnalgesicMedication",
+                     "name" : "HasRecentNonOpioidPainMedication",
                      "type" : "ExpressionRef"
                   } ]
                } ]
@@ -2130,6 +2200,7 @@
                         "type" : "Retrieve",
                         "codes" : {
                            "name" : "Major Depression",
+                           "preserve" : true,
                            "type" : "ValueSetRef"
                         }
                      } ]
@@ -2150,6 +2221,7 @@
                         "type" : "Retrieve",
                         "codes" : {
                            "name" : "Depression Diagnosis ICD9",
+                           "preserve" : true,
                            "type" : "ValueSetRef"
                         }
                      } ]
@@ -2178,6 +2250,7 @@
                         "type" : "Retrieve",
                         "codes" : {
                            "name" : "Anxiety",
+                           "preserve" : true,
                            "type" : "ValueSetRef"
                         }
                      } ]
@@ -2198,6 +2271,7 @@
                         "type" : "Retrieve",
                         "codes" : {
                            "name" : "Anxiety Disorders ICD9",
+                           "preserve" : true,
                            "type" : "ValueSetRef"
                         }
                      } ]
@@ -2222,6 +2296,7 @@
                      "type" : "Retrieve",
                      "codes" : {
                         "name" : "Substance use disorder",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   } ]
@@ -2237,6 +2312,7 @@
                      "type" : "Retrieve",
                      "codes" : {
                         "name" : "Substance Abuse",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   } ]
@@ -2258,6 +2334,7 @@
                   "type" : "Retrieve",
                   "codes" : {
                      "name" : "Suicide Attempt",
+                     "preserve" : true,
                      "type" : "ValueSetRef"
                   }
                } ]
@@ -2282,6 +2359,7 @@
                      "type" : "Retrieve",
                      "codes" : {
                         "name" : "Sleep-disordered breathing",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   } ]
@@ -2307,6 +2385,7 @@
                      "type" : "Retrieve",
                      "codes" : {
                         "name" : "Kidney Failure",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   } ]
@@ -2334,6 +2413,7 @@
                         "type" : "Retrieve",
                         "codes" : {
                            "name" : "Chronic Liver Disease",
+                           "preserve" : true,
                            "type" : "ValueSetRef"
                         }
                      } ]
@@ -2354,6 +2434,7 @@
                         "type" : "Retrieve",
                         "codes" : {
                            "name" : "Liver Disease",
+                           "preserve" : true,
                            "type" : "ValueSetRef"
                         }
                      } ]
@@ -2384,6 +2465,7 @@
                         "type" : "Retrieve",
                         "codes" : {
                            "name" : "CDS Pregnancy",
+                           "preserve" : true,
                            "type" : "ValueSetRef"
                         }
                      } ]
@@ -2459,6 +2541,38 @@
                      "name" : "Pregnant",
                      "type" : "CodeRef"
                   }
+               } ]
+            }
+         }, {
+            "name" : "OpioidTaperingProcedures",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "name" : "ProcedurePerformance",
+               "libraryName" : "C3F",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "name" : "ProcedureLookBack",
+                  "libraryName" : "C3F",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "dataType" : "{http://hl7.org/fhir}Procedure",
+                     "templateId" : "http://hl7.org/fhir/StructureDefinition/Procedure",
+                     "codeProperty" : "code",
+                     "codeComparator" : "~",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "type" : "ToList",
+                        "operand" : {
+                           "name" : "Management of opioid dosage tapering (procedure)",
+                           "type" : "CodeRef"
+                        }
+                     }
+                  }, {
+                     "value" : 2,
+                     "unit" : "years",
+                     "type" : "Quantity"
+                  } ]
                } ]
             }
          }, {
@@ -2595,7 +2709,7 @@
                                                       },
                                                       "valueset" : {
                                                          "name" : "Major Depression",
-                                                         "type" : "ValueSetRef"
+                                                         "preserve" : true
                                                       }
                                                    }, {
                                                       "type" : "InValueSet",
@@ -2610,7 +2724,7 @@
                                                       },
                                                       "valueset" : {
                                                          "name" : "Depression Diagnosis ICD9",
-                                                         "type" : "ValueSetRef"
+                                                         "preserve" : true
                                                       }
                                                    } ]
                                                 }, {
@@ -2626,7 +2740,7 @@
                                                    },
                                                    "valueset" : {
                                                       "name" : "Anxiety",
-                                                      "type" : "ValueSetRef"
+                                                      "preserve" : true
                                                    }
                                                 } ]
                                              }, {
@@ -2642,7 +2756,7 @@
                                                 },
                                                 "valueset" : {
                                                    "name" : "Anxiety Disorders ICD9",
-                                                   "type" : "ValueSetRef"
+                                                   "preserve" : true
                                                 }
                                              } ]
                                           }, {
@@ -2658,7 +2772,7 @@
                                              },
                                              "valueset" : {
                                                 "name" : "Substance use disorder",
-                                                "type" : "ValueSetRef"
+                                                "preserve" : true
                                              }
                                           } ]
                                        }, {
@@ -2674,7 +2788,7 @@
                                           },
                                           "valueset" : {
                                              "name" : "Substance Abuse",
-                                             "type" : "ValueSetRef"
+                                             "preserve" : true
                                           }
                                        } ]
                                     }, {
@@ -2690,7 +2804,7 @@
                                        },
                                        "valueset" : {
                                           "name" : "Suicide Attempt",
-                                          "type" : "ValueSetRef"
+                                          "preserve" : true
                                        }
                                     } ]
                                  }, {
@@ -2706,7 +2820,7 @@
                                     },
                                     "valueset" : {
                                        "name" : "Sleep-disordered breathing",
-                                       "type" : "ValueSetRef"
+                                       "preserve" : true
                                     }
                                  } ]
                               }, {
@@ -2722,7 +2836,7 @@
                                  },
                                  "valueset" : {
                                     "name" : "Kidney Failure",
-                                    "type" : "ValueSetRef"
+                                    "preserve" : true
                                  }
                               } ]
                            }, {
@@ -2738,7 +2852,7 @@
                               },
                               "valueset" : {
                                  "name" : "Chronic Liver Disease",
-                                 "type" : "ValueSetRef"
+                                 "preserve" : true
                               }
                            } ]
                         }, {
@@ -2754,7 +2868,7 @@
                            },
                            "valueset" : {
                               "name" : "Liver Disease",
-                              "type" : "ValueSetRef"
+                              "preserve" : true
                            }
                         } ]
                      }
@@ -2960,7 +3074,7 @@
                                                 },
                                                 "valueset" : {
                                                    "name" : "Major Depression",
-                                                   "type" : "ValueSetRef"
+                                                   "preserve" : true
                                                 }
                                              }, {
                                                 "type" : "InValueSet",
@@ -2975,7 +3089,7 @@
                                                 },
                                                 "valueset" : {
                                                    "name" : "Depression Diagnosis ICD9",
-                                                   "type" : "ValueSetRef"
+                                                   "preserve" : true
                                                 }
                                              } ]
                                           }, {
@@ -2991,7 +3105,7 @@
                                              },
                                              "valueset" : {
                                                 "name" : "Anxiety",
-                                                "type" : "ValueSetRef"
+                                                "preserve" : true
                                              }
                                           } ]
                                        }, {
@@ -3007,7 +3121,7 @@
                                           },
                                           "valueset" : {
                                              "name" : "Anxiety Disorders ICD9",
-                                             "type" : "ValueSetRef"
+                                             "preserve" : true
                                           }
                                        } ]
                                     }, {
@@ -3023,7 +3137,7 @@
                                        },
                                        "valueset" : {
                                           "name" : "Substance use disorder",
-                                          "type" : "ValueSetRef"
+                                          "preserve" : true
                                        }
                                     } ]
                                  }, {
@@ -3039,7 +3153,7 @@
                                     },
                                     "valueset" : {
                                        "name" : "Substance Abuse",
-                                       "type" : "ValueSetRef"
+                                       "preserve" : true
                                     }
                                  } ]
                               }, {
@@ -3055,7 +3169,7 @@
                                  },
                                  "valueset" : {
                                     "name" : "Suicide Attempt",
-                                    "type" : "ValueSetRef"
+                                    "preserve" : true
                                  }
                               } ]
                            }, {
@@ -3071,7 +3185,7 @@
                               },
                               "valueset" : {
                                  "name" : "Sleep-disordered breathing",
-                                 "type" : "ValueSetRef"
+                                 "preserve" : true
                               }
                            } ]
                         }, {
@@ -3087,7 +3201,7 @@
                            },
                            "valueset" : {
                               "name" : "Kidney Failure",
-                              "type" : "ValueSetRef"
+                              "preserve" : true
                            }
                         } ]
                      }, {
@@ -3103,7 +3217,7 @@
                         },
                         "valueset" : {
                            "name" : "Chronic Liver Disease",
-                           "type" : "ValueSetRef"
+                           "preserve" : true
                         }
                      } ]
                   }, {
@@ -3119,7 +3233,7 @@
                      },
                      "valueset" : {
                         "name" : "Liver Disease",
-                        "type" : "ValueSetRef"
+                        "preserve" : true
                      }
                   } ]
                },
@@ -3268,6 +3382,188 @@
                         "source" : {
                            "name" : "Visit",
                            "type" : "IdentifierRef"
+                        }
+                     }
+                  } ]
+               }
+            }
+         }, {
+            "name" : "ReportOpioidTaperingProcedures",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "Procedure",
+                  "expression" : {
+                     "name" : "OpioidTaperingProcedures",
+                     "type" : "ExpressionRef"
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "Name",
+                        "value" : {
+                           "name" : "ConceptText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "code",
+                              "scope" : "Procedure",
+                              "type" : "Property"
+                           } ]
+                        }
+                     }, {
+                        "name" : "Status",
+                        "value" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "status",
+                              "scope" : "Procedure",
+                              "type" : "Property"
+                           }
+                        }
+                     }, {
+                        "name" : "Onset",
+                        "value" : {
+                           "type" : "Coalesce",
+                           "operand" : [ {
+                              "type" : "List",
+                              "element" : [ {
+                                 "name" : "DateTimeText",
+                                 "type" : "FunctionRef",
+                                 "operand" : [ {
+                                    "strict" : false,
+                                    "type" : "As",
+                                    "operand" : {
+                                       "path" : "performed",
+                                       "scope" : "Procedure",
+                                       "type" : "Property"
+                                    },
+                                    "asTypeSpecifier" : {
+                                       "name" : "{http://hl7.org/fhir}dateTime",
+                                       "type" : "NamedTypeSpecifier"
+                                    }
+                                 } ]
+                              }, {
+                                 "name" : "DateTimeText",
+                                 "type" : "FunctionRef",
+                                 "operand" : [ {
+                                    "path" : "start",
+                                    "type" : "Property",
+                                    "source" : {
+                                       "strict" : false,
+                                       "type" : "As",
+                                       "operand" : {
+                                          "path" : "performed",
+                                          "scope" : "Procedure",
+                                          "type" : "Property"
+                                       },
+                                       "asTypeSpecifier" : {
+                                          "name" : "{http://hl7.org/fhir}Period",
+                                          "type" : "NamedTypeSpecifier"
+                                       }
+                                    }
+                                 } ]
+                              } ]
+                           } ]
+                        }
+                     }, {
+                        "name" : "DateRecorded",
+                        "value" : {
+                           "strict" : false,
+                           "type" : "As",
+                           "operand" : {
+                              "type" : "Null"
+                           },
+                           "asTypeSpecifier" : {
+                              "name" : "{urn:hl7-org:elm-types:r1}String",
+                              "type" : "NamedTypeSpecifier"
+                           }
+                        }
+                     }, {
+                        "name" : "Abatement",
+                        "value" : {
+                           "name" : "DateTimeText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "end",
+                              "type" : "Property",
+                              "source" : {
+                                 "strict" : false,
+                                 "type" : "As",
+                                 "operand" : {
+                                    "path" : "performed",
+                                    "scope" : "Procedure",
+                                    "type" : "Property"
+                                 },
+                                 "asTypeSpecifier" : {
+                                    "name" : "{http://hl7.org/fhir}Period",
+                                    "type" : "NamedTypeSpecifier"
+                                 }
+                              }
+                           } ]
+                        }
+                     }, {
+                        "name" : "Visit",
+                        "value" : {
+                           "strict" : false,
+                           "type" : "As",
+                           "operand" : {
+                              "type" : "Null"
+                           },
+                           "asTypeSpecifier" : {
+                              "type" : "TupleTypeSpecifier",
+                              "element" : [ {
+                                 "name" : "Start",
+                                 "elementType" : {
+                                    "name" : "{urn:hl7-org:elm-types:r1}String",
+                                    "type" : "NamedTypeSpecifier"
+                                 }
+                              }, {
+                                 "name" : "End",
+                                 "elementType" : {
+                                    "name" : "{urn:hl7-org:elm-types:r1}String",
+                                    "type" : "NamedTypeSpecifier"
+                                 }
+                              } ]
+                           }
+                        }
+                     } ]
+                  }
+               },
+               "sort" : {
+                  "by" : [ {
+                     "direction" : "desc",
+                     "type" : "ByExpression",
+                     "expression" : {
+                        "strict" : false,
+                        "type" : "As",
+                        "operand" : {
+                           "name" : "Onset",
+                           "type" : "IdentifierRef"
+                        },
+                        "asTypeSpecifier" : {
+                           "name" : "{urn:hl7-org:elm-types:r1}String",
+                           "type" : "NamedTypeSpecifier"
+                        }
+                     }
+                  }, {
+                     "direction" : "desc",
+                     "type" : "ByExpression",
+                     "expression" : {
+                        "strict" : false,
+                        "type" : "As",
+                        "operand" : {
+                           "name" : "Abatement",
+                           "type" : "IdentifierRef"
+                        },
+                        "asTypeSpecifier" : {
+                           "name" : "{urn:hl7-org:elm-types:r1}String",
+                           "type" : "NamedTypeSpecifier"
                         }
                      }
                   } ]
@@ -3687,11 +3983,88 @@
                               "type" : "ExpressionRef"
                            } ]
                         }, {
-                           "type" : "ToList",
-                           "operand" : {
-                              "name" : "ReportOlderThan65",
+                           "type" : "Union",
+                           "operand" : [ {
+                              "name" : "ReportOpioidTaperingProcedures",
                               "type" : "ExpressionRef"
-                           }
+                           }, {
+                              "type" : "If",
+                              "condition" : {
+                                 "type" : "IsNull",
+                                 "operand" : {
+                                    "name" : "ReportOlderThan65",
+                                    "type" : "ExpressionRef"
+                                 }
+                              },
+                              "then" : {
+                                 "type" : "As",
+                                 "operand" : {
+                                    "type" : "Null"
+                                 },
+                                 "asTypeSpecifier" : {
+                                    "type" : "ListTypeSpecifier",
+                                    "elementType" : {
+                                       "type" : "TupleTypeSpecifier",
+                                       "element" : [ {
+                                          "name" : "Name",
+                                          "elementType" : {
+                                             "name" : "{urn:hl7-org:elm-types:r1}String",
+                                             "type" : "NamedTypeSpecifier"
+                                          }
+                                       }, {
+                                          "name" : "Status",
+                                          "elementType" : {
+                                             "name" : "{urn:hl7-org:elm-types:r1}String",
+                                             "type" : "NamedTypeSpecifier"
+                                          }
+                                       }, {
+                                          "name" : "Onset",
+                                          "elementType" : {
+                                             "name" : "{urn:hl7-org:elm-types:r1}String",
+                                             "type" : "NamedTypeSpecifier"
+                                          }
+                                       }, {
+                                          "name" : "DateRecorded",
+                                          "elementType" : {
+                                             "name" : "{urn:hl7-org:elm-types:r1}String",
+                                             "type" : "NamedTypeSpecifier"
+                                          }
+                                       }, {
+                                          "name" : "Abatement",
+                                          "elementType" : {
+                                             "name" : "{urn:hl7-org:elm-types:r1}String",
+                                             "type" : "NamedTypeSpecifier"
+                                          }
+                                       }, {
+                                          "name" : "Visit",
+                                          "elementType" : {
+                                             "type" : "TupleTypeSpecifier",
+                                             "element" : [ {
+                                                "name" : "Start",
+                                                "elementType" : {
+                                                   "name" : "{urn:hl7-org:elm-types:r1}String",
+                                                   "type" : "NamedTypeSpecifier"
+                                                }
+                                             }, {
+                                                "name" : "End",
+                                                "elementType" : {
+                                                   "name" : "{urn:hl7-org:elm-types:r1}String",
+                                                   "type" : "NamedTypeSpecifier"
+                                                }
+                                             } ]
+                                          }
+                                       } ]
+                                    }
+                                 }
+                              },
+                              "else" : {
+                                 "type" : "List",
+                                 "element" : [ {
+                                    "name" : "ReportOlderThan65",
+                                    "type" : "ExpressionRef"
+                                 } ]
+                              }
+                           } ]
                         } ]
                      }
                   } ],
@@ -3706,27 +4079,175 @@
                         "operand" : [ {
                            "type" : "Union",
                            "operand" : [ {
-                              "name" : "ReportConditionRiskFactorsForOpioidRelatedHarms",
-                              "type" : "ExpressionRef"
+                              "type" : "Union",
+                              "operand" : [ {
+                                 "name" : "ReportConditionRiskFactorsForOpioidRelatedHarms",
+                                 "type" : "ExpressionRef"
+                              }, {
+                                 "name" : "ReportEncounterRiskFactorsForOpioidRelatedHarms",
+                                 "type" : "ExpressionRef"
+                              } ]
                            }, {
-                              "name" : "ReportEncounterRiskFactorsForOpioidRelatedHarms",
-                              "type" : "ExpressionRef"
+                              "type" : "Union",
+                              "operand" : [ {
+                                 "name" : "ReportOpioidTaperingProcedures",
+                                 "type" : "ExpressionRef"
+                              }, {
+                                 "type" : "If",
+                                 "condition" : {
+                                    "type" : "IsNull",
+                                    "operand" : {
+                                       "name" : "ReportOlderThan65",
+                                       "type" : "ExpressionRef"
+                                    }
+                                 },
+                                 "then" : {
+                                    "type" : "As",
+                                    "operand" : {
+                                       "type" : "Null"
+                                    },
+                                    "asTypeSpecifier" : {
+                                       "type" : "ListTypeSpecifier",
+                                       "elementType" : {
+                                          "type" : "TupleTypeSpecifier",
+                                          "element" : [ {
+                                             "name" : "Name",
+                                             "elementType" : {
+                                                "name" : "{urn:hl7-org:elm-types:r1}String",
+                                                "type" : "NamedTypeSpecifier"
+                                             }
+                                          }, {
+                                             "name" : "Status",
+                                             "elementType" : {
+                                                "name" : "{urn:hl7-org:elm-types:r1}String",
+                                                "type" : "NamedTypeSpecifier"
+                                             }
+                                          }, {
+                                             "name" : "Onset",
+                                             "elementType" : {
+                                                "name" : "{urn:hl7-org:elm-types:r1}String",
+                                                "type" : "NamedTypeSpecifier"
+                                             }
+                                          }, {
+                                             "name" : "DateRecorded",
+                                             "elementType" : {
+                                                "name" : "{urn:hl7-org:elm-types:r1}String",
+                                                "type" : "NamedTypeSpecifier"
+                                             }
+                                          }, {
+                                             "name" : "Abatement",
+                                             "elementType" : {
+                                                "name" : "{urn:hl7-org:elm-types:r1}String",
+                                                "type" : "NamedTypeSpecifier"
+                                             }
+                                          }, {
+                                             "name" : "Visit",
+                                             "elementType" : {
+                                                "type" : "TupleTypeSpecifier",
+                                                "element" : [ {
+                                                   "name" : "Start",
+                                                   "elementType" : {
+                                                      "name" : "{urn:hl7-org:elm-types:r1}String",
+                                                      "type" : "NamedTypeSpecifier"
+                                                   }
+                                                }, {
+                                                   "name" : "End",
+                                                   "elementType" : {
+                                                      "name" : "{urn:hl7-org:elm-types:r1}String",
+                                                      "type" : "NamedTypeSpecifier"
+                                                   }
+                                                } ]
+                                             }
+                                          } ]
+                                       }
+                                    }
+                                 },
+                                 "else" : {
+                                    "type" : "List",
+                                    "element" : [ {
+                                       "name" : "ReportOlderThan65",
+                                       "type" : "ExpressionRef"
+                                    } ]
+                                 }
+                              } ]
                            } ]
                         }, {
-                           "type" : "Union",
-                           "operand" : [ {
-                              "type" : "ToList",
-                              "operand" : {
-                                 "name" : "ReportOlderThan65",
-                                 "type" : "ExpressionRef"
-                              }
-                           }, {
-                              "type" : "ToList",
+                           "type" : "If",
+                           "condition" : {
+                              "type" : "IsNull",
                               "operand" : {
                                  "name" : "ReportMostRecentPositivePregnancyObservation",
                                  "type" : "ExpressionRef"
                               }
-                           } ]
+                           },
+                           "then" : {
+                              "type" : "As",
+                              "operand" : {
+                                 "type" : "Null"
+                              },
+                              "asTypeSpecifier" : {
+                                 "type" : "ListTypeSpecifier",
+                                 "elementType" : {
+                                    "type" : "TupleTypeSpecifier",
+                                    "element" : [ {
+                                       "name" : "Name",
+                                       "elementType" : {
+                                          "name" : "{urn:hl7-org:elm-types:r1}String",
+                                          "type" : "NamedTypeSpecifier"
+                                       }
+                                    }, {
+                                       "name" : "Status",
+                                       "elementType" : {
+                                          "name" : "{urn:hl7-org:elm-types:r1}String",
+                                          "type" : "NamedTypeSpecifier"
+                                       }
+                                    }, {
+                                       "name" : "Onset",
+                                       "elementType" : {
+                                          "name" : "{urn:hl7-org:elm-types:r1}String",
+                                          "type" : "NamedTypeSpecifier"
+                                       }
+                                    }, {
+                                       "name" : "DateRecorded",
+                                       "elementType" : {
+                                          "name" : "{urn:hl7-org:elm-types:r1}String",
+                                          "type" : "NamedTypeSpecifier"
+                                       }
+                                    }, {
+                                       "name" : "Abatement",
+                                       "elementType" : {
+                                          "name" : "{urn:hl7-org:elm-types:r1}String",
+                                          "type" : "NamedTypeSpecifier"
+                                       }
+                                    }, {
+                                       "name" : "Visit",
+                                       "elementType" : {
+                                          "type" : "TupleTypeSpecifier",
+                                          "element" : [ {
+                                             "name" : "Start",
+                                             "elementType" : {
+                                                "name" : "{urn:hl7-org:elm-types:r1}String",
+                                                "type" : "NamedTypeSpecifier"
+                                             }
+                                          }, {
+                                             "name" : "End",
+                                             "elementType" : {
+                                                "name" : "{urn:hl7-org:elm-types:r1}String",
+                                                "type" : "NamedTypeSpecifier"
+                                             }
+                                          } ]
+                                       }
+                                    } ]
+                                 }
+                              }
+                           },
+                           "else" : {
+                              "type" : "List",
+                              "element" : [ {
+                                 "name" : "ReportMostRecentPositivePregnancyObservation",
+                                 "type" : "ExpressionRef"
+                              } ]
+                           }
                         } ]
                      }
                   } ],
@@ -4487,15 +5008,30 @@
                   "libraryName" : "C3F",
                   "type" : "FunctionRef",
                   "operand" : [ {
-                     "dataType" : "{http://hl7.org/fhir}MedicationRequest",
-                     "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
-                     "codeProperty" : "medication",
-                     "codeComparator" : "in",
-                     "type" : "Retrieve",
-                     "codes" : {
-                        "name" : "Opioid Pain Medications",
-                        "type" : "ValueSetRef"
-                     }
+                     "type" : "Union",
+                     "operand" : [ {
+                        "dataType" : "{http://hl7.org/fhir}MedicationRequest",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
+                        "codeProperty" : "medication",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Opioid pain medications",
+                           "preserve" : true,
+                           "type" : "ValueSetRef"
+                        }
+                     }, {
+                        "dataType" : "{http://hl7.org/fhir}MedicationRequest",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
+                        "codeProperty" : "medication",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Opioid pain medications",
+                           "preserve" : true,
+                           "type" : "ValueSetRef"
+                        }
+                     } ]
                   }, {
                      "value" : 2,
                      "unit" : "years",
@@ -4516,15 +5052,30 @@
                   "libraryName" : "C3F",
                   "type" : "FunctionRef",
                   "operand" : [ {
-                     "dataType" : "{http://hl7.org/fhir}MedicationStatement",
-                     "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
-                     "codeProperty" : "medication",
-                     "codeComparator" : "in",
-                     "type" : "Retrieve",
-                     "codes" : {
-                        "name" : "Opioid Pain Medications",
-                        "type" : "ValueSetRef"
-                     }
+                     "type" : "Union",
+                     "operand" : [ {
+                        "dataType" : "{http://hl7.org/fhir}MedicationStatement",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
+                        "codeProperty" : "medication",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Opioid pain medications",
+                           "preserve" : true,
+                           "type" : "ValueSetRef"
+                        }
+                     }, {
+                        "dataType" : "{http://hl7.org/fhir}MedicationStatement",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
+                        "codeProperty" : "medication",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Opioid pain medications",
+                           "preserve" : true,
+                           "type" : "ValueSetRef"
+                        }
+                     } ]
                   }, {
                      "value" : 2,
                      "unit" : "years",
@@ -4772,15 +5323,30 @@
                   "libraryName" : "C3F",
                   "type" : "FunctionRef",
                   "operand" : [ {
-                     "dataType" : "{http://hl7.org/fhir}MedicationRequest",
-                     "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
-                     "codeProperty" : "medication",
-                     "codeComparator" : "in",
-                     "type" : "Retrieve",
-                     "codes" : {
-                        "name" : "Non opiod pain medications",
-                        "type" : "ValueSetRef"
-                     }
+                     "type" : "Union",
+                     "operand" : [ {
+                        "dataType" : "{http://hl7.org/fhir}MedicationRequest",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
+                        "codeProperty" : "medication",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Nonopioid pain medications",
+                           "preserve" : true,
+                           "type" : "ValueSetRef"
+                        }
+                     }, {
+                        "dataType" : "{http://hl7.org/fhir}MedicationRequest",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
+                        "codeProperty" : "medication",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Nonopioid pain medications",
+                           "preserve" : true,
+                           "type" : "ValueSetRef"
+                        }
+                     } ]
                   }, {
                      "value" : 2,
                      "unit" : "years",
@@ -4801,15 +5367,30 @@
                   "libraryName" : "C3F",
                   "type" : "FunctionRef",
                   "operand" : [ {
-                     "dataType" : "{http://hl7.org/fhir}MedicationStatement",
-                     "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
-                     "codeProperty" : "medication",
-                     "codeComparator" : "in",
-                     "type" : "Retrieve",
-                     "codes" : {
-                        "name" : "Non opiod pain medications",
-                        "type" : "ValueSetRef"
-                     }
+                     "type" : "Union",
+                     "operand" : [ {
+                        "dataType" : "{http://hl7.org/fhir}MedicationStatement",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
+                        "codeProperty" : "medication",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Nonopioid pain medications",
+                           "preserve" : true,
+                           "type" : "ValueSetRef"
+                        }
+                     }, {
+                        "dataType" : "{http://hl7.org/fhir}MedicationStatement",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
+                        "codeProperty" : "medication",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Nonopioid pain medications",
+                           "preserve" : true,
+                           "type" : "ValueSetRef"
+                        }
+                     } ]
                   }, {
                      "value" : 2,
                      "unit" : "years",
@@ -5045,6 +5626,321 @@
                }
             }
          }, {
+            "name" : "AdjuvantPainMedicationRequests",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "name" : "ActiveCompletedOrStoppedMedicationRequest",
+               "libraryName" : "C3F",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "name" : "MedicationRequestLookBack",
+                  "libraryName" : "C3F",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "type" : "Union",
+                     "operand" : [ {
+                        "dataType" : "{http://hl7.org/fhir}MedicationRequest",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
+                        "codeProperty" : "medication",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Adjuvant pain medications",
+                           "preserve" : true,
+                           "type" : "ValueSetRef"
+                        }
+                     }, {
+                        "dataType" : "{http://hl7.org/fhir}MedicationRequest",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
+                        "codeProperty" : "medication",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Adjuvant pain medications",
+                           "preserve" : true,
+                           "type" : "ValueSetRef"
+                        }
+                     } ]
+                  }, {
+                     "value" : 2,
+                     "unit" : "years",
+                     "type" : "Quantity"
+                  } ]
+               } ]
+            }
+         }, {
+            "name" : "AdjuvantPainMedicationStatements",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "name" : "ActiveOrCompletedMedicationStatement",
+               "libraryName" : "C3F",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "name" : "MedicationStatementLookBack",
+                  "libraryName" : "C3F",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "type" : "Union",
+                     "operand" : [ {
+                        "dataType" : "{http://hl7.org/fhir}MedicationStatement",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
+                        "codeProperty" : "medication",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Adjuvant pain medications",
+                           "preserve" : true,
+                           "type" : "ValueSetRef"
+                        }
+                     }, {
+                        "dataType" : "{http://hl7.org/fhir}MedicationStatement",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
+                        "codeProperty" : "medication",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Adjuvant pain medications",
+                           "preserve" : true,
+                           "type" : "ValueSetRef"
+                        }
+                     } ]
+                  }, {
+                     "value" : 2,
+                     "unit" : "years",
+                     "type" : "Quantity"
+                  } ]
+               } ]
+            }
+         }, {
+            "name" : "ReportAdjuvantPainMedicationRequests",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "Request",
+                  "expression" : {
+                     "name" : "AdjuvantPainMedicationRequests",
+                     "type" : "ExpressionRef"
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "Type",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "Request",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "Name",
+                        "value" : {
+                           "name" : "ConceptText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "strict" : false,
+                              "type" : "As",
+                              "operand" : {
+                                 "path" : "medication",
+                                 "scope" : "Request",
+                                 "type" : "Property"
+                              },
+                              "asTypeSpecifier" : {
+                                 "name" : "{http://hl7.org/fhir}CodeableConcept",
+                                 "type" : "NamedTypeSpecifier"
+                              }
+                           } ]
+                        }
+                     }, {
+                        "name" : "Start",
+                        "value" : {
+                           "name" : "DateTimeText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "authoredOn",
+                              "scope" : "Request",
+                              "type" : "Property"
+                           } ]
+                        }
+                     }, {
+                        "name" : "End",
+                        "value" : {
+                           "strict" : false,
+                           "type" : "As",
+                           "operand" : {
+                              "type" : "Null"
+                           },
+                           "asTypeSpecifier" : {
+                              "name" : "{urn:hl7-org:elm-types:r1}String",
+                              "type" : "NamedTypeSpecifier"
+                           }
+                        }
+                     }, {
+                        "name" : "Status",
+                        "value" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "status",
+                              "scope" : "Request",
+                              "type" : "Property"
+                           }
+                        }
+                     } ]
+                  }
+               },
+               "sort" : {
+                  "by" : [ {
+                     "direction" : "desc",
+                     "path" : "Start",
+                     "type" : "ByColumn"
+                  }, {
+                     "direction" : "desc",
+                     "path" : "End",
+                     "type" : "ByColumn"
+                  } ]
+               }
+            }
+         }, {
+            "name" : "ReportAdjuvantPainMedicationStatements",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "Statement",
+                  "expression" : {
+                     "name" : "AdjuvantPainMedicationStatements",
+                     "type" : "ExpressionRef"
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "Type",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "Statement",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "Name",
+                        "value" : {
+                           "name" : "ConceptText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "strict" : false,
+                              "type" : "As",
+                              "operand" : {
+                                 "path" : "medication",
+                                 "scope" : "Statement",
+                                 "type" : "Property"
+                              },
+                              "asTypeSpecifier" : {
+                                 "name" : "{http://hl7.org/fhir}CodeableConcept",
+                                 "type" : "NamedTypeSpecifier"
+                              }
+                           } ]
+                        }
+                     }, {
+                        "name" : "Start",
+                        "value" : {
+                           "name" : "MedicationStatementDate",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "name" : "Statement",
+                              "type" : "AliasRef"
+                           } ]
+                        }
+                     }, {
+                        "name" : "End",
+                        "value" : {
+                           "name" : "DateTimeText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "end",
+                              "type" : "Property",
+                              "source" : {
+                                 "strict" : false,
+                                 "type" : "As",
+                                 "operand" : {
+                                    "path" : "effective",
+                                    "scope" : "Statement",
+                                    "type" : "Property"
+                                 },
+                                 "asTypeSpecifier" : {
+                                    "name" : "{http://hl7.org/fhir}Period",
+                                    "type" : "NamedTypeSpecifier"
+                                 }
+                              }
+                           } ]
+                        }
+                     }, {
+                        "name" : "Status",
+                        "value" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "status",
+                              "scope" : "Statement",
+                              "type" : "Property"
+                           }
+                        }
+                     } ]
+                  }
+               },
+               "sort" : {
+                  "by" : [ {
+                     "direction" : "desc",
+                     "path" : "Start",
+                     "type" : "ByColumn"
+                  }, {
+                     "direction" : "desc",
+                     "path" : "End",
+                     "type" : "ByColumn"
+                  } ]
+               }
+            }
+         }, {
+            "name" : "ReportAdjuvantPainMedications",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "Medication",
+                  "expression" : {
+                     "type" : "Union",
+                     "operand" : [ {
+                        "name" : "ReportAdjuvantPainMedicationRequests",
+                        "type" : "ExpressionRef"
+                     }, {
+                        "name" : "ReportAdjuvantPainMedicationStatements",
+                        "type" : "ExpressionRef"
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "sort" : {
+                  "by" : [ {
+                     "direction" : "desc",
+                     "path" : "Start",
+                     "type" : "ByColumn"
+                  }, {
+                     "direction" : "desc",
+                     "path" : "End",
+                     "type" : "ByColumn"
+                  } ]
+               }
+            }
+         }, {
             "name" : "NonPharmacologicTreatmentProcedures",
             "context" : "Patient",
             "accessLevel" : "Public",
@@ -5064,6 +5960,7 @@
                      "type" : "Retrieve",
                      "codes" : {
                         "name" : "Non pharmacologic treatments for chronic pain",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   }, {
@@ -5181,6 +6078,7 @@
                      "type" : "Retrieve",
                      "codes" : {
                         "name" : "Non pharmacologic treatments for chronic pain",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   }, {
@@ -5288,15 +6186,30 @@
                   "libraryName" : "C3F",
                   "type" : "FunctionRef",
                   "operand" : [ {
-                     "dataType" : "{http://hl7.org/fhir}MedicationRequest",
-                     "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
-                     "codeProperty" : "medication",
-                     "codeComparator" : "in",
-                     "type" : "Retrieve",
-                     "codes" : {
-                        "name" : "Stool softeners and laxatives",
-                        "type" : "ValueSetRef"
-                     }
+                     "type" : "Union",
+                     "operand" : [ {
+                        "dataType" : "{http://hl7.org/fhir}MedicationRequest",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
+                        "codeProperty" : "medication",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Stool softeners and laxatives",
+                           "preserve" : true,
+                           "type" : "ValueSetRef"
+                        }
+                     }, {
+                        "dataType" : "{http://hl7.org/fhir}MedicationRequest",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
+                        "codeProperty" : "medication",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Stool softeners and laxatives",
+                           "preserve" : true,
+                           "type" : "ValueSetRef"
+                        }
+                     } ]
                   }, {
                      "value" : 6,
                      "unit" : "months",
@@ -5317,15 +6230,30 @@
                   "libraryName" : "C3F",
                   "type" : "FunctionRef",
                   "operand" : [ {
-                     "dataType" : "{http://hl7.org/fhir}MedicationStatement",
-                     "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
-                     "codeProperty" : "medication",
-                     "codeComparator" : "in",
-                     "type" : "Retrieve",
-                     "codes" : {
-                        "name" : "Stool softeners and laxatives",
-                        "type" : "ValueSetRef"
-                     }
+                     "type" : "Union",
+                     "operand" : [ {
+                        "dataType" : "{http://hl7.org/fhir}MedicationStatement",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
+                        "codeProperty" : "medication",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Stool softeners and laxatives",
+                           "preserve" : true,
+                           "type" : "ValueSetRef"
+                        }
+                     }, {
+                        "dataType" : "{http://hl7.org/fhir}MedicationStatement",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
+                        "codeProperty" : "medication",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Stool softeners and laxatives",
+                           "preserve" : true,
+                           "type" : "ValueSetRef"
+                        }
+                     } ]
                   }, {
                      "value" : 6,
                      "unit" : "months",
@@ -5716,6 +6644,7 @@
                      "type" : "Retrieve",
                      "codes" : {
                         "name" : "Urine drug screen for pain management",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   }, {
@@ -5855,15 +6784,30 @@
                   "libraryName" : "C3F",
                   "type" : "FunctionRef",
                   "operand" : [ {
-                     "dataType" : "{http://hl7.org/fhir}MedicationRequest",
-                     "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
-                     "codeProperty" : "medication",
-                     "codeComparator" : "in",
-                     "type" : "Retrieve",
-                     "codes" : {
-                        "name" : "Benzodiazepine medications",
-                        "type" : "ValueSetRef"
-                     }
+                     "type" : "Union",
+                     "operand" : [ {
+                        "dataType" : "{http://hl7.org/fhir}MedicationRequest",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
+                        "codeProperty" : "medication",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Benzodiazepine medications",
+                           "preserve" : true,
+                           "type" : "ValueSetRef"
+                        }
+                     }, {
+                        "dataType" : "{http://hl7.org/fhir}MedicationRequest",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
+                        "codeProperty" : "medication",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Benzodiazepine medications",
+                           "preserve" : true,
+                           "type" : "ValueSetRef"
+                        }
+                     } ]
                   }, {
                      "value" : 2,
                      "unit" : "years",
@@ -5884,15 +6828,30 @@
                   "libraryName" : "C3F",
                   "type" : "FunctionRef",
                   "operand" : [ {
-                     "dataType" : "{http://hl7.org/fhir}MedicationStatement",
-                     "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
-                     "codeProperty" : "medication",
-                     "codeComparator" : "in",
-                     "type" : "Retrieve",
-                     "codes" : {
-                        "name" : "Benzodiazepine medications",
-                        "type" : "ValueSetRef"
-                     }
+                     "type" : "Union",
+                     "operand" : [ {
+                        "dataType" : "{http://hl7.org/fhir}MedicationStatement",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
+                        "codeProperty" : "medication",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Benzodiazepine medications",
+                           "preserve" : true,
+                           "type" : "ValueSetRef"
+                        }
+                     }, {
+                        "dataType" : "{http://hl7.org/fhir}MedicationStatement",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
+                        "codeProperty" : "medication",
+                        "codeComparator" : "in",
+                        "type" : "Retrieve",
+                        "codes" : {
+                           "name" : "Benzodiazepine medications",
+                           "preserve" : true,
+                           "type" : "ValueSetRef"
+                        }
+                     } ]
                   }, {
                      "value" : 2,
                      "unit" : "years",
@@ -6136,15 +7095,30 @@
                "libraryName" : "C3F",
                "type" : "FunctionRef",
                "operand" : [ {
-                  "dataType" : "{http://hl7.org/fhir}MedicationRequest",
-                  "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
-                  "codeProperty" : "medication",
-                  "codeComparator" : "in",
-                  "type" : "Retrieve",
-                  "codes" : {
-                     "name" : "Naloxone medications",
-                     "type" : "ValueSetRef"
-                  }
+                  "type" : "Union",
+                  "operand" : [ {
+                     "dataType" : "{http://hl7.org/fhir}MedicationRequest",
+                     "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
+                     "codeProperty" : "medication",
+                     "codeComparator" : "in",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "name" : "Naloxone medications",
+                        "preserve" : true,
+                        "type" : "ValueSetRef"
+                     }
+                  }, {
+                     "dataType" : "{http://hl7.org/fhir}MedicationRequest",
+                     "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationRequest",
+                     "codeProperty" : "medication",
+                     "codeComparator" : "in",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "name" : "Naloxone medications",
+                        "preserve" : true,
+                        "type" : "ValueSetRef"
+                     }
+                  } ]
                } ]
             }
          }, {
@@ -6156,15 +7130,30 @@
                "libraryName" : "C3F",
                "type" : "FunctionRef",
                "operand" : [ {
-                  "dataType" : "{http://hl7.org/fhir}MedicationStatement",
-                  "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
-                  "codeProperty" : "medication",
-                  "codeComparator" : "in",
-                  "type" : "Retrieve",
-                  "codes" : {
-                     "name" : "Naloxone medications",
-                     "type" : "ValueSetRef"
-                  }
+                  "type" : "Union",
+                  "operand" : [ {
+                     "dataType" : "{http://hl7.org/fhir}MedicationStatement",
+                     "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
+                     "codeProperty" : "medication",
+                     "codeComparator" : "in",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "name" : "Naloxone medications",
+                        "preserve" : true,
+                        "type" : "ValueSetRef"
+                     }
+                  }, {
+                     "dataType" : "{http://hl7.org/fhir}MedicationStatement",
+                     "templateId" : "http://hl7.org/fhir/StructureDefinition/MedicationStatement",
+                     "codeProperty" : "medication",
+                     "codeComparator" : "in",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "name" : "Naloxone medications",
+                        "preserve" : true,
+                        "type" : "ValueSetRef"
+                     }
+                  } ]
                } ]
             }
          }, {
@@ -6418,6 +7407,7 @@
                            "type" : "Retrieve",
                            "codes" : {
                               "name" : "Risk assessments relevant to pain management",
+                              "preserve" : true,
                               "type" : "ValueSetRef"
                            }
                         }, {
@@ -6813,6 +7803,12 @@
                         "name" : "NonOpioidMedications",
                         "value" : {
                            "name" : "ReportNonOpioidMedications",
+                           "type" : "ExpressionRef"
+                        }
+                     }, {
+                        "name" : "AdjuvantPainMedications",
+                        "value" : {
+                           "name" : "ReportAdjuvantPainMedications",
                            "type" : "ExpressionRef"
                         }
                      }, {

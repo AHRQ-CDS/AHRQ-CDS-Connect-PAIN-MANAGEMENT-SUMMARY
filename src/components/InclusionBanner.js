@@ -29,7 +29,7 @@ function InclusionBanner({ dismissible }) {
         <ul>
           <li>Has a condition likely to indicate chronic pain</li>
           <li>Has an active opioid medication in the last 180 days</li>
-          <li>Has an active adjuvant analgesic medication in the last 180 days</li>
+          <li>Has an active nonopioid pain medication in the last 180 days</li>
         </ul>
       </div>
     </div>

@@ -85,6 +85,11 @@
               "lookback": "n/a"
             },
             {
+              "name": "Opioid tapering",
+              "status": "in-progress, on-hold, stopped, aborted, or completed",
+              "lookback": "2 years"
+            },
+            {
               "name": "Pregnancy",
               "status": "active or recurring",
               "lookback": "42 weeks"
@@ -290,16 +295,16 @@
       ]
     },
     {
-      "name": "Non-Opioid Medications",
+      "name": "Nonopioid Pain Medications",
       "dataKey": "NonOpioidMedications",
       "dataKeySource": "HistoricalTreatments",
       "info": [
         {
           "type": "elements",
-          "description": "Non-Opioid Medications queries the following elements:",
+          "description": "Nonopioid Pain Medications queries the following elements:",
           "elements": [
             {
-              "name": "Non-opioid medication statements and orders",
+              "name": "Nonopioid pain medication statements and orders",
               "status": "any",
               "lookback": "2 years"
             }
@@ -317,23 +322,51 @@
           "flags": [
             {
               "flag": "ifNone",
-              "flagText": "Absence of non-opioid medications"
+              "flagText": "Absence of nonopioid pain medications"
             }
           ]
         }
       ]
     },
     {
-      "name": "Non-Pharmacologic Treatments",
+      "name": "Adjuvant Pain Medications",
+      "dataKey": "AdjuvantPainMedications",
+      "dataKeySource": "HistoricalTreatments",
+      "info": [
+        {
+          "type": "elements",
+          "description": "Adjuvant Pain Medications queries the following elements:",
+          "elements": [
+            {
+              "name": "Adjuvant pain medication statements and orders",
+              "status": "any",
+              "lookback": "2 years"
+            }
+          ]
+        }
+      ],
+      "tables": [
+        {
+          "headers": {
+            "Name": "Name",
+            "Type": "Type",
+            "Start": { "key": "Start", "formatter": "datishFormat" },
+            "End": { "key": "End", "formatter": "datishFormat" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Nonpharmacologic Treatments",
       "dataKey": "NonPharmacologicTreatments",
       "dataKeySource": "HistoricalTreatments",
       "info": [
         {
           "type": "elements",
-          "description": "Non-Pharmacologic Treatments queries the following elements:",
+          "description": "Nonpharmacologic Treatments queries the following elements:",
           "elements": [
             {
-              "name": "Non-pharmacologic procedures",
+              "name": "Nonpharmacologic procedures",
               "status": "any",
               "lookback": "2 years"
             }
@@ -350,7 +383,7 @@
           "flags": [
             {
               "flag": "ifNone",
-              "flagText": "Absence of non-pharmacologic treatments"
+              "flagText": "Absence of nonpharmacologic treatments"
             }
           ]
         }

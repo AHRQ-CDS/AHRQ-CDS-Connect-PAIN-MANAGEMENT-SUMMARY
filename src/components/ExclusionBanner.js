@@ -18,7 +18,7 @@ export default function ExclusionBanner() {
       <div className="exclusion-banner__description">
         <strong><FontAwesomeIcon icon="exclamation-circle" title="notice" /> TAKE NOTICE:</strong> This summary is not
         intended for patients who are undergoing <b>end-of-life care</b> (hospice or palliative) or <b>active cancer
-        treatment</b>.
+        treatment</b>, or who have <b>sickle cell disease</b>.
       </div>
     </div>
   );

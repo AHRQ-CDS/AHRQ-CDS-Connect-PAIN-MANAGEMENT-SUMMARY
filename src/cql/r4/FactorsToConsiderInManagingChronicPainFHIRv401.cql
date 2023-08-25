@@ -10,23 +10,22 @@
 // not provide enough specificity.  These decisions were made in the context of the CDS Connect Workgroup and CDC
 // stakeholders, and are documented in the logic and/or in the CDS Connect artifact metadata.
 //
-// Version 2.0.0 implements several best practices prescribed by FHIR Clinical Guidelines, including:
-// - Rename library from Factors_to_Consider_in_Managing_Chronic_Pain_FHIRv401 to FactorsToConsiderInManagingChronicPainFHIRv401
-// - Update CDS Connect Commons library to CDSConnectCommonsForFHIRv401 version 2.0.0
-// - Surround all library-level identifiers and datatypes in quotes
-// - Use descriptive names (no abbreviations) for query aliases and function arguments
-// - Fix non-standard use of Exists(...) as a function
-//
-// Version 2.0.0 also introduces the following changes from the previous version:
-// - Replace "Conditions associated with chronic pain" 2.16.840.1.113762.1.4.1032.37 value set with 2.16.840.1.113762.1.4.1021.95
-// - Replace "Pregnancy" 2.16.840.1.113883.3.526.3.378 and "Pregnancy (New ICD10 codes published in 2018 and 2019)"
-//   2.16.840.1.113762.1.4.1032.80 value sets with grouping value set "CDS Pregnancy" 2.16.840.1.113762.1.4.1032.264
+// Version 3.0.0 makes significant changes to the inclusion criteria as well as other meaningful changes, including:
+// - Remove adjuvant analgesics from inclusions and add non-Opioid pain medications instead
+// - Add note (in comments) about excluding patients with sickle cell disease
+// - Add opioid tapering to risk factors for opioid-related harms
+// - Add adjuvant pain medications to treatment history section
+// - Rename "Opioid Pain Medications" value set to "Opioid pain medications"
+// - Rename "Adjuvant Analgesic Medications" value set to "Adjuvant pain medications"
+// - Rename "Non opioid pain medications" value set to "Nonopioid pain medications"
+// - Add "Management of opioid dosage tapering (procedure)" code (SNOMED-CT 874903005)
+// - Convert "ReportOlderThan65" and "ReportMostRecentPositivePregnancyObservation" to lists before unioning them
 //
 // NOTE: This version has not been piloted in a clinical setting, but has undergone logic testing and review.
 //
 // ##Source guideline: [CDC Guideline for Opioid Prescribing for Chronic Pain](https://www.cdc.gov/drugoverdose/prescribing/guideline.html)
 
-library FactorsToConsiderInManagingChronicPainFHIRv401 version '2.0.0'
+library FactorsToConsiderInManagingChronicPainFHIRv401 version '3.0.0'
 
 // # Data model #
 
@@ -36,7 +35,7 @@ using FHIR version '4.0.1'
 // # Referenced libraries #
 
 // The CDS Connect Commons for FHIRv401 library provides functions representing commonly used CDS logic and patterns.
-include CDSConnectCommonsForFHIRv401 version '2.0.0' called C3F
+include CDSConnectCommonsForFHIRv401 version '2.1.0' called C3F
 // The FHIRHelpers library provides common functions for simplifying interaction w/ the FHIR R4 data model.
 include FHIRHelpers version '4.0.1' called FHIRHelpers
 
@@ -47,10 +46,11 @@ include FHIRHelpers version '4.0.1' called FHIRHelpers
 codesystem "LOINC": 'http://loinc.org'
 codesystem "SNOMED-CT": 'http://snomed.info/sct'
 
-// Several concepts needed by the Pain Management Summary CDS do not yet have standardized codes associated with them.
-// The CDS logic authors have registered new Logical Object Identifier Names and Codes (LOINC) codes, but they are
-// not yet available.  Once available, the CDS will be updated.  Until then, CDS implementors will need to map to
-// local codes (signified by the LOCAL code system below) or replace them with their own codes.
+// Several concepts needed by the Pain Management Summary CDS did not have standardized codes associated with them
+// when this artifact was first published. Some of these now have LOINC codes, but local codes have been retained
+// in the CQL for backwards-compatibility (alongside the preferred LOINC codes). Other concepts still do not have
+// standardized codes. For these codes, CDS implementors will need to map to local codes (signified by the LOCAL
+// code system below) or replace them with their own codes.
 codesystem "LOCAL": 'http://cds.ahrq.gov/cdsconnect/pms'
 
 // ## Value sets ##
@@ -62,10 +62,10 @@ codesystem "LOCAL": 'http://cds.ahrq.gov/cdsconnect/pms'
 valueset "Conditions associated with chronic pain": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1021.95'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.34/expansion)
-valueset "Opioid Pain Medications": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.34'
+valueset "Opioid pain medications": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.34'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.54/expansion)
-valueset "Adjuvant Analgesic Medications": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.54'
+valueset "Adjuvant pain medications": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.54'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113883.3.464.1003.105.12.1007/expansion)
 valueset "Major Depression": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.464.1003.105.12.1007'
@@ -104,7 +104,7 @@ valueset "Liver Disease": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.1137
 valueset "CDS Pregnancy": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.264'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.26/expansion)
-valueset "Non opiod pain medications": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.26'
+valueset "Nonopioid pain medications": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.26'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.36/expansion)
 valueset "Non pharmacologic treatments for chronic pain": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.36'
@@ -132,6 +132,8 @@ valueset "Stool softeners and laxatives": 'https://cts.nlm.nih.gov/fhir/ValueSet
 
 code "Pregnancy status": '82810-3' from "LOINC" display 'Pregnancy status'
 code "Pregnant": '77386006' from "SNOMED-CT" display 'Patient currently pregnant (finding)'
+code "Management of opioid dosage tapering (procedure)":
+  '874903005' from "SNOMED-CT" display 'Management of opioid dosage tapering (procedure)'
 code "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]":
   '55758-7' from "LOINC" display 'Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]'
 code "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]":
@@ -369,24 +371,24 @@ define "HasConditionAssociatedWithChronicPain":
 //       - Medication Statement by patient within past 180 days (lookback can be made a parameter)
 define "HasRecentOpioidPainMedication":
   exists(C3F."ActiveCompletedOrStoppedMedicationRequest"(C3F."MedicationRequestLookBack"(
-    ["MedicationRequest": "Opioid Pain Medications"],
+    ["MedicationRequest": "Opioid pain medications"],
     "InclusionMedicationsLookbackPeriod")
   ))
   or exists(C3F."ActiveOrCompletedMedicationStatement"(C3F."MedicationStatementLookBack"(
-    ["MedicationStatement": "Opioid Pain Medications"],
+    ["MedicationStatement": "Opioid pain medications"],
     "InclusionMedicationsLookbackPeriod")
   ))
 
-// Determines if the patient has any record of adjuvant analgesic medications in the lookback period
+// Determines if the patient has any record of non-opioid pain medications in the lookback period
 //       - Medication Request within past 180 days (lookback can be made a parameter)
 //       - Medication Statement by patient within past 180 days (lookback can be made a parameter)
-define "HasRecentAdjuvantAnalgesicMedication":
+define "HasRecentNonOpioidPainMedication":
   exists(C3F."ActiveCompletedOrStoppedMedicationRequest"(C3F."MedicationRequestLookBack"(
-    ["MedicationRequest": "Adjuvant Analgesic Medications"],
+    ["MedicationRequest": "Nonopioid pain medications"],
     "InclusionMedicationsLookbackPeriod")
   ))
   or exists(C3F."ActiveOrCompletedMedicationStatement"(C3F."MedicationStatementLookBack"(
-    ["MedicationStatement": "Adjuvant Analgesic Medications"],
+    ["MedicationStatement": "Nonopioid pain medications"],
     "InclusionMedicationsLookbackPeriod")
   ))
 
@@ -395,13 +397,13 @@ define "HasRecentAdjuvantAnalgesicMedication":
 // - AND
 //   - OR Conditions associated with chronic pain
 //   - OR Opioid pain medication
-//   - OR Adjuvant analgesic medication
+//   - OR Non-opioid pain medication
 define "MeetsInclusionCriteria":
   "Is18orOlder"
   and (
     "HasConditionAssociatedWithChronicPain"
     or "HasRecentOpioidPainMedication"
-    or "HasRecentAdjuvantAnalgesicMedication"
+    or "HasRecentNonOpioidPainMedication"
   )
 
 // EXCLUSIONS
@@ -410,11 +412,13 @@ define "MeetsInclusionCriteria":
 // 1. Younger than 18 years of age
 // 2. Undergoing end-of-life care (hospice or palliative)
 // 3. Undergoing active cancer treatment
+// 4. Sickle cell disease
 //
 // The first exclusion is explicitly accounted for under INCLUSIONS.
 // The second and third exclusions cannot be realiably detected for all patients using just EHR data. For that reason
-// they are not implemented in this CDS. Care providers should use their judgement when applying this CDS to their
-// patients.
+// they are not implemented in this CDS. While the fourth exclusion may be found in EHR systems, for consistency, and
+// to allow flexibility for clinicians and patients, it is also not explicitly encoded into the CDS. Care providers
+// should use their judgement when applying this CDS to their patients.
 
 // ## Intervention(s) ##
 
@@ -476,6 +480,12 @@ define "MostRecentPregnancyObservation":
 
 define "MostRecentPregnancyObservationIsPositive":
   C3F."ConceptValue"("MostRecentPregnancyObservation") ~ "Pregnant"
+
+define "OpioidTaperingProcedures":
+  C3F."ProcedurePerformance"(C3F."ProcedureLookBack"(
+    ["Procedure": "Management of opioid dosage tapering (procedure)"],
+    2 years
+  ))
 
 define "Is65orOlder":
   AgeInYears() >= 65
@@ -560,6 +570,21 @@ define "ReportEncounterRiskFactorsForOpioidRelatedHarms":
   return "GetEncounterDiagnosesRiskFactorsForOpioidRelatedHarms"(Encounter))) Reason
   sort by Visit.Start desc, Visit.End desc
 
+define ReportOpioidTaperingProcedures:
+  "OpioidTaperingProcedures" Procedure
+  return {
+    Name:      "ConceptText"(Procedure.code),
+    Status:    Procedure.status.value,
+    Onset:     Coalesce( List{
+      "DateTimeText"(Procedure.performed as FHIR."dateTime"),
+      "DateTimeText"((Procedure.performed as FHIR."Period").start)
+    }),
+    DateRecorded: null as "String",
+    Abatement: "DateTimeText"((Procedure.performed as FHIR."Period").end),
+    Visit:     null as Tuple{ Start "String", End "String" }
+  }
+  sort by (Onset as "String") desc, (Abatement as "String") desc
+
 // Shape the pregnancy Observation as a Condition, since this is the backup approach for detecting a pregnancy in case
 // there are no active Conditions found.
 define "ReportMostRecentPositivePregnancyObservation":
@@ -598,13 +623,16 @@ define "ReportRiskFactorsForOpioidRelatedHarms":
   if exists "PregnancyConditions" then
     ("ReportConditionRiskFactorsForOpioidRelatedHarms"
       union "ReportEncounterRiskFactorsForOpioidRelatedHarms"
-      union "ReportOlderThan65") Condition
+      union "ReportOpioidTaperingProcedures"
+      union (if "ReportOlderThan65" is null then null else List{"ReportOlderThan65"})) Condition
   // Otherwise, try to find a positive pregnancy status in an Observation.
   else
     ("ReportConditionRiskFactorsForOpioidRelatedHarms"
       union "ReportEncounterRiskFactorsForOpioidRelatedHarms"
-      union "ReportOlderThan65"
-      union "ReportMostRecentPositivePregnancyObservation") Condition
+      union "ReportOpioidTaperingProcedures"
+      union (if "ReportOlderThan65" is null then null else List{"ReportOlderThan65"})
+      union (if "ReportMostRecentPositivePregnancyObservation" is null then null else List{"ReportMostRecentPositivePregnancyObservation"})
+    ) Condition
   sort by (if Onset is not null then Onset as "String" else Visit.Start) desc, Visit.End desc, (Abatement as "String") desc
 
 // PAIN ASSESSMENT
@@ -713,13 +741,13 @@ define "ReportSTarTBackAssessments":
 
 define "OpioidMedicationRequests":
   C3F."ActiveCompletedOrStoppedMedicationRequest"(C3F."MedicationRequestLookBack"(
-    ["MedicationRequest": "Opioid Pain Medications"],
+    ["MedicationRequest": "Opioid pain medications"],
     2 years
   ))
 
 define "OpioidMedicationStatements":
   C3F."ActiveOrCompletedMedicationStatement"(C3F."MedicationStatementLookBack"(
-    ["MedicationStatement": "Opioid Pain Medications"],
+    ["MedicationStatement": "Opioid pain medications"],
     2 years
   ))
 
@@ -753,13 +781,13 @@ define "ReportOpioidMedications":
 
 define "NonOpioidMedicationRequests":
   C3F."ActiveCompletedOrStoppedMedicationRequest"(C3F."MedicationRequestLookBack"(
-    ["MedicationRequest": "Non opiod pain medications"],
+    ["MedicationRequest": "Nonopioid pain medications"],
     2 years
   ))
 
 define "NonOpioidMedicationStatements":
   C3F."ActiveOrCompletedMedicationStatement"(C3F."MedicationStatementLookBack"(
-    ["MedicationStatement": "Non opiod pain medications"],
+    ["MedicationStatement": "Nonopioid pain medications"],
     2 years
   ))
 
@@ -787,6 +815,46 @@ define "ReportNonOpioidMedicationStatements":
 
 define "ReportNonOpioidMedications":
   ("ReportNonOpioidMedicationRequests" union "ReportNonOpioidMedicationStatements") Medication
+  sort by Start desc, End desc
+
+// Adjuvent pain medication orders and statements with dates (lookback 2 years)
+
+define "AdjuvantPainMedicationRequests":
+  C3F."ActiveCompletedOrStoppedMedicationRequest"(C3F."MedicationRequestLookBack"(
+    ["MedicationRequest": "Adjuvant pain medications"],
+    2 years
+  ))
+
+define "AdjuvantPainMedicationStatements":
+  C3F."ActiveOrCompletedMedicationStatement"(C3F."MedicationStatementLookBack"(
+    ["MedicationStatement": "Adjuvant pain medications"],
+    2 years
+  ))
+
+define "ReportAdjuvantPainMedicationRequests":
+  ("AdjuvantPainMedicationRequests") Request
+  return {
+    Type:  'Request',
+    Name:  "ConceptText"(Request.medication as FHIR."CodeableConcept"),
+    Start: "DateTimeText"(Request.authoredOn),
+    End:   null as "String", // MedicationRequest end date not supported in R4,
+    Status: Request.status.value
+  }
+  sort by Start desc, End desc
+
+define "ReportAdjuvantPainMedicationStatements":
+  ("AdjuvantPainMedicationStatements") Statement
+  return {
+    Type:  'Statement',
+    Name:  "ConceptText"(Statement.medication as FHIR."CodeableConcept"),
+    Start: "MedicationStatementDate"(Statement),
+    End:   "DateTimeText"((Statement.effective as FHIR."Period")."end"),
+    Status: Statement.status.value
+  }
+  sort by Start desc, End desc
+
+define "ReportAdjuvantPainMedications":
+  ("ReportAdjuvantPainMedicationRequests" union "ReportAdjuvantPainMedicationStatements") Medication
   sort by Start desc, End desc
 
 // Non-pharmacologic treatments, orders, and referrals with dates (lookback 2 years)
@@ -1027,6 +1095,7 @@ define "Summary": {
   HistoricalTreatments: {
     OpioidMedications: "ReportOpioidMedications",
     NonOpioidMedications: "ReportNonOpioidMedications",
+    AdjuvantPainMedications: "ReportAdjuvantPainMedications",
     NonPharmacologicTreatments: "ReportNonPharmacologicTreatments",
     StoolSoftenersAndLaxatives: "ReportStoolSoftenersAndLaxatives"
   },

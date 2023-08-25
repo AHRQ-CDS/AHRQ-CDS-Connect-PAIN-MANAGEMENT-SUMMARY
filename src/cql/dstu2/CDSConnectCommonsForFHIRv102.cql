@@ -3,16 +3,10 @@
 // This library provides functions commonly used by CDS Connect CQL libraries as well as the
 // CDS Connect CDS Authoring Tool.
 //
-// Version 2.0.0 implements several best practices prescribed by FHIR Clinical Guidelines, including:
-// - Renaming library from CDS_Connect_Commons_for_FHIRv102 to CDSConnectCommonsForFHIRv102
-// - Surrounding all library-level identifiers and datatypes in quotes
-// - Using descriptive names (no abbreviations) for query aliases and function arguments
-//
-// Version 2.0.0 also introduces the following changes from the previous version of this library:
-//   - Add "ActiveOrCompletedMedicationStatement", "MedicationDispenseLookBack", "NotCancelled", and
-//     "EncounterLookBack"
+// Version 2.1.0 add the following functions:
+// - Finished: Filters encounters to only those with status 'finished'
 
-library CDSConnectCommonsForFHIRv102 version '2.0.0'
+library CDSConnectCommonsForFHIRv102 version '2.1.0'
 
 using FHIR version '1.0.2'
 
@@ -529,6 +523,16 @@ define function "EncountersByConcept"(Koncept System."Concept"):
 define function "InProgress"(Encounters List<"Encounter">):
   Encounters Encounter
     where Encounter.status.value = 'in-progress'
+
+/**
+ * Encounters that are finished. In FHIR DSTU2, this is reflected by status: 'finished'.
+ * @see https://hl7.org/fhir/DSTU2/valueset-encounter-state.html
+ * @param Encounters - a list of Encounters
+ * @returns {List<"Encounter">} a list of finished encounters, or null if null was passed in
+ */
+define function "Finished"(Encounters List<"Encounter">):
+  Encounters Encounter
+    where Encounter.status.value = 'finished'
 
 /**
  * Encounters that have not been cancelled. In FHIR DSTU2, this is reflected by  andy status other

@@ -92,7 +92,7 @@ it('flags "Opioid Medications" entries correctly', () => {
   expect(flagit(null, subSection, mockSummaryA)).toEqual(false);
 });
 
-it('flags "Non-Opioid Medications" entries correctly', () => {
+it('flags "Nonopioid Pain Medications" entries correctly', () => {
   const subSection = summaryMap['HistoricalTreatments'][1];
   const mockEntry = {
     "Type": "Statement",
@@ -100,25 +100,25 @@ it('flags "Non-Opioid Medications" entries correctly', () => {
     "Start": "2018-04-30T00:00:00.000+00:00",
     "End": null
   };
-  const mockFlag = "Absence of non-opioid medications";
+  const mockFlag = "Absence of nonopioid pain medications";
   expect(flagit(null, subSection, mockSummaryD)).toEqual(mockFlag);
   expect(flagit(mockEntry, subSection, mockSummaryA)).toEqual(false);
 });
 
-it('flags "Non-Pharmacologic Treatments" entries correctly', () => {
-  const subSection = summaryMap['HistoricalTreatments'][2];
+it('flags "Nonpharmacologic Treatments" entries correctly', () => {
+  const subSection = summaryMap['HistoricalTreatments'][3];
   const mockEntry = {
     "Type": "Procedure",
     "Name": "Chiropraxy (regime/therapy)",
     "Date": "2018-04-05T00:00:00.000+00:00"
   };
-  const mockFlag = "Absence of non-pharmacologic treatments";
+  const mockFlag = "Absence of nonpharmacologic treatments";
   expect(flagit(null, subSection, mockSummaryD)).toEqual(mockFlag);
   expect(flagit(mockEntry, subSection, mockSummaryA)).toEqual(false);
 });
 
 it('flags "Stool Softeners and Laxatives" entries correctly', () => {
-  const subSection = summaryMap['HistoricalTreatments'][3];
+  const subSection = summaryMap['HistoricalTreatments'][4];
   const mockEntry = {
     "Type": "Statement",
     "Name": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution",

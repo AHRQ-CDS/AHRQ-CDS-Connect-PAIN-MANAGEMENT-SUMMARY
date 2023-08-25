@@ -2,7 +2,7 @@
   "resourceType": "Bundle",
   "id": "brenda_jackson",
   "meta": {
-    "lastUpdated": "2023-05-01T16:23:58.577Z"
+    "lastUpdated": "2023-08-25T13:45:34.875Z"
   },
   "type": "collection",
   "entry": [
@@ -19,7 +19,7 @@
           }
         ],
         "gender": "female",
-        "birthDate": "1960-08-11"
+        "birthDate": "1960-12-04"
       }
     },
     {
@@ -59,8 +59,8 @@
           ],
           "text": "Fibromyalgia (disorder)"
         },
-        "onsetDateTime": "2017-02-04T08:23:58.577Z",
-        "recordedDate": "2017-02-03T16:23:58.577Z"
+        "onsetDateTime": "2017-05-31T05:45:34.875Z",
+        "recordedDate": "2017-05-30T13:45:34.875Z"
       }
     },
     {
@@ -100,8 +100,8 @@
           ],
           "text": "Low back pain"
         },
-        "onsetDateTime": "2012-09-13T08:23:58.577Z",
-        "recordedDate": "2012-09-12T16:23:58.577Z"
+        "onsetDateTime": "2013-01-07T05:45:34.875Z",
+        "recordedDate": "2013-01-06T13:45:34.875Z"
       }
     },
     {
@@ -141,8 +141,8 @@
           ],
           "text": "Lumbar post-laminectomy syndrome (disorder)"
         },
-        "onsetDateTime": "2015-12-03T08:23:58.577Z",
-        "recordedDate": "2015-12-17T16:23:58.577Z"
+        "onsetDateTime": "2016-03-28T05:45:34.875Z",
+        "recordedDate": "2016-04-11T13:45:34.875Z"
       }
     },
     {
@@ -182,7 +182,7 @@
           ],
           "text": "Moderate major depression (disorder)"
         },
-        "onsetDateTime": "2020-10-03T08:23:58.577Z"
+        "onsetDateTime": "2021-01-27T05:45:34.875Z"
       }
     },
     {
@@ -221,7 +221,7 @@
             "text": "Hurts Worst"
           }
         ],
-        "issued": "2023-04-16T08:23:58.577Z"
+        "issued": "2023-08-10T05:45:34.875Z"
       }
     },
     {
@@ -260,7 +260,7 @@
             "text": "Hurts Even More"
           }
         ],
-        "issued": "2022-08-10T08:23:58.577Z"
+        "issued": "2022-12-04T05:45:34.875Z"
       }
     },
     {
@@ -299,7 +299,7 @@
             "text": "Hurts Even More"
           }
         ],
-        "issued": "2021-09-16T08:23:58.577Z"
+        "issued": "2022-01-10T05:45:34.875Z"
       }
     },
     {
@@ -338,7 +338,7 @@
             "text": "Hurts Even More"
           }
         ],
-        "issued": "2020-10-03T08:23:58.577Z"
+        "issued": "2021-01-27T05:45:34.875Z"
       }
     },
     {
@@ -352,12 +352,12 @@
         "code": {
           "coding": [
             {
-              "system": "http://cds.ahrq.gov/cdsconnect/pms",
-              "code": "PEGASSESSMENT",
-              "display": "Pain Enjoyment General Activity (PEG) Assessment"
+              "system": "http://loinc.org",
+              "code": "91147-9",
+              "display": "Mean score [PEG]"
             }
           ],
-          "text": "Pain Enjoyment General Activity (PEG) Assessment"
+          "text": "Mean score [PEG]"
         },
         "category": [
           {
@@ -372,18 +372,18 @@
         "valueQuantity": {
           "value": 5
         },
-        "issued": "2022-08-10T08:23:58.577Z",
+        "issued": "2022-12-04T05:45:34.875Z",
         "component": [
           {
             "code": {
               "coding": [
                 {
-                  "system": "http://cds.ahrq.gov/cdsconnect/pms",
-                  "code": "PEGPAIN",
-                  "display": "Pain"
+                  "system": "http://loinc.org",
+                  "code": "75893-8",
+                  "display": "Pain severity in the past week - 0-10 numeric rating [Reported]"
                 }
               ],
-              "text": "Pain"
+              "text": "Pain severity in the past week - 0-10 numeric rating [Reported]"
             },
             "valueQuantity": {
               "value": 7
@@ -393,12 +393,12 @@
             "code": {
               "coding": [
                 {
-                  "system": "http://cds.ahrq.gov/cdsconnect/pms",
-                  "code": "PEGENJOYMENT",
-                  "display": "Enjoyment of life"
+                  "system": "http://loinc.org",
+                  "code": "91145-3",
+                  "display": "What number best describes how pain has interfered with your enjoyment of life during the past week"
                 }
               ],
-              "text": "Enjoyment of life"
+              "text": "What number best describes how pain has interfered with your enjoyment of life during the past week"
             },
             "valueQuantity": {
               "value": 5
@@ -408,12 +408,12 @@
             "code": {
               "coding": [
                 {
-                  "system": "http://cds.ahrq.gov/cdsconnect/pms",
-                  "code": "PEGGENERALACTIVITY",
-                  "display": "General activity"
+                  "system": "http://loinc.org",
+                  "code": "91146-1",
+                  "display": "What number best describes how pain has interfered with your general activity during the past week"
                 }
               ],
-              "text": "General activity"
+              "text": "What number best describes how pain has interfered with your general activity during the past week"
             },
             "valueQuantity": {
               "value": 4
@@ -433,12 +433,12 @@
         "code": {
           "coding": [
             {
-              "system": "http://cds.ahrq.gov/cdsconnect/pms",
-              "code": "PEGASSESSMENT",
-              "display": "Pain Enjoyment General Activity (PEG) Assessment"
+              "system": "http://loinc.org",
+              "code": "91147-9",
+              "display": "Mean score [PEG]"
             }
           ],
-          "text": "Pain Enjoyment General Activity (PEG) Assessment"
+          "text": "Mean score [PEG]"
         },
         "category": [
           {
@@ -453,18 +453,18 @@
         "valueQuantity": {
           "value": 7
         },
-        "issued": "2021-09-16T08:23:58.577Z",
+        "issued": "2022-01-10T05:45:34.875Z",
         "component": [
           {
             "code": {
               "coding": [
                 {
-                  "system": "http://cds.ahrq.gov/cdsconnect/pms",
-                  "code": "PEGPAIN",
-                  "display": "Pain"
+                  "system": "http://loinc.org",
+                  "code": "75893-8",
+                  "display": "Pain severity in the past week - 0-10 numeric rating [Reported]"
                 }
               ],
-              "text": "Pain"
+              "text": "Pain severity in the past week - 0-10 numeric rating [Reported]"
             },
             "valueQuantity": {
               "value": 8
@@ -474,12 +474,12 @@
             "code": {
               "coding": [
                 {
-                  "system": "http://cds.ahrq.gov/cdsconnect/pms",
-                  "code": "PEGENJOYMENT",
-                  "display": "Enjoyment of life"
+                  "system": "http://loinc.org",
+                  "code": "91145-3",
+                  "display": "What number best describes how pain has interfered with your enjoyment of life during the past week"
                 }
               ],
-              "text": "Enjoyment of life"
+              "text": "What number best describes how pain has interfered with your enjoyment of life during the past week"
             },
             "valueQuantity": {
               "value": 5
@@ -489,12 +489,12 @@
             "code": {
               "coding": [
                 {
-                  "system": "http://cds.ahrq.gov/cdsconnect/pms",
-                  "code": "PEGGENERALACTIVITY",
-                  "display": "General activity"
+                  "system": "http://loinc.org",
+                  "code": "91146-1",
+                  "display": "What number best describes how pain has interfered with your general activity during the past week"
                 }
               ],
-              "text": "General activity"
+              "text": "What number best describes how pain has interfered with your general activity during the past week"
             },
             "valueQuantity": {
               "value": 8
@@ -514,12 +514,12 @@
         "code": {
           "coding": [
             {
-              "system": "http://cds.ahrq.gov/cdsconnect/pms",
-              "code": "PEGASSESSMENT",
-              "display": "Pain Enjoyment General Activity (PEG) Assessment"
+              "system": "http://loinc.org",
+              "code": "91147-9",
+              "display": "Mean score [PEG]"
             }
           ],
-          "text": "Pain Enjoyment General Activity (PEG) Assessment"
+          "text": "Mean score [PEG]"
         },
         "category": [
           {
@@ -534,18 +534,18 @@
         "valueQuantity": {
           "value": 8
         },
-        "issued": "2020-10-03T08:23:58.577Z",
+        "issued": "2021-01-27T05:45:34.875Z",
         "component": [
           {
             "code": {
               "coding": [
                 {
-                  "system": "http://cds.ahrq.gov/cdsconnect/pms",
-                  "code": "PEGPAIN",
-                  "display": "Pain"
+                  "system": "http://loinc.org",
+                  "code": "75893-8",
+                  "display": "Pain severity in the past week - 0-10 numeric rating [Reported]"
                 }
               ],
-              "text": "Pain"
+              "text": "Pain severity in the past week - 0-10 numeric rating [Reported]"
             },
             "valueQuantity": {
               "value": 8
@@ -555,12 +555,12 @@
             "code": {
               "coding": [
                 {
-                  "system": "http://cds.ahrq.gov/cdsconnect/pms",
-                  "code": "PEGENJOYMENT",
-                  "display": "Enjoyment of life"
+                  "system": "http://loinc.org",
+                  "code": "91145-3",
+                  "display": "What number best describes how pain has interfered with your enjoyment of life during the past week"
                 }
               ],
-              "text": "Enjoyment of life"
+              "text": "What number best describes how pain has interfered with your enjoyment of life during the past week"
             },
             "valueQuantity": {
               "value": 6
@@ -570,12 +570,12 @@
             "code": {
               "coding": [
                 {
-                  "system": "http://cds.ahrq.gov/cdsconnect/pms",
-                  "code": "PEGGENERALACTIVITY",
-                  "display": "General activity"
+                  "system": "http://loinc.org",
+                  "code": "91146-1",
+                  "display": "What number best describes how pain has interfered with your general activity during the past week"
                 }
               ],
-              "text": "General activity"
+              "text": "What number best describes how pain has interfered with your general activity during the past week"
             },
             "valueQuantity": {
               "value": 10
@@ -595,12 +595,12 @@
         "code": {
           "coding": [
             {
-              "system": "http://cds.ahrq.gov/cdsconnect/pms",
-              "code": "STARTBACK",
-              "display": "STarT Back Screening Tool"
+              "system": "http://loinc.org",
+              "code": "91351-7",
+              "display": "Total score [STarT Back]"
             }
           ],
-          "text": "STarT Back Screening Tool"
+          "text": "Total score [STarT Back]"
         },
         "category": [
           {
@@ -620,7 +620,7 @@
             "text": "Medium risk"
           }
         ],
-        "issued": "2022-09-16T08:23:58.577Z"
+        "issued": "2023-01-10T05:45:34.875Z"
       }
     },
     {
@@ -634,12 +634,12 @@
         "code": {
           "coding": [
             {
-              "system": "http://cds.ahrq.gov/cdsconnect/pms",
-              "code": "STARTBACK",
-              "display": "STarT Back Screening Tool"
+              "system": "http://loinc.org",
+              "code": "91351-7",
+              "display": "Total score [STarT Back]"
             }
           ],
-          "text": "STarT Back Screening Tool"
+          "text": "Total score [STarT Back]"
         },
         "category": [
           {
@@ -659,7 +659,7 @@
             "text": "Low risk"
           }
         ],
-        "issued": "2021-09-16T08:23:58.577Z"
+        "issued": "2022-01-10T05:45:34.875Z"
       }
     },
     {
@@ -673,12 +673,12 @@
         "code": {
           "coding": [
             {
-              "system": "http://cds.ahrq.gov/cdsconnect/pms",
-              "code": "STARTBACK",
-              "display": "STarT Back Screening Tool"
+              "system": "http://loinc.org",
+              "code": "91351-7",
+              "display": "Total score [STarT Back]"
             }
           ],
-          "text": "STarT Back Screening Tool"
+          "text": "Total score [STarT Back]"
         },
         "category": [
           {
@@ -698,7 +698,7 @@
             "text": "High risk"
           }
         ],
-        "issued": "2020-10-03T08:23:58.577Z"
+        "issued": "2021-01-27T05:45:34.875Z"
       }
     },
     {
@@ -721,7 +721,7 @@
           ],
           "text": "12 HR Oxycodone Hydrochloride 60 MG Extended Release Oral Tablet"
         },
-        "authoredOn": "2023-02-14T08:25:58.577Z"
+        "authoredOn": "2023-06-10T05:47:34.875Z"
       }
     },
     {
@@ -744,7 +744,7 @@
           ],
           "text": "12 HR Oxycodone Hydrochloride 60 MG Extended Release Oral Tablet"
         },
-        "authoredOn": "2022-11-16T08:25:58.577Z"
+        "authoredOn": "2023-03-12T05:47:34.875Z"
       }
     },
     {
@@ -767,7 +767,7 @@
           ],
           "text": "12 HR Oxycodone Hydrochloride 60 MG Extended Release Oral Tablet"
         },
-        "authoredOn": "2022-08-16T08:25:58.577Z"
+        "authoredOn": "2022-12-10T05:47:34.875Z"
       }
     },
     {
@@ -790,7 +790,7 @@
           ],
           "text": "12 HR Oxycodone Hydrochloride 60 MG Extended Release Oral Tablet"
         },
-        "authoredOn": "2022-05-16T08:25:58.577Z"
+        "authoredOn": "2022-09-09T05:47:34.875Z"
       }
     },
     {
@@ -813,7 +813,7 @@
           ],
           "text": "12 HR Oxycodone Hydrochloride 60 MG Extended Release Oral Tablet"
         },
-        "authoredOn": "2022-02-14T08:25:58.577Z"
+        "authoredOn": "2022-06-10T05:47:34.875Z"
       }
     },
     {
@@ -836,7 +836,7 @@
           ],
           "text": "12 HR Oxycodone Hydrochloride 60 MG Extended Release Oral Tablet"
         },
-        "authoredOn": "2021-11-16T08:25:58.577Z"
+        "authoredOn": "2022-03-12T05:47:34.875Z"
       }
     },
     {
@@ -859,7 +859,7 @@
           ],
           "text": "12 HR Oxycodone Hydrochloride 60 MG Extended Release Oral Tablet"
         },
-        "authoredOn": "2021-08-16T08:25:58.577Z"
+        "authoredOn": "2021-12-10T05:47:34.875Z"
       }
     },
     {
@@ -882,7 +882,7 @@
           ],
           "text": "12 HR Oxycodone Hydrochloride 60 MG Extended Release Oral Tablet"
         },
-        "authoredOn": "2021-05-16T08:25:58.577Z"
+        "authoredOn": "2021-09-09T05:47:34.875Z"
       }
     },
     {
@@ -905,7 +905,7 @@
           ],
           "text": "12 HR Oxycodone Hydrochloride 60 MG Extended Release Oral Tablet"
         },
-        "authoredOn": "2021-02-14T08:25:58.577Z"
+        "authoredOn": "2021-06-10T05:47:34.875Z"
       }
     },
     {
@@ -928,7 +928,7 @@
           ],
           "text": "12 HR Oxycodone Hydrochloride 60 MG Extended Release Oral Tablet"
         },
-        "authoredOn": "2020-11-16T08:25:58.577Z"
+        "authoredOn": "2021-03-12T05:47:34.875Z"
       }
     },
     {
@@ -951,7 +951,7 @@
           ],
           "text": "12 HR Oxycodone Hydrochloride 60 MG Extended Release Oral Tablet"
         },
-        "authoredOn": "2020-08-16T08:25:58.577Z"
+        "authoredOn": "2020-12-10T05:47:34.875Z"
       }
     },
     {
@@ -974,7 +974,7 @@
           ],
           "text": "Oxycodone Hydrochloride 10 MG Oral Capsule"
         },
-        "authoredOn": "2023-02-14T08:24:58.577Z"
+        "authoredOn": "2023-06-10T05:46:34.875Z"
       }
     },
     {
@@ -997,7 +997,7 @@
           ],
           "text": "Oxycodone Hydrochloride 10 MG Oral Capsule"
         },
-        "authoredOn": "2022-11-16T08:24:58.577Z"
+        "authoredOn": "2023-03-12T05:46:34.875Z"
       }
     },
     {
@@ -1020,7 +1020,7 @@
           ],
           "text": "Oxycodone Hydrochloride 10 MG Oral Capsule"
         },
-        "authoredOn": "2022-08-16T08:24:58.577Z"
+        "authoredOn": "2022-12-10T05:46:34.875Z"
       }
     },
     {
@@ -1043,7 +1043,7 @@
           ],
           "text": "Oxycodone Hydrochloride 10 MG Oral Capsule"
         },
-        "authoredOn": "2022-05-16T08:24:58.577Z"
+        "authoredOn": "2022-09-09T05:46:34.875Z"
       }
     },
     {
@@ -1066,7 +1066,7 @@
           ],
           "text": "Oxycodone Hydrochloride 10 MG Oral Capsule"
         },
-        "authoredOn": "2022-02-14T08:24:58.577Z"
+        "authoredOn": "2022-06-10T05:46:34.875Z"
       }
     },
     {
@@ -1089,7 +1089,7 @@
           ],
           "text": "Oxycodone Hydrochloride 10 MG Oral Capsule"
         },
-        "authoredOn": "2021-11-16T08:24:58.577Z"
+        "authoredOn": "2022-03-12T05:46:34.875Z"
       }
     },
     {
@@ -1112,7 +1112,7 @@
           ],
           "text": "Oxycodone Hydrochloride 10 MG Oral Capsule"
         },
-        "authoredOn": "2021-08-16T08:24:58.577Z"
+        "authoredOn": "2021-12-10T05:46:34.875Z"
       }
     },
     {
@@ -1135,7 +1135,7 @@
           ],
           "text": "Oxycodone Hydrochloride 10 MG Oral Capsule"
         },
-        "authoredOn": "2021-05-16T08:24:58.577Z"
+        "authoredOn": "2021-09-09T05:46:34.875Z"
       }
     },
     {
@@ -1158,7 +1158,7 @@
           ],
           "text": "Oxycodone Hydrochloride 10 MG Oral Capsule"
         },
-        "authoredOn": "2021-02-14T08:24:58.577Z"
+        "authoredOn": "2021-06-10T05:46:34.875Z"
       }
     },
     {
@@ -1181,7 +1181,7 @@
           ],
           "text": "Oxycodone Hydrochloride 10 MG Oral Capsule"
         },
-        "authoredOn": "2020-11-16T08:24:58.577Z"
+        "authoredOn": "2021-03-12T05:46:34.875Z"
       }
     },
     {
@@ -1204,7 +1204,7 @@
           ],
           "text": "Oxycodone Hydrochloride 10 MG Oral Capsule"
         },
-        "authoredOn": "2020-08-16T08:24:58.577Z"
+        "authoredOn": "2020-12-10T05:46:34.875Z"
       }
     },
     {
@@ -1227,7 +1227,7 @@
           ],
           "text": "Ibuprofen 600 MG Oral Tablet"
         },
-        "authoredOn": "2020-10-03T08:23:58.577Z"
+        "authoredOn": "2021-01-27T05:45:34.875Z"
       }
     },
     {
@@ -1250,7 +1250,30 @@
           ],
           "text": "Acetaminophen 500 MG Oral Tablet"
         },
-        "authoredOn": "2020-10-03T08:23:58.577Z"
+        "authoredOn": "2021-01-27T05:45:34.875Z"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "86e30c5c-672e-410d-b9e4-b239621bcdb0",
+        "subject": {
+          "reference": "Patient/5c41cecf-cf81-434f-9da7-e24e5a99dbc2"
+        },
+        "status": "active",
+        "intent": "order",
+        "doNotPerform": false,
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "code": "596930",
+              "display": "duloxetine 30 MG Delayed Release Oral Capsule"
+            }
+          ],
+          "text": "duloxetine 30 MG Delayed Release Oral Capsule"
+        },
+        "authoredOn": "2022-04-06T08:09:00.232Z"
       }
     },
     {
@@ -1273,7 +1296,7 @@
           ],
           "text": "Ibuprofen 600 MG Oral Tablet"
         },
-        "authoredOn": "2021-09-16T08:23:58.577Z"
+        "authoredOn": "2022-01-10T05:45:34.875Z"
       }
     },
     {
@@ -1296,7 +1319,7 @@
           ],
           "text": "Acetaminophen 500 MG Oral Tablet"
         },
-        "authoredOn": "2021-09-16T08:23:58.577Z"
+        "authoredOn": "2022-01-10T05:45:34.875Z"
       }
     },
     {
@@ -1317,7 +1340,7 @@
           ],
           "text": "Referral to chiropractor (procedure)"
         },
-        "performedDateTime": "2020-10-03T08:23:58.577Z"
+        "performedDateTime": "2021-01-27T05:45:34.875Z"
       }
     },
     {
@@ -1338,7 +1361,7 @@
           ],
           "text": "Referral for physical therapy (procedure)"
         },
-        "performedDateTime": "2020-10-03T08:23:58.577Z"
+        "performedDateTime": "2021-01-27T05:45:34.875Z"
       }
     },
     {
@@ -1359,7 +1382,7 @@
           ],
           "text": "Patient referral for psychotherapy (procedure)"
         },
-        "performedDateTime": "2021-09-16T08:23:58.577Z"
+        "performedDateTime": "2022-01-10T05:45:34.875Z"
       }
     },
     {
@@ -1380,7 +1403,7 @@
           ],
           "text": "Referral to chiropractor (procedure)"
         },
-        "performedDateTime": "2022-08-16T08:23:58.577Z"
+        "performedDateTime": "2022-12-10T05:45:34.875Z"
       }
     },
     {
@@ -1401,7 +1424,7 @@
           ],
           "text": "Referral for physical therapy (procedure)"
         },
-        "performedDateTime": "2022-08-16T08:23:58.577Z"
+        "performedDateTime": "2022-12-10T05:45:34.875Z"
       }
     },
     {
@@ -1424,7 +1447,7 @@
           ],
           "text": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution"
         },
-        "authoredOn": "2021-03-16T08:23:58.577Z"
+        "authoredOn": "2021-07-10T05:45:34.875Z"
       }
     },
     {
@@ -1447,7 +1470,7 @@
           ],
           "text": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution"
         },
-        "authoredOn": "2021-09-16T08:23:58.577Z"
+        "authoredOn": "2022-01-10T05:45:34.875Z"
       }
     },
     {
@@ -1470,7 +1493,7 @@
           ],
           "text": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution"
         },
-        "authoredOn": "2022-03-16T08:23:58.577Z"
+        "authoredOn": "2022-07-10T05:45:34.875Z"
       }
     },
     {
@@ -1493,7 +1516,7 @@
           ],
           "text": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution"
         },
-        "authoredOn": "2022-11-16T08:23:58.577Z"
+        "authoredOn": "2023-03-12T05:45:34.875Z"
       }
     },
     {
@@ -1516,7 +1539,7 @@
           ],
           "text": "POLYETHYLENE GLYCOL 3350 17000 MG Powder for Oral Solution"
         },
-        "authoredOn": "2023-02-14T08:23:58.577Z"
+        "authoredOn": "2023-06-10T05:45:34.875Z"
       }
     },
     {
@@ -1553,7 +1576,7 @@
           "system": "http://unitsofmeasure.org",
           "code": "{MME}/d"
         },
-        "issued": "2023-02-14T08:23:58.577Z"
+        "issued": "2023-06-10T05:45:34.875Z"
       }
     },
     {
@@ -1590,7 +1613,7 @@
           "system": "http://unitsofmeasure.org",
           "code": "{MME}/d"
         },
-        "issued": "2022-11-16T08:23:58.577Z"
+        "issued": "2023-03-12T05:45:34.875Z"
       }
     },
     {
@@ -1627,7 +1650,7 @@
           "system": "http://unitsofmeasure.org",
           "code": "{MME}/d"
         },
-        "issued": "2022-08-10T08:23:58.577Z"
+        "issued": "2022-12-04T05:45:34.875Z"
       }
     },
     {
@@ -1664,7 +1687,7 @@
           "system": "http://unitsofmeasure.org",
           "code": "{MME}/d"
         },
-        "issued": "2021-09-16T08:23:58.577Z"
+        "issued": "2022-01-10T05:45:34.875Z"
       }
     },
     {
@@ -1701,7 +1724,7 @@
           "system": "http://unitsofmeasure.org",
           "code": "{MME}/d"
         },
-        "issued": "2020-10-03T08:23:58.577Z"
+        "issued": "2021-01-27T05:45:34.875Z"
       }
     },
     {
@@ -1740,7 +1763,7 @@
             "text": "Positive"
           }
         ],
-        "issued": "2022-08-16T08:23:58.577Z"
+        "issued": "2022-12-10T05:45:34.875Z"
       }
     },
     {
@@ -1779,7 +1802,7 @@
             "text": "Positive"
           }
         ],
-        "issued": "2021-09-17T08:23:58.577Z"
+        "issued": "2022-01-11T05:45:34.875Z"
       }
     },
     {
@@ -1818,7 +1841,7 @@
             "text": "Positive"
           }
         ],
-        "issued": "2020-10-04T08:23:58.577Z"
+        "issued": "2021-01-28T05:45:34.875Z"
       }
     },
     {
@@ -1841,7 +1864,7 @@
           ],
           "text": "Chlordiazepoxide Hydrochloride 25 MG Oral Tablet"
         },
-        "authoredOn": "2017-02-04T08:23:58.577Z"
+        "authoredOn": "2017-05-31T05:45:34.875Z"
       }
     },
     {
@@ -1880,7 +1903,7 @@
             "text": "Mild depression"
           }
         ],
-        "issued": "2022-07-17T08:23:58.577Z"
+        "issued": "2022-11-10T05:45:34.875Z"
       }
     },
     {
@@ -1919,7 +1942,7 @@
             "text": "Moderately severe depression"
           }
         ],
-        "issued": "2021-09-16T08:23:58.577Z"
+        "issued": "2022-01-10T05:45:34.875Z"
       }
     },
     {
@@ -1958,7 +1981,7 @@
             "text": "Moderately severe depression"
           }
         ],
-        "issued": "2020-10-03T08:23:58.577Z"
+        "issued": "2021-01-27T05:45:34.875Z"
       }
     }
   ]

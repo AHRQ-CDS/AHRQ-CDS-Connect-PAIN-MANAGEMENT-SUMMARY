@@ -1,12 +1,13 @@
 {
    "library" : {
       "annotation" : [ {
+         "translatorVersion" : "2.9.0",
          "translatorOptions" : "",
          "type" : "CqlToElmInfo"
       } ],
       "identifier" : {
          "id" : "FactorsToConsiderInManagingChronicPainFHIRv102",
-         "version" : "2.0.0"
+         "version" : "3.0.0"
       },
       "schemaIdentifier" : {
          "id" : "urn:hl7-org:elm",
@@ -26,7 +27,7 @@
          "def" : [ {
             "localIdentifier" : "C3F",
             "path" : "CDSConnectCommonsForFHIRv102",
-            "version" : "2.0.0"
+            "version" : "2.1.0"
          }, {
             "localIdentifier" : "FHIRHelpers",
             "path" : "FHIRHelpers",
@@ -65,11 +66,11 @@
             "id" : "2.16.840.1.113762.1.4.1021.95",
             "accessLevel" : "Public"
          }, {
-            "name" : "Opioid Pain Medications",
+            "name" : "Opioid pain medications",
             "id" : "2.16.840.1.113762.1.4.1032.34",
             "accessLevel" : "Public"
          }, {
-            "name" : "Adjuvant Analgesic Medications",
+            "name" : "Adjuvant pain medications",
             "id" : "2.16.840.1.113762.1.4.1032.54",
             "accessLevel" : "Public"
          }, {
@@ -121,7 +122,7 @@
             "id" : "https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.264",
             "accessLevel" : "Public"
          }, {
-            "name" : "Non opiod pain medications",
+            "name" : "Nonopioid pain medications",
             "id" : "2.16.840.1.113762.1.4.1032.26",
             "accessLevel" : "Public"
          }, {
@@ -152,7 +153,7 @@
       },
       "codes" : {
          "def" : [ {
-            "name" : "Pregnancy status code",
+            "name" : "Pregnancy status",
             "id" : "82810-3",
             "display" : "Pregnancy status",
             "accessLevel" : "Public",
@@ -160,7 +161,7 @@
                "name" : "LOINC"
             }
          }, {
-            "name" : "Pregnant code",
+            "name" : "Pregnant",
             "id" : "77386006",
             "display" : "Patient currently pregnant (finding)",
             "accessLevel" : "Public",
@@ -168,7 +169,15 @@
                "name" : "SNOMED-CT"
             }
          }, {
-            "name" : "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported] code",
+            "name" : "Management of opioid dosage tapering (procedure)",
+            "id" : "874903005",
+            "display" : "Management of opioid dosage tapering (procedure)",
+            "accessLevel" : "Public",
+            "codeSystem" : {
+               "name" : "SNOMED-CT"
+            }
+         }, {
+            "name" : "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]",
             "id" : "55758-7",
             "display" : "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]",
             "accessLevel" : "Public",
@@ -176,7 +185,7 @@
                "name" : "LOINC"
             }
          }, {
-            "name" : "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported] code",
+            "name" : "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]",
             "id" : "44261-6",
             "display" : "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]",
             "accessLevel" : "Public",
@@ -184,7 +193,7 @@
                "name" : "LOINC"
             }
          }, {
-            "name" : "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ] code",
+            "name" : "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]",
             "id" : "70274-6",
             "display" : "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]",
             "accessLevel" : "Public",
@@ -192,7 +201,7 @@
                "name" : "LOINC"
             }
          }, {
-            "name" : "Total score [AUDIT] code",
+            "name" : "Total score [AUDIT]",
             "id" : "75624-7",
             "display" : "Total score [AUDIT]",
             "accessLevel" : "Public",
@@ -200,7 +209,7 @@
                "name" : "LOINC"
             }
          }, {
-            "name" : "Total score [AUDIT-C] code",
+            "name" : "Total score [AUDIT-C]",
             "id" : "75626-2",
             "display" : "Total score [AUDIT-C]",
             "accessLevel" : "Public",
@@ -208,7 +217,7 @@
                "name" : "LOINC"
             }
          }, {
-            "name" : "Total score [DAST-10] code",
+            "name" : "Total score [DAST-10]",
             "id" : "82667-7",
             "display" : "Total score [DAST-10]",
             "accessLevel" : "Public",
@@ -216,7 +225,7 @@
                "name" : "LOINC"
             }
          }, {
-            "name" : "Total score ORT code",
+            "name" : "Total score ORT",
             "id" : "91392-1",
             "display" : "Total score ORT",
             "accessLevel" : "Public",
@@ -224,7 +233,7 @@
                "name" : "LOINC"
             }
          }, {
-            "name" : "Pain severity Wong-Baker FACES Scale code",
+            "name" : "Pain severity Wong-Baker FACES Scale",
             "id" : "38221-8",
             "display" : "Pain severity Wong-Baker FACES Scale",
             "accessLevel" : "Public",
@@ -232,7 +241,7 @@
                "name" : "LOINC"
             }
          }, {
-            "name" : "Mean score [PEG] code",
+            "name" : "Mean score [PEG]",
             "id" : "91147-9",
             "display" : "Mean score [PEG]",
             "accessLevel" : "Public",
@@ -240,7 +249,7 @@
                "name" : "LOINC"
             }
          }, {
-            "name" : "Pain severity in the past week - 0-10 numeric rating [Reported] code",
+            "name" : "Pain severity in the past week - 0-10 numeric rating [Reported]",
             "id" : "75893-8",
             "display" : "Pain severity in the past week - 0-10 numeric rating [Reported]",
             "accessLevel" : "Public",
@@ -248,7 +257,7 @@
                "name" : "LOINC"
             }
          }, {
-            "name" : "What number best describes how pain has interfered with your enjoyment of life during the past week code",
+            "name" : "What number best describes how pain has interfered with your enjoyment of life during the past week",
             "id" : "91145-3",
             "display" : "What number best describes how pain has interfered with your enjoyment of life during the past week",
             "accessLevel" : "Public",
@@ -256,7 +265,7 @@
                "name" : "LOINC"
             }
          }, {
-            "name" : "What number best describes how pain has interfered with your general activity during the past week code",
+            "name" : "What number best describes how pain has interfered with your general activity during the past week",
             "id" : "91146-1",
             "display" : "What number best describes how pain has interfered with your general activity during the past week",
             "accessLevel" : "Public",
@@ -264,7 +273,7 @@
                "name" : "LOINC"
             }
          }, {
-            "name" : "Pain Enjoyment General Activity (PEG) Assessment LEGACY code",
+            "name" : "Pain Enjoyment General Activity (PEG) Assessment LEGACY",
             "id" : "PEGASSESSMENT",
             "display" : "Pain Enjoyment General Activity (PEG) Assessment",
             "accessLevel" : "Public",
@@ -272,7 +281,7 @@
                "name" : "LOCAL"
             }
          }, {
-            "name" : "Pain LEGACY code",
+            "name" : "Pain LEGACY",
             "id" : "PEGPAIN",
             "display" : "Pain",
             "accessLevel" : "Public",
@@ -280,7 +289,7 @@
                "name" : "LOCAL"
             }
          }, {
-            "name" : "Enjoyment of life LEGACY code",
+            "name" : "Enjoyment of life LEGACY",
             "id" : "PEGENJOYMENT",
             "display" : "Enjoyment of life",
             "accessLevel" : "Public",
@@ -288,7 +297,7 @@
                "name" : "LOCAL"
             }
          }, {
-            "name" : "General activity LEGACY code",
+            "name" : "General activity LEGACY",
             "id" : "PEGGENERALACTIVITY",
             "display" : "General activity",
             "accessLevel" : "Public",
@@ -296,7 +305,7 @@
                "name" : "LOCAL"
             }
          }, {
-            "name" : "Total score [STarT Back] code",
+            "name" : "Total score [STarT Back]",
             "id" : "91351-7",
             "display" : "Total score [STarT Back]",
             "accessLevel" : "Public",
@@ -304,7 +313,7 @@
                "name" : "LOINC"
             }
          }, {
-            "name" : "STarT Back Screening Tool LEGACY code",
+            "name" : "STarT Back Screening Tool LEGACY",
             "id" : "STARTBACK",
             "display" : "STarT Back Screening Tool",
             "accessLevel" : "Public",
@@ -312,7 +321,7 @@
                "name" : "LOCAL"
             }
          }, {
-            "name" : "Single question r/t ETOH use code",
+            "name" : "Single question r/t ETOH use",
             "id" : "SQETOHUSE",
             "display" : "Single question r/t ETOH use",
             "accessLevel" : "Public",
@@ -320,7 +329,7 @@
                "name" : "LOCAL"
             }
          }, {
-            "name" : "Single question r/t drug use code",
+            "name" : "Single question r/t drug use",
             "id" : "SQDRUGUSE",
             "display" : "Single question r/t drug use",
             "accessLevel" : "Public",
@@ -328,177 +337,13 @@
                "name" : "LOCAL"
             }
          }, {
-            "name" : "Morphine Milligram Equivalent (MME) code",
+            "name" : "Morphine Milligram Equivalent (MME)",
             "id" : "MME",
             "display" : "Morphine Milligram Equivalent (MME)",
             "accessLevel" : "Public",
             "codeSystem" : {
                "name" : "LOCAL"
             }
-         } ]
-      },
-      "concepts" : {
-         "def" : [ {
-            "name" : "Pregnancy status",
-            "display" : "Pregnancy status",
-            "accessLevel" : "Public",
-            "code" : [ {
-               "name" : "Pregnancy status code"
-            } ]
-         }, {
-            "name" : "Pregnant",
-            "display" : "Patient currently pregnant (finding)",
-            "accessLevel" : "Public",
-            "code" : [ {
-               "name" : "Pregnant code"
-            } ]
-         }, {
-            "name" : "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]",
-            "display" : "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]",
-            "accessLevel" : "Public",
-            "code" : [ {
-               "name" : "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported] code"
-            } ]
-         }, {
-            "name" : "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]",
-            "display" : "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]",
-            "accessLevel" : "Public",
-            "code" : [ {
-               "name" : "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported] code"
-            } ]
-         }, {
-            "name" : "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]",
-            "display" : "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]",
-            "accessLevel" : "Public",
-            "code" : [ {
-               "name" : "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ] code"
-            } ]
-         }, {
-            "name" : "Total score [AUDIT]",
-            "display" : "Total score [AUDIT]",
-            "accessLevel" : "Public",
-            "code" : [ {
-               "name" : "Total score [AUDIT] code"
-            } ]
-         }, {
-            "name" : "Total score [AUDIT-C]",
-            "display" : "Total score [AUDIT-C]",
-            "accessLevel" : "Public",
-            "code" : [ {
-               "name" : "Total score [AUDIT-C] code"
-            } ]
-         }, {
-            "name" : "Total score [DAST-10]",
-            "display" : "Total score [DAST-10]",
-            "accessLevel" : "Public",
-            "code" : [ {
-               "name" : "Total score [DAST-10] code"
-            } ]
-         }, {
-            "name" : "Total score ORT",
-            "display" : "Total score ORT",
-            "accessLevel" : "Public",
-            "code" : [ {
-               "name" : "Total score ORT code"
-            } ]
-         }, {
-            "name" : "Pain severity Wong-Baker FACES Scale",
-            "display" : "Pain severity Wong-Baker FACES Scale",
-            "accessLevel" : "Public",
-            "code" : [ {
-               "name" : "Pain severity Wong-Baker FACES Scale code"
-            } ]
-         }, {
-            "name" : "Pain severity in the past week - 0-10 numeric rating [Reported]",
-            "display" : "Pain severity in the past week - 0-10 numeric rating [Reported]",
-            "accessLevel" : "Public",
-            "code" : [ {
-               "name" : "Pain severity in the past week - 0-10 numeric rating [Reported] code"
-            } ]
-         }, {
-            "name" : "What number best describes how pain has interfered with your enjoyment of life during the past week",
-            "display" : "What number best describes how pain has interfered with your enjoyment of life during the past week",
-            "accessLevel" : "Public",
-            "code" : [ {
-               "name" : "What number best describes how pain has interfered with your enjoyment of life during the past week code"
-            } ]
-         }, {
-            "name" : "What number best describes how pain has interfered with your general activity during the past week",
-            "display" : "What number best describes how pain has interfered with your general activity during the past week",
-            "accessLevel" : "Public",
-            "code" : [ {
-               "name" : "What number best describes how pain has interfered with your general activity during the past week code"
-            } ]
-         }, {
-            "name" : "Mean score [PEG]",
-            "display" : "Mean score [PEG]",
-            "accessLevel" : "Public",
-            "code" : [ {
-               "name" : "Mean score [PEG] code"
-            } ]
-         }, {
-            "name" : "Pain Enjoyment General Activity (PEG) Assessment LEGACY",
-            "display" : "Pain Enjoyment General Activity (PEG) Assessment",
-            "accessLevel" : "Public",
-            "code" : [ {
-               "name" : "Pain Enjoyment General Activity (PEG) Assessment LEGACY code"
-            } ]
-         }, {
-            "name" : "Pain LEGACY",
-            "display" : "Pain",
-            "accessLevel" : "Public",
-            "code" : [ {
-               "name" : "Pain LEGACY code"
-            } ]
-         }, {
-            "name" : "Enjoyment of life LEGACY",
-            "display" : "Enjoyment of life",
-            "accessLevel" : "Public",
-            "code" : [ {
-               "name" : "Enjoyment of life LEGACY code"
-            } ]
-         }, {
-            "name" : "General activity LEGACY",
-            "display" : "General activity",
-            "accessLevel" : "Public",
-            "code" : [ {
-               "name" : "General activity LEGACY code"
-            } ]
-         }, {
-            "name" : "Total score [STarT Back]",
-            "display" : "Total score [STarT Back]",
-            "accessLevel" : "Public",
-            "code" : [ {
-               "name" : "Total score [STarT Back] code"
-            } ]
-         }, {
-            "name" : "STarT Back Screening Tool LEGACY",
-            "display" : "STarT Back Screening Tool",
-            "accessLevel" : "Public",
-            "code" : [ {
-               "name" : "STarT Back Screening Tool LEGACY code"
-            } ]
-         }, {
-            "name" : "Single question r/t ETOH use",
-            "display" : "Single question r/t ETOH use",
-            "accessLevel" : "Public",
-            "code" : [ {
-               "name" : "Single question r/t ETOH use code"
-            } ]
-         }, {
-            "name" : "Single question r/t drug use",
-            "display" : "Single question r/t drug use",
-            "accessLevel" : "Public",
-            "code" : [ {
-               "name" : "Single question r/t drug use code"
-            } ]
-         }, {
-            "name" : "Morphine Milligram Equivalent (MME)",
-            "display" : "Morphine Milligram Equivalent (MME)",
-            "accessLevel" : "Public",
-            "code" : [ {
-               "name" : "Morphine Milligram Equivalent (MME) code"
-            } ]
          } ]
       },
       "contexts" : {
@@ -537,8 +382,11 @@
                            "type" : "OperandRef"
                         } ]
                      }, {
-                        "name" : "Mean score [PEG]",
-                        "type" : "ConceptRef"
+                        "type" : "ToConcept",
+                        "operand" : {
+                           "name" : "Mean score [PEG]",
+                           "type" : "CodeRef"
+                        }
                      } ]
                   }, {
                      "type" : "Equivalent",
@@ -551,8 +399,11 @@
                            "type" : "OperandRef"
                         } ]
                      }, {
-                        "name" : "Pain Enjoyment General Activity (PEG) Assessment LEGACY",
-                        "type" : "ConceptRef"
+                        "type" : "ToConcept",
+                        "operand" : {
+                           "name" : "Pain Enjoyment General Activity (PEG) Assessment LEGACY",
+                           "type" : "CodeRef"
+                        }
                      } ]
                   } ]
                },
@@ -576,8 +427,11 @@
                               "type" : "OperandRef"
                            } ]
                         }, {
-                           "name" : "Pain severity in the past week - 0-10 numeric rating [Reported]",
-                           "type" : "ConceptRef"
+                           "type" : "ToConcept",
+                           "operand" : {
+                              "name" : "Pain severity in the past week - 0-10 numeric rating [Reported]",
+                              "type" : "CodeRef"
+                           }
                         } ]
                      }, {
                         "type" : "Equivalent",
@@ -590,8 +444,11 @@
                               "type" : "OperandRef"
                            } ]
                         }, {
-                           "name" : "Pain LEGACY",
-                           "type" : "ConceptRef"
+                           "type" : "ToConcept",
+                           "operand" : {
+                              "name" : "Pain LEGACY",
+                              "type" : "CodeRef"
+                           }
                         } ]
                      } ]
                   },
@@ -615,8 +472,11 @@
                                  "type" : "OperandRef"
                               } ]
                            }, {
-                              "name" : "What number best describes how pain has interfered with your enjoyment of life during the past week",
-                              "type" : "ConceptRef"
+                              "type" : "ToConcept",
+                              "operand" : {
+                                 "name" : "What number best describes how pain has interfered with your enjoyment of life during the past week",
+                                 "type" : "CodeRef"
+                              }
                            } ]
                         }, {
                            "type" : "Equivalent",
@@ -629,8 +489,11 @@
                                  "type" : "OperandRef"
                               } ]
                            }, {
-                              "name" : "Enjoyment of life LEGACY",
-                              "type" : "ConceptRef"
+                              "type" : "ToConcept",
+                              "operand" : {
+                                 "name" : "Enjoyment of life LEGACY",
+                                 "type" : "CodeRef"
+                              }
                            } ]
                         } ]
                      },
@@ -654,8 +517,11 @@
                                     "type" : "OperandRef"
                                  } ]
                               }, {
-                                 "name" : "What number best describes how pain has interfered with your general activity during the past week",
-                                 "type" : "ConceptRef"
+                                 "type" : "ToConcept",
+                                 "operand" : {
+                                    "name" : "What number best describes how pain has interfered with your general activity during the past week",
+                                    "type" : "CodeRef"
+                                 }
                               } ]
                            }, {
                               "type" : "Equivalent",
@@ -668,8 +534,11 @@
                                     "type" : "OperandRef"
                                  } ]
                               }, {
-                                 "name" : "General activity LEGACY",
-                                 "type" : "ConceptRef"
+                                 "type" : "ToConcept",
+                                 "operand" : {
+                                    "name" : "General activity LEGACY",
+                                    "type" : "CodeRef"
+                                 }
                               } ]
                            } ]
                         },
@@ -750,8 +619,11 @@
                         "type" : "OperandRef"
                      } ]
                   }, {
-                     "name" : "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]",
-                     "type" : "ConceptRef"
+                     "type" : "ToConcept",
+                     "operand" : {
+                        "name" : "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]",
+                        "type" : "CodeRef"
+                     }
                   } ]
                },
                "then" : {
@@ -782,8 +654,11 @@
                            "type" : "OperandRef"
                         } ]
                      }, {
-                        "name" : "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]",
-                        "type" : "ConceptRef"
+                        "type" : "ToConcept",
+                        "operand" : {
+                           "name" : "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]",
+                           "type" : "CodeRef"
+                        }
                      } ]
                   },
                   "then" : {
@@ -814,8 +689,11 @@
                               "type" : "OperandRef"
                            } ]
                         }, {
-                           "name" : "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]",
-                           "type" : "ConceptRef"
+                           "type" : "ToConcept",
+                           "operand" : {
+                              "name" : "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]",
+                              "type" : "CodeRef"
+                           }
                         } ]
                      },
                      "then" : {
@@ -846,8 +724,11 @@
                                  "type" : "OperandRef"
                               } ]
                            }, {
-                              "name" : "Total score [AUDIT]",
-                              "type" : "ConceptRef"
+                              "type" : "ToConcept",
+                              "operand" : {
+                                 "name" : "Total score [AUDIT]",
+                                 "type" : "CodeRef"
+                              }
                            } ]
                         },
                         "then" : {
@@ -878,8 +759,11 @@
                                     "type" : "OperandRef"
                                  } ]
                               }, {
-                                 "name" : "Total score [AUDIT-C]",
-                                 "type" : "ConceptRef"
+                                 "type" : "ToConcept",
+                                 "operand" : {
+                                    "name" : "Total score [AUDIT-C]",
+                                    "type" : "CodeRef"
+                                 }
                               } ]
                            },
                            "then" : {
@@ -910,8 +794,11 @@
                                        "type" : "OperandRef"
                                     } ]
                                  }, {
-                                    "name" : "Total score [DAST-10]",
-                                    "type" : "ConceptRef"
+                                    "type" : "ToConcept",
+                                    "operand" : {
+                                       "name" : "Total score [DAST-10]",
+                                       "type" : "CodeRef"
+                                    }
                                  } ]
                               },
                               "then" : {
@@ -942,8 +829,11 @@
                                           "type" : "OperandRef"
                                        } ]
                                     }, {
-                                       "name" : "Total score ORT",
-                                       "type" : "ConceptRef"
+                                       "type" : "ToConcept",
+                                       "operand" : {
+                                          "name" : "Total score ORT",
+                                          "type" : "CodeRef"
+                                       }
                                     } ]
                                  },
                                  "then" : {
@@ -974,8 +864,11 @@
                                              "type" : "OperandRef"
                                           } ]
                                        }, {
-                                          "name" : "Pain severity Wong-Baker FACES Scale",
-                                          "type" : "ConceptRef"
+                                          "type" : "ToConcept",
+                                          "operand" : {
+                                             "name" : "Pain severity Wong-Baker FACES Scale",
+                                             "type" : "CodeRef"
+                                          }
                                        } ]
                                     },
                                     "then" : {
@@ -1008,8 +901,11 @@
                                                    "type" : "OperandRef"
                                                 } ]
                                              }, {
-                                                "name" : "Mean score [PEG]",
-                                                "type" : "ConceptRef"
+                                                "type" : "ToConcept",
+                                                "operand" : {
+                                                   "name" : "Mean score [PEG]",
+                                                   "type" : "CodeRef"
+                                                }
                                              } ]
                                           }, {
                                              "type" : "Equivalent",
@@ -1022,8 +918,11 @@
                                                    "type" : "OperandRef"
                                                 } ]
                                              }, {
-                                                "name" : "Pain Enjoyment General Activity (PEG) Assessment LEGACY",
-                                                "type" : "ConceptRef"
+                                                "type" : "ToConcept",
+                                                "operand" : {
+                                                   "name" : "Pain Enjoyment General Activity (PEG) Assessment LEGACY",
+                                                   "type" : "CodeRef"
+                                                }
                                              } ]
                                           } ]
                                        },
@@ -1057,8 +956,11 @@
                                                       "type" : "OperandRef"
                                                    } ]
                                                 }, {
-                                                   "name" : "Total score [STarT Back]",
-                                                   "type" : "ConceptRef"
+                                                   "type" : "ToConcept",
+                                                   "operand" : {
+                                                      "name" : "Total score [STarT Back]",
+                                                      "type" : "CodeRef"
+                                                   }
                                                 } ]
                                              }, {
                                                 "type" : "Equivalent",
@@ -1071,8 +973,11 @@
                                                       "type" : "OperandRef"
                                                    } ]
                                                 }, {
-                                                   "name" : "STarT Back Screening Tool LEGACY",
-                                                   "type" : "ConceptRef"
+                                                   "type" : "ToConcept",
+                                                   "operand" : {
+                                                      "name" : "STarT Back Screening Tool LEGACY",
+                                                      "type" : "CodeRef"
+                                                   }
                                                 } ]
                                              } ]
                                           },
@@ -1834,6 +1739,7 @@
                      "type" : "Retrieve",
                      "codes" : {
                         "name" : "Conditions associated with chronic pain",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   } ]
@@ -1872,7 +1778,8 @@
                            "codeComparator" : "in",
                            "type" : "Retrieve",
                            "codes" : {
-                              "name" : "Opioid Pain Medications",
+                              "name" : "Opioid pain medications",
+                              "preserve" : true,
                               "type" : "ValueSetRef"
                            }
                         }, {
@@ -1897,7 +1804,8 @@
                            "codeComparator" : "in",
                            "type" : "Retrieve",
                            "codes" : {
-                              "name" : "Opioid Pain Medications",
+                              "name" : "Opioid pain medications",
+                              "preserve" : true,
                               "type" : "ValueSetRef"
                            }
                         }, {
@@ -1909,7 +1817,7 @@
                } ]
             }
          }, {
-            "name" : "HasRecentAdjuvantAnalgesicMedication",
+            "name" : "HasRecentNonOpioidPainMedication",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
@@ -1930,7 +1838,8 @@
                            "codeComparator" : "in",
                            "type" : "Retrieve",
                            "codes" : {
-                              "name" : "Adjuvant Analgesic Medications",
+                              "name" : "Nonopioid pain medications",
+                              "preserve" : true,
                               "type" : "ValueSetRef"
                            }
                         }, {
@@ -1955,7 +1864,8 @@
                            "codeComparator" : "in",
                            "type" : "Retrieve",
                            "codes" : {
-                              "name" : "Adjuvant Analgesic Medications",
+                              "name" : "Nonopioid pain medications",
+                              "preserve" : true,
                               "type" : "ValueSetRef"
                            }
                         }, {
@@ -1987,7 +1897,7 @@
                         "type" : "ExpressionRef"
                      } ]
                   }, {
-                     "name" : "HasRecentAdjuvantAnalgesicMedication",
+                     "name" : "HasRecentNonOpioidPainMedication",
                      "type" : "ExpressionRef"
                   } ]
                } ]
@@ -2095,6 +2005,7 @@
                         "type" : "Retrieve",
                         "codes" : {
                            "name" : "Major Depression",
+                           "preserve" : true,
                            "type" : "ValueSetRef"
                         }
                      } ]
@@ -2114,6 +2025,7 @@
                         "type" : "Retrieve",
                         "codes" : {
                            "name" : "Depression Diagnosis ICD9",
+                           "preserve" : true,
                            "type" : "ValueSetRef"
                         }
                      } ]
@@ -2141,6 +2053,7 @@
                         "type" : "Retrieve",
                         "codes" : {
                            "name" : "Anxiety",
+                           "preserve" : true,
                            "type" : "ValueSetRef"
                         }
                      } ]
@@ -2160,6 +2073,7 @@
                         "type" : "Retrieve",
                         "codes" : {
                            "name" : "Anxiety Disorders ICD9",
+                           "preserve" : true,
                            "type" : "ValueSetRef"
                         }
                      } ]
@@ -2183,6 +2097,7 @@
                      "type" : "Retrieve",
                      "codes" : {
                         "name" : "Substance use disorder",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   } ]
@@ -2197,6 +2112,7 @@
                      "type" : "Retrieve",
                      "codes" : {
                         "name" : "Substance Abuse",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   } ]
@@ -2217,6 +2133,7 @@
                   "type" : "Retrieve",
                   "codes" : {
                      "name" : "Suicide Attempt",
+                     "preserve" : true,
                      "type" : "ValueSetRef"
                   }
                } ]
@@ -2240,6 +2157,7 @@
                      "type" : "Retrieve",
                      "codes" : {
                         "name" : "Sleep-disordered breathing",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   } ]
@@ -2264,6 +2182,7 @@
                      "type" : "Retrieve",
                      "codes" : {
                         "name" : "Kidney Failure",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   } ]
@@ -2290,6 +2209,7 @@
                         "type" : "Retrieve",
                         "codes" : {
                            "name" : "Chronic Liver Disease",
+                           "preserve" : true,
                            "type" : "ValueSetRef"
                         }
                      } ]
@@ -2309,6 +2229,7 @@
                         "type" : "Retrieve",
                         "codes" : {
                            "name" : "Liver Disease",
+                           "preserve" : true,
                            "type" : "ValueSetRef"
                         }
                      } ]
@@ -2338,6 +2259,7 @@
                         "type" : "Retrieve",
                         "codes" : {
                            "name" : "CDS Pregnancy",
+                           "preserve" : true,
                            "type" : "ValueSetRef"
                         }
                      } ]
@@ -2366,11 +2288,10 @@
                      "codeComparator" : "~",
                      "type" : "Retrieve",
                      "codes" : {
-                        "path" : "codes",
-                        "type" : "Property",
-                        "source" : {
+                        "type" : "ToList",
+                        "operand" : {
                            "name" : "Pregnancy status",
-                           "type" : "ConceptRef"
+                           "type" : "CodeRef"
                         }
                      }
                   }, {
@@ -2408,8 +2329,42 @@
                      "type" : "ExpressionRef"
                   } ]
                }, {
-                  "name" : "Pregnant",
-                  "type" : "ConceptRef"
+                  "type" : "ToConcept",
+                  "operand" : {
+                     "name" : "Pregnant",
+                     "type" : "CodeRef"
+                  }
+               } ]
+            }
+         }, {
+            "name" : "OpioidTaperingProcedures",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "name" : "ProcedurePerformance",
+               "libraryName" : "C3F",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "name" : "ProcedureLookBack",
+                  "libraryName" : "C3F",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "dataType" : "{http://hl7.org/fhir}Procedure",
+                     "codeProperty" : "code",
+                     "codeComparator" : "~",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "type" : "ToList",
+                        "operand" : {
+                           "name" : "Management of opioid dosage tapering (procedure)",
+                           "type" : "CodeRef"
+                        }
+                     }
+                  }, {
+                     "value" : 2,
+                     "unit" : "years",
+                     "type" : "Quantity"
+                  } ]
                } ]
             }
          }, {
@@ -2545,7 +2500,7 @@
                                                       },
                                                       "valueset" : {
                                                          "name" : "Major Depression",
-                                                         "type" : "ValueSetRef"
+                                                         "preserve" : true
                                                       }
                                                    }, {
                                                       "type" : "InValueSet",
@@ -2560,7 +2515,7 @@
                                                       },
                                                       "valueset" : {
                                                          "name" : "Depression Diagnosis ICD9",
-                                                         "type" : "ValueSetRef"
+                                                         "preserve" : true
                                                       }
                                                    } ]
                                                 }, {
@@ -2576,7 +2531,7 @@
                                                    },
                                                    "valueset" : {
                                                       "name" : "Anxiety",
-                                                      "type" : "ValueSetRef"
+                                                      "preserve" : true
                                                    }
                                                 } ]
                                              }, {
@@ -2592,7 +2547,7 @@
                                                 },
                                                 "valueset" : {
                                                    "name" : "Anxiety Disorders ICD9",
-                                                   "type" : "ValueSetRef"
+                                                   "preserve" : true
                                                 }
                                              } ]
                                           }, {
@@ -2608,7 +2563,7 @@
                                              },
                                              "valueset" : {
                                                 "name" : "Substance use disorder",
-                                                "type" : "ValueSetRef"
+                                                "preserve" : true
                                              }
                                           } ]
                                        }, {
@@ -2624,7 +2579,7 @@
                                           },
                                           "valueset" : {
                                              "name" : "Substance Abuse",
-                                             "type" : "ValueSetRef"
+                                             "preserve" : true
                                           }
                                        } ]
                                     }, {
@@ -2640,7 +2595,7 @@
                                        },
                                        "valueset" : {
                                           "name" : "Suicide Attempt",
-                                          "type" : "ValueSetRef"
+                                          "preserve" : true
                                        }
                                     } ]
                                  }, {
@@ -2656,7 +2611,7 @@
                                     },
                                     "valueset" : {
                                        "name" : "Sleep-disordered breathing",
-                                       "type" : "ValueSetRef"
+                                       "preserve" : true
                                     }
                                  } ]
                               }, {
@@ -2672,7 +2627,7 @@
                                  },
                                  "valueset" : {
                                     "name" : "Kidney Failure",
-                                    "type" : "ValueSetRef"
+                                    "preserve" : true
                                  }
                               } ]
                            }, {
@@ -2688,7 +2643,7 @@
                               },
                               "valueset" : {
                                  "name" : "Chronic Liver Disease",
-                                 "type" : "ValueSetRef"
+                                 "preserve" : true
                               }
                            } ]
                         }, {
@@ -2704,7 +2659,7 @@
                            },
                            "valueset" : {
                               "name" : "Liver Disease",
-                              "type" : "ValueSetRef"
+                              "preserve" : true
                            }
                         } ]
                      }
@@ -2895,7 +2850,7 @@
                                                 },
                                                 "valueset" : {
                                                    "name" : "Major Depression",
-                                                   "type" : "ValueSetRef"
+                                                   "preserve" : true
                                                 }
                                              }, {
                                                 "type" : "InValueSet",
@@ -2910,7 +2865,7 @@
                                                 },
                                                 "valueset" : {
                                                    "name" : "Depression Diagnosis ICD9",
-                                                   "type" : "ValueSetRef"
+                                                   "preserve" : true
                                                 }
                                              } ]
                                           }, {
@@ -2926,7 +2881,7 @@
                                              },
                                              "valueset" : {
                                                 "name" : "Anxiety",
-                                                "type" : "ValueSetRef"
+                                                "preserve" : true
                                              }
                                           } ]
                                        }, {
@@ -2942,7 +2897,7 @@
                                           },
                                           "valueset" : {
                                              "name" : "Anxiety Disorders ICD9",
-                                             "type" : "ValueSetRef"
+                                             "preserve" : true
                                           }
                                        } ]
                                     }, {
@@ -2958,7 +2913,7 @@
                                        },
                                        "valueset" : {
                                           "name" : "Substance use disorder",
-                                          "type" : "ValueSetRef"
+                                          "preserve" : true
                                        }
                                     } ]
                                  }, {
@@ -2974,7 +2929,7 @@
                                     },
                                     "valueset" : {
                                        "name" : "Substance Abuse",
-                                       "type" : "ValueSetRef"
+                                       "preserve" : true
                                     }
                                  } ]
                               }, {
@@ -2990,7 +2945,7 @@
                                  },
                                  "valueset" : {
                                     "name" : "Suicide Attempt",
-                                    "type" : "ValueSetRef"
+                                    "preserve" : true
                                  }
                               } ]
                            }, {
@@ -3006,7 +2961,7 @@
                               },
                               "valueset" : {
                                  "name" : "Sleep-disordered breathing",
-                                 "type" : "ValueSetRef"
+                                 "preserve" : true
                               }
                            } ]
                         }, {
@@ -3022,7 +2977,7 @@
                            },
                            "valueset" : {
                               "name" : "Kidney Failure",
-                              "type" : "ValueSetRef"
+                              "preserve" : true
                            }
                         } ]
                      }, {
@@ -3038,7 +2993,7 @@
                         },
                         "valueset" : {
                            "name" : "Chronic Liver Disease",
-                           "type" : "ValueSetRef"
+                           "preserve" : true
                         }
                      } ]
                   }, {
@@ -3054,7 +3009,7 @@
                      },
                      "valueset" : {
                         "name" : "Liver Disease",
-                        "type" : "ValueSetRef"
+                        "preserve" : true
                      }
                   } ]
                },
@@ -3203,6 +3158,164 @@
                         "source" : {
                            "name" : "Visit",
                            "type" : "IdentifierRef"
+                        }
+                     }
+                  } ]
+               }
+            }
+         }, {
+            "name" : "ReportOpioidTaperingProcedures",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "Procedure",
+                  "expression" : {
+                     "name" : "OpioidTaperingProcedures",
+                     "type" : "ExpressionRef"
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "Name",
+                        "value" : {
+                           "name" : "ConceptText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "code",
+                              "scope" : "Procedure",
+                              "type" : "Property"
+                           } ]
+                        }
+                     }, {
+                        "name" : "Status",
+                        "value" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "status",
+                              "scope" : "Procedure",
+                              "type" : "Property"
+                           }
+                        }
+                     }, {
+                        "name" : "Onset",
+                        "value" : {
+                           "type" : "Coalesce",
+                           "operand" : [ {
+                              "type" : "List",
+                              "element" : [ {
+                                 "name" : "DateTimeText",
+                                 "type" : "FunctionRef",
+                                 "operand" : [ {
+                                    "path" : "performedDateTime",
+                                    "scope" : "Procedure",
+                                    "type" : "Property"
+                                 } ]
+                              }, {
+                                 "name" : "DateTimeText",
+                                 "type" : "FunctionRef",
+                                 "operand" : [ {
+                                    "path" : "start",
+                                    "type" : "Property",
+                                    "source" : {
+                                       "path" : "performedPeriod",
+                                       "scope" : "Procedure",
+                                       "type" : "Property"
+                                    }
+                                 } ]
+                              } ]
+                           } ]
+                        }
+                     }, {
+                        "name" : "DateRecorded",
+                        "value" : {
+                           "strict" : false,
+                           "type" : "As",
+                           "operand" : {
+                              "type" : "Null"
+                           },
+                           "asTypeSpecifier" : {
+                              "name" : "{urn:hl7-org:elm-types:r1}String",
+                              "type" : "NamedTypeSpecifier"
+                           }
+                        }
+                     }, {
+                        "name" : "Abatement",
+                        "value" : {
+                           "name" : "DateTimeText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "end",
+                              "type" : "Property",
+                              "source" : {
+                                 "path" : "performedPeriod",
+                                 "scope" : "Procedure",
+                                 "type" : "Property"
+                              }
+                           } ]
+                        }
+                     }, {
+                        "name" : "Visit",
+                        "value" : {
+                           "strict" : false,
+                           "type" : "As",
+                           "operand" : {
+                              "type" : "Null"
+                           },
+                           "asTypeSpecifier" : {
+                              "type" : "TupleTypeSpecifier",
+                              "element" : [ {
+                                 "name" : "Start",
+                                 "elementType" : {
+                                    "name" : "{urn:hl7-org:elm-types:r1}String",
+                                    "type" : "NamedTypeSpecifier"
+                                 }
+                              }, {
+                                 "name" : "End",
+                                 "elementType" : {
+                                    "name" : "{urn:hl7-org:elm-types:r1}String",
+                                    "type" : "NamedTypeSpecifier"
+                                 }
+                              } ]
+                           }
+                        }
+                     } ]
+                  }
+               },
+               "sort" : {
+                  "by" : [ {
+                     "direction" : "desc",
+                     "type" : "ByExpression",
+                     "expression" : {
+                        "strict" : false,
+                        "type" : "As",
+                        "operand" : {
+                           "name" : "Onset",
+                           "type" : "IdentifierRef"
+                        },
+                        "asTypeSpecifier" : {
+                           "name" : "{urn:hl7-org:elm-types:r1}String",
+                           "type" : "NamedTypeSpecifier"
+                        }
+                     }
+                  }, {
+                     "direction" : "desc",
+                     "type" : "ByExpression",
+                     "expression" : {
+                        "strict" : false,
+                        "type" : "As",
+                        "operand" : {
+                           "name" : "Abatement",
+                           "type" : "IdentifierRef"
+                        },
+                        "asTypeSpecifier" : {
+                           "name" : "{urn:hl7-org:elm-types:r1}String",
+                           "type" : "NamedTypeSpecifier"
                         }
                      }
                   } ]
@@ -3581,11 +3694,88 @@
                               "type" : "ExpressionRef"
                            } ]
                         }, {
-                           "type" : "ToList",
-                           "operand" : {
-                              "name" : "ReportOlderThan65",
+                           "type" : "Union",
+                           "operand" : [ {
+                              "name" : "ReportOpioidTaperingProcedures",
                               "type" : "ExpressionRef"
-                           }
+                           }, {
+                              "type" : "If",
+                              "condition" : {
+                                 "type" : "IsNull",
+                                 "operand" : {
+                                    "name" : "ReportOlderThan65",
+                                    "type" : "ExpressionRef"
+                                 }
+                              },
+                              "then" : {
+                                 "type" : "As",
+                                 "operand" : {
+                                    "type" : "Null"
+                                 },
+                                 "asTypeSpecifier" : {
+                                    "type" : "ListTypeSpecifier",
+                                    "elementType" : {
+                                       "type" : "TupleTypeSpecifier",
+                                       "element" : [ {
+                                          "name" : "Name",
+                                          "elementType" : {
+                                             "name" : "{urn:hl7-org:elm-types:r1}String",
+                                             "type" : "NamedTypeSpecifier"
+                                          }
+                                       }, {
+                                          "name" : "Status",
+                                          "elementType" : {
+                                             "name" : "{urn:hl7-org:elm-types:r1}String",
+                                             "type" : "NamedTypeSpecifier"
+                                          }
+                                       }, {
+                                          "name" : "Onset",
+                                          "elementType" : {
+                                             "name" : "{urn:hl7-org:elm-types:r1}String",
+                                             "type" : "NamedTypeSpecifier"
+                                          }
+                                       }, {
+                                          "name" : "DateRecorded",
+                                          "elementType" : {
+                                             "name" : "{urn:hl7-org:elm-types:r1}String",
+                                             "type" : "NamedTypeSpecifier"
+                                          }
+                                       }, {
+                                          "name" : "Abatement",
+                                          "elementType" : {
+                                             "name" : "{urn:hl7-org:elm-types:r1}String",
+                                             "type" : "NamedTypeSpecifier"
+                                          }
+                                       }, {
+                                          "name" : "Visit",
+                                          "elementType" : {
+                                             "type" : "TupleTypeSpecifier",
+                                             "element" : [ {
+                                                "name" : "Start",
+                                                "elementType" : {
+                                                   "name" : "{urn:hl7-org:elm-types:r1}String",
+                                                   "type" : "NamedTypeSpecifier"
+                                                }
+                                             }, {
+                                                "name" : "End",
+                                                "elementType" : {
+                                                   "name" : "{urn:hl7-org:elm-types:r1}String",
+                                                   "type" : "NamedTypeSpecifier"
+                                                }
+                                             } ]
+                                          }
+                                       } ]
+                                    }
+                                 }
+                              },
+                              "else" : {
+                                 "type" : "List",
+                                 "element" : [ {
+                                    "name" : "ReportOlderThan65",
+                                    "type" : "ExpressionRef"
+                                 } ]
+                              }
+                           } ]
                         } ]
                      }
                   } ],
@@ -3600,27 +3790,175 @@
                         "operand" : [ {
                            "type" : "Union",
                            "operand" : [ {
-                              "name" : "ReportConditionRiskFactorsForOpioidRelatedHarms",
-                              "type" : "ExpressionRef"
+                              "type" : "Union",
+                              "operand" : [ {
+                                 "name" : "ReportConditionRiskFactorsForOpioidRelatedHarms",
+                                 "type" : "ExpressionRef"
+                              }, {
+                                 "name" : "ReportEncounterRiskFactorsForOpioidRelatedHarms",
+                                 "type" : "ExpressionRef"
+                              } ]
                            }, {
-                              "name" : "ReportEncounterRiskFactorsForOpioidRelatedHarms",
-                              "type" : "ExpressionRef"
+                              "type" : "Union",
+                              "operand" : [ {
+                                 "name" : "ReportOpioidTaperingProcedures",
+                                 "type" : "ExpressionRef"
+                              }, {
+                                 "type" : "If",
+                                 "condition" : {
+                                    "type" : "IsNull",
+                                    "operand" : {
+                                       "name" : "ReportOlderThan65",
+                                       "type" : "ExpressionRef"
+                                    }
+                                 },
+                                 "then" : {
+                                    "type" : "As",
+                                    "operand" : {
+                                       "type" : "Null"
+                                    },
+                                    "asTypeSpecifier" : {
+                                       "type" : "ListTypeSpecifier",
+                                       "elementType" : {
+                                          "type" : "TupleTypeSpecifier",
+                                          "element" : [ {
+                                             "name" : "Name",
+                                             "elementType" : {
+                                                "name" : "{urn:hl7-org:elm-types:r1}String",
+                                                "type" : "NamedTypeSpecifier"
+                                             }
+                                          }, {
+                                             "name" : "Status",
+                                             "elementType" : {
+                                                "name" : "{urn:hl7-org:elm-types:r1}String",
+                                                "type" : "NamedTypeSpecifier"
+                                             }
+                                          }, {
+                                             "name" : "Onset",
+                                             "elementType" : {
+                                                "name" : "{urn:hl7-org:elm-types:r1}String",
+                                                "type" : "NamedTypeSpecifier"
+                                             }
+                                          }, {
+                                             "name" : "DateRecorded",
+                                             "elementType" : {
+                                                "name" : "{urn:hl7-org:elm-types:r1}String",
+                                                "type" : "NamedTypeSpecifier"
+                                             }
+                                          }, {
+                                             "name" : "Abatement",
+                                             "elementType" : {
+                                                "name" : "{urn:hl7-org:elm-types:r1}String",
+                                                "type" : "NamedTypeSpecifier"
+                                             }
+                                          }, {
+                                             "name" : "Visit",
+                                             "elementType" : {
+                                                "type" : "TupleTypeSpecifier",
+                                                "element" : [ {
+                                                   "name" : "Start",
+                                                   "elementType" : {
+                                                      "name" : "{urn:hl7-org:elm-types:r1}String",
+                                                      "type" : "NamedTypeSpecifier"
+                                                   }
+                                                }, {
+                                                   "name" : "End",
+                                                   "elementType" : {
+                                                      "name" : "{urn:hl7-org:elm-types:r1}String",
+                                                      "type" : "NamedTypeSpecifier"
+                                                   }
+                                                } ]
+                                             }
+                                          } ]
+                                       }
+                                    }
+                                 },
+                                 "else" : {
+                                    "type" : "List",
+                                    "element" : [ {
+                                       "name" : "ReportOlderThan65",
+                                       "type" : "ExpressionRef"
+                                    } ]
+                                 }
+                              } ]
                            } ]
                         }, {
-                           "type" : "Union",
-                           "operand" : [ {
-                              "type" : "ToList",
-                              "operand" : {
-                                 "name" : "ReportOlderThan65",
-                                 "type" : "ExpressionRef"
-                              }
-                           }, {
-                              "type" : "ToList",
+                           "type" : "If",
+                           "condition" : {
+                              "type" : "IsNull",
                               "operand" : {
                                  "name" : "ReportMostRecentPositivePregnancyObservation",
                                  "type" : "ExpressionRef"
                               }
-                           } ]
+                           },
+                           "then" : {
+                              "type" : "As",
+                              "operand" : {
+                                 "type" : "Null"
+                              },
+                              "asTypeSpecifier" : {
+                                 "type" : "ListTypeSpecifier",
+                                 "elementType" : {
+                                    "type" : "TupleTypeSpecifier",
+                                    "element" : [ {
+                                       "name" : "Name",
+                                       "elementType" : {
+                                          "name" : "{urn:hl7-org:elm-types:r1}String",
+                                          "type" : "NamedTypeSpecifier"
+                                       }
+                                    }, {
+                                       "name" : "Status",
+                                       "elementType" : {
+                                          "name" : "{urn:hl7-org:elm-types:r1}String",
+                                          "type" : "NamedTypeSpecifier"
+                                       }
+                                    }, {
+                                       "name" : "Onset",
+                                       "elementType" : {
+                                          "name" : "{urn:hl7-org:elm-types:r1}String",
+                                          "type" : "NamedTypeSpecifier"
+                                       }
+                                    }, {
+                                       "name" : "DateRecorded",
+                                       "elementType" : {
+                                          "name" : "{urn:hl7-org:elm-types:r1}String",
+                                          "type" : "NamedTypeSpecifier"
+                                       }
+                                    }, {
+                                       "name" : "Abatement",
+                                       "elementType" : {
+                                          "name" : "{urn:hl7-org:elm-types:r1}String",
+                                          "type" : "NamedTypeSpecifier"
+                                       }
+                                    }, {
+                                       "name" : "Visit",
+                                       "elementType" : {
+                                          "type" : "TupleTypeSpecifier",
+                                          "element" : [ {
+                                             "name" : "Start",
+                                             "elementType" : {
+                                                "name" : "{urn:hl7-org:elm-types:r1}String",
+                                                "type" : "NamedTypeSpecifier"
+                                             }
+                                          }, {
+                                             "name" : "End",
+                                             "elementType" : {
+                                                "name" : "{urn:hl7-org:elm-types:r1}String",
+                                                "type" : "NamedTypeSpecifier"
+                                             }
+                                          } ]
+                                       }
+                                    } ]
+                                 }
+                              }
+                           },
+                           "else" : {
+                              "type" : "List",
+                              "element" : [ {
+                                 "name" : "ReportMostRecentPositivePregnancyObservation",
+                                 "type" : "ExpressionRef"
+                              } ]
+                           }
                         } ]
                      }
                   } ],
@@ -3710,11 +4048,10 @@
                      "codeComparator" : "~",
                      "type" : "Retrieve",
                      "codes" : {
-                        "path" : "codes",
-                        "type" : "Property",
-                        "source" : {
+                        "type" : "ToList",
+                        "operand" : {
                            "name" : "Pain severity Wong-Baker FACES Scale",
-                           "type" : "ConceptRef"
+                           "type" : "CodeRef"
                         }
                      }
                   }, {
@@ -3826,11 +4163,10 @@
                         "codeComparator" : "~",
                         "type" : "Retrieve",
                         "codes" : {
-                           "path" : "codes",
-                           "type" : "Property",
-                           "source" : {
+                           "type" : "ToList",
+                           "operand" : {
                               "name" : "Mean score [PEG]",
-                              "type" : "ConceptRef"
+                              "type" : "CodeRef"
                            }
                         }
                      }, {
@@ -3839,11 +4175,10 @@
                         "codeComparator" : "~",
                         "type" : "Retrieve",
                         "codes" : {
-                           "path" : "codes",
-                           "type" : "Property",
-                           "source" : {
+                           "type" : "ToList",
+                           "operand" : {
                               "name" : "Pain Enjoyment General Activity (PEG) Assessment LEGACY",
-                              "type" : "ConceptRef"
+                              "type" : "CodeRef"
                            }
                         }
                      } ]
@@ -3894,8 +4229,11 @@
                                  "type" : "Property"
                               } ]
                            }, {
-                              "name" : "Pain severity in the past week - 0-10 numeric rating [Reported]",
-                              "type" : "ConceptRef"
+                              "type" : "ToConcept",
+                              "operand" : {
+                                 "name" : "Pain severity in the past week - 0-10 numeric rating [Reported]",
+                                 "type" : "CodeRef"
+                              }
                            } ]
                         }, {
                            "type" : "Equivalent",
@@ -3909,8 +4247,11 @@
                                  "type" : "Property"
                               } ]
                            }, {
-                              "name" : "Pain LEGACY",
-                              "type" : "ConceptRef"
+                              "type" : "ToConcept",
+                              "operand" : {
+                                 "name" : "Pain LEGACY",
+                                 "type" : "CodeRef"
+                              }
                            } ]
                         } ]
                      }
@@ -3942,8 +4283,11 @@
                                  "type" : "Property"
                               } ]
                            }, {
-                              "name" : "What number best describes how pain has interfered with your enjoyment of life during the past week",
-                              "type" : "ConceptRef"
+                              "type" : "ToConcept",
+                              "operand" : {
+                                 "name" : "What number best describes how pain has interfered with your enjoyment of life during the past week",
+                                 "type" : "CodeRef"
+                              }
                            } ]
                         }, {
                            "type" : "Equivalent",
@@ -3957,8 +4301,11 @@
                                  "type" : "Property"
                               } ]
                            }, {
-                              "name" : "Enjoyment of life LEGACY",
-                              "type" : "ConceptRef"
+                              "type" : "ToConcept",
+                              "operand" : {
+                                 "name" : "Enjoyment of life LEGACY",
+                                 "type" : "CodeRef"
+                              }
                            } ]
                         } ]
                      }
@@ -3990,8 +4337,11 @@
                                  "type" : "Property"
                               } ]
                            }, {
-                              "name" : "What number best describes how pain has interfered with your general activity during the past week",
-                              "type" : "ConceptRef"
+                              "type" : "ToConcept",
+                              "operand" : {
+                                 "name" : "What number best describes how pain has interfered with your general activity during the past week",
+                                 "type" : "CodeRef"
+                              }
                            } ]
                         }, {
                            "type" : "Equivalent",
@@ -4005,8 +4355,11 @@
                                  "type" : "Property"
                               } ]
                            }, {
-                              "name" : "General activity LEGACY",
-                              "type" : "ConceptRef"
+                              "type" : "ToConcept",
+                              "operand" : {
+                                 "name" : "General activity LEGACY",
+                                 "type" : "CodeRef"
+                              }
                            } ]
                         } ]
                      }
@@ -4175,11 +4528,10 @@
                         "codeComparator" : "~",
                         "type" : "Retrieve",
                         "codes" : {
-                           "path" : "codes",
-                           "type" : "Property",
-                           "source" : {
+                           "type" : "ToList",
+                           "operand" : {
                               "name" : "Total score [STarT Back]",
-                              "type" : "ConceptRef"
+                              "type" : "CodeRef"
                            }
                         }
                      }, {
@@ -4188,11 +4540,10 @@
                         "codeComparator" : "~",
                         "type" : "Retrieve",
                         "codes" : {
-                           "path" : "codes",
-                           "type" : "Property",
-                           "source" : {
+                           "type" : "ToList",
+                           "operand" : {
                               "name" : "STarT Back Screening Tool LEGACY",
-                              "type" : "ConceptRef"
+                              "type" : "CodeRef"
                            }
                         }
                      } ]
@@ -4303,7 +4654,8 @@
                      "codeComparator" : "in",
                      "type" : "Retrieve",
                      "codes" : {
-                        "name" : "Opioid Pain Medications",
+                        "name" : "Opioid pain medications",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   }, {
@@ -4331,7 +4683,8 @@
                      "codeComparator" : "in",
                      "type" : "Retrieve",
                      "codes" : {
-                        "name" : "Opioid Pain Medications",
+                        "name" : "Opioid pain medications",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   }, {
@@ -4560,7 +4913,8 @@
                      "codeComparator" : "in",
                      "type" : "Retrieve",
                      "codes" : {
-                        "name" : "Non opiod pain medications",
+                        "name" : "Nonopioid pain medications",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   }, {
@@ -4588,7 +4942,8 @@
                      "codeComparator" : "in",
                      "type" : "Retrieve",
                      "codes" : {
-                        "name" : "Non opiod pain medications",
+                        "name" : "Nonopioid pain medications",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   }, {
@@ -4800,6 +5155,265 @@
                }
             }
          }, {
+            "name" : "AdjuvantPainMedicationOrders",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "name" : "ActiveCompletedOrStoppedMedicationOrder",
+               "libraryName" : "C3F",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "name" : "MedicationOrderLookBack",
+                  "libraryName" : "C3F",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "dataType" : "{http://hl7.org/fhir}MedicationOrder",
+                     "codeProperty" : "medicationCodeableConcept",
+                     "codeComparator" : "in",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "name" : "Adjuvant pain medications",
+                        "preserve" : true,
+                        "type" : "ValueSetRef"
+                     }
+                  }, {
+                     "value" : 2,
+                     "unit" : "years",
+                     "type" : "Quantity"
+                  } ]
+               } ]
+            }
+         }, {
+            "name" : "AdjuvantPainMedicationStatements",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "name" : "ActiveOrCompletedMedicationStatement",
+               "libraryName" : "C3F",
+               "type" : "FunctionRef",
+               "operand" : [ {
+                  "name" : "MedicationStatementLookBack",
+                  "libraryName" : "C3F",
+                  "type" : "FunctionRef",
+                  "operand" : [ {
+                     "dataType" : "{http://hl7.org/fhir}MedicationStatement",
+                     "codeProperty" : "medicationCodeableConcept",
+                     "codeComparator" : "in",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "name" : "Adjuvant pain medications",
+                        "preserve" : true,
+                        "type" : "ValueSetRef"
+                     }
+                  }, {
+                     "value" : 2,
+                     "unit" : "years",
+                     "type" : "Quantity"
+                  } ]
+               } ]
+            }
+         }, {
+            "name" : "ReportAdjuvantPainMedicationOrders",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "Order",
+                  "expression" : {
+                     "name" : "AdjuvantPainMedicationOrders",
+                     "type" : "ExpressionRef"
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "Type",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "Order",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "Name",
+                        "value" : {
+                           "name" : "ConceptText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "medicationCodeableConcept",
+                              "scope" : "Order",
+                              "type" : "Property"
+                           } ]
+                        }
+                     }, {
+                        "name" : "Start",
+                        "value" : {
+                           "name" : "DateTimeText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "dateWritten",
+                              "scope" : "Order",
+                              "type" : "Property"
+                           } ]
+                        }
+                     }, {
+                        "name" : "End",
+                        "value" : {
+                           "name" : "DateTimeText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "dateEnded",
+                              "scope" : "Order",
+                              "type" : "Property"
+                           } ]
+                        }
+                     }, {
+                        "name" : "Status",
+                        "value" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "status",
+                              "scope" : "Order",
+                              "type" : "Property"
+                           }
+                        }
+                     } ]
+                  }
+               },
+               "sort" : {
+                  "by" : [ {
+                     "direction" : "desc",
+                     "path" : "Start",
+                     "type" : "ByColumn"
+                  }, {
+                     "direction" : "desc",
+                     "path" : "End",
+                     "type" : "ByColumn"
+                  } ]
+               }
+            }
+         }, {
+            "name" : "ReportAdjuvantPainMedicationStatements",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "Statement",
+                  "expression" : {
+                     "name" : "AdjuvantPainMedicationStatements",
+                     "type" : "ExpressionRef"
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "Type",
+                        "value" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "Statement",
+                           "type" : "Literal"
+                        }
+                     }, {
+                        "name" : "Name",
+                        "value" : {
+                           "name" : "ConceptText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "medicationCodeableConcept",
+                              "scope" : "Statement",
+                              "type" : "Property"
+                           } ]
+                        }
+                     }, {
+                        "name" : "Start",
+                        "value" : {
+                           "name" : "MedicationStatementDate",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "name" : "Statement",
+                              "type" : "AliasRef"
+                           } ]
+                        }
+                     }, {
+                        "name" : "End",
+                        "value" : {
+                           "name" : "DateTimeText",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "path" : "end",
+                              "type" : "Property",
+                              "source" : {
+                                 "path" : "effectivePeriod",
+                                 "scope" : "Statement",
+                                 "type" : "Property"
+                              }
+                           } ]
+                        }
+                     }, {
+                        "name" : "Status",
+                        "value" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "status",
+                              "scope" : "Statement",
+                              "type" : "Property"
+                           }
+                        }
+                     } ]
+                  }
+               },
+               "sort" : {
+                  "by" : [ {
+                     "direction" : "desc",
+                     "path" : "Start",
+                     "type" : "ByColumn"
+                  }, {
+                     "direction" : "desc",
+                     "path" : "End",
+                     "type" : "ByColumn"
+                  } ]
+               }
+            }
+         }, {
+            "name" : "ReportAdjuvantPainMedications",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "Medication",
+                  "expression" : {
+                     "type" : "Union",
+                     "operand" : [ {
+                        "name" : "ReportAdjuvantPainMedicationOrders",
+                        "type" : "ExpressionRef"
+                     }, {
+                        "name" : "ReportAdjuvantPainMedicationStatements",
+                        "type" : "ExpressionRef"
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "sort" : {
+                  "by" : [ {
+                     "direction" : "desc",
+                     "path" : "Start",
+                     "type" : "ByColumn"
+                  }, {
+                     "direction" : "desc",
+                     "path" : "End",
+                     "type" : "ByColumn"
+                  } ]
+               }
+            }
+         }, {
             "name" : "NonPharmacologicTreatmentProcedures",
             "context" : "Patient",
             "accessLevel" : "Public",
@@ -4818,6 +5432,7 @@
                      "type" : "Retrieve",
                      "codes" : {
                         "name" : "Non pharmacologic treatments for chronic pain",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   }, {
@@ -4918,6 +5533,7 @@
                      "type" : "Retrieve",
                      "codes" : {
                         "name" : "Non pharmacologic treatments for chronic pain",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   }, {
@@ -5032,7 +5648,7 @@
                               },
                               "valueset" : {
                                  "name" : "Non pharmacologic treatments for chronic pain",
-                                 "type" : "ValueSetRef"
+                                 "preserve" : true
                               }
                            }
                         }
@@ -5170,6 +5786,7 @@
                      "type" : "Retrieve",
                      "codes" : {
                         "name" : "Stool softeners and laxatives",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   }, {
@@ -5198,6 +5815,7 @@
                      "type" : "Retrieve",
                      "codes" : {
                         "name" : "Stool softeners and laxatives",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   }, {
@@ -5430,11 +6048,10 @@
                         "codeComparator" : "~",
                         "type" : "Retrieve",
                         "codes" : {
-                           "path" : "codes",
-                           "type" : "Property",
-                           "source" : {
+                           "type" : "ToList",
+                           "operand" : {
                               "name" : "Morphine Milligram Equivalent (MME)",
-                              "type" : "ConceptRef"
+                              "type" : "CodeRef"
                            }
                         }
                      }, {
@@ -5555,6 +6172,7 @@
                      "type" : "Retrieve",
                      "codes" : {
                         "name" : "Urine drug screen for pain management",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   }, {
@@ -5673,6 +6291,7 @@
                      "type" : "Retrieve",
                      "codes" : {
                         "name" : "Benzodiazepine medications",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   }, {
@@ -5701,6 +6320,7 @@
                      "type" : "Retrieve",
                      "codes" : {
                         "name" : "Benzodiazepine medications",
+                        "preserve" : true,
                         "type" : "ValueSetRef"
                      }
                   }, {
@@ -5926,6 +6546,7 @@
                   "type" : "Retrieve",
                   "codes" : {
                      "name" : "Naloxone medications",
+                     "preserve" : true,
                      "type" : "ValueSetRef"
                   }
                } ]
@@ -5945,6 +6566,7 @@
                   "type" : "Retrieve",
                   "codes" : {
                      "name" : "Naloxone medications",
+                     "preserve" : true,
                      "type" : "ValueSetRef"
                   }
                } ]
@@ -6173,6 +6795,7 @@
                            "type" : "Retrieve",
                            "codes" : {
                               "name" : "Risk assessments relevant to pain management",
+                              "preserve" : true,
                               "type" : "ValueSetRef"
                            }
                         }, {
@@ -6181,11 +6804,10 @@
                            "codeComparator" : "~",
                            "type" : "Retrieve",
                            "codes" : {
-                              "path" : "codes",
-                              "type" : "Property",
-                              "source" : {
+                              "type" : "ToList",
+                              "operand" : {
                                  "name" : "Single question r/t ETOH use",
-                                 "type" : "ConceptRef"
+                                 "type" : "CodeRef"
                               }
                            }
                         } ]
@@ -6195,11 +6817,10 @@
                         "codeComparator" : "~",
                         "type" : "Retrieve",
                         "codes" : {
-                           "path" : "codes",
-                           "type" : "Property",
-                           "source" : {
+                           "type" : "ToList",
+                           "operand" : {
                               "name" : "Single question r/t drug use",
-                              "type" : "ConceptRef"
+                              "type" : "CodeRef"
                            }
                         }
                      } ]
@@ -6544,6 +7165,12 @@
                         "name" : "NonOpioidMedications",
                         "value" : {
                            "name" : "ReportNonOpioidMedications",
+                           "type" : "ExpressionRef"
+                        }
+                     }, {
+                        "name" : "AdjuvantPainMedications",
+                        "value" : {
+                           "name" : "ReportAdjuvantPainMedications",
                            "type" : "ExpressionRef"
                         }
                      }, {

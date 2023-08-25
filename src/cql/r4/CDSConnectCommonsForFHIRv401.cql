@@ -3,19 +3,10 @@
 // This library provides functions commonly used by CDS Connect CQL libraries as well as the
 // CDS Connect CDS Authoring Tool.
 //
-// Version 2.0.0 implements several best practices prescribed by FHIR Clinical Guidelines, including:
-// - Renaming library from CDS_Connect_Commons_for_FHIRv401 to CDSConnectCommonsForFHIRv401
-// - Surrounding all library-level identifiers and datatypes in quotes
-// - Using descriptive names (no abbreviations) for query aliases and function arguments
-//
-// Version 2.0.0 also introduces the following changes from the previous version of this library:
-// - Add functions to align with CDS_Connect_Commons_for_FHIRv400.cql v1.0.4:
-//   - "FirstObservation", "AverageObservation", "FirstCondition", "FirstProcedure",
-//     "ActiveOrCompletedServiceRequest", "ActiveServiceRequest", "CompletedServiceRequest",
-//     "CompletedImmunization", "ImmunizationLookBack", "MostRecentImmunization", "FirstImmunization",
-//     and "ActiveDevice"
+// Version 2.1.0 add the following functions:
+// - Finished: Filters encounters to only those with status 'finished'
 
-library CDSConnectCommonsForFHIRv401 version '2.0.0'
+library CDSConnectCommonsForFHIRv401 version '2.1.0'
 
 using FHIR version '4.0.1'
 
@@ -552,6 +543,16 @@ define function "MedicationDispenseLookBack"(Dispenses List<"MedicationDispense"
 define function "InProgress"(Encounters List<"Encounter">):
   Encounters Encounter
     where Encounter.status.value = 'in-progress'
+
+/**
+ * Encounters that are finished. In FHIR R4, this is reflected by status: 'finished'.
+ * @see http://hl7.org/fhir/R4/valueset-encounter-status.html
+ * @param Encounters - a list of Encounters
+ * @returns {List<"Encounter">} a list of finished encounters, or null if null was passed in
+ */
+define function "Finished"(Encounters List<"Encounter">):
+  Encounters Encounter
+    where Encounter.status.value = 'finished'
 
 /**
  * Encounters performed in the specified "look back" period.

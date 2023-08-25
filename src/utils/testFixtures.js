@@ -117,6 +117,14 @@ const mockSummaryA = {
         "End": null
       }
     ],
+    "AdjuvantPainMedications": [
+      {
+        "Type": "Order",
+        "Name": "duloxetine 30 MG Delayed Release Oral Capsule",
+        "Start": "2018-01-06T00:00:00.000+00:00",
+        "End": null
+      }
+    ],
     "NonPharmacologicTreatments": [
       {
         "Type": "Procedure",
@@ -299,6 +307,14 @@ const mockSummaryB = {
         "End": null
       }
     ],
+    "AdjuvantPainMedications": [
+      {
+        "Type": "Order",
+        "Name": "duloxetine 30 MG Delayed Release Oral Capsule",
+        "Start": "2018-01-06T00:00:00.000+00:00",
+        "End": null
+      }
+    ],
     "NonPharmacologicTreatments": [
       {
         "Type": "Procedure",
@@ -422,6 +438,14 @@ const mockSummaryC = {
         "End": null
       }
     ],
+    "AdjuvantPainMedications": [
+      {
+        "Type": "Order",
+        "Name": "duloxetine 30 MG Delayed Release Oral Capsule",
+        "Start": "2018-01-06T00:00:00.000+00:00",
+        "End": null
+      }
+    ],
     "NonPharmacologicTreatments": [
       {
         "Type": "Procedure",
@@ -477,7 +501,7 @@ const mockSummaryC = {
   }
 };
 
-// no opioids, no naloxone, no benzo, no non-opioid, has drug screen, no non-pharma, MME < 50
+// no opioids, no naloxone, no benzo, no nonopioid, no adjuvant, has drug screen, no non-pharma, MME < 50
 const mockSummaryD = {
   "Patient": {
     "Name": "Fuller Jackson",
@@ -546,6 +570,7 @@ const mockSummaryD = {
   "HistoricalTreatments": {
     "OpioidMedications": [],
     "NonOpioidMedications": [],
+    "AdjuvantPainMedications": [],
     "NonPharmacologicTreatments": [],
     "StoolSoftenersAndLaxatives": [
       {
@@ -693,6 +718,14 @@ const mockSummaryE = {
         "Type": "Statement",
         "Name": "Ibuprofen 200 MG Oral Tablet",
         "Start": "2017-11-12T00:00:00.000+00:00",
+        "End": null
+      }
+    ],
+    "AdjuvantPainMedications": [
+      {
+        "Type": "Order",
+        "Name": "duloxetine 30 MG Delayed Release Oral Capsule",
+        "Start": "2018-01-06T00:00:00.000+00:00",
         "End": null
       }
     ],
@@ -862,6 +895,14 @@ const mockSummaryF = {
         "Type": "Statement",
         "Name": "Ibuprofen 200 MG Oral Tablet",
         "Start": "2017-11-12T00:00:00.000+00:00",
+        "End": null
+      }
+    ],
+    "AdjuvantPainMedications": [
+      {
+        "Type": "Order",
+        "Name": "duloxetine 30 MG Delayed Release Oral Capsule",
+        "Start": "2018-01-06T00:00:00.000+00:00",
         "End": null
       }
     ],
@@ -1047,6 +1088,14 @@ const mockSummaryG = {
         "End": null
       }
     ],
+    "AdjuvantPainMedications": [
+      {
+        "Type": "Order",
+        "Name": "duloxetine 30 MG Delayed Release Oral Capsule",
+        "Start": "2018-01-06T00:00:00.000+00:00",
+        "End": null
+      }
+    ],
     "NonPharmacologicTreatments": [
       {
         "Type": "Procedure",
@@ -1127,6 +1176,7 @@ const mockSectionFlags = {
       7
     ],
     "NonOpioidMedications": [],
+    "AdjuvantPainMedications": [],
     "NonPharmacologicTreatments": [],
     "StoolSoftenersAndLaxatives": []
   },

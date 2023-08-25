@@ -10,25 +10,23 @@
 // not provide enough specificity.  These decisions were made in the context of the CDS Connect Workgroup and CDC
 // stakeholders, and are documented in the logic and/or in the CDS Connect artifact metadata.
 //
-// Version 2.0.0 implements several best practices prescribed by FHIR Clinical Guidelines, including:
-// - Rename library from Factors_to_Consider_in_Managing_Chronic_Pain_FHIRv102 to FactorsToConsiderInManagingChronicPainFHIRv102
-// - Update CDS Connect Commons library to CDSConnectCommonsForFHIRv102 version 2.0.0
-// - Surround all library-level identifiers and datatypes in quotes
-// - Use descriptive names (no abbreviations) for query aliases and function arguments
-// - Replace C3F.NullSafeToConcept with FHIRHelpers.ToConcept (which is now null-safe)
-// - Remove use of coalesce where only one argument was provided
-// - Fix non-standard use of Exists(...) as a function
-//
-// Version 2.0.0 also introduces the following changes from the previous version:
-// - Replace "Conditions associated with chronic pain" 2.16.840.1.113762.1.4.1032.37 value set with 2.16.840.1.113762.1.4.1021.95
-// - Replace "Pregnancy" 2.16.840.1.113883.3.526.3.378 and "Pregnancy (New ICD10 codes published in 2018 and 2019)"
-//   2.16.840.1.113762.1.4.1032.80 value sets with grouping value set "CDS Pregnancy" 2.16.840.1.113762.1.4.1032.264
+// Version 3.0.0 makes significant changes to the inclusion criteria as well as other meaningful changes, including:
+// - Remove adjuvant analgesics from inclusions and add non-Opioid pain medications instead
+// - Add note (in comments) about excluding patients with sickle cell disease
+// - Add opioid tapering to risk factors for opioid-related harms
+// - Add adjuvant pain medications to treatment history section
+// - Rename "Opioid Pain Medications" value set to "Opioid pain medications"
+// - Rename "Adjuvant Analgesic Medications" value set to "Adjuvant pain medications"
+// - Rename "Non opioid pain medications" value set to "Nonopioid pain medications"
+// - Add "Management of opioid dosage tapering (procedure)" code (SNOMED-CT 874903005)
+// - Convert "ReportOlderThan65" and "ReportMostRecentPositivePregnancyObservation" to lists before unioning them
+// - Remove CQL concept definitions in favor of using CQL code definitions directly
 //
 // NOTE: This version has not been piloted in a clinical setting, but has undergone logic testing and review.
 //
 // ##Source guideline: [CDC Guideline for Opioid Prescribing for Chronic Pain](https://www.cdc.gov/drugoverdose/prescribing/guideline.html)
 
-library FactorsToConsiderInManagingChronicPainFHIRv102 version '2.0.0'
+library FactorsToConsiderInManagingChronicPainFHIRv102 version '3.0.0'
 
 // # Data model #
 
@@ -38,7 +36,7 @@ using FHIR version '1.0.2'
 // # Referenced libraries #
 
 // The CDS Connect Commons for FHIRv102 library provides functions representing commonly used CDS logic and patterns.
-include CDSConnectCommonsForFHIRv102 version '2.0.0' called C3F
+include CDSConnectCommonsForFHIRv102 version '2.1.0' called C3F
 // The FHIRHelpers library provides common functions for simplifying interaction w/ the FHIR v102 data model.
 include FHIRHelpers version '1.0.2' called FHIRHelpers
 
@@ -49,10 +47,11 @@ include FHIRHelpers version '1.0.2' called FHIRHelpers
 codesystem "LOINC": 'http://loinc.org'
 codesystem "SNOMED-CT": 'http://snomed.info/sct'
 
-// Several concepts needed by the Pain Management Summary CDS do not yet have standardized codes associated with them.
-// The CDS logic authors have registered new Logical Object Identifier Names and Codes (LOINC) codes, but they are
-// not yet available.  Once available, the CDS will be updated.  Until then, CDS implementors will need to map to
-// local codes (signified by the LOCAL code system below) or replace them with their own codes.
+// Several concepts needed by the Pain Management Summary CDS did not have standardized codes associated with them
+// when this artifact was first published. Some of these now have LOINC codes, but local codes have been retained
+// in the CQL for backwards-compatibility (alongside the preferred LOINC codes). Other concepts still do not have
+// standardized codes. For these codes, CDS implementors will need to map to local codes (signified by the LOCAL
+// code system below) or replace them with their own codes.
 codesystem "LOCAL": 'http://cds.ahrq.gov/cdsconnect/pms'
 
 // ## Value sets ##
@@ -64,10 +63,10 @@ codesystem "LOCAL": 'http://cds.ahrq.gov/cdsconnect/pms'
 valueset "Conditions associated with chronic pain": '2.16.840.1.113762.1.4.1021.95'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.34/expansion)
-valueset "Opioid Pain Medications": '2.16.840.1.113762.1.4.1032.34'
+valueset "Opioid pain medications": '2.16.840.1.113762.1.4.1032.34'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.54/expansion)
-valueset "Adjuvant Analgesic Medications": '2.16.840.1.113762.1.4.1032.54'
+valueset "Adjuvant pain medications": '2.16.840.1.113762.1.4.1032.54'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113883.3.464.1003.105.12.1007/expansion)
 valueset "Major Depression": '2.16.840.1.113883.3.464.1003.105.12.1007'
@@ -106,7 +105,7 @@ valueset "Liver Disease": '2.16.840.1.113762.1.4.1047.42'
 valueset "CDS Pregnancy": 'https://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1032.264'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.26/expansion)
-valueset "Non opiod pain medications": '2.16.840.1.113762.1.4.1032.26'
+valueset "Nonopioid pain medications": '2.16.840.1.113762.1.4.1032.26'
 
 // [See value set in VSAC](https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1032.36/expansion)
 valueset "Non pharmacologic treatments for chronic pain": '2.16.840.1.113762.1.4.1032.36'
@@ -132,19 +131,21 @@ valueset "Stool softeners and laxatives": '2.16.840.1.113762.1.4.1032.44'
 // a single code from a particular vocabulary standard used to represent a clinical concept. It is considered
 // best-practice not to create value sets containing a single code.
 
-code "Pregnancy status code": '82810-3' from "LOINC" display 'Pregnancy status'
-code "Pregnant code": '77386006' from "SNOMED-CT" display 'Patient currently pregnant (finding)'
-code "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported] code":
+code "Pregnancy status": '82810-3' from "LOINC" display 'Pregnancy status'
+code "Pregnant": '77386006' from "SNOMED-CT" display 'Patient currently pregnant (finding)'
+code "Management of opioid dosage tapering (procedure)":
+  '874903005' from "SNOMED-CT" display 'Management of opioid dosage tapering (procedure)'
+code "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]":
   '55758-7' from "LOINC" display 'Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]'
-code "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported] code":
+code "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]":
   '44261-6' from "LOINC" display 'Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]'
-code "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ] code":
+code "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]":
   '70274-6' from "LOINC" display 'Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]'
-code "Total score [AUDIT] code": '75624-7' from "LOINC" display 'Total score [AUDIT]'
-code "Total score [AUDIT-C] code": '75626-2' from "LOINC" display 'Total score [AUDIT-C]'
-code "Total score [DAST-10] code": '82667-7' from "LOINC" display 'Total score [DAST-10]'
-code "Total score ORT code": '91392-1' from "LOINC" display 'Total score ORT'
-code "Pain severity Wong-Baker FACES Scale code": '38221-8' from "LOINC" display 'Pain severity Wong-Baker FACES Scale'
+code "Total score [AUDIT]": '75624-7' from "LOINC" display 'Total score [AUDIT]'
+code "Total score [AUDIT-C]": '75626-2' from "LOINC" display 'Total score [AUDIT-C]'
+code "Total score [DAST-10]": '82667-7' from "LOINC" display 'Total score [DAST-10]'
+code "Total score ORT": '91392-1' from "LOINC" display 'Total score ORT'
+code "Pain severity Wong-Baker FACES Scale": '38221-8' from "LOINC" display 'Pain severity Wong-Baker FACES Scale'
 
 // The Pain intensity, Enjoyment of life, General activity scale [PEG] now has standardized LOINC codes available.
 // These LOINC codes were not available when the initial version of the Pain Management Summary was developed.
@@ -152,22 +153,22 @@ code "Pain severity Wong-Baker FACES Scale code": '38221-8' from "LOINC" display
 // are also retained in order to allow existing systems to continue to function. Existing systems, however, are
 // strongly encouraged to adopt the standardized LOINC codes.
 
-code "Mean score [PEG] code": '91147-9' from "LOINC" display 'Mean score [PEG]'
-code "Pain severity in the past week - 0-10 numeric rating [Reported] code":
+code "Mean score [PEG]": '91147-9' from "LOINC" display 'Mean score [PEG]'
+code "Pain severity in the past week - 0-10 numeric rating [Reported]":
   '75893-8' from "LOINC" display 'Pain severity in the past week - 0-10 numeric rating [Reported]'
-code "What number best describes how pain has interfered with your enjoyment of life during the past week code":
+code "What number best describes how pain has interfered with your enjoyment of life during the past week":
   '91145-3' from "LOINC" display 'What number best describes how pain has interfered with your enjoyment of life during the past week'
-code "What number best describes how pain has interfered with your general activity during the past week code":
+code "What number best describes how pain has interfered with your general activity during the past week":
   '91146-1' from "LOINC" display 'What number best describes how pain has interfered with your general activity during the past week'
 
 // Legacy local codes for the Pain intensity, Enjoyment of life, General activity scale [PEG].
 // New systems should use the LOINC codes above instead.
 
-code "Pain Enjoyment General Activity (PEG) Assessment LEGACY code":
+code "Pain Enjoyment General Activity (PEG) Assessment LEGACY":
   'PEGASSESSMENT' from "LOCAL" display 'Pain Enjoyment General Activity (PEG) Assessment'
-code "Pain LEGACY code": 'PEGPAIN' from "LOCAL" display 'Pain'
-code "Enjoyment of life LEGACY code": 'PEGENJOYMENT' from "LOCAL" display 'Enjoyment of life'
-code "General activity LEGACY code": 'PEGGENERALACTIVITY' from "LOCAL" display 'General activity'
+code "Pain LEGACY": 'PEGPAIN' from "LOCAL" display 'Pain'
+code "Enjoyment of life LEGACY": 'PEGENJOYMENT' from "LOCAL" display 'Enjoyment of life'
+code "General activity LEGACY": 'PEGGENERALACTIVITY' from "LOCAL" display 'General activity'
 
 // The STarT Back Screening Tool now has a standardized LOINC code available. This LOINC code was not available
 // when the initial version of the Pain Management Summary was developed. New systems implementing the Pain Management
@@ -175,59 +176,18 @@ code "General activity LEGACY code": 'PEGGENERALACTIVITY' from "LOCAL" display '
 // systems to continue to function. Existing systems, however, are strongly encouraged to adopt the standardized LOINC
 // code.
 
-code "Total score [STarT Back] code": '91351-7' from "LOINC" display 'Total score [STarT Back]'
+code "Total score [STarT Back]": '91351-7' from "LOINC" display 'Total score [STarT Back]'
 
 // Legacy local code for the STarT Back Screening Tool. New systems should use the LOINC codes above instead.
 
-code "STarT Back Screening Tool LEGACY code": 'STARTBACK' from "LOCAL" display 'STarT Back Screening Tool'
+code "STarT Back Screening Tool LEGACY": 'STARTBACK' from "LOCAL" display 'STarT Back Screening Tool'
 
 // The following codes do not yet have standardized codes associated with them so are expressed as LOCAL codes.
 // As standardized codes become available, this CDS will be updated to use standard codes rather than LOCAL codes.
 
-code "Single question r/t ETOH use code": 'SQETOHUSE' from "LOCAL" display 'Single question r/t ETOH use'
-code "Single question r/t drug use code": 'SQDRUGUSE' from "LOCAL" display 'Single question r/t drug use'
-code "Morphine Milligram Equivalent (MME) code": 'MME' from "LOCAL" display 'Morphine Milligram Equivalent (MME)'
-
-// CQL currently requires concept declarations to contain references to code declarations.
-
-concept "Pregnancy status": { "Pregnancy status code" } display 'Pregnancy status'
-concept "Pregnant": { "Pregnant code" } display 'Patient currently pregnant (finding)'
-concept "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]":
-  { "Patient Health Questionnaire 2 item (PHQ-2) total score [Reported] code" }
-  display 'Patient Health Questionnaire 2 item (PHQ-2) total score [Reported]'
-concept "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]":
-  { "Patient Health Questionnaire 9 item (PHQ-9) total score [Reported] code" }
-  display 'Patient Health Questionnaire 9 item (PHQ-9) total score [Reported]'
-concept "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]":
-  { "Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ] code" }
-  display 'Generalized anxiety disorder 7 item (GAD-7) total score [Reported.PHQ]'
-concept "Total score [AUDIT]": { "Total score [AUDIT] code" } display 'Total score [AUDIT]'
-concept "Total score [AUDIT-C]": { "Total score [AUDIT-C] code" } display 'Total score [AUDIT-C]'
-concept "Total score [DAST-10]": { "Total score [DAST-10] code" } display 'Total score [DAST-10]'
-concept "Total score ORT": { "Total score ORT code" } display 'Total score ORT'
-concept "Pain severity Wong-Baker FACES Scale":
-  { "Pain severity Wong-Baker FACES Scale code" } display 'Pain severity Wong-Baker FACES Scale'
-concept "Pain severity in the past week - 0-10 numeric rating [Reported]":
-  { "Pain severity in the past week - 0-10 numeric rating [Reported] code" }
-  display 'Pain severity in the past week - 0-10 numeric rating [Reported]'
-concept "What number best describes how pain has interfered with your enjoyment of life during the past week":
-  { "What number best describes how pain has interfered with your enjoyment of life during the past week code" }
-  display 'What number best describes how pain has interfered with your enjoyment of life during the past week'
-concept "What number best describes how pain has interfered with your general activity during the past week":
-  { "What number best describes how pain has interfered with your general activity during the past week code" }
-  display 'What number best describes how pain has interfered with your general activity during the past week'
-concept "Mean score [PEG]": { "Mean score [PEG] code" } display 'Mean score [PEG]'
-concept "Pain Enjoyment General Activity (PEG) Assessment LEGACY":
-  { "Pain Enjoyment General Activity (PEG) Assessment LEGACY code" } display 'Pain Enjoyment General Activity (PEG) Assessment'
-concept "Pain LEGACY": { "Pain LEGACY code" } display 'Pain'
-concept "Enjoyment of life LEGACY": { "Enjoyment of life LEGACY code" } display 'Enjoyment of life'
-concept "General activity LEGACY": { "General activity LEGACY code" } display 'General activity'
-concept "Total score [STarT Back]": { "Total score [STarT Back] code" } display 'Total score [STarT Back]'
-concept "STarT Back Screening Tool LEGACY": { "STarT Back Screening Tool LEGACY code" } display 'STarT Back Screening Tool'
-concept "Single question r/t ETOH use": { "Single question r/t ETOH use code" } display 'Single question r/t ETOH use'
-concept "Single question r/t drug use": { "Single question r/t drug use code" } display 'Single question r/t drug use'
-concept "Morphine Milligram Equivalent (MME)":
-  { "Morphine Milligram Equivalent (MME) code" } display 'Morphine Milligram Equivalent (MME)'
+code "Single question r/t ETOH use": 'SQETOHUSE' from "LOCAL" display 'Single question r/t ETOH use'
+code "Single question r/t drug use": 'SQDRUGUSE' from "LOCAL" display 'Single question r/t drug use'
+code "Morphine Milligram Equivalent (MME)": 'MME' from "LOCAL" display 'Morphine Milligram Equivalent (MME)'
 
 // # Parameters #
 
@@ -404,24 +364,24 @@ define "HasConditionAssociatedWithChronicPain":
 //       - Medication Statement by patient within past 180 days (lookback can be made a parameter)
 define "HasRecentOpioidPainMedication":
   exists(C3F."ActiveCompletedOrStoppedMedicationOrder"(C3F."MedicationOrderLookBack"(
-    ["MedicationOrder": "Opioid Pain Medications"],
+    ["MedicationOrder": "Opioid pain medications"],
     "InclusionMedicationsLookbackPeriod")
   ))
   or exists(C3F."ActiveOrCompletedMedicationStatement"(C3F."MedicationStatementLookBack"(
-    ["MedicationStatement": "Opioid Pain Medications"],
+    ["MedicationStatement": "Opioid pain medications"],
     "InclusionMedicationsLookbackPeriod")
   ))
 
-// Determines if the patient has any record of adjuvant analgesic medications in the lookback period
+// Determines if the patient has any record of non-opioid pain medications in the lookback period
 //       - Medication Order within past 180 days (lookback can be made a parameter)
 //       - Medication Statement by patient within past 180 days (lookback can be made a parameter)
-define "HasRecentAdjuvantAnalgesicMedication":
+define "HasRecentNonOpioidPainMedication":
   exists(C3F."ActiveCompletedOrStoppedMedicationOrder"(C3F."MedicationOrderLookBack"(
-    ["MedicationOrder": "Adjuvant Analgesic Medications"],
+    ["MedicationOrder": "Nonopioid pain medications"],
     "InclusionMedicationsLookbackPeriod")
   ))
   or exists(C3F."ActiveOrCompletedMedicationStatement"(C3F."MedicationStatementLookBack"(
-    ["MedicationStatement": "Adjuvant Analgesic Medications"],
+    ["MedicationStatement": "Nonopioid pain medications"],
     "InclusionMedicationsLookbackPeriod")
   ))
 
@@ -430,13 +390,13 @@ define "HasRecentAdjuvantAnalgesicMedication":
 // - AND
 //   - OR Conditions associated with chronic pain
 //   - OR Opioid pain medication
-//   - OR Adjuvant analgesic medication
+//   - OR Non-opioid pain medication
 define "MeetsInclusionCriteria":
   "Is18orOlder"
   and (
     "HasConditionAssociatedWithChronicPain"
     or "HasRecentOpioidPainMedication"
-    or "HasRecentAdjuvantAnalgesicMedication"
+    or "HasRecentNonOpioidPainMedication"
   )
 
 // EXCLUSIONS
@@ -445,11 +405,13 @@ define "MeetsInclusionCriteria":
 // 1. Younger than 18 years of age
 // 2. Undergoing end-of-life care (hospice or palliative)
 // 3. Undergoing active cancer treatment
+// 4. Sickle cell disease
 //
 // The first exclusion is explicitly accounted for under INCLUSIONS.
 // The second and third exclusions cannot be realiably detected for all patients using just EHR data. For that reason
-// they are not implemented in this CDS. Care providers should use their judgement when applying this CDS to their
-// patients.
+// they are not implemented in this CDS. While the fourth exclusion may be found in EHR systems, for consistency, and
+// to allow flexibility for clinicians and patients, it is also not explicitly encoded into the CDS. Care providers
+// should use their judgement when applying this CDS to their patients.
 
 // ## Intervention(s) ##
 
@@ -511,6 +473,13 @@ define "MostRecentPregnancyObservation":
 
 define "MostRecentPregnancyObservationIsPositive":
   C3F."ConceptValue"("MostRecentPregnancyObservation") ~ "Pregnant"
+
+define "OpioidTaperingProcedures":
+  C3F."ProcedurePerformance"(C3F."ProcedureLookBack"(
+    ["Procedure": "Management of opioid dosage tapering (procedure)"],
+    2 years
+  ))
+
 
 define "Is65orOlder":
   AgeInYears() >= 65
@@ -594,6 +563,21 @@ define "ReportEncounterRiskFactorsForOpioidRelatedHarms":
   return "GetEncounterDiagnosesRiskFactorsForOpioidRelatedHarms"(Encounter))) Reason
   sort by Visit.Start desc, Visit.End desc
 
+define ReportOpioidTaperingProcedures:
+  "OpioidTaperingProcedures" Procedure
+  return {
+    Name:      "ConceptText"(Procedure.code),
+    Status:    Procedure.status.value,
+    Onset:     Coalesce( List{
+      "DateTimeText"(Procedure.performedDateTime),
+      "DateTimeText"(Procedure.performedPeriod.start)
+    }),
+    DateRecorded: null as "String",
+    Abatement: "DateTimeText"(Procedure.performedPeriod.end),
+    Visit:     null as Tuple{ Start "String", End "String" }
+  }
+  sort by (Onset as "String") desc, (Abatement as "String") desc
+
 // Shape the pregnancy Observation as a Condition, since this is the backup approach for detecting a pregnancy in case
 // there are no active Conditions found.
 define "ReportMostRecentPositivePregnancyObservation":
@@ -631,13 +615,16 @@ define "ReportRiskFactorsForOpioidRelatedHarms":
   if exists "PregnancyConditions" then
     ("ReportConditionRiskFactorsForOpioidRelatedHarms"
       union "ReportEncounterRiskFactorsForOpioidRelatedHarms"
-      union "ReportOlderThan65") Condition
+      union "ReportOpioidTaperingProcedures"
+      union (if "ReportOlderThan65" is null then null else List{"ReportOlderThan65"})) Condition
   // Otherwise, try to find a positive pregnancy status in an Observation.
   else
     ("ReportConditionRiskFactorsForOpioidRelatedHarms"
       union "ReportEncounterRiskFactorsForOpioidRelatedHarms"
-      union "ReportOlderThan65"
-      union "ReportMostRecentPositivePregnancyObservation") Condition
+      union "ReportOpioidTaperingProcedures"
+      union (if "ReportOlderThan65" is null then null else List{"ReportOlderThan65"})
+      union (if "ReportMostRecentPositivePregnancyObservation" is null then null else List{"ReportMostRecentPositivePregnancyObservation"})
+    ) Condition
   sort by (if Onset is not null then Onset as "String" else Visit.Start) desc, Visit.End desc, (Abatement as "String") desc
 
 // PAIN ASSESSMENT
@@ -747,13 +734,13 @@ define "ReportSTarTBackAssessments":
 
 define "OpioidMedicationOrders":
   C3F."ActiveCompletedOrStoppedMedicationOrder"(C3F."MedicationOrderLookBack"(
-    ["MedicationOrder": "Opioid Pain Medications"],
+    ["MedicationOrder": "Opioid pain medications"],
     2 years
   ))
 
 define "OpioidMedicationStatements":
   C3F."ActiveOrCompletedMedicationStatement"(C3F."MedicationStatementLookBack"(
-    ["MedicationStatement": "Opioid Pain Medications"],
+    ["MedicationStatement": "Opioid pain medications"],
     2 years
   ))
 
@@ -787,13 +774,13 @@ define "ReportOpioidMedications":
 
 define "NonOpioidMedicationOrders":
   C3F."ActiveCompletedOrStoppedMedicationOrder"(C3F."MedicationOrderLookBack"(
-    ["MedicationOrder": "Non opiod pain medications"],
+    ["MedicationOrder": "Nonopioid pain medications"],
     2 years
   ))
 
 define "NonOpioidMedicationStatements":
   C3F."ActiveOrCompletedMedicationStatement"(C3F."MedicationStatementLookBack"(
-    ["MedicationStatement": "Non opiod pain medications"],
+    ["MedicationStatement": "Nonopioid pain medications"],
     2 years
   ))
 
@@ -821,6 +808,46 @@ define "ReportNonOpioidMedicationStatements":
 
 define "ReportNonOpioidMedications":
   ("ReportNonOpioidMedicationOrders" union "ReportNonOpioidMedicationStatements") Medication
+  sort by Start desc, End desc
+
+// Adjuvant pain medication orders and statements with dates (lookback 2 years)
+
+define "AdjuvantPainMedicationOrders":
+  C3F."ActiveCompletedOrStoppedMedicationOrder"(C3F."MedicationOrderLookBack"(
+    ["MedicationOrder": "Adjuvant pain medications"],
+    2 years
+  ))
+
+define "AdjuvantPainMedicationStatements":
+  C3F."ActiveOrCompletedMedicationStatement"(C3F."MedicationStatementLookBack"(
+    ["MedicationStatement": "Adjuvant pain medications"],
+    2 years
+  ))
+
+define "ReportAdjuvantPainMedicationOrders":
+  ("AdjuvantPainMedicationOrders") Order
+  return {
+    Type:  'Order',
+    Name:  "ConceptText"(Order.medicationCodeableConcept),
+    Start: "DateTimeText"(Order.dateWritten),
+    End:   "DateTimeText"(Order.dateEnded),
+    Status: Order.status.value
+  }
+  sort by Start desc, End desc
+
+define "ReportAdjuvantPainMedicationStatements":
+  ("AdjuvantPainMedicationStatements") Statement
+  return {
+    Type:  'Statement',
+    Name:  "ConceptText"(Statement.medicationCodeableConcept),
+    Start: "MedicationStatementDate"(Statement),
+    End:   "DateTimeText"(Statement.effectivePeriod."end"),
+    Status: Statement.status.value
+  }
+  sort by Start desc, End desc
+
+define "ReportAdjuvantPainMedications":
+  ("ReportAdjuvantPainMedicationOrders" union "ReportAdjuvantPainMedicationStatements") Medication
   sort by Start desc, End desc
 
 // Non-pharmacologic treatment orders and referrals with dates (lookback 2 years)
@@ -1066,6 +1093,7 @@ define "Summary": {
   HistoricalTreatments: {
     OpioidMedications: "ReportOpioidMedications",
     NonOpioidMedications: "ReportNonOpioidMedications",
+    AdjuvantPainMedications: "ReportAdjuvantPainMedications",
     NonPharmacologicTreatments: "ReportNonPharmacologicTreatments",
     StoolSoftenersAndLaxatives: "ReportStoolSoftenersAndLaxatives"
   },
