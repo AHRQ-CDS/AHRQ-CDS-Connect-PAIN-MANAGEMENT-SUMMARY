@@ -16,11 +16,10 @@ dependencies are currently fixed to older versions:
 In addition, `overrides` are defined in `package.json` for transitive
 depencies that are locked to vulnerable versions. These overrides are:
 
-* **body-parser**: Introduced by dependencies of **fhirclient**.
+* **semver**: Introduced by dependencies of **fhirclient**.
 * **jest-environment-jsdom**: Introduced by dependencies of **jest-enzyme**.
 * **nth-check**: Introduced by dependencies of **@craco/craco**.
-* **json5**: Introduced by multiple dependencies (using 0.x and 1.x versions), but I don't see any breaking API changes in release notes from v0.5 through v2.2.
-* **xml2js**: Introduced as an optional peer dependency, but we don't use it, so it doesn't matter what version we say.
+* **postcss**: Introduced by dependencies of **react-scripts**.
 
 These overrides should be periodically reviewed to determine if they are still
 needed.
