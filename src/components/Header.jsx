@@ -19,7 +19,7 @@ function Header({
           <FontAwesomeIcon className="return-icon" icon="chevron-left" title="back" />
         </a> */}
 
-        <img className="header__logo-img" src={process.env.PUBLIC_URL + "/assets/images/cds-connect-logo.png"}
+        <img className="header__logo-img" src={import.meta.env.BASE_URL + "assets/images/cds-connect-logo.png"}
           alt="cds connect logo" />
         <span className="header__logo-text">CDS Connect</span>
       </div>

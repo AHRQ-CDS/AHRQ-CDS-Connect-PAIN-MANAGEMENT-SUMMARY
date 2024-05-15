@@ -6,7 +6,7 @@ import ReactTooltip from 'react-tooltip';
 import ReactTable from 'react-table';
 import ReactModal from 'react-modal';
 
-import summaryMap from './summary.json';
+import summaryMap from './summaryMap.json';
 import * as formatit from '../helpers/formatit';
 import * as sortit from '../helpers/sortit';
 

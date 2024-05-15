@@ -1,42 +1,41 @@
-import { shallowRender } from '../../utils/testHelpers';
+import { render, screen } from '../../utils/testHelpers';
 import { mockSummaryA, mockSectionFlags } from '../../utils/testFixtures';
 import Summary from '../../components/Summary';
 
-const component = shallowRender(Summary, {
-  summary: mockSummaryA,
-  sectionFlags: mockSectionFlags,
-  collector: [],
-  result: {},
-  numMedicalHistoryEntries: 2,
-  numPainEntries: 4,
-  numTreatmentsEntries: 1,
-  numRiskEntries: 2
-});
+describe('Summary', () => {
+  let result;
 
-it('renders without crashing', () => {
-  expect(component).toExist();
-});
+  beforeEach(() => {
+    result = render(Summary, {
+      summary: mockSummaryA,
+      sectionFlags: mockSectionFlags,
+      collector: [],
+      result: {},
+      numMedicalHistoryEntries: 2,
+      numPainEntries: 4,
+      numTreatmentsEntries: 1,
+      numRiskEntries: 2
+    });
+  });
 
-it('renders the scrolling nav', () => {
-  expect(component.find('.summary__nav')).toExist();
-});
+  it('renders without crashing', () => {
+    expect(
+      screen.getByText('Factors to Consider in Managing Chronic Pain')
+    ).toBeInTheDocument();
+  });
 
-it('renders the summary display', () => {
-  expect(component.find('.summary__display')).toExist();
-});
+  it('renders the scrolling nav', () => {
+    const { container } = result;
+    expect(container.querySelector('.summary__nav')).toBeInTheDocument();
+  });
 
-it('renders all subsection headers', () => {
-  expect(component.find('.sub-section__header')).toHaveLength(15);
-});
+  it('renders the summary display', () => {
+    const { container } = result;
+    expect(container.querySelector('.summary__display')).toBeInTheDocument();
+  });
 
-// TODO: Fix this test (it broke when React-Table was introduced)
-it.skip('renders conditions and encounter diagnoses in separate tables', () => {
-  const tables = component.find('#RiskFactorsForOpioidRelatedHarms ~ .table > ReactTable');
-  expect(tables).toHaveLength(2);
-  // This is the point where things go wrong.  Below I've done what I thought would work (but it doesn't).
-  const conditionTable = tables.at(0).shallow();
-  expect(conditionTable.find('.rt-tr-group')).toHaveLength(1);
-  expect(conditionTable.at(0).find('.rt-td').at(1)).toHaveText('Agoraphobia with panic attacks (disorder)');
-  expect(conditionTable.at(1).find('.rt-tr-group')).toHaveLength(1);
-  expect(conditionTable.at(1).find('.rt-td').at(1)).toHaveText('Suicide attempt, initial encounter');
+  it('renders all subsection headers', () => {
+    const { container } = result;
+    expect(container.querySelectorAll('.sub-section__header')).toHaveLength(15);
+  });
 });

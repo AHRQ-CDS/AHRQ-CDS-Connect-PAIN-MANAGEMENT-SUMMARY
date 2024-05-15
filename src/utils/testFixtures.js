@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+/* eslint-disable quotes */
 
 // entry for every sub-section
 const mockSummaryA = {

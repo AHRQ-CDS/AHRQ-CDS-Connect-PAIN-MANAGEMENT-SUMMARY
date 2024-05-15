@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import executeElm from '../utils/executeELM';
 import sumit from '../helpers/sumit';
 import flagit from '../helpers/flagit';
-import summaryMap from './summary.json';
+import summaryMap from './summaryMap.json';
 
 import Header from './Header';
 import Summary from './Summary';
@@ -27,16 +27,25 @@ export default function Landing() {
 
   // Only run once (formerly componentDidMount)
   useEffect(() => {
+    let isMounted = true;
     executeElm(collector.current).then((result) => {
-      setLoading(false);
-      const flagInfo = processSummary(result.Summary);
-      setSectionFlags(flagInfo.sectionFlags);
-      setFlaggedCount(flagInfo.flaggedCount);
-      setResult(result);
+      if(isMounted) {
+        setLoading(false);
+        const flagInfo = processSummary(result.Summary);
+        setSectionFlags(flagInfo.sectionFlags);
+        setFlaggedCount(flagInfo.flaggedCount);
+        setResult(result);
+      }
     }).catch((err) => {
-      console.error(err);
-      setLoading(false);
+      if (isMounted) {
+        console.error(err);
+        setLoading(false);
+      }
     });
+    // Clean-up:
+    return () => {
+      isMounted = false;
+    }
   }, []);
 
   // Run on chnages to loading or result (formerly componentDidUpdate)
@@ -195,7 +204,7 @@ function processSummary(summary) {
   });
 
   // Get the configured endpoint to use for POST for app analytics
-  fetch(`${process.env.PUBLIC_URL}/config.json`)
+  fetch(`${import.meta.env.BASE_URL}config.json`)
     .then(response => response.json())
     .then(config => {
       // Only provide analytics if the endpoint has been set

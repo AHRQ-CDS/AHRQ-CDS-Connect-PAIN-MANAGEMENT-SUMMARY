@@ -6,11 +6,11 @@ The Pain Management Summary SMART on FHIR application was developed to support t
 
 The Pain Management Summary SMART on FHIR application was piloted during Summer 2018.  Local modifications and development were needed to fully support this application in the pilot environment.  For example, custom development was needed to expose pain assessments via the FHIR API. See the pilot reports for more information.
 
-This application was originally piloted with support for FHIR DSTU2.  The app has been updated since the pilot to also support FHIR R4, although pilot R4 support has not been piloted in a clinical setting.  In addition, value sets and standardized codes have been updated since the pilot.  See the comments in the bundled CQL for details.
+This application was originally piloted with support for FHIR DSTU2.  The app has been updated since the pilot to also support FHIR R4, although R4 support has not been piloted in a clinical setting.  In addition, other changes in logic and terminology have been made via annual updates. For more information, see the CQL change log attached to the [Factors to Consider in Managing Chronic Pain: A Pain Management Summary](https://cds.ahrq.gov/cdsconnect/artifact/factors-consider-managing-chronic-pain-pain-management-summary) artifact on CDS Connect.
 
 Taking steps to ensure accessibility by the widest range of users, an accessibility subject matter expert performed a review of the application, enumerated issues found, and provided recommended remediations.  In addition to the recommendations, the [Mozilla ARIA Accessibility](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA) reference was used to address issues.  The application was then manually tested using accessibility tools including JAWS, VoiceOver, and the [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/).
 
-This prototype application is part of the [CDS Connect](https://cds.ahrq.gov/cdsconnect) project, sponsored by the [Agency for Healthcare Research and Quality](https://www.ahrq.gov/) (AHRQ), and developed under contract with AHRQ by [MITRE's CAMH](https://www.mitre.org/centers/cms-alliances-to-modernize-healthcare/who-we-are) FFRDC.
+This prototype application is part of the [CDS Connect](https://cds.ahrq.gov/cdsconnect) project, sponsored by the [Agency for Healthcare Research and Quality](https://www.ahrq.gov/) (AHRQ), and developed under contract with AHRQ by [MITRE's Health FFRDC](https://www.mitre.org/centers/cms-alliances-to-modernize-healthcare/who-we-are).
 
 ## Contributions
 
@@ -42,7 +42,7 @@ Systems integrating the Pain Management Summary will need to expose the correspo
 2. Install dependencies by executing `npm install` from the project's root directory
 3. If you have a SMART-on-FHIR client ID, edit `public/launch-context.json` to specify it
 4. NOTE: The launch context contains `"completeInTarget": true`. This is needed if you are running in an environment that initializes the app in a separate window (such as the public SMART sandbox).  It can be safely removed in other cases.
-5. If you'll be launching the app from an Epic EHR, modify `.env` to set `REACT_APP_EPIC_SUPPORTED_QUERIES` to `true`
+5. If you'll be launching the app from an Epic EHR, modify `.env` to set `VITE_EPIC_SUPPORTED_QUERIES` to `true`
 6. Serve the code by executing `npm start` (runs on port 8000)
 
 ## To build and deploy using a standard web server (static HTML and JS)
@@ -51,18 +51,19 @@ The Pain Management Summary can be deployed as static web resources on any HTTP 
 
 1. Install [Node.js](https://nodejs.org/en/download/) (LTS edition, currently 16.x)
 2. Install dependencies by executing `npm install` from the project's root directory
-3. Modify the `homepage` value in `package.json` to reflect the path (after the hostname) at which it will be deployed
-   a. For example, if deploying to https://my-server/pain-mgmt-summary/, the `homepage` value should be `"http://localhost:8000/pain-mgmt-summary"` (note that the hostname need not match)
-   b. If deploying to the root of the domain, you can leave `homepage` as `"."`
+3. Modify the `base` value in `vite.config.mjs` to reflect the path (after the hostname) at which it will be deployed
+   a. The path must start and end with a forward slash (`/`).
+   b. For example, if deploying to https://my-server/pain-mgmt-summary/, the `base` value should be `"/pain-mgmt-summary/"`.
+   c. If deploying to the root of the domain, set the `base` value to `"/"` or comment out the `base` property.
 4. Modify the `clientId` in `public/launch-context.json` to match the unique client ID you registered with the EHR from which this app will be launched
 5. NOTE: The launch context contains `"completeInTarget": true`. This is needed if you are running in an environment that initializes the app in a separate window (such as the public SMART sandbox).  It can be safely removed in other cases.
 6. If you've set up an analytics endpoint (see below), set the `analytics_endpoint` and `x_api_key` in `public/config.json`
-7. If you'll be launching the app from an Epic EHR, modify `.env` to set `REACT_APP_EPIC_SUPPORTED_QUERIES` to `true`
+7. If you'll be launching the app from an Epic EHR, modify `.env` to set `VITE_EPIC_SUPPORTED_QUERIES` to `true`
    a. This modifies some queries based on Epic-specific requirements
-8. Run `npm run build` to compile the code to static files in the `build` folder
-8. Deploy the output from the `build` folder to a standard web server
+8. Run `npm run build` to compile the code to static files in the `dist` folder
+9. Deploy the output from the `dist` folder to a standard web server
 
-Optionally to step 9, you can run the static build contents in a simple Node http-server via the command: `npm run start-static`.
+Optionally to step 9, you can run `npm run serve` to use Vite's built-in server to host the code in `dist`. This approach, however, should not be used in production.
 
 ### To update the valueset-db.json file
 
@@ -191,7 +192,7 @@ https://ahrq-cds.github.io/AHRQ-CDS-Connect-PAIN-MANAGEMENT-SUMMARY/launch.html
 
 ## LICENSE
 
-Copyright 2018-2023 Agency for Healthcare Research and Quality
+Copyright 2018-2024 Agency for Healthcare Research and Quality
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

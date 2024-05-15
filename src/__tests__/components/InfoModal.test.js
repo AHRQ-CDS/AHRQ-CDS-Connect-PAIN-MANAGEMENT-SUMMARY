@@ -1,12 +1,17 @@
-import { shallowRender } from '../../utils/testHelpers';
+import { render, screen } from '../../utils/testHelpers';
 import InfoModal from '../../components/InfoModal';
 import { mockSubSection } from '../../utils/testFixtures';
 
-const component = shallowRender(InfoModal, {
-  subSection: mockSubSection,
-  closeModal: () => {}
-});
-
-it('renders without crashing', () => {
-  expect(component).toExist();
+describe('InfoModal', () => {
+  it('renders without crashing', () => {
+    render(InfoModal, {
+      subSection: mockSubSection,
+      closeModal: () => {}
+    });
+    expect(
+      screen.getByText(
+        'More Information for Pain Enjoyment General Activity (PEG) Assessments'
+      )
+    ).toBeInTheDocument();
+  });
 });

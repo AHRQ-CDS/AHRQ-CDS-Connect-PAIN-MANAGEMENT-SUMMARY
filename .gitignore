@@ -1,6 +1,7 @@
 /.env*.local
 /node_modules
 /src/cql/valueset-db.json.original
+/dist
 /build
 /coverage
 /tx_bundle_dump

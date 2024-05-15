@@ -7,6 +7,8 @@ const mockObject = {
   'h': [] // => 0
 };
 
-it('sums entries correctly', () => {
-  expect(sumit(mockObject)).toEqual(4);
+describe('sumit', () => {
+  it('sums entries correctly', () => {
+    expect(sumit(mockObject)).toEqual(4);
+  });
 });

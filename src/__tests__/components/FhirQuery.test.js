@@ -1,11 +1,13 @@
-import { shallowRender } from '../../utils/testHelpers';
+import { render, screen } from '../../utils/testHelpers';
 import FhirQuery from '../../components/FhirQuery';
 
-const component = shallowRender(FhirQuery, {
-  url: 'testUrl',
-  data: {}
-});
-
-it('renders without crashing', () => {
-  expect(component).toExist();
+describe('FhirQuery', () => {
+  it('renders without crashing', () => {
+    const { container } = render(FhirQuery, {
+      url: 'testUrl',
+      data: {}
+    });
+    expect(container.querySelector('.fhir-query')).toBeInTheDocument();
+    expect(screen.getByText('testUrl')).toBeInTheDocument();
+  });
 });

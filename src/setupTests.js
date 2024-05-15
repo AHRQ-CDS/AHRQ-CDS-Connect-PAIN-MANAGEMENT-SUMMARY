@@ -1,22 +1,9 @@
-import { TextDecoder, TextEncoder } from 'util';
-import { configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import localStorage from 'mock-local-storage'; // eslint-disable-line no-unused-vars
-import 'jest-enzyme';
+import { cleanup } from '@testing-library/react';
+import * as matchers from '@testing-library/jest-dom/matchers';
+import './utils/fontawesomeLibrary';
 
-// configure enzyme adapter
-configure({ adapter: new Adapter() });
+expect.extend(matchers);
 
-// mock local storage
-global.window = {};
-// see: https://github.com/letsrock-today/mock-local-storage/issues/17
-Object.defineProperty(window, 'localStorage', {
-  value: global.localStorage,
-  configurable:true,
-  enumerable:true,
-  writable:true
+afterEach(() => {
+  cleanup();
 });
-
-// Add TextEncoder and TextDecoder
-global.TextEncoder = TextEncoder;
-global.TextDecoder = TextDecoder;

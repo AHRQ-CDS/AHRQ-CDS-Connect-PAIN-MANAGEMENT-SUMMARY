@@ -76,7 +76,7 @@ function executeELM(collector) {
       const resources = [];
       requestResults.forEach(result => resources.push(...result));
       return {
-        resourceType: "Bundle",
+        resourceType: 'Bundle',
         entry: resources.map(r => ({ resource: r }))
       };;
     });
@@ -162,8 +162,8 @@ function processPage(uri, collector, resources) {
 
 function updateSearchParams(params, release, type) {
   // If this is for Epic, there are some specific modifications needed for the queries to work properly
-  if (process.env.REACT_APP_EPIC_SUPPORTED_QUERIES
-    && process.env.REACT_APP_EPIC_SUPPORTED_QUERIES.toLowerCase() === 'true') {
+  if (import.meta.env.VITE_EPIC_SUPPORTED_QUERIES
+    && import.meta.env.VITE_EPIC_SUPPORTED_QUERIES.toLowerCase() === 'true') {
     if (release === 2) {
       switch (type) {
         case 'Observation':

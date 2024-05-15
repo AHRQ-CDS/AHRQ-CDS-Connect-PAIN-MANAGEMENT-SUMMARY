@@ -12,14 +12,13 @@ dependencies are currently fixed to older versions:
 * **react-table**: The react-table library is currently tracking the latest v6
   versions because v7 and v8 are very different and migration is very poorly
   documented (or not documented at all).
+* **eslint**: ESLint 9.0 changes the configuration format. ESLint can be
+  upgraded when the team has time to update the configuration.
 
 In addition, `overrides` are defined in `package.json` for transitive
 depencies that are locked to vulnerable versions. These overrides are:
 
 * **semver**: Introduced by dependencies of **fhirclient**.
-* **jest-environment-jsdom**: Introduced by dependencies of **jest-enzyme**.
-* **nth-check**: Introduced by dependencies of **@craco/craco**.
-* **postcss**: Introduced by dependencies of **react-scripts**.
 
 These overrides should be periodically reviewed to determine if they are still
 needed.
