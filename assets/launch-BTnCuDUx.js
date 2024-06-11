@@ -1,0 +1,1 @@
+import"./modulepreload-polyfill-B5Qt9EMX.js";import{F as t}from"./vendor-BEwaTquC.js";import"./dstu2-DXd4L0wD.js";import"./r4-BOdjsoMK.js";fetch("/AHRQ-CDS-Connect-PAIN-MANAGEMENT-SUMMARY/launch-context.json").then(o=>o.json()).then(o=>t.oauth2.authorize(o)).catch(o=>console.error(o));
